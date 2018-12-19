@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyTest : MonoBehaviour
 {
 
-    public float moveRange = 2f;    //移動範圍半徑
+    public float moveRange = 3f;    //移動範圍半徑
     public float moveSpeed = 1.5f;  //移動速度
     public float awakeTime = 1.5f;  //重新醒來時間
     public bool isAwake;            //是否醒著
