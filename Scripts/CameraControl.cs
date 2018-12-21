@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
 
     public Transform target;            //camera追蹤目標
-    public float smoothSpeed = 0.05f;   //camera移動速度
-    public float lookUpMove = 1.5f;     //向上看時camera垂直移動距離
-    public float lookDownMove = 4f;     //向下看時camera垂直移動距離
+    public float smoothSpeed = 0.1f;   //camera移動速度
+    public float lookUpMove = 1.2f;     //向上看時camera垂直移動距離
+    public float lookDownMove = 3f;     //向下看時camera垂直移動距離
 
     private Vector3 offset;             //camera與主角相對位置差距
     private Vector3 AimPos;             //camera目標前往位置
