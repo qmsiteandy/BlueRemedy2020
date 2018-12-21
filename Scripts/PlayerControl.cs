@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     public LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     public bool grounded = true;        //是否在地上
     public bool canMove = true;         //是否可移動
+    public bool allCanDo = true;
 
     public CameraControl cameraControl;
 
@@ -30,10 +31,14 @@ public class PlayerControl : MonoBehaviour
     //規律的Update，主角才要
     void FixedUpdate()
     {
-        OnGround();
-        Move();
-        Jump();
-        LookUpDown();        
+        if (allCanDo)
+        {
+            OnGround();
+            Move();
+            Jump();
+            LookUpDown();
+        }
+               
     }
 
     //檢查是否在地面

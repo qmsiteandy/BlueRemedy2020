@@ -23,13 +23,10 @@ public class FruitManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("g") && count < countLimit)
-        {
-            Grow();
-        }
 
         if (Input.GetKeyDown("h"))
         {
+            //測試用
             if (firstOne != null)
             {
                 firstFruitBase.FressLoss(1000);
@@ -37,8 +34,14 @@ public class FruitManager : MonoBehaviour {
         }
     }
 
-    void Grow()
+    public void Grow(int id)
     {
+        if (count > countLimit)
+        {
+            print("超過召喚上限");
+            return;
+        }
+
         Vector3 growPosition = lastOne.transform.position;
 
         if (lastOne.name != "Player")
@@ -47,7 +50,7 @@ public class FruitManager : MonoBehaviour {
             else growPosition.x += growPosShift;
         }
 
-        GameObject newFruitman = (Instantiate(fruitmanPrefab[0], growPosition, Quaternion.identity));
+        GameObject newFruitman = (Instantiate(fruitmanPrefab[id], growPosition, Quaternion.identity));
         newFruitman.transform.parent = this.transform;
 
         if(lastOne.name != "Player")
@@ -75,13 +78,13 @@ public class FruitManager : MonoBehaviour {
         {
             firstOne = firstFruitBase.nextOne;
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
-        }
 
-        count--;
-
-        if (count == 0)
+            firstFruitBase.followTarget = player;
+        }else
         {
             lastOne = player;
         }
+
+        count--;
     }
 }

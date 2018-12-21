@@ -97,10 +97,6 @@ public class FruitmanBase : MonoBehaviour {
 
     void Die()
     {
-        if (nextOne != null)
-        {
-            nextOne.GetComponent<FruitmanBase>().SetTarget(followTarget);
-        }
         gameObject.GetComponentInParent<FruitManager>().FirstOneDie();
 
         Destroy(gameObject);
