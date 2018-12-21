@@ -30,30 +30,10 @@ public class FruitmanCall : MonoBehaviour {
     private float elapsed = 0f;
     private bool isInputting = false;
 
-    private Canvas cmdCanvas;
-    private Image[] cmdImg;
-    private RectTransform[] cmdRect;
-
 
     void Start () {
         playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
         fruitManager = GetComponent<FruitManager>();
-
-        cmdCanvas = gameObject.transform.GetChild(0).gameObject.GetComponent<Canvas>();
-        cmdCanvas.enabled = false;
-
-        cmdRect[0] = gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<RectTransform>();
-        cmdRect[1] = gameObject.transform.GetChild(0).GetChild(2).gameObject.GetComponent<RectTransform>();
-        cmdRect[2] = gameObject.transform.GetChild(0).GetChild(3).gameObject.GetComponent<RectTransform>();
-        cmdRect[3] = gameObject.transform.GetChild(0).GetChild(4).gameObject.GetComponent<RectTransform>();
-        cmdImg[0] = gameObject.transform.GetChild(0).GetChild(1).gameObject.GetComponent<Image>();
-        cmdImg[1] = gameObject.transform.GetChild(0).GetChild(2).gameObject.GetComponent<Image>();
-        cmdImg[2] = gameObject.transform.GetChild(0).GetChild(3).gameObject.GetComponent<Image>();
-        cmdImg[3] = gameObject.transform.GetChild(0).GetChild(4).gameObject.GetComponent<Image>();
-        cmdImg[0].enabled = false;
-        cmdImg[1].enabled = false;
-        cmdImg[2].enabled = false;
-        cmdImg[3].enabled = false;
     }
 	
 	void Update () {
@@ -61,8 +41,6 @@ public class FruitmanCall : MonoBehaviour {
         {
             isInputting = true;
             playerControl.allCanDo = false;
-
-            cmdCanvas.enabled=true;
         }
 
         if (isInputting)
@@ -71,17 +49,11 @@ public class FruitmanCall : MonoBehaviour {
             {
                 cmdIn[index] = 1;
 
-                cmdRect[index].Rotate(new Vector3(0, 0, 0));
-                cmdImg[index].enabled = true;
-
                 index++;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 cmdIn[index] = 2;
-
-                cmdRect[index].Rotate(new Vector3(0, 0, 180));
-                cmdImg[index].enabled = true;
 
                 index++;
             }
@@ -89,17 +61,11 @@ public class FruitmanCall : MonoBehaviour {
             {
                 cmdIn[index] = 3;
 
-                cmdRect[index].Rotate(new Vector3(0, 0, 90));
-                cmdImg[index].enabled = true;
-
                 index++;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 cmdIn[index] = 4;
-
-                cmdRect[index].Rotate(new Vector3(0, 0, -90));
-                cmdImg[index].enabled = true;
 
                 index++;
             }
@@ -144,16 +110,13 @@ public class FruitmanCall : MonoBehaviour {
         if (matchId != 9999)
         {
             fruitManager.Grow(matchId);
-            CanvasReturn();
         }
         else
         {
             Fail();
-            CanvasReturn();
         }
     }
     
-
     void Fail()
     {
         
@@ -161,10 +124,6 @@ public class FruitmanCall : MonoBehaviour {
 
     void CanvasReturn()
     {
-        cmdCanvas.enabled = false;
-        cmdImg[0].enabled = false;
-        cmdImg[1].enabled = false;
-        cmdImg[2].enabled = false;
-        cmdImg[3].enabled = false;
+
     }
 }
