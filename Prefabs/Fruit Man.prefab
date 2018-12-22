@@ -95,6 +95,7 @@ MonoBehaviour:
   followRange: 0.7
   jumpForce: 350
   facingRight: 1
+  dieFX_Time: 1
   fressment: 1000
 --- !u!212 &212996758923300502
 SpriteRenderer:

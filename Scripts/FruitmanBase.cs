@@ -11,32 +11,45 @@ public class FruitmanBase : MonoBehaviour {
     public float followRange = 0.7f;
     public float jumpForce = 350.0f;
     public bool facingRight = true;
+    public float dieFX_Time = 1f;
+
     public int fressment = 1000;
 
+
+    private bool isAlive = true;
     private bool grounded = true;
     private Rigidbody2D rb2d;
 
  
     // Use this for initialization
     void Awake () {
-		rb2d = GetComponent<Rigidbody2D>();
+
+        isAlive = true;
+
+        rb2d = GetComponent<Rigidbody2D>();
+
+
     }
 	
 
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (followTarget != null)
+
+        if (isAlive)
         {
-            Follow();
-            Jump();
-        }
+            if (followTarget != null)
+            {
+                Follow();
+                Jump();
+            }
+        } 
 	}
 
     void Update()
     {
-        if (fressment <= 0)
+        if (fressment <= 0 && isAlive)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
 
@@ -82,7 +95,10 @@ public class FruitmanBase : MonoBehaviour {
 
     public void FressLoss(int loss)
     {
-        fressment -= loss;
+        if (isAlive)
+        {
+            fressment -= loss;
+        }
     }
 
     public void SetTarget(GameObject target)
@@ -95,9 +111,25 @@ public class FruitmanBase : MonoBehaviour {
         nextOne = next;
     }
 
-    void Die()
+    IEnumerator Die()
     {
         gameObject.GetComponentInParent<FruitManager>().FirstOneDie();
+        isAlive = false;
+
+        float elapsed = 0;
+
+        /*這裡要放水果死亡動畫*/
+
+        SpriteRenderer spriderRender = this.GetComponent<SpriteRenderer>();
+        spriderRender.material.color = new Color(0.4f, 0.4f, 0.4f, 1f);
+        spriderRender.sortingLayerName = "back";
+
+        while (elapsed < dieFX_Time)
+        {
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
 
         Destroy(gameObject);
     }

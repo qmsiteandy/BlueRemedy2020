@@ -8,8 +8,8 @@ public class FruitmanCall : MonoBehaviour {
 
     //水果指令
     private int[][] fruitCmd = {
-        new int[] {1,2,3,4},
-        new int[] {2,3,4,1},
+        new int[] {1,1,1,1},
+        new int[] {1,2,1,2},
         new int[] {3,4,1,2}
     };
     //可否召喚該水果
@@ -48,28 +48,28 @@ public class FruitmanCall : MonoBehaviour {
 
         if (isInputting)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
             {
                 cmdIn[index] = 1;
                 cmdCanvasControl.CmdShow(index, 0);
 
                 index++;
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
             {
                 cmdIn[index] = 2;
                 cmdCanvasControl.CmdShow(index, 180);
 
                 index++;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
             {
                 cmdIn[index] = 3;
                 cmdCanvasControl.CmdShow(index, 90);
 
                 index++;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
             {
                 cmdIn[index] = 4;
                 cmdCanvasControl.CmdShow(index, -90);

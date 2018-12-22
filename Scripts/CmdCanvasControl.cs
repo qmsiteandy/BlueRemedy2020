@@ -92,14 +92,14 @@ public class CmdCanvasControl : MonoBehaviour {
 
     public void CmdSuccess()
     {
-        CmdBack.color = new Color(0f, 256f, 0f, 0.5f);
+        CmdBack.color = new Color(0f, 1f, 0f, 0.5f);
 
         timeSlider.value = timeSlider.maxValue;
     }
 
     public void CmdFail()
     {
-        CmdBack.color = new Color(256f, 0f, 0f, 0.5f);
+        CmdBack.color = new Color(1f, 0f, 0f, 0.5f);
 
         timeSlider.value = timeSlider.maxValue;
     }

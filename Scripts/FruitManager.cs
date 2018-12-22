@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FruitManager : MonoBehaviour {
+public class FruitManager : MonoBehaviour
+{
 
     public float growPosShift = 1f;
     public int countLimit = 5;
     public int count = 0;
     public GameObject[] fruitmanPrefab;
-    
+ 
     private int sortOrder = 0;
     private GameObject player;
     private GameObject firstOne = null;
     private GameObject lastOne = null;
     private FruitmanBase firstFruitBase = null;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
         lastOne = player;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
@@ -53,13 +56,13 @@ public class FruitManager : MonoBehaviour {
         GameObject newFruitman = (Instantiate(fruitmanPrefab[id], growPosition, Quaternion.identity));
         newFruitman.transform.parent = this.transform;
 
-        if(lastOne.name != "Player")
+        if (lastOne.name != "Player")
         {
             lastOne.GetComponent<FruitmanBase>().SetNextOne(newFruitman);
         }
         newFruitman.GetComponent<FruitmanBase>().SetTarget(lastOne);
         lastOne = newFruitman;
-            
+
         newFruitman.GetComponent<SpriteRenderer>().sortingOrder = sortOrder;
         sortOrder -= 1;
 
@@ -80,7 +83,8 @@ public class FruitManager : MonoBehaviour {
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
 
             firstFruitBase.followTarget = player;
-        }else
+        }
+        else
         {
             lastOne = player;
         }
