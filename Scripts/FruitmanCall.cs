@@ -120,18 +120,9 @@ public class FruitmanCall : MonoBehaviour {
         {
             if (canCall[matchId])
             {
-                if (fruitManager.count >= fruitManager.countLimit)
-                {
-                    Debug.Log("已達召喚數量上限");
+                fruitManager.Grow(matchId);
 
-                    cmdCanvasControl.CmdSuccess();
-                }
-                else
-                {
-                    fruitManager.Grow(matchId);
-
-                    cmdCanvasControl.CmdSuccess();
-                }
+                cmdCanvasControl.CmdSuccess();
             }
             else
             {
@@ -143,7 +134,6 @@ public class FruitmanCall : MonoBehaviour {
         else
         {
             Fail();
-            Debug.Log("召喚指令錯誤");
         }
     }
     

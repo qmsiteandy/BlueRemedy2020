@@ -6,9 +6,9 @@ public class FruitManager : MonoBehaviour {
 
     public float growPosShift = 1f;
     public int countLimit = 5;
-    public int count = 0;
     public GameObject[] fruitmanPrefab;
     
+    private int count = 0;
     private int sortOrder = 0;
     private GameObject player;
     private GameObject firstOne = null;
@@ -24,7 +24,7 @@ public class FruitManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetKeyDown("h"))
         {
             //測試用
             if (firstOne != null)
