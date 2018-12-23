@@ -8,14 +8,16 @@ public class FruitmanCall : MonoBehaviour {
 
     //水果指令
     private int[][] fruitCmd = {
+        new int[] {0,0,0,0},
         new int[] {1,1,1,1},
         new int[] {1,2,1,2},
-        new int[] {3,4,1,2}
+        new int[] {1,2,3,4}
     };
     //可否召喚該水果
-    public bool[] canCall = {
-        true,
+    private bool[] canCall = {
         false,
+        true,
+        true,
         false
     };
 
@@ -101,7 +103,7 @@ public class FruitmanCall : MonoBehaviour {
     {
         int matchId = 9999;
 
-        for (int id = 0; id < fruitCmd.Length; id++)
+        for (int id = 1; id < fruitCmd.Length; id++)
         {
             int matchCount = 0;
 
@@ -115,7 +117,7 @@ public class FruitmanCall : MonoBehaviour {
         }
 
         cmdIn[0] = cmdIn[1] = cmdIn[2] = cmdIn[3] = 0;
-
+        
         if (matchId != 9999)
         {
             if (canCall[matchId])
@@ -123,20 +125,19 @@ public class FruitmanCall : MonoBehaviour {
                 if (fruitManager.count >= fruitManager.countLimit)
                 {
                     Debug.Log("已達召喚數量上限");
-
-                    cmdCanvasControl.CmdSuccess();
+                    cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
                 }
                 else
                 {
                     fruitManager.Grow(matchId);
 
-                    cmdCanvasControl.CmdSuccess();
+                    cmdCanvasControl.CmdColor(new Color(0f, 1f, 0f, 0.5f));
                 }
             }
             else
             {
                 Debug.Log("此水果不可召喚");
-                Fail();
+                cmdCanvasControl.CmdColor(new Color(0.5f, 0.7f, 0f, 0.5f));
             }
             
         }
@@ -149,6 +150,6 @@ public class FruitmanCall : MonoBehaviour {
     
     void Fail()
     {
-        cmdCanvasControl.CmdFail();
+        cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
     }
 }

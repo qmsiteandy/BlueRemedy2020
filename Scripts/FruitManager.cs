@@ -6,21 +6,28 @@ public class FruitManager : MonoBehaviour
 {
 
     public float growPosShift = 1f;
+    public float playerChange_Delay = 0.2f;
     public int countLimit = 5;
     public int count = 0;
     public GameObject[] fruitmanPrefab;
  
     private int sortOrder = 0;
     private GameObject player;
-    private GameObject firstOne = null;
-    private GameObject lastOne = null;
+    private GameObject firstOne;
+    private GameObject lastOne;
     private FruitmanBase firstFruitBase = null;
+    private PlayerControl playerControl;
+    private PlayerOutlook playerOutlook;
 
     // Use this for initialization
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        lastOne = player;
+
+        playerControl = player.GetComponent<PlayerControl>();
+        playerOutlook = player.GetComponent<PlayerOutlook>();
+
+        firstOne = lastOne = player;
     }
 
     // Update is called once per frame
@@ -30,7 +37,7 @@ public class FruitManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             //測試用
-            if (firstOne != null)
+            if (firstOne != player)
             {
                 firstFruitBase.FressLoss(1000);
             }
@@ -41,7 +48,6 @@ public class FruitManager : MonoBehaviour
     {
         if (count > countLimit)
         {
-            print("超過召喚上限");
             return;
         }
 
@@ -66,10 +72,12 @@ public class FruitManager : MonoBehaviour
         newFruitman.GetComponent<SpriteRenderer>().sortingOrder = sortOrder;
         sortOrder -= 1;
 
-        if (firstOne == null)
+        if (firstOne == player)
         {
             firstOne = newFruitman;
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
+
+            FirstOneChange(firstOne.name);
         }
 
         count++;
@@ -86,9 +94,33 @@ public class FruitManager : MonoBehaviour
         }
         else
         {
-            lastOne = player;
+            firstOne = lastOne = player;
         }
 
+        FirstOneChange(firstOne.name);
+
         count--;
+    }
+
+    void FirstOneChange(string firstName)
+    {
+        if (firstName == "Player")
+        {
+            playerOutlook.OutlookChange(0);
+
+            return;
+        }
+
+        for (int id = 1; id < fruitmanPrefab.Length; id++)
+        {
+            if (firstName == (fruitmanPrefab[id].name + "(Clone)")) 
+            {
+                Debug.Log("FirstOneID = " + id);
+
+                playerOutlook.OutlookChange(id);
+
+                return;
+            }
+        }
     }
 }

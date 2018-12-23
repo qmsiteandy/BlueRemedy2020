@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50591330542040956}
   - component: {fileID: 114358662910809066}
   m_Layer: 8
-  m_Name: Fruit Man
+  m_Name: AppleMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

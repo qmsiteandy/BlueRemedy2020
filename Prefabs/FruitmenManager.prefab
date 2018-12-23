@@ -203,8 +203,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1601825160631902}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09610252, y: -1.9576532, z: 0.017578125}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.09610252, y: -1.998653, z: 0.017578125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224271773313239560}
@@ -222,7 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8e56f3ce7ad7e141be86ec6651947ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canCall: 010000
 --- !u!114 &114194011227828322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -520,9 +519,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growPosShift: 1
+  playerChange_Delay: 0.2
   countLimit: 5
+  count: 0
   fruitmanPrefab:
+  - {fileID: 0}
   - {fileID: 1494653760047564, guid: 0adf7cd12f7971e47a8fcb6a53a92cb8, type: 2}
+  - {fileID: 1492911291353278, guid: 053c1dbda25a3b74ba3d86c95423b925, type: 2}
 --- !u!222 &222019150972463322
 CanvasRenderer:
   m_ObjectHideFlags: 1
