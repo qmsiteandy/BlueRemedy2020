@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FruitmanCall : MonoBehaviour {
 
-    //----------召喚相關資訊--------------------
+    /*//----------召喚相關資訊--------------------
 
     //水果指令
     private int[][] fruitCmd = {
@@ -19,10 +19,11 @@ public class FruitmanCall : MonoBehaviour {
         true,
         true,
         false
-    };
+    };*/
 
     //----------設定內容--------------------
     public static float cmdTimeLimit = 2f;
+    public UIRemind UI_Remind;
 
     private PlayerControl playerControl;
     private FruitManager fruitManager;
@@ -31,12 +32,15 @@ public class FruitmanCall : MonoBehaviour {
     private int index = 0;
     private float elapsed = 0f;
     private bool isInputting = false;
+    private int fruitPrefSum;
 
 
     void Start () {
         playerControl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>();
         fruitManager = GetComponent<FruitManager>();
         cmdCanvasControl=gameObject.transform.GetChild(0).GetComponent<CmdCanvasControl>();
+
+        fruitPrefSum = GetComponent<FruitManager>().fruitmanPrefab.Length;
     }
 	
 	void Update () {
@@ -103,13 +107,13 @@ public class FruitmanCall : MonoBehaviour {
     {
         int matchId = 9999;
 
-        for (int id = 1; id < fruitCmd.Length; id++)
+        for (int id = 1; id < fruitPrefSum; id++)
         {
             int matchCount = 0;
 
             for (int x = 0; x < 4; x++)
             {
-                if (cmdIn[x] == fruitCmd[id][x]) { matchCount++; }
+                if (cmdIn[x] == FruitmanData.InfoList[id].cmd[x]) { matchCount++; }
                 //Debug.Log("fruitCmd[" + id + "][" + x + "]=" + fruitCmd[id][x] + " cmdIn[" + x + "]=" + cmdIn[x] + "matchCount=" + matchCount);
             }
 
@@ -120,23 +124,24 @@ public class FruitmanCall : MonoBehaviour {
         
         if (matchId != 9999)
         {
-            if (canCall[matchId])
+            if (FruitmanData.InfoList[matchId].can_call)
             {
-                if (fruitManager.count >= fruitManager.countLimit)
+                bool isSuccess = fruitManager.Grow(matchId);
+
+                if (isSuccess)
                 {
-                    Debug.Log("已達召喚數量上限");
-                    cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
+                    cmdCanvasControl.CmdColor(new Color(0f, 1f, 0f, 0.5f));
                 }
                 else
                 {
-                    fruitManager.Grow(matchId);
-
-                    cmdCanvasControl.CmdColor(new Color(0f, 1f, 0f, 0.5f));
+                    UI_Remind.ShortRemind("水果籃空間不足");
+                    cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
                 }
+
             }
             else
             {
-                Debug.Log("此水果不可召喚");
+                UI_Remind.ShortRemind("此水果不可召喚");
                 cmdCanvasControl.CmdColor(new Color(0.5f, 0.7f, 0f, 0.5f));
             }
             
@@ -144,7 +149,7 @@ public class FruitmanCall : MonoBehaviour {
         else
         {
             Fail();
-            Debug.Log("召喚指令錯誤");
+            //Debug.Log("召喚指令錯誤");
         }
     }
     

@@ -1,16 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿public class FruitmanData {
 
-//暫時沒用到的腳本
-public class FruitmanData : MonoBehaviour{
+    public static Info[] InfoList =
+    {
+        //ID=0
+        new Info("Player",new int[]{ 0, 0, 0, 0 },false,0,0,0,0,0,0),
 
-    public static List<FruitmanInfo> fruitmanList = new List<FruitmanInfo>();
+        //ID=1
+        new Info(
+            "AppleMan",                 //name
+            new int[]{ 1, 1, 1, 1 },    //cmd
+            true,                       //can_call 
+            200,                        //fressment
+            200,                        //attack
+            200,                        //defence
+            600,                        //heal
+            3,                          //season
+            1),                         //cooupy
 
-    public struct FruitmanInfo
+        //ID=2
+        new Info(
+            "WatermelonMan",            //name
+            new int[]{ 1, 2, 1, 2 },    //cmd
+            true,                       //can_call 
+            400,                        //fressment
+            200,                        //attack
+            500,                        //defence
+            200,                        //heal
+            2,                          //season
+            2),                         //cooupy
+    };
+
+    public class Info
     {
         public string name;
-        public int[] cmd;
+        public int[] cmd = { 0, 0, 0, 0 };
+        public bool can_call;
         public int fressment;
 
         public int attack;
@@ -20,24 +44,17 @@ public class FruitmanData : MonoBehaviour{
         public int season;
         public int occupy;
 
-        public FruitmanInfo(string nameIn, int cmd1, int cmd2, int cmd3, int cmd4, 
-            int fressIn, int atkIn, int defIn, int healIn, int seasonIn, int occupyIn)
+        public Info(string nameIn, int[] cmdIn, bool can_callIn, int fressIn, int atkIn, int defIn, int healIn, int seasonIn, int occupyIn)
         {
-            this.name = nameIn;
-            this.cmd = new int[4] { cmd1, cmd2, cmd3, cmd4 };
-            this.fressment = fressIn;
-            this.attack = atkIn;
-            this.defence = defIn;
-            this.heal = healIn;
-            this.season = seasonIn;
-            this.occupy = occupyIn;
+            name = nameIn;
+            cmd = cmdIn;
+            can_call = can_callIn;
+            fressment = fressIn;
+            attack = atkIn;
+            defence = defIn;
+            heal = healIn;
+            season = seasonIn;
+            occupy = occupyIn;
         }
     }
-
-    void Start()
-    {
-        fruitmanList.Add(new FruitmanInfo("蘋果人", 1, 2, 3, 4, 1000, 200, 150, 500, 2, 2));
-        fruitmanList.Add(new FruitmanInfo("西瓜人", 2, 3, 4, 1, 1000, 200, 150, 500, 2, 2));
-    }
-    
 }

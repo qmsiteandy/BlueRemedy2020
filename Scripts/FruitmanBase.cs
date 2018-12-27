@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FruitmanBase : MonoBehaviour {
 
+    public int ID;
+    public int fressment = 0;
     public GameObject followTarget = null;
     public GameObject nextOne = null;
 
@@ -13,22 +15,18 @@ public class FruitmanBase : MonoBehaviour {
     public bool facingRight = true;
     public float dieFX_Time = 1f;
 
-    public int fressment = 1000;
-
-
     private bool isAlive = true;
-    private bool grounded = true;
-    private Rigidbody2D rb2d;
+    //private bool grounded = true;
+    //private Rigidbody2D rb2d;
 
  
     // Use this for initialization
     void Awake () {
 
         isAlive = true;
+        fressment = FruitmanData.InfoList[ID].fressment;
 
-        rb2d = GetComponent<Rigidbody2D>();
-
-
+        //rb2d = GetComponent<Rigidbody2D>();
     }
 	
 
@@ -40,7 +38,7 @@ public class FruitmanBase : MonoBehaviour {
             if (followTarget != null)
             {
                 Follow();
-                Jump();
+                //Jump();
             }
         } 
 	}
@@ -75,10 +73,10 @@ public class FruitmanBase : MonoBehaviour {
     }
 
 
-    void Jump()
+    /*void Jump()
     {
 
-    }
+    }*/
 
 
     void Flip()
@@ -113,7 +111,7 @@ public class FruitmanBase : MonoBehaviour {
 
     IEnumerator Die()
     {
-        gameObject.GetComponentInParent<FruitManager>().FirstOneDie();
+        gameObject.GetComponentInParent<FruitManager>().FirstOneDie(ID);
         isAlive = false;
 
         float elapsed = 0;

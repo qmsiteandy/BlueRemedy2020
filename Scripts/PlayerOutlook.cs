@@ -8,7 +8,6 @@ public class PlayerOutlook : MonoBehaviour {
     public GameObject changeFX_Prefab;
     public Sprite[] playerSprite;
     
-    private int oriID = 0;
     private SpriteRenderer spriteRender;
 
 
@@ -18,12 +17,9 @@ public class PlayerOutlook : MonoBehaviour {
 	
     public void OutlookChange(int id)
     {
-        if (id == oriID) return;
-
+        //Debug.Log("OutlookChange ID= " + id);
         StartCoroutine(ChangeFX());
         spriteRender.sprite = playerSprite[id];
-
-        oriID = id;
     }
 
     IEnumerator ChangeFX()

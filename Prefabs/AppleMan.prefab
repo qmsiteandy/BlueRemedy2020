@@ -89,6 +89,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4005ff7db47948e4eba63598da305f84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 1
+  fressment: 1000
   followTarget: {fileID: 0}
   nextOne: {fileID: 0}
   followSpeed: 0.06
@@ -96,7 +98,6 @@ MonoBehaviour:
   jumpForce: 350
   facingRight: 1
   dieFX_Time: 1
-  fressment: 1000
 --- !u!212 &212996758923300502
 SpriteRenderer:
   m_ObjectHideFlags: 1

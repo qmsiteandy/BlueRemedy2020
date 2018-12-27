@@ -7,13 +7,16 @@ public class EnemyTest : MonoBehaviour
 
     public float moveRange = 3f;    //移動範圍半徑
     public float moveSpeed = 1.5f;  //移動速度
+    public float trackSpeed = 1.5f;
     public float awakeTime = 1.5f;  //重新醒來時間
     public bool isAwake;            //是否醒著
+    public bool isTracking = false;
 
     private Vector2 centerPos;      //移動的區域中點
     private float posNow = 0f;      //目前移動相對中點的位置
     private bool goRight = true;    //是否往右走
     private float awakeCountdown = 0f;  //重新清醒時間倒數
+    private GameObject target;
 
     private SpriteRenderer spriteRenderer;  //怪物圖的render
 
@@ -31,14 +34,10 @@ public class EnemyTest : MonoBehaviour
 
 	void Update ()
     {
-        //是否醒著
-        if (isAwake)
-        {
-            //來回移動
-            MoveAround();
-        }
+        if (!isTracking) MoveAround();
+        else Tracking();
 
-        else if (!isAwake)
+        if (!isAwake)
         {
             //倒數
             awakeCountdown -= Time.deltaTime;
@@ -67,6 +66,14 @@ public class EnemyTest : MonoBehaviour
         transform.position = new Vector3(centerPos.x+posNow, centerPos.y, 0f);
     }
 
+    private void Tracking()
+    {
+        posNow = Mathf.Lerp(posNow, target.transform.position.x, trackSpeed*Time.deltaTime);
+        posNow = Mathf.Clamp(posNow, -moveRange, moveRange);
+
+        transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f);
+    }
+
     //公開函式，當被踩踏時
     public void IsSteppedOn()
     {
@@ -78,6 +85,26 @@ public class EnemyTest : MonoBehaviour
             awakeCountdown = awakeTime;
 
             StartCoroutine(ChangeColor(new Color(1, 0, 0), 0.05f));
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.name == "Player")
+        {
+            target = collider.gameObject;
+
+            isTracking = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.name == "Player")
+        {
+            target = null;
+
+            isTracking = false;
         }
     }
 

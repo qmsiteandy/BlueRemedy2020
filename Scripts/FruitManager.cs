@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class FruitManager : MonoBehaviour
 {
-
     public float growPosShift = 1f;
     public float playerChange_Delay = 0.2f;
-    public int countLimit = 5;
-    public int count = 0;
+    public static int occupyLimit = 5;
+    public int occupy = 0;
     public GameObject[] fruitmanPrefab;
- 
+    public UIBucket UI_Bucket;
+    public SkillModeControl skillModeControl;
+
     private int sortOrder = 0;
     private GameObject player;
     private GameObject firstOne;
     private GameObject lastOne;
+    private int oriFirstID;
     private FruitmanBase firstFruitBase = null;
-    private PlayerControl playerControl;
+    //private PlayerControl playerControl;
     private PlayerOutlook playerOutlook;
 
     // Use this for initialization
@@ -24,7 +26,7 @@ public class FruitManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
-        playerControl = player.GetComponent<PlayerControl>();
+        //playerControl = player.GetComponent<PlayerControl>();
         playerOutlook = player.GetComponent<PlayerOutlook>();
 
         firstOne = lastOne = player;
@@ -33,10 +35,10 @@ public class FruitManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //測試用
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
-            //測試用
+            
             if (firstOne != player)
             {
                 firstFruitBase.FressLoss(1000);
@@ -44,12 +46,21 @@ public class FruitManager : MonoBehaviour
         }
     }
 
-    public void Grow(int id)
+    public bool Grow(int id)
     {
-        if (count > countLimit)
+        //-----------設定水果籃位----------------
+
+        occupy += FruitmanData.InfoList[id].occupy;
+      
+        if (occupy > occupyLimit)
         {
-            return;
+            occupy -= FruitmanData.InfoList[id].occupy;
+            return false; //回傳false表示超過上限
         }
+
+        UI_Bucket.SetOccupyNum(occupy);
+
+        //-----------設定生成並跟隨----------------
 
         Vector3 growPosition = lastOne.transform.position;
 
@@ -77,13 +88,13 @@ public class FruitManager : MonoBehaviour
             firstOne = newFruitman;
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
 
-            FirstOneChange(firstOne.name);
+            FirstOneChange(id);
         }
 
-        count++;
+        return true;
     }
 
-    public void FirstOneDie()
+    public void FirstOneDie(int id)
     {
         if (firstFruitBase.nextOne != null)
         {
@@ -91,36 +102,37 @@ public class FruitManager : MonoBehaviour
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
 
             firstFruitBase.followTarget = player;
+
+            FirstOneChange(firstFruitBase.ID);
         }
         else
         {
             firstOne = lastOne = player;
+
+            FirstOneChange(0);
         }
 
-        FirstOneChange(firstOne.name);
-
-        count--;
+        occupy -= FruitmanData.InfoList[id].occupy;
+        UI_Bucket.SetOccupyNum(occupy);
     }
 
-    void FirstOneChange(string firstName)
+    void FirstOneChange(int firstID)
     {
-        if (firstName == "Player")
+        if (firstID == oriFirstID) return;
+
+        if (firstID == 0)
         {
             playerOutlook.OutlookChange(0);
+            skillModeControl.SetSkillMode(0);
+            oriFirstID = 0;
 
             return;
         }
-
-        for (int id = 1; id < fruitmanPrefab.Length; id++)
+        else
         {
-            if (firstName == (fruitmanPrefab[id].name + "(Clone)")) 
-            {
-                Debug.Log("FirstOneID = " + id);
-
-                playerOutlook.OutlookChange(id);
-
-                return;
-            }
+            playerOutlook.OutlookChange(firstID);
+            skillModeControl.SetSkillMode(firstID);
+            oriFirstID = firstID;
         }
     }
 }

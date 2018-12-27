@@ -7,6 +7,7 @@ public class PlayerControl : MonoBehaviour
     public float moveSpeed = 250.0f;    //移動速度
     public float speedLimit = 4.0f;     //移動速度上限
     public float jumpForce = 350.0f;    //跳躍力道
+    public int health = 3000;
 
     public Transform footCheck;         //檢查踩踏地板的點
     public float checkRadius = 0.2f;    //檢查踩踏地板的判斷半徑
@@ -39,6 +40,15 @@ public class PlayerControl : MonoBehaviour
             LookUpDown();
         }
                
+    }
+
+    void Update()
+    {
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        } 
     }
 
     //檢查是否在地面
@@ -144,4 +154,16 @@ public class PlayerControl : MonoBehaviour
             canMove = true;
         }
     }
+
+    void Die()
+    {
+
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+    }
+
+
 }
