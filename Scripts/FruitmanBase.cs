@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FruitmanBase : MonoBehaviour {
 
@@ -10,7 +11,7 @@ public class FruitmanBase : MonoBehaviour {
     public GameObject nextOne = null;
 
     public float followSpeed = 0.06f;
-    public float followRange = 0.7f;
+    public float followRange = 0.8f;
     public float jumpForce = 350.0f;
     public bool facingRight = true;
     public float dieFX_Time = 1f;
@@ -18,6 +19,10 @@ public class FruitmanBase : MonoBehaviour {
     private bool isAlive = true;
     //private bool grounded = true;
     //private Rigidbody2D rb2d;
+    private SpriteRenderer spriderRender;
+    private RectTransform fressCanvasRect;
+    private Slider fressSlider;
+    public int midFress, lowFress;
 
  
     // Use this for initialization
@@ -27,6 +32,18 @@ public class FruitmanBase : MonoBehaviour {
         fressment = FruitmanData.InfoList[ID].fressment;
 
         //rb2d = GetComponent<Rigidbody2D>();
+        spriderRender = this.GetComponent<SpriteRenderer>();
+
+        Transform fressCanvas = gameObject.transform.GetChild(0);
+        fressCanvas.GetComponent<Canvas>().sortingOrder = spriderRender.sortingOrder;
+        fressCanvasRect = fressCanvas.GetComponent<RectTransform>();
+
+        fressSlider = fressCanvas.GetChild(0).GetComponent<Slider>();
+        fressSlider.value = fressSlider.maxValue = fressment;
+
+        midFress = (int)(0.5 * fressment);
+        lowFress = (int)(0.15 * fressment);
+
     }
 	
 
@@ -48,6 +65,8 @@ public class FruitmanBase : MonoBehaviour {
         if (fressment <= 0 && isAlive)
         {
             StartCoroutine(Die());
+
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
@@ -89,6 +108,10 @@ public class FruitmanBase : MonoBehaviour {
         theScale.x *= -1;
         //套用翻面後的規格
         transform.localScale = theScale;
+
+        Vector3 rectScale = fressCanvasRect.localScale;
+        rectScale.x *= -1;
+        fressCanvasRect.localScale = rectScale;
     }
 
     public void FressLoss(int loss)
@@ -96,12 +119,21 @@ public class FruitmanBase : MonoBehaviour {
         if (isAlive)
         {
             fressment -= loss;
+
+            fressSlider.value = fressment;
+            //if(fressment<midFress)
+            //else if(fressment<lowFress)
         }
     }
 
     public void SetTarget(GameObject target)
     {
         followTarget = target;
+
+        if (target.tag == "Player")
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
     }
 
     public void SetNextOne(GameObject next)
@@ -117,8 +149,6 @@ public class FruitmanBase : MonoBehaviour {
         float elapsed = 0;
 
         /*這裡要放水果死亡動畫*/
-
-        SpriteRenderer spriderRender = this.GetComponent<SpriteRenderer>();
         spriderRender.material.color = new Color(0.4f, 0.4f, 0.4f, 1f);
         spriderRender.sortingLayerName = "back";
 

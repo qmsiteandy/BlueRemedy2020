@@ -4,23 +4,6 @@ using UnityEngine;
 
 public class FruitmanCall : MonoBehaviour {
 
-    /*//----------召喚相關資訊--------------------
-
-    //水果指令
-    private int[][] fruitCmd = {
-        new int[] {0,0,0,0},
-        new int[] {1,1,1,1},
-        new int[] {1,2,1,2},
-        new int[] {1,2,3,4}
-    };
-    //可否召喚該水果
-    private bool[] canCall = {
-        false,
-        true,
-        true,
-        false
-    };*/
-
     //----------設定內容--------------------
     public static float cmdTimeLimit = 2f;
     public UIRemind UI_Remind;
@@ -44,10 +27,10 @@ public class FruitmanCall : MonoBehaviour {
     }
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetButtonDown("Call"))
         {
             isInputting = true;
-            playerControl.allCanDo = false;
+            playerControl.canMove = false;
 
             cmdCanvasControl.CmdBackOpen();
         }
@@ -95,9 +78,9 @@ public class FruitmanCall : MonoBehaviour {
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetButtonUp("Call"))
         {
-            playerControl.allCanDo = true;
+            playerControl.canMove = true;
 
             cmdCanvasControl.CmdClose();
         } 
@@ -148,13 +131,9 @@ public class FruitmanCall : MonoBehaviour {
         }
         else
         {
-            Fail();
-            //Debug.Log("召喚指令錯誤");
+            UI_Remind.ShortRemind("指令錯誤");
+            cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
         }
     }
-    
-    void Fail()
-    {
-        cmdCanvasControl.CmdColor(new Color(1f, 0f, 0f, 0.5f));
-    }
+
 }

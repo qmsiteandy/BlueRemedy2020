@@ -78,6 +78,21 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1480293678288072
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4282476691437020}
+  m_Layer: 8
+  m_Name: throw_point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!1 &1488609651781588
 GameObject:
@@ -87,6 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4059899692909268}
+  - component: {fileID: 114238886556829586}
   m_Layer: 8
   m_Name: AppleSkill
   m_TagString: Untagged
@@ -103,7 +119,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4282476691437020}
   m_Father: {fileID: 4593619774312930}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -120,6 +137,19 @@ Transform:
   m_Father: {fileID: 4593619774312930}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4282476691437020
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1480293678288072}
+  m_LocalRotation: {x: 0, y: 0, z: 0.13052616, w: 0.9914449}
+  m_LocalPosition: {x: 0.74, y: 0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4059899692909268}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15}
 --- !u!4 &4593619774312930
 Transform:
   m_ObjectHideFlags: 1
@@ -213,6 +243,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0.043757915, y: 0.15633315}
   m_Size: {x: 0.93308294, y: 1.3314389}
   m_Direction: 0
+--- !u!114 &114238886556829586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1488609651781588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b5c1451b36e41641af6c4843faafdeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwSpeed: 15
+  playerControl: {fileID: 114582777662877276}
+  fruitManager: {fileID: 0}
+  throwPoint: {fileID: 4282476691437020}
+  poisonApple: {fileID: 1566497607778370, guid: e54ec0c69bfd96c4dae60075fb90b847,
+    type: 2}
 --- !u!114 &114350094749282840
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -270,7 +317,6 @@ MonoBehaviour:
   moveSpeed: 250
   speedLimit: 4
   jumpForce: 350
-  health: 3000
   footCheck: {fileID: 4959839356298386}
   checkRadius: 0.15
   whatIsGround:
@@ -280,6 +326,8 @@ MonoBehaviour:
   canMove: 1
   allCanDo: 1
   cameraControl: {fileID: 0}
+  UI_health: {fileID: 0}
+  facingRight: 1
 --- !u!212 &212275907665422308
 SpriteRenderer:
   m_ObjectHideFlags: 1

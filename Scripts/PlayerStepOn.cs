@@ -20,7 +20,7 @@ public class PlayerStepOn : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter2D(Collider2D other)
+    /*void OnTriggerEnter2D(Collider2D other)
     {
         //判斷碰撞物是否為敵人頭部區域
         if (other.gameObject.name == "EnemyHead")
@@ -45,6 +45,6 @@ public class PlayerStepOn : MonoBehaviour {
                 enemyTest.IsSteppedOn();
             }
 
-    }
+    }*/
 
 }

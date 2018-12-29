@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerOutlook : MonoBehaviour {
 
-    public float FX_deleteTime = 1f;
+    public float FX_deleteTime = 0.75f;
     public GameObject changeFX_Prefab;
     public Sprite[] playerSprite;
     
@@ -18,16 +18,10 @@ public class PlayerOutlook : MonoBehaviour {
     public void OutlookChange(int id)
     {
         //Debug.Log("OutlookChange ID= " + id);
-        StartCoroutine(ChangeFX());
-        spriteRender.sprite = playerSprite[id];
-    }
-
-    IEnumerator ChangeFX()
-    { 
         GameObject FX_Object = (Instantiate(changeFX_Prefab, transform.position, Quaternion.identity));
+        
+        spriteRender.sprite = playerSprite[id];
 
-        yield return new WaitForSeconds(FX_deleteTime);
-
-        Destroy(FX_Object);
+        Destroy(FX_Object, FX_deleteTime);
     }
 }

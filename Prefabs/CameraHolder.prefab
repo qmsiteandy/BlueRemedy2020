@@ -92,7 +92,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -0.001
+  near clip plane: -2.23
   far clip plane: 1000
   field of view: 60
   orthographic: 1
@@ -142,6 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  smoothSpeed: 0.05
-  lookUpMove: 2
-  lookDownMove: 4
+  smoothSpeed: 0.1
+  lookUpMove: 1.2
+  lookDownMove: 3

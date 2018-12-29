@@ -15,11 +15,14 @@ public class PlayerControl : MonoBehaviour
     public bool grounded = true;        //是否在地上
     public bool canMove = true;         //是否可移動
     public bool allCanDo = true;
+    public bool isCalling = false;
 
+    public FruitManager fruitManager;
     public CameraControl cameraControl;
+    public UIHealth UI_health;
 
-    private bool facingRight = true;    //是否面向右
-    private bool isLookingUpOrDown = false;
+    public bool facingRight = true;    //是否面向右
+    private bool canLookingUpOrDown = true;
     private Rigidbody2D rb2d;           //儲存主角的Rigidbody2D原件
 
 
@@ -39,16 +42,20 @@ public class PlayerControl : MonoBehaviour
             Jump();
             LookUpDown();
         }
-               
     }
 
     void Update()
     {
+        //測試用
+        if (Input.GetKeyDown(KeyCode.B)) TakeDamage(200);
+
         if (health <= 0)
         {
-            health = 0;
             Die();
-        } 
+        }
+
+        if (Input.GetButtonDown("Call")) isCalling = true;
+        else if (Input.GetButtonUp("Call")) isCalling = false;
     }
 
     //檢查是否在地面
@@ -99,7 +106,7 @@ public class PlayerControl : MonoBehaviour
     void Jump()
     {
         //跳躍鍵按著
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && canMove)
         {
             //在地上
             if (grounded)
@@ -134,23 +141,29 @@ public class PlayerControl : MonoBehaviour
 
         if (rb2d.velocity.x == 0)
         {
-            if (yInput > 0 && !isLookingUpOrDown)
+            if (yInput > 0 && canLookingUpOrDown && grounded)
             {
+                canLookingUpOrDown = false;
+
+                if (isCalling) return;
+
                 cameraControl.PlayerLookUp();
-                isLookingUpOrDown = true;
                 canMove = false;
             }
-            else if (yInput < 0 && !isLookingUpOrDown)
+            else if (yInput < 0 && canLookingUpOrDown && grounded)
             {
+                canLookingUpOrDown = false;
+
+                if (isCalling) return;
+
                 cameraControl.PlayerLookDown();
-                isLookingUpOrDown = true;
                 canMove = false;
             }
         }
-        if (yInput == 0)
+        if (yInput == 0 && !isCalling)
         {
             cameraControl.BackNormal();
-            isLookingUpOrDown = false;
+            canLookingUpOrDown = true;
             canMove = true;
         }
     }
@@ -163,7 +176,9 @@ public class PlayerControl : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        if (health < 0) health = 0;
+
+        UI_health.SetHealthUI(health);
+        fruitManager.FirstLoseFress((int)(health*0.35f));
     }
-
-
 }

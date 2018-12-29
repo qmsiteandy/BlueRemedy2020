@@ -11,7 +11,7 @@ public class CameraControl : MonoBehaviour {
 
     private Vector3 offset;             //camera與主角相對位置差距
     private Vector3 AimPos;             //camera目標前往位置
-    bool isFollowMode = true;           //是否為一般跟隨模式
+    private bool isFollowMode = true;   //是否為一般跟隨模式
     
 
 	void Start ()

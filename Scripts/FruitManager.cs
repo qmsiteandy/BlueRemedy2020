@@ -41,7 +41,7 @@ public class FruitManager : MonoBehaviour
             
             if (firstOne != player)
             {
-                firstFruitBase.FressLoss(1000);
+                firstFruitBase.FressLoss(10000);
             }
         }
     }
@@ -94,6 +94,13 @@ public class FruitManager : MonoBehaviour
         return true;
     }
 
+    public void FirstLoseFress(int loss)
+    {
+        if (firstFruitBase == null) return;
+
+        firstFruitBase.FressLoss(loss);
+    }
+
     public void FirstOneDie(int id)
     {
         if (firstFruitBase.nextOne != null)
@@ -101,13 +108,14 @@ public class FruitManager : MonoBehaviour
             firstOne = firstFruitBase.nextOne;
             firstFruitBase = firstOne.GetComponent<FruitmanBase>();
 
-            firstFruitBase.followTarget = player;
+            firstFruitBase.SetTarget(player);
 
             FirstOneChange(firstFruitBase.ID);
         }
         else
         {
             firstOne = lastOne = player;
+            firstFruitBase = null;
 
             FirstOneChange(0);
         }
