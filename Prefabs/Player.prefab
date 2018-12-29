@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 212275907665422308}
   - component: {fileID: 70509105415282938}
   - component: {fileID: 50515993874232336}
+  - component: {fileID: 95829306080603836}
   - component: {fileID: 114582777662877276}
   - component: {fileID: 114510516561325072}
   m_Layer: 8
@@ -243,6 +244,24 @@ CapsuleCollider2D:
   m_Offset: {x: 0.043757915, y: 0.15633315}
   m_Size: {x: 0.93308294, y: 1.3314389}
   m_Direction: 0
+--- !u!95 &95829306080603836
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146418248021320}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1278835f6b4ec7c4fbc67da4fe412edd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114238886556829586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -317,14 +336,17 @@ MonoBehaviour:
   moveSpeed: 250
   speedLimit: 4
   jumpForce: 350
+  health: 3000
   footCheck: {fileID: 4959839356298386}
-  checkRadius: 0.15
+  checkRadius: 0.2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 512
   grounded: 1
   canMove: 1
   allCanDo: 1
+  isCalling: 0
+  fruitManager: {fileID: 0}
   cameraControl: {fileID: 0}
   UI_health: {fileID: 0}
   facingRight: 1
