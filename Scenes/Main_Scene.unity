@@ -230,6 +230,11 @@ Prefab:
       propertyPath: skillModeControl
       value: 
       objectReference: {fileID: 1449193025}
+    - target: {fileID: 114719580077178580, guid: 4a0f2982bd5e1e9488682b4fa3a3b4b5,
+        type: 2}
+      propertyPath: behaviourManager
+      value: 
+      objectReference: {fileID: 1480377441}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a0f2982bd5e1e9488682b4fa3a3b4b5, type: 2}
   m_IsPrefabAsset: 0
@@ -517,6 +522,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 61290633824095970, guid: cd539f5f15799d341b6c5f7215c30f88,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: -0.6130892
+      objectReference: {fileID: 0}
+    - target: {fileID: 61290633824095970, guid: cd539f5f15799d341b6c5f7215c30f88,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.56828856
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd539f5f15799d341b6c5f7215c30f88, type: 2}
   m_IsPrefabAsset: 0
@@ -591,6 +606,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1991714165}
   m_Script: {fileID: 11500000, guid: 04dd40be6da7d924885060712b113e5d, type: 3}
+--- !u!114 &1480377441 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114682088511899224, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+    type: 2}
+  m_PrefabInternal: {fileID: 1991714165}
+  m_Script: {fileID: 11500000, guid: a2405d91e7e1ef54dacd2b9c45ab79a3, type: 3}
 --- !u!1001 &1700076057
 Prefab:
   m_ObjectHideFlags: 0
@@ -735,7 +756,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4866632548542128, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -2.1404
+      value: -2.169
       objectReference: {fileID: 0}
     - target: {fileID: 4866632548542128, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
       propertyPath: m_LocalPosition.z
@@ -761,6 +782,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114682088511899224, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+        type: 2}
+      propertyPath: fruitmanCall
+      value: 
+      objectReference: {fileID: 447112871}
+    - target: {fileID: 114238886556829586, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+        type: 2}
+      propertyPath: fruitManager
+      value: 
+      objectReference: {fileID: 1214161087}
+    - target: {fileID: 114350094749282840, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+        type: 2}
+      propertyPath: cameraShake
+      value: 
+      objectReference: {fileID: 519420030}
     - target: {fileID: 114582777662877276, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
         type: 2}
       propertyPath: fruitManager
@@ -776,27 +812,6 @@ Prefab:
       propertyPath: UI_health
       value: 
       objectReference: {fileID: 1230433622}
-    - target: {fileID: 114350094749282840, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
-        type: 2}
-      propertyPath: cameraShake
-      value: 
-      objectReference: {fileID: 519420030}
-    - target: {fileID: 114238886556829586, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
-        type: 2}
-      propertyPath: fruitManager
-      value: 
-      objectReference: {fileID: 1214161087}
-    - target: {fileID: 95829306080603836, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 212275907665422308, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: fb39feb731c08234696305af9bc2b5bf,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
   m_IsPrefabAsset: 0

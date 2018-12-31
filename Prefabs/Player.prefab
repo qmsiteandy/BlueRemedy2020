@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 95829306080603836}
   - component: {fileID: 114582777662877276}
   - component: {fileID: 114510516561325072}
+  - component: {fileID: 114682088511899224}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -173,7 +174,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1146418248021320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0329, y: -2.1404, z: 0}
+  m_LocalPosition: {x: 0.0329, y: -2.169, z: 0}
   m_LocalScale: {x: 1.0642, y: 1.0642, z: 1.0642}
   m_Children:
   - {fileID: 4959839356298386}
@@ -188,7 +189,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1249445960054002}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.076, y: -0.599, z: 0}
+  m_LocalPosition: {x: 0.076, y: -0.617, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4866632548542128}
@@ -241,8 +242,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.043757915, y: 0.1}
-  m_Size: {x: 0.93308294, y: 1.18}
+  m_Offset: {x: 0.045606904, y: 0.12000002}
+  m_Size: {x: 0.8406332, y: 1.18}
   m_Direction: 0
 --- !u!95 &95829306080603836
 Animator:
@@ -306,10 +307,11 @@ MonoBehaviour:
   FX_deleteTime: 1
   changeFX_Prefab: {fileID: 1026209681273552, guid: d73b198066b3c0f4eab242a763d1302d,
     type: 2}
-  playerSprite:
-  - {fileID: 21300000, guid: fb39feb731c08234696305af9bc2b5bf, type: 3}
-  - {fileID: 21300000, guid: 64bb430b2260fe441974bd1810c56045, type: 3}
-  - {fileID: 21300000, guid: 20a7a99ed8d6c5e4eb00e417cb6faf81, type: 3}
+  playerAnim: {fileID: 9100000, guid: 1278835f6b4ec7c4fbc67da4fe412edd, type: 2}
+  fruitPlayerAnim:
+  - {fileID: 0}
+  - {fileID: 22100000, guid: e96c883b6bb77d649bee7f8eee0511ee, type: 2}
+  - {fileID: 22100000, guid: e96c883b6bb77d649bee7f8eee0511ee, type: 2}
 --- !u!114 &114512384408861774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,6 +352,20 @@ MonoBehaviour:
   cameraControl: {fileID: 0}
   UI_health: {fileID: 0}
   facingRight: 1
+--- !u!114 &114682088511899224
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146418248021320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2405d91e7e1ef54dacd2b9c45ab79a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControl: {fileID: 114582777662877276}
+  fruitmanCall: {fileID: 0}
+  skillModeControl: {fileID: 114512384408861774}
 --- !u!212 &212275907665422308
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -385,12 +401,12 @@ SpriteRenderer:
   m_SortingLayerID: 1193475029
   m_SortingLayer: 6
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1657fade86773ae4b8e2bf9168ca4709, type: 3}
+  m_Sprite: {fileID: 21300000, guid: db9d123fc834c2f419eaaec99ad89c79, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.15, y: 1.57}
+  m_Size: {x: 1.13, y: 1.54}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

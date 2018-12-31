@@ -25,12 +25,14 @@ public class PlayerControl : MonoBehaviour
     public bool facingRight = true;    //是否面向右
     private bool canLookingUpOrDown = true;
     private Rigidbody2D rb2d;           //儲存主角的Rigidbody2D原件
+    private Animator animator;
 
 
     void Start()
     {
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         health = healthMax;
     }
@@ -38,13 +40,10 @@ public class PlayerControl : MonoBehaviour
     //規律的Update，主角才要
     void FixedUpdate()
     {
-        if (allCanDo)
-        {
-            OnGround();
-            Move();
-            Jump();
-            LookUpDown();
-        }
+        OnGround();
+        Move();
+        Jump();
+        LookUpDown();
     }
 
     void Update()
@@ -65,14 +64,17 @@ public class PlayerControl : MonoBehaviour
     //檢查是否在地面
     void OnGround()
     {
-        //以半徑圓範圍偵測是否在地上，儲存到grounded
-        grounded = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
+        if (allCanDo)
+        {
+            //以半徑圓範圍偵測是否在地上，儲存到grounded
+            grounded = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
+        }
     }
 
 
     void Move()
     {
-        if (canMove)
+        if (allCanDo)
         {
             //水平方向輸入並乘上移動速度
             float xSpeed = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
@@ -80,6 +82,8 @@ public class PlayerControl : MonoBehaviour
             xSpeed = Mathf.Clamp(xSpeed, -speedLimit, speedLimit);
             //設定主角水平速度
             rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
+
+            animator.SetFloat("xSpeed", Mathf.Abs(xSpeed));
 
             //偵測移動方向及是否需轉面
             if (xSpeed > 0 && !facingRight)
@@ -90,6 +94,10 @@ public class PlayerControl : MonoBehaviour
             {
                 Flip();
             }
+        }
+        else
+        {
+            animator.SetFloat("xSpeed", 0);
         }
     }
 
@@ -109,23 +117,26 @@ public class PlayerControl : MonoBehaviour
     //跳躍
     void Jump()
     {
-        //跳躍鍵按著
-        if (Input.GetButton("Jump") && canMove)
+        if (allCanDo)
         {
-            //在地上
-            if (grounded)
+            //跳躍鍵按著
+            if (Input.GetButton("Jump") && canMove)
             {
-                //給予主角彈跳力道
-                rb2d.AddForce(Vector2.up * jumpForce);
-                //設定為不在地上
-                grounded = false;
+                //在地上
+                if (grounded)
+                {
+                    //給予主角彈跳力道
+                    rb2d.AddForce(Vector2.up * jumpForce);
+                    //設定為不在地上
+                    grounded = false;
+                }
             }
-        }
-        //當跳躍鍵放開且此時未著地
-        else if (Input.GetButtonUp("Jump") && !grounded)
-        {
-            //呼叫JumpRelease函示
-            JumpRelease();
+            //當跳躍鍵放開且此時未著地
+            else if (Input.GetButtonUp("Jump") && !grounded)
+            {
+                //呼叫JumpRelease函示
+                JumpRelease();
+            }
         }
     }
 
@@ -141,35 +152,38 @@ public class PlayerControl : MonoBehaviour
 
     void LookUpDown()
     {
-        float yInput = Input.GetAxis("Vertical");
-
-        if (rb2d.velocity.x == 0)
+        if (allCanDo)
         {
-            if (yInput > 0 && canLookingUpOrDown && grounded)
+            float yInput = Input.GetAxis("Vertical");
+
+            if (rb2d.velocity.x == 0)
             {
-                canLookingUpOrDown = false;
+                if (yInput > 0 && canLookingUpOrDown && grounded)
+                {
+                    canLookingUpOrDown = false;
 
-                if (isCalling) return;
+                    if (isCalling) return;
 
-                cameraControl.PlayerLookUp();
-                canMove = false;
+                    cameraControl.PlayerLookUp();
+                    canMove = false;
+                }
+                else if (yInput < 0 && canLookingUpOrDown && grounded)
+                {
+                    canLookingUpOrDown = false;
+
+                    if (isCalling) return;
+
+                    cameraControl.PlayerLookDown();
+                    canMove = false;
+                }
             }
-            else if (yInput < 0 && canLookingUpOrDown && grounded)
+            if (yInput == 0 && !isCalling)
             {
-                canLookingUpOrDown = false;
-
-                if (isCalling) return;
-
-                cameraControl.PlayerLookDown();
-                canMove = false;
+                cameraControl.BackNormal();
+                canLookingUpOrDown = true;
+                canMove = true;
             }
-        }
-        if (yInput == 0 && !isCalling)
-        {
-            cameraControl.BackNormal();
-            canLookingUpOrDown = true;
-            canMove = true;
-        }
+        } 
     }
 
     void Die()
