@@ -16,10 +16,7 @@ public class BookManager : MonoBehaviour {
     public Text AttackText;
     public Text DefenceText;
     public Text HealText;
-
-    public PlayerControl playerControl;
-    public FruitmanCall fruitmanCall;
-    public SkillModeControl skillModeControl;
+    public BehaviourManager behaviourManager;
 
     private GameObject bookBack;
     private GameObject bookInfo;
@@ -55,9 +52,7 @@ public class BookManager : MonoBehaviour {
             bookBack.SetActive(isOpen);
             bookInfo.SetActive(isOpen);
 
-            playerControl.allCanDo = !isOpen;
-            fruitmanCall.canCall = !isOpen;
-            skillModeControl.SkillPause(isOpen);
+            behaviourManager.BehaviourPause(isOpen);
         }
 
         float yInput = Input.GetAxisRaw("Horizontal");
@@ -127,7 +122,7 @@ public class BookManager : MonoBehaviour {
         }
 
         Occupy.text = "occupy：" + FruitmanData.InfoList[id].occupy;
-        Fresh.text = "fresh：" + FruitmanData.InfoList[id].fressment;
+        Fresh.text = "fresh：" + FruitmanData.InfoList[id].fresh;
         AttackText.text = "" + FruitmanData.InfoList[id].attack;
         DefenceText.text = "" + FruitmanData.InfoList[id].defence;
         HealText.text = "" + FruitmanData.InfoList[id].heal;

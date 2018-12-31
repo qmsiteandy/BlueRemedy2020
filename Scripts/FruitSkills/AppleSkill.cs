@@ -21,7 +21,7 @@ public class AppleSkill : MonoBehaviour {
             if (playerControl.facingRight) rigid.velocity = throwSpeed * throwPoint.transform.right;
             else rigid.velocity = -1 * throwSpeed * throwPoint.transform.right;
 
-            fruitManager.FirstLoseFress(FruitmanData.InfoList[1].attack_fressLoss);
+            fruitManager.FirstLoseFresh(FruitmanData.InfoList[1].attack_freshLoss);
         }
 
         if (Input.GetButtonDown("Defence"))

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class FruitmanBase : MonoBehaviour {
 
     public int ID;
-    public int fressment = 0;
+    public int fresh = 0;
     public GameObject followTarget = null;
     public GameObject nextOne = null;
 
@@ -29,7 +29,7 @@ public class FruitmanBase : MonoBehaviour {
     void Awake () {
 
         isAlive = true;
-        fressment = FruitmanData.InfoList[ID].fressment;
+        fresh = FruitmanData.InfoList[ID].fresh;
 
         //rb2d = GetComponent<Rigidbody2D>();
         spriderRender = this.GetComponent<SpriteRenderer>();
@@ -39,10 +39,10 @@ public class FruitmanBase : MonoBehaviour {
         fressCanvasRect = fressCanvas.GetComponent<RectTransform>();
 
         fressSlider = fressCanvas.GetChild(0).GetComponent<Slider>();
-        fressSlider.value = fressSlider.maxValue = fressment;
+        fressSlider.value = fressSlider.maxValue = fresh;
 
-        midFress = (int)(0.5 * fressment);
-        lowFress = (int)(0.15 * fressment);
+        midFress = (int)(0.5 * fresh);
+        lowFress = (int)(0.15 * fresh);
 
     }
 	
@@ -62,7 +62,7 @@ public class FruitmanBase : MonoBehaviour {
 
     void Update()
     {
-        if (fressment <= 0 && isAlive)
+        if (fresh <= 0 && isAlive)
         {
             StartCoroutine(Die());
 
@@ -114,17 +114,15 @@ public class FruitmanBase : MonoBehaviour {
         fressCanvasRect.localScale = rectScale;
     }
 
-    public void FressLoss(int loss)
+    public void FreshLoss(int loss)
     {
         if (isAlive)
         {
-            fressment -= loss;
+            fresh -= loss;
 
-            fressSlider.value = fressment;
+            fressSlider.value = fresh;
             //if(fressment<midFress)
             //else if(fressment<lowFress)
-
-            Debug.Log("loss = " + loss + " fresh = " + fressment);
         }
     }
 

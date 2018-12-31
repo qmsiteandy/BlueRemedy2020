@@ -42,7 +42,7 @@ public class FruitManager : MonoBehaviour
             
             if (firstOne != player)
             {
-                firstFruitBase.FressLoss(10000);
+                firstFruitBase.FreshLoss(10000);
             }
         }
     }
@@ -95,11 +95,11 @@ public class FruitManager : MonoBehaviour
         return true;
     }
 
-    public void FirstLoseFress(int loss)
+    public void FirstLoseFresh(int loss)
     {
         if (firstFruitBase == null) return;
 
-        firstFruitBase.FressLoss((int)(loss * freshLossRate));
+        firstFruitBase.FreshLoss((int)(loss * freshLossRate));
     }
 
     public void FirstOneDie(int id)

@@ -183,7 +183,7 @@ public class PlayerControl : MonoBehaviour
         if (health < 0) health = 0;
 
         UI_health.SetHealthUI(health);
-        fruitManager.FirstLoseFress(damage);
+        fruitManager.FirstLoseFresh(damage);
     }
 
     public void Heal(int heal)
