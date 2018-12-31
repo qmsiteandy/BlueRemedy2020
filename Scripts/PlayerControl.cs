@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
     public float moveSpeed = 250.0f;    //移動速度
     public float speedLimit = 4.0f;     //移動速度上限
     public float jumpForce = 350.0f;    //跳躍力道
-    public int health = 3000;
+    public int healthMax = 3000;
+    private int health;
 
     public Transform footCheck;         //檢查踩踏地板的點
     public float checkRadius = 0.2f;    //檢查踩踏地板的判斷半徑
@@ -30,6 +31,8 @@ public class PlayerControl : MonoBehaviour
     {
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
+
+        health = healthMax;
     }
 
     //規律的Update，主角才要
@@ -47,7 +50,8 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         //測試用
-        if (Input.GetKeyDown(KeyCode.B)) TakeDamage(200);
+        if (Input.GetKeyDown(KeyCode.B)) TakeDamage(300);
+        if (Input.GetKeyDown(KeyCode.N)) Heal(500);
 
         if (health <= 0)
         {
@@ -179,6 +183,14 @@ public class PlayerControl : MonoBehaviour
         if (health < 0) health = 0;
 
         UI_health.SetHealthUI(health);
-        fruitManager.FirstLoseFress((int)(health*0.35f));
+        fruitManager.FirstLoseFress(damage);
+    }
+
+    public void Heal(int heal)
+    {
+        health += heal;
+        if (health > healthMax) health = healthMax;
+
+        UI_health.SetHealthUI(health);
     }
 }

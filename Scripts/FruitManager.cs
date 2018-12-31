@@ -8,6 +8,7 @@ public class FruitManager : MonoBehaviour
     public float playerChange_Delay = 0.2f;
     public static int occupyLimit = 5;
     public int occupy = 0;
+    public float freshLossRate = 0.5f;
     public GameObject[] fruitmanPrefab;
     public UIBucket UI_Bucket;
     public SkillModeControl skillModeControl;
@@ -98,7 +99,7 @@ public class FruitManager : MonoBehaviour
     {
         if (firstFruitBase == null) return;
 
-        firstFruitBase.FressLoss(loss);
+        firstFruitBase.FressLoss((int)(loss * freshLossRate));
     }
 
     public void FirstOneDie(int id)

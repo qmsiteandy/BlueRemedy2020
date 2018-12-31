@@ -123,6 +123,8 @@ public class FruitmanBase : MonoBehaviour {
             fressSlider.value = fressment;
             //if(fressment<midFress)
             //else if(fressment<lowFress)
+
+            Debug.Log("loss = " + loss + " fresh = " + fressment);
         }
     }
 

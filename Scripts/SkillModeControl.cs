@@ -33,4 +33,21 @@ public class SkillModeControl : MonoBehaviour {
             skillObject[modeNow].SetActive(true);
         }
     }
+
+    public void SkillPause(bool isPause)
+    {
+        if (isPause)
+        {
+            for(int id=1;id< skillObject.Length; id++)
+            {
+                skillObject[id].SetActive(false);
+            }
+        }
+        else
+        {
+            if (modeNow == 0) return;
+
+            skillObject[modeNow].SetActive(true);
+        }
+    }
 }

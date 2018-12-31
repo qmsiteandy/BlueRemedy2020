@@ -7,10 +7,10 @@
 
         //ID=1
         new Info(
-            "AppleMan",                 //name
+            "Apple",                    //name
             new int[]{ 1, 1, 1, 1 },    //cmd
             true,   //can_call 
-            2000,   //fressment
+            1000,   //fressment
             200,    //attack
             200,    //defence
             600,    //heal
@@ -21,10 +21,10 @@
 
         //ID=2
         new Info(
-            "WatermelonMan",            //name
+            "Watermelon",               //name
             new int[]{ 1, 2, 1, 2 },    //cmd
             true,   //can_call 
-            4000,   //fressment
+            1500,   //fressment
             200,    //attack
             500,    //defence
             200,    //heal

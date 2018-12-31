@@ -7,6 +7,7 @@ public class FruitmanCall : MonoBehaviour {
     //----------設定內容--------------------
     public static float cmdTimeLimit = 2f;
     public UIRemind UI_Remind;
+    public bool canCall = true;
 
     private PlayerControl playerControl;
     private FruitManager fruitManager;
@@ -26,64 +27,69 @@ public class FruitmanCall : MonoBehaviour {
         fruitPrefSum = GetComponent<FruitManager>().fruitmanPrefab.Length;
     }
 	
-	void Update () {
-        if (Input.GetButtonDown("Call"))
+	void Update ()
+    {
+        if (canCall)
         {
-            isInputting = true;
-            playerControl.canMove = false;
+            if (Input.GetButtonDown("Call"))
+            {
+                isInputting = true;
+                playerControl.canMove = false;
 
-            cmdCanvasControl.CmdBackOpen();
+                cmdCanvasControl.CmdBackOpen();
+            }
+
+            if (isInputting)
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+                {
+                    cmdIn[index] = 1;
+                    cmdCanvasControl.CmdShow(index, 0);
+
+                    index++;
+                }
+                else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
+                {
+                    cmdIn[index] = 2;
+                    cmdCanvasControl.CmdShow(index, 180);
+
+                    index++;
+                }
+                else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                {
+                    cmdIn[index] = 3;
+                    cmdCanvasControl.CmdShow(index, 90);
+
+                    index++;
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                {
+                    cmdIn[index] = 4;
+                    cmdCanvasControl.CmdShow(index, -90);
+
+                    index++;
+                }
+
+                elapsed += Time.deltaTime;
+
+                if (Input.GetKeyUp(KeyCode.LeftShift) || index >= 4 || elapsed > cmdTimeLimit)
+                {
+                    isInputting = false;
+                    index = 0;
+                    elapsed = 0f;
+
+                    CompareCmd();
+                }
+            }
+
+            if (Input.GetButtonUp("Call"))
+            {
+                playerControl.canMove = true;
+
+                cmdCanvasControl.CmdClose();
+            }
         }
-
-        if (isInputting)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
-            {
-                cmdIn[index] = 1;
-                cmdCanvasControl.CmdShow(index, 0);
-
-                index++;
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
-            {
-                cmdIn[index] = 2;
-                cmdCanvasControl.CmdShow(index, 180);
-
-                index++;
-            }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-            {
-                cmdIn[index] = 3;
-                cmdCanvasControl.CmdShow(index, 90);
-
-                index++;
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-            {
-                cmdIn[index] = 4;
-                cmdCanvasControl.CmdShow(index, -90);
-
-                index++;
-            }
-
-            elapsed += Time.deltaTime;
-
-            if (Input.GetKeyUp(KeyCode.LeftShift) || index >= 4 || elapsed > cmdTimeLimit)
-            {
-                isInputting = false;
-                index = 0;
-                elapsed = 0f;
-
-                CompareCmd();
-            }
-        }
-
-        if (Input.GetButtonUp("Call"))
-        {
-            playerControl.canMove = true;
-
-            cmdCanvasControl.CmdClose();
-        } 
+        
     }
 
     void CompareCmd()

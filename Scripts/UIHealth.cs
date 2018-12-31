@@ -19,7 +19,7 @@ public class UIHealth : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        healthMax = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().health;
+        healthMax = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().healthMax;
 
         redSlider.value = redSlider.maxValue = healthMax;
         smoothSlider.value = smoothSlider.maxValue = healthMax;
@@ -31,8 +31,9 @@ public class UIHealth : MonoBehaviour {
         healthNow = health;
 
         redSlider.value = healthNow;
+        if (healthNow > smoothSlider.value) smoothSlider.value = healthNow;
 
-        elapsed = 0f;
+         elapsed = 0f;
         if (canSmooth) StartCoroutine(SmoothSlider());
         canSmooth = false;
 
