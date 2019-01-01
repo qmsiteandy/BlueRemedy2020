@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BookManager : MonoBehaviour {
 
+    public float smoothSpeed = 3f;
     public Text ID;
     public Text Name;
     public Text Season;
@@ -20,9 +21,12 @@ public class BookManager : MonoBehaviour {
 
     private GameObject bookBack;
     private GameObject bookInfo;
+    private CanvasGroup book_CanvasGroup, info_CanvasGroup;
+    [Range(0f, 1f)]private float book_alpha = 0f;
     private Image leftArrow, rightArrow;
     private bool isOpen = false;
-    private bool isChanging = false;
+    private bool isAlphaChanging = false;
+    private bool isInfoChanging = false;
     private int pageNow = 1;
     private int pageMax;
     
@@ -34,44 +38,55 @@ public class BookManager : MonoBehaviour {
         leftArrow = bookBack.transform.GetChild(0).gameObject.GetComponent<Image>();
         rightArrow = bookBack.transform.GetChild(1).gameObject.GetComponent<Image>();
 
+        book_CanvasGroup = GetComponent<CanvasGroup>();
+        book_CanvasGroup.alpha = book_alpha;
+        info_CanvasGroup = bookInfo.GetComponent<CanvasGroup>();
+
         pageNow = 1;
         pageMax = FruitmanData.InfoList.Length - 1;
 
         SetBookInfo(pageNow);
 
-        bookBack.SetActive(false);
-        bookInfo.SetActive(false);
+        //bookBack.SetActive(false);
+        //bookInfo.SetActive(false);
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetButtonDown("Book"))
+        if (Input.GetButtonDown("Book") && !isAlphaChanging)
         {
             isOpen = !isOpen;
-            bookBack.SetActive(isOpen);
-            bookInfo.SetActive(isOpen);
+
+            StartCoroutine(BookShow(isOpen));
+            isAlphaChanging = true;
 
             behaviourManager.BehaviourPause(isOpen);
         }
 
         float yInput = Input.GetAxisRaw("Horizontal");
 
-        if (isOpen && !isChanging)
+        if (isOpen && !isInfoChanging)
         {
             if (yInput > 0)
             {
                 pageNow += 1;
-                isChanging = true;
+                isInfoChanging = true;
             }
             else if(yInput < 0)
             {
                 pageNow -= 1;
-                isChanging = true;
+                isInfoChanging = true;
             }
 
-            pageNow = Mathf.Clamp(pageNow, 1, pageMax);
-            SetBookInfo(pageNow);
+
+            if (pageNow < 1 || pageNow > pageMax)
+            {
+                pageNow = Mathf.Clamp(pageNow, 1, pageMax);
+                isInfoChanging = false;
+            }
+            if (isInfoChanging) StartCoroutine(SetBookInfo(pageNow));
+
 
             if (pageNow == 1)
             {
@@ -91,12 +106,22 @@ public class BookManager : MonoBehaviour {
         }
         else if (yInput == 0)
         {
-            isChanging = false;
+            isInfoChanging = false;
         }
 	}
 
-    void SetBookInfo(int id)
+    IEnumerator SetBookInfo(int id)
     {
+        float info_alpha = 1f;
+
+        while (info_alpha > 0f)
+        {
+            info_alpha -= smoothSpeed * 1.5f * Time.deltaTime;
+            info_CanvasGroup.alpha = info_alpha;
+
+            yield return null;
+        }
+
         ID.text = "ID：" + id;
         Name.text = FruitmanData.InfoList[id].name;
 
@@ -127,5 +152,38 @@ public class BookManager : MonoBehaviour {
         DefenceText.text = "" + FruitmanData.InfoList[id].defence;
         HealText.text = "" + FruitmanData.InfoList[id].heal;
 
+        while (info_alpha < 1f)
+        {
+            info_alpha += smoothSpeed * 1.5f * Time.deltaTime;
+            info_CanvasGroup.alpha = info_alpha;
+
+            yield return null;
+        }
+
+    }
+
+    IEnumerator BookShow(bool open)
+    {
+        if (open)
+        {
+            while (book_alpha < 1f)
+            {
+                book_alpha += smoothSpeed * Time.deltaTime;
+                book_CanvasGroup.alpha = book_alpha;
+
+                yield return null;
+            }
+        }
+        else
+        {
+            while (book_alpha > 0f)
+            {
+                book_alpha -= smoothSpeed * Time.deltaTime;
+                book_CanvasGroup.alpha = book_alpha;
+
+                yield return null;
+            }
+        }
+        isAlphaChanging = false;
     }
 }

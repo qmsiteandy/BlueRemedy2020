@@ -87,13 +87,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224439502092832428}
+  - component: {fileID: 225796671243476886}
   m_Layer: 5
   m_Name: book_info
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1259216240657474
 GameObject:
   m_ObjectHideFlags: 1
@@ -178,7 +179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1334047457703846
 GameObject:
   m_ObjectHideFlags: 1
@@ -360,6 +361,7 @@ GameObject:
   - component: {fileID: 223716006166772134}
   - component: {fileID: 114249114740179342}
   - component: {fileID: 114529391987107448}
+  - component: {fileID: 225901442695040494}
   - component: {fileID: 114719580077178580}
   m_Layer: 5
   m_Name: InfoBook
@@ -907,6 +909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2653d16cbace6b549b0442506d1e80e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  smoothSpeed: 3
   ID: {fileID: 114891709883181250}
   Name: {fileID: 114601993393650490}
   Season: {fileID: 114692296581001948}
@@ -925,9 +928,7 @@ MonoBehaviour:
   AttackText: {fileID: 114551553920805010}
   DefenceText: {fileID: 114663088736832456}
   HealText: {fileID: 114919954661199958}
-  playerControl: {fileID: 0}
-  fruitmanCall: {fileID: 0}
-  skillModeControl: {fileID: 0}
+  behaviourManager: {fileID: 0}
 --- !u!114 &114743744766567558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1625,3 +1626,25 @@ RectTransform:
   m_AnchoredPosition: {x: -373, y: -277}
   m_SizeDelta: {x: 648.6, y: 73.1}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225796671243476886
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1190760327531602}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!225 &225901442695040494
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1969370163594154}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

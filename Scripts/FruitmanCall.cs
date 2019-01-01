@@ -34,7 +34,9 @@ public class FruitmanCall : MonoBehaviour {
             if (Input.GetButtonDown("Call"))
             {
                 isInputting = true;
-                playerControl.canMove = false;
+                playerControl.allCanDo = false;
+                playerControl.isCalling = true;
+                playerControl.canLookingUpOrDown = false;
 
                 cmdCanvasControl.CmdBackOpen();
             }
@@ -84,7 +86,8 @@ public class FruitmanCall : MonoBehaviour {
 
             if (Input.GetButtonUp("Call"))
             {
-                playerControl.canMove = true;
+                playerControl.allCanDo = true;
+                playerControl.isCalling = false;
 
                 cmdCanvasControl.CmdClose();
             }

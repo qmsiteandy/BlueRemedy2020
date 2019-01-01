@@ -23,7 +23,7 @@ public class PlayerControl : MonoBehaviour
     public UIHealth UI_health;
 
     public bool facingRight = true;    //是否面向右
-    private bool canLookingUpOrDown = true;
+    public bool canLookingUpOrDown = true;
     private Rigidbody2D rb2d;           //儲存主角的Rigidbody2D原件
     private Animator animator;
 
@@ -57,8 +57,6 @@ public class PlayerControl : MonoBehaviour
             Die();
         }
 
-        if (Input.GetButtonDown("Call")) isCalling = true;
-        else if (Input.GetButtonUp("Call")) isCalling = false;
     }
 
     //檢查是否在地面
