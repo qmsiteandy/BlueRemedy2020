@@ -17,6 +17,7 @@ public class PlayerControl : MonoBehaviour
     public bool canMove = true;         //是否可移動
     public bool allCanDo = true;
     public bool isCalling = false;
+    public float xSpeed = 0f;
 
     public FruitManager fruitManager;
     public CameraControl cameraControl;
@@ -75,7 +76,7 @@ public class PlayerControl : MonoBehaviour
         if (allCanDo)
         {
             //水平方向輸入並乘上移動速度
-            float xSpeed = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+            xSpeed = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
             //限制xSpeed在速度限制範圍內
             xSpeed = Mathf.Clamp(xSpeed, -speedLimit, speedLimit);
             //設定主角水平速度

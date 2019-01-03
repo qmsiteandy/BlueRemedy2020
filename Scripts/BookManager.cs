@@ -45,7 +45,7 @@ public class BookManager : MonoBehaviour {
         pageNow = 1;
         pageMax = FruitmanData.InfoList.Length - 1;
 
-        SetBookInfo(pageNow);
+        StartCoroutine(SetBookInfo(pageNow));
 
         //bookBack.SetActive(false);
         //bookInfo.SetActive(false);
