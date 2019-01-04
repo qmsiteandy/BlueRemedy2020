@@ -7,6 +7,7 @@ public class FruitmanBase : MonoBehaviour {
 
     public int ID;
     public int fresh = 0;
+    public int freshMax;
     public GameObject followTarget = null;
     public GameObject nextOne = null;
 
@@ -29,7 +30,7 @@ public class FruitmanBase : MonoBehaviour {
     void Awake () {
 
         isAlive = true;
-        fresh = FruitmanData.InfoList[ID].fresh;
+        fresh = freshMax = FruitmanData.InfoList[ID].fresh;
 
         //rb2d = GetComponent<Rigidbody2D>();
         spriderRender = this.GetComponent<SpriteRenderer>();

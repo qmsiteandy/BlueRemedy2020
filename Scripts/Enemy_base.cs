@@ -12,6 +12,7 @@ public class Enemy_base : MonoBehaviour {
     public float moveSpeed = 1.5f;  //移動速度
     public float awakeTime = 1.5f;  //重新醒來時間
     public float bornTime = 5f;
+    public float closeRange = 1.25f;//靠進主角某距離後會停住
     public bool isAwake;            //是否醒著
     private float awakeCountdown = 0f;
     public float trackSpeed = 1.5f;
@@ -166,6 +167,7 @@ public class Enemy_base : MonoBehaviour {
         {
             
             Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
+            if (Mathf.Abs(diff.x) <= closeRange) return; //已追蹤到某距離內就不再追蹤
 
             /*if (Vector2.SqrMagnitude(new Vector2(diff.x, 0)) <=0.25)
             {

@@ -15,7 +15,7 @@ public class FruitManager : MonoBehaviour
 
     private int sortOrder = 0;
     private GameObject player;
-    private GameObject firstOne;
+    public GameObject firstOne;
     private GameObject lastOne;
     private int oriFirstID;
     private FruitmanBase firstFruitBase = null;

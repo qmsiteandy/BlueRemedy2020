@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_Remind: {fileID: 0}
+  canCall: 1
 --- !u!114 &114194011227828322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,15 +392,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0.50980395}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7058824}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 665c76771e1a87f49a134884dd0364e0, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -522,10 +523,11 @@ MonoBehaviour:
   growPosShift: 1
   playerChange_Delay: 0.2
   occupy: 0
+  freshLossRate: 0.5
   fruitmanPrefab:
   - {fileID: 0}
   - {fileID: 1494653760047564, guid: 0adf7cd12f7971e47a8fcb6a53a92cb8, type: 2}
-  - {fileID: 1492911291353278, guid: 053c1dbda25a3b74ba3d86c95423b925, type: 2}
+  - {fileID: 1835921795502856, guid: 053c1dbda25a3b74ba3d86c95423b925, type: 2}
   UI_Bucket: {fileID: 0}
   skillModeControl: {fileID: 0}
 --- !u!222 &222019150972463322
@@ -675,7 +677,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -0.392}
-  m_SizeDelta: {x: 156, y: 10}
+  m_SizeDelta: {x: 155, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224444742864060794
 RectTransform:

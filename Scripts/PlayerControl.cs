@@ -18,15 +18,18 @@ public class PlayerControl : MonoBehaviour
     public bool allCanDo = true;
     public bool isCalling = false;
     public float xSpeed = 0f;
+    public bool isShielded = false;
 
     public FruitManager fruitManager;
     public CameraControl cameraControl;
     public UIHealth UI_health;
+    private SkillModeControl skillManager;
 
     public bool facingRight = true;    //是否面向右
     public bool canLookingUpOrDown = true;
     private Rigidbody2D rb2d;           //儲存主角的Rigidbody2D原件
     private Animator animator;
+    
 
 
     void Start()
@@ -34,6 +37,8 @@ public class PlayerControl : MonoBehaviour
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+
+        skillManager = transform.GetChild(1).GetComponent<SkillModeControl>();
 
         health = healthMax;
     }
@@ -192,11 +197,19 @@ public class PlayerControl : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health < 0) health = 0;
+        if (!isShielded)
+        {
+            health -= damage;
+            if (health < 0) health = 0;
 
-        UI_health.SetHealthUI(health);
-        fruitManager.FirstLoseFresh(damage);
+            UI_health.SetHealthUI(health);
+            fruitManager.FirstLoseFresh(damage);
+        }
+        else
+        {
+            /*以後要透過skillManager對盾牌扣耐久度*/
+        }
+       
     }
 
     public void Heal(int heal)
