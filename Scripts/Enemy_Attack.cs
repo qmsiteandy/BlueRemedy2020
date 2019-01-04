@@ -34,13 +34,8 @@ public class Enemy_Attack : MonoBehaviour {
             elapsed = 0f;
         }
 
-        if (canAttack && attackTarget != null)
-        {
-            animator.SetTrigger("attack");
-            attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
+        Attack();
 
-            canAttack = false;
-        }
 	}
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -61,9 +56,22 @@ public class Enemy_Attack : MonoBehaviour {
         }
     }
 
-    public void AttackOver()
+    public void Attack()
     {
-        enemy_base.isAttacking = false;
+        if (canAttack && attackTarget != null)
+        {
+            animator.SetTrigger("attack");
+
+            canAttack = false;
+        }
     }
+
+    public void Damage()
+    {
+        if (attackTarget == null) return;
+        attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
+    }
+
+    
 
 }

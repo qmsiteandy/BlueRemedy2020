@@ -51,7 +51,7 @@ public class PlayerControl : MonoBehaviour
     {
         //測試用
         if (Input.GetKeyDown(KeyCode.B)) TakeDamage(300);
-        if (Input.GetKeyDown(KeyCode.N)) Heal(500);
+        if (Input.GetKeyDown(KeyCode.N)) Heal(5000);
 
         if (health <= 0)
         {

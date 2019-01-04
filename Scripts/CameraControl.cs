@@ -26,8 +26,8 @@ public class CameraControl : MonoBehaviour {
         if (isFollowMode) { AimPos = target.position + offset; }   
 
         //平滑移動camera
-        float smoothPosX = Mathf.Lerp(transform.position.x, AimPos.x, smoothSpeed);
-        transform.position = new Vector3(smoothPosX, AimPos.y, transform.localPosition.z);
+        Vector3 smoothPos = Vector3.Lerp(transform.position, AimPos, smoothSpeed);
+        transform.position = smoothPos;
     }
 
     //主角往上看時呼叫此函式

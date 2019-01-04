@@ -11,16 +11,26 @@ public class Enemy_base : MonoBehaviour {
     public float moveRange = 3f;    //移動範圍半徑
     public float moveSpeed = 1.5f;  //移動速度
     public float awakeTime = 1.5f;  //重新醒來時間
+    public float bornTime = 5f;
     public bool isAwake;            //是否醒著
+    private float awakeCountdown = 0f;
     public float trackSpeed = 1.5f;
+    public int health;
+    public int healthMax = 1000;
 
     private Vector2 centerPos;      //移動的區域中點
     private float posNow = 0f;      //目前移動相對中點的位置
     private bool goRight = true;    //是否往右走
-    private float awakeCountdown = 0f;  //重新清醒時間倒數
     public bool isTracking = false;
     public bool isAttacking;
     public bool isAlert;
+    public bool isbeAttack;
+    public bool isDie;
+    public bool isBorn;
+    private Enemy_Attack enemy_attack;
+
+    public GameObject enemy;
+
     
 
     // Use this for initialization
@@ -38,7 +48,10 @@ public class Enemy_base : MonoBehaviour {
 
     void Start()
     {
+        health = healthMax;
         //if (Input.GetKeyDown(KeyCode.Z)) animator.SetTrigger("daze");
+        enemy_attack = transform.GetComponentInChildren<Enemy_Attack>();
+        enemy = transform.GetChild(0).gameObject;
     }
 
     void Update()
@@ -47,9 +60,9 @@ public class Enemy_base : MonoBehaviour {
         if (!isAwake)
         {
             //倒數
-            awakeCountdown -= Time.deltaTime;
+            awakeTime -= Time.deltaTime;
             //倒數歸零時重新醒來
-            if (awakeCountdown <= 0) isAwake = true;
+            if (awakeTime <= 0) isAwake = true;
         }
 
         if (isTracking)
@@ -60,6 +73,19 @@ public class Enemy_base : MonoBehaviour {
         {
             MoveAround();
         }
+        if (isBorn)
+        {
+            bornTime -= Time.deltaTime;
+            if (bornTime <= 0)
+            {
+                isDie = false;
+                animator.SetTrigger("rebirth");
+                enemy.SetActive(true);
+                isBorn = false;
+                
+            }
+        }
+       
     }
 
     //來回移動
@@ -67,7 +93,6 @@ public class Enemy_base : MonoBehaviour {
     {
         if (target == null && !isAttacking )
         {
-            //設定posNow隨時間增加&減少
 
             //如果posNow超出範圍
             if (posNow >= moveRange || posNow <= -moveRange)
@@ -137,19 +162,19 @@ public class Enemy_base : MonoBehaviour {
 
     void Tracking()
     {
-        if (target != null && !isAttacking && !isAlert)
+        if (target != null && !isAttacking )
         {
             
             Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
 
-            if (Vector2.SqrMagnitude(new Vector2(diff.x, 0)) <=0.25)
+            /*if (Vector2.SqrMagnitude(new Vector2(diff.x, 0)) <=0.25)
             {
                 animator.SetTrigger("alert");
                 isAlert = true;
                 
-            }
-            else{
-                posNow = Mathf.Lerp(posNow, target.transform.position.x, trackSpeed * Time.deltaTime);
+            }*/
+            //else{
+                posNow = Mathf.Lerp(posNow, target.transform.position.x-centerPos.x, trackSpeed * Time.deltaTime);
                 posNow = Mathf.Clamp(posNow, -moveRange, moveRange);
                 transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f);
 
@@ -157,7 +182,8 @@ public class Enemy_base : MonoBehaviour {
                 goRight = (face >= 0) ? true : false;
                 Vector3 faceVec = new Vector3(face, 1, 1);
                 transform.localScale = faceVec;
-           }
+            // }
+
         }
 
     }
@@ -169,7 +195,6 @@ public class Enemy_base : MonoBehaviour {
         {
             target = null;
             isTracking = false;
-
         }
 
     }
@@ -188,6 +213,52 @@ public class Enemy_base : MonoBehaviour {
     {
         isAlert = false;
     }
+
+    public void BeAttackOver()
+    {
+        isbeAttack = false;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        if (!isDie)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                health = 0;
+                animator.SetTrigger("die");
+            }
+            animator.SetTrigger("beattack");
+            isbeAttack = true;
+            Debug.Log("Takedamage:" + health);
+        }
+        
+    }
+
+    public void Attack()
+    {
+        enemy_attack.Damage();
+    }
+
+    public void Die()
+    {
+        enemy.SetActive(false);
+        isDie = true;
+        Debug.Log(enemy.name + "die");
+        isBorn = true;
+    }
+
+    public void Rebirth()
+    {
+        bornTime = 5;
+        health = healthMax;
+    }
+
+
+
+
+
 
 
 }

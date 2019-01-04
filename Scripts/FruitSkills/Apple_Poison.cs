@@ -5,6 +5,7 @@ using UnityEngine;
 public class Apple_Poison : MonoBehaviour {
 
     //public GameObject poisonSmoke;
+    public int damage = 200;
     public float explosionRadius = 2.5f;
     public LayerMask enemyLayer;
     public float FX_deleteDelay = 0.75f;
@@ -26,8 +27,7 @@ public class Apple_Poison : MonoBehaviour {
 
         for(int x = 0; x < enemys.Length; x++)
         {
-            Debug.Log("enemy" + (x + 1) + "："+enemys[x].name);
-            //enemys[x].GetComponent<>
+            enemys[x].GetComponent<Enemy_base>().TakeDamage(damage);
         }
 
         rigid.velocity = Vector2.zero;
