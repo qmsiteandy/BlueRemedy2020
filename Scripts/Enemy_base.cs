@@ -125,7 +125,7 @@ public class Enemy_base : MonoBehaviour {
         spriteRenderer.color = new Color(1, 1, 1);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Player")
         {
@@ -164,6 +164,7 @@ public class Enemy_base : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        
         if (collision.tag == "Player")
         {
             target = null;
