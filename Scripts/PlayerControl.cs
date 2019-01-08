@@ -133,6 +133,8 @@ public class PlayerControl : MonoBehaviour
                     rb2d.AddForce(Vector2.up * jumpForce);
                     //設定為不在地上
                     grounded = false;
+
+                    animator.SetTrigger("jump");
                 }
             }
             //當跳躍鍵放開且此時未著地
@@ -141,6 +143,8 @@ public class PlayerControl : MonoBehaviour
                 //呼叫JumpRelease函示
                 JumpRelease();
             }
+
+            animator.SetFloat("yVelocity", rb2d.velocity.y);
         }
     }
 
