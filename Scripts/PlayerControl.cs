@@ -27,9 +27,9 @@ public class PlayerControl : MonoBehaviour
 
     public bool facingRight = true;    //是否面向右
     public bool canLookingUpOrDown = true;
-    private Rigidbody2D rb2d;           //儲存主角的Rigidbody2D原件
+    private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private Animator animator;
-    
+    private SpriteRenderer spriteRenderer;
 
 
     void Start()
@@ -37,6 +37,7 @@ public class PlayerControl : MonoBehaviour
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         skillManager = transform.GetChild(1).GetComponent<SkillModeControl>();
 
@@ -123,6 +124,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (allCanDo)
         {
+
             //跳躍鍵按著
             if (Input.GetButton("Jump") && canMove)
             {
@@ -208,6 +210,8 @@ public class PlayerControl : MonoBehaviour
 
             UI_health.SetHealthUI(health);
             fruitManager.FirstLoseFresh(damage);
+
+            StartCoroutine(DamagedColor());
         }
         else
         {
@@ -222,5 +226,14 @@ public class PlayerControl : MonoBehaviour
         if (health > healthMax) health = healthMax;
 
         UI_health.SetHealthUI(health);
+    }
+
+    IEnumerator DamagedColor()
+    {
+        spriteRenderer.color = new Color(0.7f, 0f, 0f);
+
+        yield return new WaitForSeconds(0.08f);
+
+        spriteRenderer.color = new Color(1f, 1f, 1f);
     }
 }

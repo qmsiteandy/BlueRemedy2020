@@ -530,6 +530,7 @@ MonoBehaviour:
   - {fileID: 1835921795502856, guid: 053c1dbda25a3b74ba3d86c95423b925, type: 2}
   UI_Bucket: {fileID: 0}
   skillModeControl: {fileID: 0}
+  firstOne: {fileID: 0}
 --- !u!222 &222019150972463322
 CanvasRenderer:
   m_ObjectHideFlags: 1

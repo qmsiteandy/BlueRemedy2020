@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e108c77408a5c499874c0d7a7c0c88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 200
   explosionRadius: 0.98
   enemyLayer:
     serializedVersion: 2

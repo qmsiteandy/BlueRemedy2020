@@ -12,6 +12,7 @@ public class Enemy_Attack : MonoBehaviour {
     public float elapsed = 0f;
     public bool canAttack = false;
     public GameObject attackTarget = null;
+
     // Use this for initialization
     void Awake()
     {
@@ -70,8 +71,10 @@ public class Enemy_Attack : MonoBehaviour {
     {
         if (attackTarget == null) return;
         attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
+        
     }
 
     
+
 
 }
