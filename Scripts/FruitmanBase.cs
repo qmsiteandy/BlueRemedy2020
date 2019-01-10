@@ -24,8 +24,9 @@ public class FruitmanBase : MonoBehaviour {
     private RectTransform fressCanvasRect;
     private Slider fressSlider;
     public int midFress, lowFress;
+    public Sprite midFressSprite, lowFressSprite;
 
- 
+
     // Use this for initialization
     void Awake () {
 
@@ -122,8 +123,9 @@ public class FruitmanBase : MonoBehaviour {
             fresh -= loss;
 
             fressSlider.value = fresh;
-            //if(fressment<midFress)
-            //else if(fressment<lowFress)
+
+            if(fresh<midFress && fresh > lowFress) spriderRender.sprite= midFressSprite;
+            else if (fresh < lowFress) spriderRender.sprite = lowFressSprite;
         }
     }
 

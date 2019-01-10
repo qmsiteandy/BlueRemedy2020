@@ -7,7 +7,7 @@ public class Apple_Poison : MonoBehaviour {
     //public GameObject poisonSmoke;
     public int damage = 200;
     public float explosionRadius = 2.5f;
-    public LayerMask enemyLayer;
+    public LayerMask enemyhurtLayer;
     public float FX_deleteDelay = 0.75f;
 
     private ParticleSystem poisonParticle;
@@ -23,11 +23,11 @@ public class Apple_Poison : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Collider2D[] enemys = Physics2D.OverlapCircleAll(transform.position, explosionRadius, enemyLayer);
+        Collider2D[] enemys = Physics2D.OverlapCircleAll(transform.position, explosionRadius, enemyhurtLayer);
 
         for(int x = 0; x < enemys.Length; x++)
         {
-            enemys[x].GetComponent<Enemy_base>().TakeDamage(damage);
+            enemys[x].GetComponentInParent<Enemy_base>().TakeDamage(damage);
         }
 
         rigid.velocity = Vector2.zero;

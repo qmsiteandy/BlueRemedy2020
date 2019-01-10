@@ -195,9 +195,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 200
   explosionRadius: 0.98
-  enemyLayer:
+  enemyhurtLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 4096
   FX_deleteDelay: 0.75
 --- !u!198 &198797429625788466
 ParticleSystem:

@@ -279,11 +279,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1456578054350424, guid: b70c412ba87eb814e98203f095a89066, type: 2}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1788829156345766, guid: b70c412ba87eb814e98203f095a89066, type: 2}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 58374456976754056, guid: b70c412ba87eb814e98203f095a89066,
         type: 2}
@@ -346,11 +346,33 @@ Prefab:
       propertyPath: closeRange
       value: 1.25
       objectReference: {fileID: 0}
+    - target: {fileID: 1018803148565940, guid: b70c412ba87eb814e98203f095a89066, type: 2}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 58374456976754056, guid: b70c412ba87eb814e98203f095a89066, type: 2}
     - {fileID: 212897983151525710, guid: b70c412ba87eb814e98203f095a89066, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: b70c412ba87eb814e98203f095a89066, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &127171686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1815445157300182, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+    type: 2}
+  m_PrefabInternal: {fileID: 881095791}
+--- !u!114 &127171688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127171686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3b76ba3e2c6e944950b1191dab569d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControl: {fileID: 1045548920}
+  fruitManager: {fileID: 1214161087}
 --- !u!1001 &219511614
 Prefab:
   m_ObjectHideFlags: 0
@@ -467,6 +489,12 @@ Prefab:
       propertyPath: skillModeControl
       value: 
       objectReference: {fileID: 1449193025}
+    - target: {fileID: 114996137695993792, guid: c946ae79e2a54ab4da197e68123f2b85,
+        type: 2}
+      propertyPath: fruitmanPrefab.Array.data[2]
+      value: 
+      objectReference: {fileID: 1613669975037076, guid: 053c1dbda25a3b74ba3d86c95423b925,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c946ae79e2a54ab4da197e68123f2b85, type: 2}
   m_IsPrefabAsset: 0
@@ -482,6 +510,60 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 666863209}
   m_Script: {fileID: 11500000, guid: e565ee9b77d40a146ae6ed774fcc41c4, type: 3}
+--- !u!1 &654098945
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 654098946}
+  - component: {fileID: 654098947}
+  m_Layer: 12
+  m_Name: EnemyBody
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &654098946
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 654098945}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1824727143}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &654098947
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 654098945}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.31025648, y: -0.024269938}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.7176371, y: 0.9514601}
+  m_EdgeRadius: 0
 --- !u!1001 &666863209
 Prefab:
   m_ObjectHideFlags: 0
@@ -616,6 +698,15 @@ Prefab:
       value: 
       objectReference: {fileID: 22100000, guid: a45619fca0998f44fb4fa4ad2ffbb661,
         type: 2}
+    - target: {fileID: 114007992760247234, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+        type: 2}
+      propertyPath: throwSpeed
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815445157300182, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
   m_IsPrefabAsset: 0
@@ -629,6 +720,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1484476976122324, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
     type: 2}
   m_PrefabInternal: {fileID: 881095791}
+--- !u!114 &1045548920 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114621502125127284, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
+    type: 2}
+  m_PrefabInternal: {fileID: 881095791}
+  m_Script: {fileID: 11500000, guid: a4ec3ee2e52524d4383de228aae2d925, type: 3}
 --- !u!1001 &1160832785
 Prefab:
   m_ObjectHideFlags: 0
@@ -977,6 +1074,11 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 4.93
+--- !u!4 &1824727143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4027666579131236, guid: b70c412ba87eb814e98203f095a89066,
+    type: 2}
+  m_PrefabInternal: {fileID: 100777257}
 --- !u!114 &1991624660 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114482384280793646, guid: ad0d82d678131ef458c5e9327fe5a97b,
