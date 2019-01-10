@@ -610,12 +610,6 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114474078800682148, guid: c53d31bb816cbdb4b9fcb7f8bddcc637,
-        type: 2}
-      propertyPath: fruitPlayerAnim.Array.data[0]
-      value: 
-      objectReference: {fileID: 22100000, guid: a45619fca0998f44fb4fa4ad2ffbb661,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c53d31bb816cbdb4b9fcb7f8bddcc637, type: 2}
   m_IsPrefabAsset: 0
@@ -827,33 +821,6 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224892363279496848, guid: 1e3cd99b593ac9f4aaab259c4f644ac6,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 201.00005
-      objectReference: {fileID: 0}
-    - target: {fileID: 224892363279496848, guid: 1e3cd99b593ac9f4aaab259c4f644ac6,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 193.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 224892363279496848, guid: 1e3cd99b593ac9f4aaab259c4f644ac6,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -31.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 224892363279496848, guid: 1e3cd99b593ac9f4aaab259c4f644ac6,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 63.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 114810407231489560, guid: 1e3cd99b593ac9f4aaab259c4f644ac6,
-        type: 2}
-      propertyPath: m_Text
-      value: '0%
-
-'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e3cd99b593ac9f4aaab259c4f644ac6, type: 2}
   m_IsPrefabAsset: 0
@@ -862,101 +829,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1850160557128900, guid: ad0d82d678131ef458c5e9327fe5a97b,
     type: 2}
   m_PrefabInternal: {fileID: 666863209}
---- !u!82 &1776663928
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1776663927}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 424ec6db56c780842b0901fc88cf6cdb, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1824727138 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1264085665493466, guid: b70c412ba87eb814e98203f095a89066,

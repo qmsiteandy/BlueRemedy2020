@@ -18,7 +18,7 @@ public class Trap_Damage : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player" && !falled)
+        if (collision.gameObject.tag == "Player" && !falled && transform.position.y > -2.7f)
         {
             attackTarget = collision.gameObject;
             Damage();
