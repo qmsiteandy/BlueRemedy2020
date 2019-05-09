@@ -5,25 +5,25 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
 
     public Transform target;            //camera追蹤目標
-    public float smoothSpeed = 0.1f;   //camera移動速度
+    public float smoothSpeed = 0.04f;   //camera移動速度
     public float lookUpMove = 1.2f;     //向上看時camera垂直移動距離
     public float lookDownMove = 3f;     //向下看時camera垂直移動距離
 
     private Vector3 offset;             //camera與主角相對位置差距
     private Vector3 AimPos;             //camera目標前往位置
     private bool isFollowMode = true;   //是否為一般跟隨模式
-    
 
-	void Start ()
+
+    void Start()
     {
         //設定offset為初始主角及初始相機位置之差距
-        offset = transform.position - target.position; 
-	}
-	
-	void FixedUpdate ()
+        offset = transform.position - target.position;
+    }
+
+    void FixedUpdate()
     {
         //如果是followMode，設定camera目標前往位置
-        if (isFollowMode) { AimPos = target.position + offset; }   
+        if (isFollowMode) { AimPos = target.position + offset; }
 
         //平滑移動camera
         Vector3 smoothPos = Vector3.Lerp(transform.position, AimPos, smoothSpeed);
