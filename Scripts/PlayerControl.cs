@@ -26,12 +26,14 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector]
     public bool facingRight = true;    //是否面向右
 
+    private Transform parent_transform;
     private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private SpriteRenderer spriteRenderer;
     public float xSpeed = 0f;
 
     void Start()
     {
+        parent_transform = GetComponentInParent<Transform>();
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -43,50 +45,43 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate()
     {
-        OnGround();
-        Move();
-        Jump();
+        if (allCanDo)
+        {
+            OnGround();
+            Move();
+            Jump();
+        }
     }
 
     void OnGround()
     {
-        if (allCanDo)
-        {
-            //以半徑圓範圍偵測是否在地上，儲存到grounded
-            grounded = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
-            walled = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsWall);
-            if (grounded || walled) secondJumping = false;
-        }
+        //以半徑圓範圍偵測是否在地上，儲存到grounded
+        grounded = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+        walled = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsWall);
+        if (grounded || walled) secondJumping = false;
     }
 
     void Move()
     {
-        if (allCanDo)
-        {
-            xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, accelTime);
-            if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
-            rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
 
-            //偵測移動方向及是否需轉面
-            if (xSpeed > 0 && !facingRight)
-            {
-                Flip();
-            }
-            else if (xSpeed < 0 && facingRight)
-            {
-                Flip();
-            }
-        }
-        else
-        {
+        xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, accelTime);
+        if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
+        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
 
+        //偵測移動方向及是否需轉面
+        if (xSpeed > 0 && !facingRight)
+        {
+            Flip();
         }
+        else if (xSpeed < 0 && facingRight)
+        {
+            Flip();
+        }
+
     }
 
-    //跳躍
     void Jump()
     {
-        //跳躍鍵按著
         if (Input.GetButton("Jump") && !pressingJump)
         {
             //在地上
