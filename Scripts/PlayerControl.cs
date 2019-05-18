@@ -16,7 +16,8 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     private LayerMask whatIsWall;
-    private bool grounded = true;        //是否在地上
+    [HideInInspector]
+    public bool grounded = true;        //是否在地上
     private bool walled = false;
     private bool secondJumping = false;
     private bool pressingJump = false;
@@ -24,11 +25,14 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector]
     public bool allCanDo = true;
     [HideInInspector]
+    public bool canMove = true;
+    [HideInInspector]
     public bool facingRight = true;    //是否面向右
 
     private Transform parent_transform;
     private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private SpriteRenderer spriteRenderer;
+    private Animator animator;
     public float xSpeed = 0f;
 
     void Start()
@@ -37,6 +41,7 @@ public class PlayerControl : MonoBehaviour {
         //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsPlatform = LayerMask.GetMask("Platform");
@@ -48,8 +53,11 @@ public class PlayerControl : MonoBehaviour {
         if (allCanDo)
         {
             OnGround();
-            Move();
-            Jump();
+            if (canMove)
+            {
+                Move();
+                Jump();
+            }
         }
     }
 
@@ -67,6 +75,8 @@ public class PlayerControl : MonoBehaviour {
         xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, accelTime);
         if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
         rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
+
+        animator.SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
 
         //偵測移動方向及是否需轉面
         if (xSpeed > 0 && !facingRight)

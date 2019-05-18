@@ -12,6 +12,7 @@ public class PlayerChange : MonoBehaviour {
     [Header("轉輪物件")]
     public GameObject wheel;
     Transform lightArea_trans;
+    private Vector3 offset;
 
     public GameObject smokeParticke;
     public CameraControl cameraControl;
@@ -27,12 +28,13 @@ public class PlayerChange : MonoBehaviour {
         playerControl = Oka_form[1].GetComponent<PlayerControl>();
 
         lightArea_trans = wheel.transform.GetChild(0).transform;
+        offset = wheel.transform.position - Oka_form[form_now].transform.position;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        wheel.transform.position = Oka_form[form_now].transform.position;
+        wheel.transform.position = Oka_form[form_now].transform.position + offset;
 
         if (Input.GetButtonDown("Change"))
         {
