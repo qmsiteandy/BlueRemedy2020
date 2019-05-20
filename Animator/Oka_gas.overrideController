@@ -1,0 +1,14 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Oka_gas
+  m_Controller: {fileID: 9100000, guid: a353ad2c3da937043b33e157dab59e04, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 70f0cb939a608614881090b6e715b6b5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e662b15b23646e14c9fa3f4a7bf2cc36, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: a51076e9e49b52e428b8c68663d93e46, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8ad8163de5e46c541a498ce12b714746, type: 2}

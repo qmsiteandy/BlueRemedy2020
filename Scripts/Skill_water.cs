@@ -6,7 +6,7 @@ public class Skill_water : MonoBehaviour {
 
 
     CircleCollider2D attackTrigger;
-    ContactFilter2D enemyFilter;
+    public ContactFilter2D enemyFilter;
     
 
     private float skillInputDelay = 0.35f;
@@ -26,6 +26,7 @@ public class Skill_water : MonoBehaviour {
 
         attackTrigger = this.transform.GetChild(2).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
+        enemyFilter.useTriggers = true;
     }
 	
 	void Update ()
@@ -75,7 +76,7 @@ public class Skill_water : MonoBehaviour {
 
         for(int i = 0; i < enemyNum; i++)
         {
-            enemyColList[i].gameObject.GetComponent<EnemyTrial>().BeAttacked();
+            enemyColList[i].transform.parent.GetComponent<Enemy_base>().TakeDamage(1);
         }
     }
 
