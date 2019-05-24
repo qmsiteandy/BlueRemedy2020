@@ -6,17 +6,13 @@ public class PlayerChange : MonoBehaviour {
 
     [Header("三態相關")]
     public GameObject[] Oka_form = { null, null, null };
-    private int form_now = 1;
+    public int form_now = 1;
     private int form_index;
-
-    [Header("轉輪物件")]
-    public GameObject wheel;
-    Transform lightArea_trans;
-    private Vector3 offset;
 
     public GameObject smokeParticke;
     public CameraControl cameraControl;
     private PlayerControl playerControl;
+    private PlayerWheel playerWheel;
 
 
     // Use this for initialization
@@ -26,34 +22,30 @@ public class PlayerChange : MonoBehaviour {
         Oka_form[2] = this.transform.GetChild(2).gameObject;
 
         playerControl = Oka_form[1].GetComponent<PlayerControl>();
-
-        lightArea_trans = wheel.transform.GetChild(0).transform;
-        offset = wheel.transform.position - Oka_form[form_now].transform.position;
+        playerWheel = transform.GetChild(3).GetComponent<PlayerWheel>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        wheel.transform.position = Oka_form[form_now].transform.position + offset;
+        if (Mathf.Abs(playerControl.xSpeed) > 0.7f) return;
 
         if (Input.GetButtonDown("Change"))
         {
             form_index = form_now; playerControl.allCanDo = false;
-            wheel.SetActive(true);
+            playerWheel.WheelShow();
         }
         if (Input.GetButton("Change"))
         {
+            if (!playerWheel.isSpinFinish) return
+                    ;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                form_index = 0; lightArea_trans.rotation = Quaternion.Euler(0f, 0f, 90f);
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                form_index = 1; lightArea_trans.rotation = Quaternion.Euler(0f, 0f, 0f);
+                form_index += 1; if (form_index > 2) form_index = 0; playerWheel.WheelSpinRight(false);
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                form_index = 2; lightArea_trans.rotation = Quaternion.Euler(0f, 0f, -90f);
+                form_index -= 1; if (form_index < 0) form_index = 2; playerWheel.WheelSpinRight(true);
             }
         }
         if (Input.GetButtonUp("Change"))
@@ -68,7 +60,7 @@ public class PlayerChange : MonoBehaviour {
                 ChangeForm(form_index);
             }
 
-            wheel.SetActive(false);
+            playerWheel.WheelDisappear();
         }
     }
 

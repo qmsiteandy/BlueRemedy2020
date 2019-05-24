@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 
     [Header("基本參數")]
+    [Range(0, 2)]
+    public int Oka_ID;
     public float speedLimit = 8.0f;     //移動速度上限
     public float accelTime = 0.5f;       //加速時間
     public float jumpForce = 650.0f;    //跳躍力道
@@ -29,11 +31,18 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector]
     public bool facingRight = true;    //是否面向右
 
+    [Header("被刺攻擊")]
+    public int thronLayerID = 14;
+    private float thronAttackTimer = 0f;
+    private float thronAttackDelay = 1f;
+    private int thronAttack = 2;
+
     private Transform parent_transform;
     private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     public float xSpeed = 0f;
+    private PlayerEnergy playerEnergy;
 
     void Start()
     {
@@ -42,6 +51,7 @@ public class PlayerControl : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        playerEnergy = transform.parent.GetComponent<PlayerEnergy>();
 
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsPlatform = LayerMask.GetMask("Platform");
@@ -87,7 +97,18 @@ public class PlayerControl : MonoBehaviour {
         {
             Flip();
         }
+    }
 
+    void Flip()
+    {
+        //bool變數代表方向
+        facingRight = !facingRight;
+        //取得目前物件的規格
+        Vector3 theScale = transform.localScale;
+        //使規格的水平方向相反
+        theScale.x *= -1;
+        //套用翻面後的規格
+        transform.localScale = theScale;
     }
 
     void Jump()
@@ -110,9 +131,9 @@ public class PlayerControl : MonoBehaviour {
                
                 pressingJump = true;
             }
-            else if (!secondJumping)
+            else if (!secondJumping && Oka_ID==2)
             {
-                if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.3f);
+                if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
                 rb2d.AddForce(Vector2.up * jumpForce);
 
                 secondJumping = true;
@@ -128,8 +149,6 @@ public class PlayerControl : MonoBehaviour {
 
         if (Input.GetButtonUp("Jump")) pressingJump = false;
     }
-    
-
 
     //彈跳釋放(會影響長按短按地跳躍高度)
     void JumpRelease()
@@ -142,16 +161,30 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
-    void Flip()
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        //bool變數代表方向
-        facingRight = !facingRight;
-        //取得目前物件的規格
-        Vector3 theScale = transform.localScale;
-        //使規格的水平方向相反
-        theScale.x *= -1;
-        //套用翻面後的規格
-        transform.localScale = theScale;
+        if (collider.gameObject.layer == thronLayerID) thronAttackTimer = 0f;
+    }
+
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.gameObject.layer == thronLayerID)
+        {
+            thronAttackTimer -= Time.deltaTime;
+            if (thronAttackTimer < 0f)
+            {
+                TakeDamage(thronAttack); thronAttackTimer = thronAttackDelay; StartCoroutine(DamagedColor());
+
+                if (facingRight) { rb2d.velocity = Vector3.zero; rb2d.AddForce(new Vector2(-jumpForce * 1.5f, jumpForce * 0.6f)); }
+                else { rb2d.velocity = Vector3.zero; rb2d.AddForce(new Vector2(jumpForce * 1.5f, jumpForce * 0.6f)); }
+            }
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        playerEnergy.ModifyDirt(damage);
+        playerEnergy.ModifyWaterEnergy(-damage);
     }
 
     IEnumerator DamagedColor()

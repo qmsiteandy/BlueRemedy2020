@@ -9,7 +9,7 @@ public class Skill_water : MonoBehaviour {
     public ContactFilter2D enemyFilter;
     
 
-    private float skillInputDelay = 0.35f;
+    public float skillInputDelay = 0.35f;
     private float elapsed = 0f;
 
     private int attackStep = 1;
@@ -77,6 +77,7 @@ public class Skill_water : MonoBehaviour {
         for(int i = 0; i < enemyNum; i++)
         {
             enemyColList[i].transform.parent.GetComponent<Enemy_base>().TakeDamage(1);
+            //enemyColList[i].GetComponent<EnemyTrial>().TakeDamage(1);
         }
     }
 

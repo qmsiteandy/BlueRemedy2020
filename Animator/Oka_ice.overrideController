@@ -5,10 +5,8 @@ AnimatorOverrideController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Oka_gas
+  m_Name: Oka_ice
   m_Controller: {fileID: 9100000, guid: a353ad2c3da937043b33e157dab59e04, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: fdaf147398add5846aff1dd76c5a25e3, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 65ffd0c83607339408c1fffed56ef240, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 4745451b7ba3c564fb99d87b7f8c55af, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 340c5101bbe714c4095b68dec95f865e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fe975ac33b6991f45bf6425e16d482d6, type: 2}

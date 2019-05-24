@@ -438,7 +438,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4527953090763688}
   - component: {fileID: 212215217593578766}
-  m_Layer: 12
+  - component: {fileID: 70596372077512800}
+  - component: {fileID: 70510234580643908}
+  m_Layer: 14
   m_Name: thorns 01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -877,7 +879,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1760163525310460}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -36.64, y: -2.31, z: 0}
+  m_LocalPosition: {x: -36.65, y: -2.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4411064854803540}
@@ -956,7 +958,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991363103974852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.069999695, y: 0.1400001, z: 0}
+  m_LocalPosition: {x: 0.015, y: -0.103, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4487607562358852}
@@ -1158,7 +1160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1443102848754218}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -27.75, y: 1.19, z: 0}
+  m_LocalPosition: {x: -27.53, y: 1.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4241178622631854}
@@ -1187,7 +1189,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057735417918184}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.24, y: -1.87, z: 0}
+  m_LocalPosition: {x: -24.82, y: -1.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4411064854803540}
@@ -1310,7 +1312,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915336333474724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.480002, y: 4.089999, z: 0}
+  m_LocalPosition: {x: 3.37, y: 4.089999, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4599715884300706}
@@ -2339,6 +2341,36 @@ EdgeCollider2D:
   - {x: 2.1358356, y: 5.2980494}
   - {x: 2.6615467, y: 5.2057686}
   - {x: 2.9763947, y: 5.049231}
+--- !u!70 &70510234580643908
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574892355043180}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.45878577, y: 0.2507975}
+  m_Size: {x: 1.7035308, y: 3.5084052}
+  m_Direction: 0
+--- !u!70 &70596372077512800
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574892355043180}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.6308315, y: 0.3582843}
+  m_Size: {x: 1.9741435, y: 0.8857848}
+  m_Direction: 1
 --- !u!95 &95050038470676600
 Animator:
   serializedVersion: 3
@@ -2376,61 +2408,7 @@ MonoBehaviour:
   m_parallaxSpeedScalarY: 1
   m_autoInitialize: 1
   m_enableDollyZoom: 1
-  m_parallaxElements:
-  - name: fog
-    m_parallaxObject: {fileID: 0}
-    privateParallaxSpeedScalarX: 1
-    privateParallaxSpeedScalarY: 1
-    isMotorized: 1
-    motorizationPaused: 0
-    spawnsDuplicateOnX: 1
-    randomSpawnX: 0
-    spawnGroupIndex: 0
-    numElementsInSeriesX: 0
-    hasCustomName: 0
-    needsNewScreenspaceExtents: 1
-    initialMotorSpeed: -1.12
-    initialSpawnDistanceX: 0
-    initialSpawnDistanceMinX: 0
-    initialSpawnDistanceMaxX: 0
-    initialRightSpawnDistanceX: 0
-    initialLeftSpawnDistanceX: 0
-    altSpawnAnchorY: 0
-    useRandomYSpawnAltOffset: 0
-    randomYSpawnLowestAltOffset: 0
-    randomYSpawnHighestAltOffset: 0
-    isDupe: 0
-    scale: 1
-    fullBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-  - name: front_bg 2
-    m_parallaxObject: {fileID: 0}
-    privateParallaxSpeedScalarX: 1
-    privateParallaxSpeedScalarY: 1
-    isMotorized: 0
-    motorizationPaused: 0
-    spawnsDuplicateOnX: 1
-    randomSpawnX: 0
-    spawnGroupIndex: 0
-    numElementsInSeriesX: 0
-    hasCustomName: 0
-    needsNewScreenspaceExtents: 1
-    initialMotorSpeed: 0
-    initialSpawnDistanceX: 0
-    initialSpawnDistanceMinX: 0
-    initialSpawnDistanceMaxX: 0
-    initialRightSpawnDistanceX: 0
-    initialLeftSpawnDistanceX: 0
-    altSpawnAnchorY: 0
-    useRandomYSpawnAltOffset: 0
-    randomYSpawnLowestAltOffset: 0
-    randomYSpawnHighestAltOffset: 0
-    isDupe: 0
-    scale: 1
-    fullBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+  m_parallaxElements: []
   m_randomOffsetHistorySize: 300
 --- !u!212 &212042422219421842
 SpriteRenderer:
@@ -3062,8 +3040,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1757119853
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f09dd2b6ffb0ab348abff8ee388263f0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

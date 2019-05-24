@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PlayerEnergy : MonoBehaviour {
 
-    public int waterEnergyMax = 10;
+    public int waterEnergyMax = 200;
     private int waterEnergy;
     private int dirtMax;
     private int dirt = 0;
     private float dirtyDegree;
 
-    private SpriteRenderer[] playerSprite= { null, null, null }; 
+    public float chargeDelay = 1f;
+    public int waterPerCharge = 3;
+    private float elapsed = 0f;
+
+    private SpriteRenderer[] playerSprite= { null, null, null };
+
+    private UI_Manager UI_manager;
 
 
     void Start ()
@@ -20,27 +26,33 @@ public class PlayerEnergy : MonoBehaviour {
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
 
         for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
+        UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B)) { ModifyWaterEnergy(-10); }
+
+        if (elapsed > chargeDelay) { ModifyWaterEnergy(waterPerCharge); elapsed = 0f; }
+        elapsed += Time.deltaTime;
+
+        Debug.Log("waterEnergy" + waterEnergy);
     }
 
     void SetDirtyDegree()
     {
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
-        Debug.Log("dirtyDegree" + dirtyDegree);
-    }
-
-    void SetPlayerSpriteColor()
-    {
-        for (int x = 0; x < 3; x++) playerSprite[x].color = new Color(1 - dirtyDegree, 1 - dirtyDegree, 1 - dirtyDegree);
     }
 
     public void ModifyWaterEnergy(int amount)
     {
         waterEnergy += amount;
         if (waterEnergy > waterEnergyMax) waterEnergy = waterEnergyMax;
-        else if (waterEnergy < waterEnergyMax) waterEnergy = 0;
+        else if (waterEnergy < 0) waterEnergy = 0;
 
         SetDirtyDegree();
-        SetPlayerSpriteColor();
+
+        UI_manager.SetWaterUI(waterEnergy);
 
         if (waterEnergy == 0) ; //GameOver
     }
@@ -52,6 +64,5 @@ public class PlayerEnergy : MonoBehaviour {
         else if (dirt < 0) dirt = 0;
 
         SetDirtyDegree();
-        SetPlayerSpriteColor();
     }
 }
