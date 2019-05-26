@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: 767fc6bc6d55d0c488dc741212756ddd
+guid: 2454d4dd28bb22d48a8d68a85737d948
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UI_q 03_0
-    21300002: UI_q 03_1
-    21300004: UI_q 03_2
-    21300006: UI_q 03_3
-    21300008: UI_q 03_4
-    21300010: UI_q 03_5
+    21300000: UI Qua_sprit_0
+    21300002: UI Qua_sprit_1
+    21300004: UI Qua_sprit_2
+    21300006: UI Qua_sprit_3
+    21300008: UI Qua_sprit_4
+    21300010: UI Qua_sprit_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -112,73 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_q 03_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 94fa5535a0238d7419925f78a1aa4823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 03_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec59b281f320055479b414e5ebbf1279
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 03_2
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3c0b6f22152320e45ac20062e0615206
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 03_3
+      name: UI Qua_sprit_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,19 +126,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 21418307de375464081050fd1e283c16
+      spriteID: 4e7106b3208613b4589ca9b53452c2b3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_q 03_4
+      name: UI Qua_sprit_1
       rect:
         serializedVersion: 2
-        x: 350
+        x: 200
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,19 +146,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b889a4a72efdcd34eb293293cb24178a
+      spriteID: 9d7dfd3c2a06c704089c4ddded3b4d65
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_q 03_5
+      name: UI Qua_sprit_2
       rect:
         serializedVersion: 2
-        x: 700
+        x: 400
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,7 +166,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c089db2c97006794481b90e152a71698
+      spriteID: f3ebee216d24cfa4a918d7354dc447e6
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Qua_sprit_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f9175d782581fa43905d668e4c258cf
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Qua_sprit_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7161f22f9d0d3a044a8938db5223c646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Qua_sprit_5
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52b837f20dcd9f94dbfded104f5074f2
       vertices: []
       indices: 
       edges: []
@@ -234,7 +234,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4f38c349ea9cbfb4f88650ee60fe2806
+    spriteID: 9902447719551ba42b9283c0c4c15425
     vertices: []
     indices: 
     edges: []

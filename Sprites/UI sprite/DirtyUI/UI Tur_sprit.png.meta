@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: b278f24f21a0b1445ab75d8a5835f787
+guid: 25741c2bbc8bbb643a912a0d9354b536
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UI_q 02_0
-    21300002: UI_q 02_1
-    21300004: UI_q 02_2
-    21300006: UI_q 02_3
-    21300008: UI_q 02_4
-    21300010: UI_q 02_5
+    21300000: UI Tur_sprit_0
+    21300002: UI Tur_sprit_1
+    21300004: UI Tur_sprit_2
+    21300006: UI Tur_sprit_3
+    21300008: UI Tur_sprit_4
+    21300010: UI Tur_sprit_5
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -112,73 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_q 02_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c2563b5a58e3cdf49a8bc87738a33850
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 02_1
-      rect:
-        serializedVersion: 2
-        x: 350
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb7ffb962c40fdd43a60c107be267888
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 02_2
-      rect:
-        serializedVersion: 2
-        x: 700
-        y: 350
-        width: 350
-        height: 350
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f94c7b0a4739a0549b883d755acce846
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_q 02_3
+      name: UI Tur_sprit_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,19 +126,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b83b44a5460c25e42be1d29f26640231
+      spriteID: 1e077e35f98d2b24aacfeec6b27127cc
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_q 02_4
+      name: UI Tur_sprit_1
       rect:
         serializedVersion: 2
-        x: 350
+        x: 200
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -206,19 +146,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5edd88781893a2744a49e357a0dc386c
+      spriteID: 68fd93bb5b806224f8e7c7b940b8f9f2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_q 02_5
+      name: UI Tur_sprit_2
       rect:
         serializedVersion: 2
-        x: 700
+        x: 400
         y: 0
-        width: 350
-        height: 350
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,7 +166,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ab20a7884ad80640a3597adab0368e5
+      spriteID: a8b3590883d32d44ab9f090fed5cce33
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Tur_sprit_3
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b4691e798c5f864c8a7010679e94a57
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Tur_sprit_4
+      rect:
+        serializedVersion: 2
+        x: 800
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4197419e7197b244ea1f2f88795e19df
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI Tur_sprit_5
+      rect:
+        serializedVersion: 2
+        x: 1000
+        y: 0
+        width: 200
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6b3c7f6834602946a919ed8a45eb88f
       vertices: []
       indices: 
       edges: []
@@ -234,7 +234,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1d457ad377609ad479b2513038f48802
+    spriteID: fa3722f5d84f3de4f865d74dc3ebe5bc
     vertices: []
     indices: 
     edges: []

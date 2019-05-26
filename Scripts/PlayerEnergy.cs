@@ -6,7 +6,7 @@ public class PlayerEnergy : MonoBehaviour {
 
     public int waterEnergyMax = 200;
     private int waterEnergy;
-    private int dirtMax;
+    public int dirtMax;
     private int dirt = 0;
     private float dirtyDegree;
 
@@ -31,17 +31,10 @@ public class PlayerEnergy : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B)) { ModifyWaterEnergy(-10); }
+        if (Input.GetKeyDown(KeyCode.B)) { ModifyWaterEnergy(-10); ModifyDirt(10); }
 
         if (elapsed > chargeDelay) { ModifyWaterEnergy(waterPerCharge); elapsed = 0f; }
         elapsed += Time.deltaTime;
-
-        Debug.Log("waterEnergy" + waterEnergy);
-    }
-
-    void SetDirtyDegree()
-    {
-        dirtyDegree = (float)dirt / (dirt + waterEnergy);
     }
 
     public void ModifyWaterEnergy(int amount)
@@ -64,5 +57,11 @@ public class PlayerEnergy : MonoBehaviour {
         else if (dirt < 0) dirt = 0;
 
         SetDirtyDegree();
+    }
+
+    void SetDirtyDegree()
+    {
+        dirtyDegree = (float)dirt / (dirt + waterEnergy);
+        UI_manager.SetDirtyUI(dirtyDegree);
     }
 }
