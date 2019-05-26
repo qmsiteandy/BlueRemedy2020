@@ -10,6 +10,12 @@ public class PlayerControl : MonoBehaviour {
     public float speedLimit = 8.0f;     //移動速度上限
     public float accelTime = 0.5f;       //加速時間
     public float jumpForce = 650.0f;    //跳躍力道
+    [HideInInspector]
+    public bool allCanDo = true;
+    [HideInInspector]
+    public bool canMove = true;
+    [HideInInspector]
+    public bool facingRight = true;    //是否面向右
 
     [Header("跳躍判斷")]
     public Transform footCheck;         //檢查踩踏地板的點
@@ -24,18 +30,14 @@ public class PlayerControl : MonoBehaviour {
     private bool secondJumping = false;
     private bool pressingJump = false;
 
-    [HideInInspector]
-    public bool allCanDo = true;
-    [HideInInspector]
-    public bool canMove = true;
-    [HideInInspector]
-    public bool facingRight = true;    //是否面向右
-
     [Header("被刺攻擊")]
     public int thronLayerID = 14;
     private float thronAttackTimer = 0f;
     private float thronAttackDelay = 1f;
     private int thronAttack = 2;
+
+    [Header("長草設定")]
+    public int grassLayerID = 15;
 
     private Transform parent_transform;
     private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
@@ -163,7 +165,8 @@ public class PlayerControl : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == thronLayerID) thronAttackTimer = 0f;
+        if (collider.gameObject.layer == grassLayerID) collider.gameObject.GetComponent<GrassControl>().GrowGrass();
+        else if (collider.gameObject.layer == thronLayerID) thronAttackTimer = 0f;
     }
 
     void OnTriggerStay2D(Collider2D collider)
