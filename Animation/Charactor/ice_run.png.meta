@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 9b37d4bdefcd8a340a5d912eb08506b6
+guid: 6e348c71396010f49ab03e123f9b71c0
 TextureImporter:
   fileIDToRecycleName:
-    21300000: idle_s_0
-    21300002: idle_s_1
-    21300004: idle_s_2
-    21300006: idle_s_3
-    21300008: idle_s_4
-    21300010: idle_s_5
-    21300012: idle_s_6
-    21300014: idle_s_7
+    21300000: run_s_0
+    21300002: run_s_1
+    21300004: run_s_2
+    21300006: run_s_3
+    21300008: run_s_4
+    21300010: run_s_5
+    21300012: run_s_6
+    21300014: run_s_7
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -68,7 +68,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -79,7 +79,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -92,7 +92,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_s_0
+      name: run_s_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,13 +106,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db2a762f698c614488f5320350746914
+      spriteID: fa8338840c412e54e822b370d51359c5
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_1
+      name: run_s_1
       rect:
         serializedVersion: 2
         x: 720
@@ -126,13 +126,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58bab9bbe3a0dd34e9b4bc03e16b240d
+      spriteID: fe1a2a65cd5f0a044a2f489ef69155b2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_2
+      name: run_s_2
       rect:
         serializedVersion: 2
         x: 1440
@@ -146,13 +146,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f4b3e1dffba5a479794c223b125008
+      spriteID: 2c0a6c0faeb15744384ebb38b91d49ef
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_3
+      name: run_s_3
       rect:
         serializedVersion: 2
         x: 2160
@@ -166,13 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 03c03c9506a774e4192928f56cf29d1a
+      spriteID: 3c54423a2090963429f7337e58146ef8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_4
+      name: run_s_4
       rect:
         serializedVersion: 2
         x: 0
@@ -186,13 +186,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6eff7d1c9e31e9444a0a9d93132014a4
+      spriteID: dae9146fb98e61844b6a972bcfd944c7
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_5
+      name: run_s_5
       rect:
         serializedVersion: 2
         x: 720
@@ -206,13 +206,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5da4843173ec7e3458e8196986c40a4b
+      spriteID: a8cefc6cf225beb4598aa23528f5b6c6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_6
+      name: run_s_6
       rect:
         serializedVersion: 2
         x: 1440
@@ -226,13 +226,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1e696adcd5e0604eb43d0b0303d4294
+      spriteID: f6a67f3a24d398a4e895b03bf89937d8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_s_7
+      name: run_s_7
       rect:
         serializedVersion: 2
         x: 2160
@@ -246,7 +246,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1f73ca85302d438439be48702e210897
+      spriteID: 87506bb6d9b79a84ca4c88665a5daf05
       vertices: []
       indices: 
       edges: []
@@ -254,7 +254,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0b274920c7cc47448bf60a6f8102a037
+    spriteID: c84996152231e794fb1a30fdd15389f8
     vertices: []
     indices: 
     edges: []

@@ -23,7 +23,6 @@ public class GrassControl : MonoBehaviour {
         this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, YShift);
 
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
-        //初始化UI
     }
 
     public void GrowGrass()
@@ -32,7 +31,7 @@ public class GrassControl : MonoBehaviour {
 
         nowGrassRange += thisGrassRange;
         float persentage = nowGrassRange / totalGrassRange;
-        //設定UI
+        UI_manager.SetBlossomUI(persentage);
 
         this.GetComponent<BoxCollider2D>().enabled = false;
 

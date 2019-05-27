@@ -5,13 +5,11 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour {
 
-    public PlayerEnergy playerEnergy;
-
     [Header("水量UI")]
     private int waterMax;
     public GameObject waterFill;
     private RectTransform waterFillRect;
-    public Vector2 waterFillOriRect2D;
+    private Vector2 waterFillOriRect2D;
     private Image waterFillImg;
     public float Yshift = 550f;
     public Text waterText;
@@ -21,7 +19,16 @@ public class UI_Manager : MonoBehaviour {
     public GameObject dirtyFill;
     private Image dirtyFillImg;
 
+    [Header("繁盛UI")]
+    public Slider blossomSlider;
+    private float elapsed = 0f;
+    private bool showingOn = true, isTurnedOn = true, isSwitching=false;
+    private float blossomUI_Alpha = 1f;
+    public float showoffTime = 6f;
+    public float switchSpeed = 0.1f;
+    public Image[] blossomUI_Img = { null, null, null };
 
+    public PlayerEnergy playerEnergy;
 
     void Start ()
     {
@@ -40,10 +47,43 @@ public class UI_Manager : MonoBehaviour {
         dirtyFillImg = dirtyFill.GetComponent<Image>();
         dirtyFillImg.color = new Color(1f, 1f, 1f, 0f);
 
+        //------
 
+        blossomSlider.value = 0f;
     }
-	
-	public void SetWaterUI(int waterEnergy)
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A)) { showingOn = true; isSwitching = true; elapsed = 0f; }
+   
+        if (isTurnedOn) elapsed += Time.deltaTime;
+        if (elapsed > showoffTime) { showingOn = false; isSwitching = true; elapsed = 0f; }
+
+        if (!isSwitching) return;
+        if (showingOn)
+        {
+            if (blossomUI_Alpha < 1f)
+            {
+                blossomUI_Alpha = Mathf.Lerp(blossomUI_Alpha, 1f, switchSpeed * 3f); 
+                if (blossomUI_Alpha > 0.95f) blossomUI_Alpha = 1f;
+                SetBlossomUI_Alpfa(blossomUI_Alpha);
+            }
+            else if (blossomUI_Alpha == 1f) isTurnedOn = true;
+        }
+        else
+        {
+            if (blossomUI_Alpha > 0f)
+            {
+                blossomUI_Alpha = Mathf.Lerp(blossomUI_Alpha, 0, switchSpeed); 
+                if (blossomUI_Alpha < 0.05f) blossomUI_Alpha = 0f;
+                SetBlossomUI_Alpfa(blossomUI_Alpha);
+            }
+            else if (blossomUI_Alpha == 0f) isTurnedOn = false;
+        }
+        
+    }
+
+    public void SetWaterUI(int waterEnergy)
     {
         waterText.text = "" + waterEnergy;
         waterFillRect.anchoredPosition = waterFillOriRect2D - new Vector2(0f, Yshift * (waterMax - waterEnergy) / waterMax);
@@ -57,5 +97,16 @@ public class UI_Manager : MonoBehaviour {
         dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
         if(dirtyDegree>0.6f) dirtyFillImg.color = new Color(1f, 0f, 0f, dirtyDegree);
         else dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
+    }
+
+    public void SetBlossomUI(float blossomPersentage)
+    {
+        blossomSlider.value = blossomPersentage;
+        showingOn = true; isSwitching = true;
+    }
+
+    void SetBlossomUI_Alpfa(float new_alpha)
+    {
+        for (int i = 0; i < blossomUI_Img.Length; i++) blossomUI_Img[i].color = new Color(1f, 1f, 1f, new_alpha);
     }
 }

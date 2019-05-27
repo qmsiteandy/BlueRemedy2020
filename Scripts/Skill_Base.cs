@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_water : MonoBehaviour {
+public class Skill_Base : MonoBehaviour {
 
 
     CircleCollider2D attackTrigger;
