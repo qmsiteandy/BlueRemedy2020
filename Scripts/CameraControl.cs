@@ -5,7 +5,8 @@ using UnityEngine;
 public class CameraControl : MonoBehaviour {
 
     public Transform target;            //camera追蹤目標
-    public float smoothSpeed = 0.04f;   //camera移動速度
+    public float Yoffset = 2.8f;
+    public float smoothSpeed = 0.25f;   //camera移動速度
     public float lookUpMove = 1.2f;     //向上看時camera垂直移動距離
     public float lookDownMove = 3f;     //向下看時camera垂直移動距離
 
@@ -16,14 +17,14 @@ public class CameraControl : MonoBehaviour {
 
     void Start()
     {
-        //設定offset為初始主角及初始相機位置之差距
-        offset = transform.position - target.position;
+        //設定相機初始位置
+        transform.position = target.position + new Vector3(0f, Yoffset, 0f);
     }
 
     void FixedUpdate()
     {
         //如果是followMode，設定camera目標前往位置
-        if (isFollowMode) { AimPos = target.position + offset; }
+        if (isFollowMode) { AimPos = target.position + new Vector3(0f, Yoffset, 0f); }
 
         //平滑移動camera
         Vector3 smoothPos = Vector3.Lerp(transform.position, AimPos, smoothSpeed);

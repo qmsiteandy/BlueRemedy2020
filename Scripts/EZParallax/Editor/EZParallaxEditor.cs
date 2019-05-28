@@ -73,7 +73,7 @@ public class EZParallaxEditor : Editor
 			int oldNumParallaxElements = (targetObject.m_parallaxElements == null) ? 0 : targetObject.m_parallaxElements.Length;
 			int numParallaxElements    = EditorGUILayout.IntField( "Size", oldNumParallaxElements );
 			EditorGUI.indentLevel ++;
-            if (GUILayout.Button("Add New Parallax Element"))
+			if(GUILayout.Button("Add New Parallax Element"))
 			{
 				numParallaxElements += 1;
 			}
@@ -81,7 +81,7 @@ public class EZParallaxEditor : Editor
 			{
 				numParallaxElements -= 1;
 			}
-            EditorGUI.indentLevel --;
+			EditorGUI.indentLevel --;
 			if ( numParallaxElements != oldNumParallaxElements )
 			{
 				EZParallaxObjectElement[] newEZPOElements = new EZParallaxObjectElement[ numParallaxElements ];

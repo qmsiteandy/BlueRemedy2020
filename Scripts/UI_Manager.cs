@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class UI_Manager : MonoBehaviour {
 
+    [Header("黑框邊界")]
+    public GameObject darkPanel;
+
     [Header("水量UI")]
-    private int waterMax;
     public GameObject waterFill;
+    private int waterMax;
     private RectTransform waterFillRect;
     private Vector2 waterFillOriRect2D;
     private Image waterFillImg;
@@ -15,8 +18,8 @@ public class UI_Manager : MonoBehaviour {
     public Text waterText;
 
     [Header("髒污UI")]
-    private int dirtyMax;
     public GameObject dirtyFill;
+    private int dirtyMax;
     private Image dirtyFillImg;
 
     [Header("繁盛UI")]
@@ -32,6 +35,10 @@ public class UI_Manager : MonoBehaviour {
 
     void Start ()
     {
+        darkPanel.SetActive(true);
+
+        //------
+
         waterMax = playerEnergy.waterEnergyMax;
         waterText.text = "" + waterMax;
 

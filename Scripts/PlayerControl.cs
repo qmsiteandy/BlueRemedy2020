@@ -38,13 +38,18 @@ public class PlayerControl : MonoBehaviour {
 
     [Header("長草設定")]
     public int grassLayerID = 15;
-
     private Transform parent_transform;
     private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     public float xSpeed = 0f;
     private PlayerEnergy playerEnergy;
+
+    [Header("機關設定")]
+    public float holePassingSped=0.07f;
+    private bool isPassing;
+    private GameObject noticeUI;
+
 
     void Start()
     {
@@ -58,6 +63,11 @@ public class PlayerControl : MonoBehaviour {
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsPlatform = LayerMask.GetMask("Platform");
         whatIsWall = LayerMask.GetMask("Wall");
+
+        //-----
+
+        noticeUI = this.transform.GetChild(3).gameObject;
+        noticeUI.SetActive(false);
     }
 
     void FixedUpdate()
@@ -84,7 +94,7 @@ public class PlayerControl : MonoBehaviour {
     void Move()
     {
 
-        xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, accelTime);
+        xSpeed = Input.GetAxis("Horizontal") * speedLimit;
         if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
         rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
 
@@ -163,6 +173,8 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+    //---------------------------------------------
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.layer == grassLayerID) collider.gameObject.GetComponent<GrassControl>().GrowGrass();
@@ -182,6 +194,52 @@ public class PlayerControl : MonoBehaviour {
                 else { rb2d.velocity = Vector3.zero; rb2d.AddForce(new Vector2(jumpForce * 1.5f, jumpForce * 0.6f)); }
             }
         }
+        else if (collider.gameObject.tag == "Hole" && Oka_ID == 1)
+        {
+            if(!isPassing)noticeUI.SetActive(true);
+            if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Hole" && Oka_ID == 1) noticeUI.SetActive(false);
+    }
+
+    //---------------------------------------------
+
+    void PassHole(Collider2D holeCollider) 
+    {
+        noticeUI.SetActive(false);
+
+        BoxCollider2D holeCol = holeCollider.GetComponent<BoxCollider2D>();
+
+        bool isHorizontal = holeCol.size.y / holeCol.size.x < 1 ? true : false;
+
+        Vector3 start, end;
+        if (isHorizontal)
+        {
+            if(transform.position.x < holeCollider.transform.position.x)
+            {
+                start = new Vector3(this.transform.position.x, holeCollider.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position + new Vector3(holeCol.size.x / 2, 0f, 0f);
+            }
+            else
+            {
+                start = new Vector3(this.transform.position.x, holeCollider.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position - new Vector3(holeCol.size.x / 2, 0f, 0f);
+            }
+        }
+        else
+        {
+            if (transform.position.y < holeCollider.transform.position.y)
+            {
+                start = new Vector3(holeCollider.transform.position.x, this.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position + new Vector3(0f, holeCol.size.y / 2, 0f);
+            }
+            else
+            {
+                start = new Vector3(holeCollider.transform.position.x, this.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position - new Vector3(0f, holeCol.size.y / 2, 0f);
+            }
+        }
+        StartCoroutine(HolePassing(isHorizontal, start, end));
     }
 
     public void TakeDamage(int damage)
@@ -197,5 +255,38 @@ public class PlayerControl : MonoBehaviour {
         yield return new WaitForSeconds(0.08f);
 
         spriteRenderer.color = new Color(1f, 1f, 1f);
+    }
+
+    IEnumerator HolePassing(bool isHorizontal , Vector3 start , Vector3 end)
+    {
+        allCanDo = false; isPassing = true;
+        spriteRenderer.sortingLayerName = "Default";
+        this.GetComponent<CircleCollider2D>().enabled = false;
+
+        this.transform.position = start;
+
+        if(isHorizontal) while(this.transform.position != end)
+            {
+                Vector3 newPos = Vector3.Lerp(this.transform.position, end, holePassingSped);
+                newPos = new Vector3(newPos.x, end.y, newPos.z);
+                this.transform.position = newPos;
+                if (Mathf.Abs(this.transform.position.x - end.x) < 0.8f) this.transform.position = end;
+                Debug.Log("this " + this.transform.position.x + " end.x " + end.x);
+
+                yield return null;
+            }
+        else while (this.transform.position != end)
+            {
+                Vector3 newPos = Vector3.Lerp(this.transform.position, end, holePassingSped);
+                newPos = new Vector3(end.x, newPos.y, newPos.z);
+                this.transform.position = newPos;
+                if (Mathf.Abs(this.transform.position.y - end.y) < 0.8f) this.transform.position = end;
+
+                yield return null;
+            }
+
+        allCanDo = true; isPassing = false;
+        spriteRenderer.sortingLayerName = "Player";
+        this.GetComponent<CircleCollider2D>().enabled = true;
     }
 }
