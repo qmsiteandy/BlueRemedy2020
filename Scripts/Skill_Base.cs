@@ -16,13 +16,17 @@ public class Skill_Base : MonoBehaviour {
     private bool attacking = false;
     private bool duringSteps = false;
 
+    public int attackWaterCost = 3;
+
     private PlayerControl playerControl;
     private Animator animator;
+    private PlayerEnergy playerEnergy;
 
     void Start ()
     {
         playerControl = GetComponent<PlayerControl>();
         animator = GetComponent<Animator>();
+        playerEnergy = GetComponentInParent<PlayerEnergy>();
 
         attackTrigger = this.transform.GetChild(2).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
@@ -79,6 +83,8 @@ public class Skill_Base : MonoBehaviour {
             enemyColList[i].transform.parent.GetComponent<Enemy_base>().TakeDamage(1);
             //enemyColList[i].GetComponent<EnemyTrial>().TakeDamage(1);
         }
+
+        playerEnergy.ModifyWaterEnergy(-attackWaterCost);
     }
 
     void BackNormal()

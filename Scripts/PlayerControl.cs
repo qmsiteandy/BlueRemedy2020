@@ -196,7 +196,7 @@ public class PlayerControl : MonoBehaviour {
         }
         else if (collider.gameObject.tag == "Hole" && Oka_ID == 1)
         {
-            if(!isPassing)noticeUI.SetActive(true);
+            if (!isPassing) noticeUI.SetActive(true);
             if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
         }
     }
@@ -246,6 +246,8 @@ public class PlayerControl : MonoBehaviour {
     {
         playerEnergy.ModifyDirt(damage);
         playerEnergy.ModifyWaterEnergy(-damage);
+
+        StartCoroutine(DamagedColor());
     }
 
     IEnumerator DamagedColor()

@@ -9,36 +9,37 @@ public class Enemy_base : MonoBehaviour {
     SpriteRenderer spriteRenderer;  //怪物圖的render
     Vector2 centerPos;      //移動的區域中點
     public GameObject enemy;
+    Enemy_Attack enemy_attack;
+    public GameObject waterdrop;
 
     [Header("Move Settings")]
     public float moveRange = 3f;    //移動範圍半徑
-    public float moveSpeed = 1.5f;  //移動速度
     private float posNow = 0f;      //目前移動相對中點的位置
     private bool goRight = true;    //是否往右走
     public float trackSpeed = 1.5f;
     public float closeRange = 1.25f;
 
     [Header("Awake Settings")]
-    public float bornTime = 5f;
+    public float bornTime = 8f;
 
     [Header("Health Settings")]
     public int health;
-    public int healthMax = 10;
+    public int healthMax = 200;
 
     [Header("Action Settings")]
     public bool isTracking = false;
     public bool isAttacking;
-    public bool isAlert;
-    public bool isBeAttack;
-    public bool isDie;
+    public bool isInjury;
+    public bool isDead;
     public bool isBorn;
+    
 
 
     // Use this for initialization
     void Awake()
     {
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        //animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         centerPos = transform.position; //移動中點設為最初的位置
     }
 
@@ -46,7 +47,7 @@ public class Enemy_base : MonoBehaviour {
     {
         health = healthMax;
         enemy = transform.GetChild(0).gameObject;
-        //if (Input.GetKeyDown(KeyCode.Z)) animator.SetTrigger("daze");
+        enemy_attack = transform.GetComponentInChildren<Enemy_Attack>();
     }
 
     void Update()
@@ -55,49 +56,31 @@ public class Enemy_base : MonoBehaviour {
         {
             Tracking();
         }
-        else
-        {
-            MoveAround();
-        }
 
-        //if (isBorn)
-        //{
-        //    bornTime -= Time.deltaTime; //重生倒數
-        //    if (bornTime <= 0)
-        //    {
-        //        isDie = false;
-        //        animator.SetTrigger("rebirth");
-        //        enemy.SetActive(true);
-        //        isBorn = false;
-        //    }
-        //}
+        if (isBorn)
+        {
+            bornTime -= Time.deltaTime; //重生倒數
+            if (bornTime <= 0)
+            {
+                isDead = false;
+                enemy.SetActive(true);
+                animator.SetTrigger("Born");
+                gameObject.GetComponent<CircleCollider2D>().enabled = true;
+                health = healthMax;
+                isBorn = false;
+                bornTime = 8f;
+            }
+        }
     }
 
-    //來回移動
-    void MoveAround()
+
+    IEnumerator ChangeColor(Color color, float colorChangeTime)
     {
-        if (target == null && !isAttacking)
-        {
-            //如果posNow超出範圍
-            if (posNow >= moveRange || posNow <= -moveRange)
-            {
-                posNow = Mathf.Clamp(posNow, -moveRange, moveRange); //設定posNow到範圍邊界
-                goRight = !goRight; //往回走
-                if (goRight)
-                {
-                    transform.localScale = new Vector3(1, 1, 1);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-1, 1, 1);
-                }
-            }
+        spriteRenderer.color = color;
 
-            if (goRight) posNow += moveSpeed * Time.deltaTime;
-            else if (!goRight) posNow -= moveSpeed * Time.deltaTime;
+        yield return new WaitForSeconds(colorChangeTime);
 
-            transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f); //設定腳色的位置
-        }
+        spriteRenderer.color = new Color(1, 1, 1);
     }
 
 
@@ -106,6 +89,7 @@ public class Enemy_base : MonoBehaviour {
         if (collision.tag == "Player")
         {
             target = collision.gameObject;
+
             isTracking = true;
         }
     }
@@ -114,16 +98,9 @@ public class Enemy_base : MonoBehaviour {
     {
         if (target != null && !isAttacking)
         {
-
+            animator.SetBool("Walk", true);
             Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
             if (Mathf.Abs(diff.x) <= closeRange) return;
-            /*if (Vector2.SqrMagnitude(new Vector2(diff.x, 0)) <=0.25)
-            {
-                animator.SetTrigger("alert");
-                isAlert = true;
-                
-            }*/
-            //else{
             posNow = Mathf.Lerp(posNow, target.transform.position.x - centerPos.x, trackSpeed * Time.deltaTime);
             posNow = Mathf.Clamp(posNow, -moveRange, moveRange);
             transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f);
@@ -132,8 +109,6 @@ public class Enemy_base : MonoBehaviour {
             goRight = (face >= 0) ? true : false;
             Vector3 faceVec = new Vector3(face, 1, 1);
             transform.localScale = faceVec;
-            // }
-
         }
 
     }
@@ -144,33 +119,58 @@ public class Enemy_base : MonoBehaviour {
         if (collision.tag == "Player")
         {
             target = null;
+
             isTracking = false;
+
+            animator.SetBool("Walk", false);
         }
 
     }
     public void TakeDamage(int damage)
     {
-        if (!isDie)
+        if (!isDead)
         {
             health -= damage;
             if (health <= 0)
             {
                 health = 0;
-                //animator.SetTrigger("die");
+                animator.SetTrigger("Dead");
             }
-            //animator.SetTrigger("beattack");
-            isBeAttack = true;
-
-            StartCoroutine(RedFlash());
+            isInjury = true;
+            animator.SetTrigger("Injury");
+            StartCoroutine(ChangeColor(new Color(1, 0, 0), 0.1f));
+            Debug.Log("Takedamage:" + health);
         }
     }
 
-    IEnumerator RedFlash()
+    public void InjuryOver()
     {
-        spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = Color.white;
+        isInjury = false;
     }
+    public void AttackOver()
+    {
+        isAttacking = false;
+    }
+
+    public void Dead()
+    {
+        isDead = true;
+        Debug.Log(enemy.name + "die");
+        GameObject water = Instantiate(waterdrop, enemy.transform.position, Quaternion.identity);
+        water.GetComponent<WaterDrop>().enemy_base= this;
+        enemy.SetActive(false);
+    }
+    public void FollowClose()
+    {
+        gameObject.GetComponent<CircleCollider2D>().enabled = false;
+    }
+
+
+    public void Attack()
+    {
+        enemy_attack.Damage();
+    }
+
 }
 
 

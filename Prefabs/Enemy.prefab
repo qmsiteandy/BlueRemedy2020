@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4030452619630080}
   - component: {fileID: 58419372816595726}
+  - component: {fileID: 114606980858866196}
   m_Layer: 10
   m_Name: Enemy_body
   m_TagString: Enemy
@@ -94,7 +95,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609214305337840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.11, y: 1.79, z: 0}
+  m_LocalPosition: {x: 67.86, y: -9.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4214793786739832}
@@ -150,6 +151,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114606980858866196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571210171978704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6f1ebe6941ae64aa8537d3470861d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamage: 10
+  attackDelay: 2
+  elapsed: 0
+  canAttack: 0
+  attackTarget: {fileID: 0}
 --- !u!114 &114677235447729810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,18 +179,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
+  waterdrop: {fileID: 1720233888591942, guid: aebb436ef9b5ce146be968a698cf1775, type: 2}
   moveRange: 4
-  moveSpeed: 5
   trackSpeed: 1.5
   closeRange: 1.25
   bornTime: 5
   health: 0
-  healthMax: 1000
+  healthMax: 10
   isTracking: 0
   isAttacking: 0
-  isAlert: 0
-  isBeAttack: 0
-  isDie: 0
+  isInjury: 0
+  isDead: 0
   isBorn: 0
 --- !u!212 &212646421460461414
 SpriteRenderer:
