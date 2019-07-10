@@ -20,7 +20,7 @@ public class Enemy_base : MonoBehaviour {
     public float closeRange = 1.25f;
 
     [Header("Awake Settings")]
-    public float bornTime = 8f;
+    public float bornTime = 20f;
 
     [Header("Health Settings")]
     public int health;
@@ -68,7 +68,7 @@ public class Enemy_base : MonoBehaviour {
                 gameObject.GetComponent<CircleCollider2D>().enabled = true;
                 health = healthMax;
                 isBorn = false;
-                bornTime = 8f;
+                bornTime = 20f;
             }
         }
     }

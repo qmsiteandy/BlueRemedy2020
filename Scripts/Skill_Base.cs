@@ -16,7 +16,7 @@ public class Skill_Base : MonoBehaviour {
     private bool attacking = false;
     private bool duringSteps = false;
 
-    public int attackWaterCost = 3;
+    public int attackWaterCost = 1;
 
     private PlayerControl playerControl;
     private Animator animator;
@@ -73,6 +73,8 @@ public class Skill_Base : MonoBehaviour {
     //從animation event呼叫攻擊扣血
     void NormalAttack()
     {
+        playerEnergy.ModifyWaterEnergy(-attackWaterCost);
+
         Collider2D[] enemyColList = new Collider2D[5];
         int enemyNum = attackTrigger.OverlapCollider(enemyFilter, enemyColList);
 
@@ -84,7 +86,7 @@ public class Skill_Base : MonoBehaviour {
             //enemyColList[i].GetComponent<EnemyTrial>().TakeDamage(1);
         }
 
-        playerEnergy.ModifyWaterEnergy(-attackWaterCost);
+        
     }
 
     void BackNormal()

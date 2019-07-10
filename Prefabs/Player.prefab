@@ -205,8 +205,8 @@ GameObject:
   - component: {fileID: 212162773990784790}
   - component: {fileID: 50658527419419964}
   - component: {fileID: 58749176307006176}
-  - component: {fileID: 114296261108410750}
   - component: {fileID: 95334850932207354}
+  - component: {fileID: 114296261108410750}
   - component: {fileID: 114920134093878624}
   m_Layer: 8
   m_Name: Oka_ice
@@ -559,7 +559,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 71.8, y: -10.4, z: 0}
+  m_LocalPosition: {x: 49.9, y: -0.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4892560925942818}
@@ -892,9 +892,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06, y: -0.06}
   serializedVersion: 2
-  m_Radius: 0.4950719
+  m_Radius: 0.475371
 --- !u!58 &58616354615644192
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -907,9 +907,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06, y: -0.06}
   serializedVersion: 2
-  m_Radius: 0.4950719
+  m_Radius: 0.475371
 --- !u!58 &58632684057687974
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -937,9 +937,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.06, y: -0.06}
   serializedVersion: 2
-  m_Radius: 0.4950719
+  m_Radius: 0.475371
 --- !u!58 &58798677719686102
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -1139,10 +1139,12 @@ MonoBehaviour:
   frontCheck: {fileID: 4651286005379242}
   checkRadius: 0.4
   grounded: 1
-  thronLayerID: 14
   grassLayerID: 15
+  rb2d: {fileID: 0}
   xSpeed: 0
   holePassingSped: 0.07
+  waterDrag: 2.5
+  iceFloatForce: 0
 --- !u!114 &114276412568524080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1169,7 +1171,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   skillInputDelay: 0.35
-  attackWaterCost: 5
+  attackWaterCost: 1
 --- !u!114 &114296261108410750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1192,10 +1194,12 @@ MonoBehaviour:
   frontCheck: {fileID: 4787054163495660}
   checkRadius: 0.4
   grounded: 1
-  thronLayerID: 14
   grassLayerID: 15
+  rb2d: {fileID: 0}
   xSpeed: 0
   holePassingSped: 0.07
+  waterDrag: 2
+  iceFloatForce: 35
 --- !u!114 &114381480185770888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1222,7 +1226,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   skillInputDelay: 0.35
-  attackWaterCost: 3
+  attackWaterCost: 1
 --- !u!114 &114400343338324764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1279,10 +1283,12 @@ MonoBehaviour:
   frontCheck: {fileID: 4106914748557828}
   checkRadius: 0.4
   grounded: 1
-  thronLayerID: 14
   grassLayerID: 15
+  rb2d: {fileID: 0}
   xSpeed: 0
   holePassingSped: 0.07
+  waterDrag: 2.5
+  iceFloatForce: 0
 --- !u!114 &114912954048196444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1321,7 +1327,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   skillInputDelay: 0.35
-  attackWaterCost: 5
+  attackWaterCost: 1
 --- !u!212 &212063695557469480
 SpriteRenderer:
   m_ObjectHideFlags: 1
