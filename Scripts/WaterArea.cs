@@ -12,18 +12,19 @@ public class WaterArea : MonoBehaviour {
     [Header("波浪")] 
     public bool makeWave = false;
     public float waveCrest;//波浪最高點;
-    public float waveFreq = 1f; //波浪頻率
-    public float waveHeight = 0.3f; //波浪高度;
+    public float waveFreq = 1.6f; //波浪頻率
+    public float waveHeight = 0.1f; //波浪高度;
     private float waveMid;
-    public float waveUpdateCycle = 0.5f; //波峰高度更新週期
+    public float waveUpdateFreq = 8f; //波峰高度更新頻率
+    [Space(10)]
     public bool waveCrestDebugOpen = false;
 
 
     void Start()
     {
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        if (!makeWave) waveCrest = collider.transform.position.y + collider.offset.y + collider.size.y / 2;
-        else waveMid = collider.transform.position.y + collider.offset.y + collider.size.y / 2;
+        if (!makeWave) waveCrest = collider.transform.position.y + collider.offset.y + collider.size.y / 2 + 0.2f;
+        else waveMid = collider.transform.position.y + collider.offset.y + collider.size.y / 2 + 0.2f;
 
         if (makeWave) StartCoroutine(MakeWave());
 
@@ -32,6 +33,7 @@ public class WaterArea : MonoBehaviour {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.GetComponent<Transform>().position = new Vector3(transform.position.x, waveCrest, transform.position.z);
         }
+        else transform.GetChild(0).gameObject.SetActive(false);
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -62,27 +64,25 @@ public class WaterArea : MonoBehaviour {
     {
         //運用sin函式搭配設定的頻率、波高來製造波浪高度
         float timer = 0f;
-        float anglePerUpdate, angleNow = 0f;
-        float oneRoundAngle = Mathf.PI * 2;
-
-        anglePerUpdate = waveFreq * 360 * waveUpdateCycle;
-        anglePerUpdate = anglePerUpdate * Mathf.PI / 180;
-
-        while(true)
+        float anglePerUpdate;
+        float angleNow = 0f, angleConvert;
+      
+        while (true)
         {
             timer += Time.deltaTime;
-            if (timer>= waveUpdateCycle)
+            if (timer >= 1/waveUpdateFreq)
             {
+                anglePerUpdate = waveFreq * 360 / waveUpdateFreq;
                 angleNow += anglePerUpdate;
-                if (angleNow >= oneRoundAngle) angleNow -= oneRoundAngle;
-                Debug.Log("angleNow" + angleNow+ " oneRoundAngle "+ oneRoundAngle);
+                if (angleNow >= 360f) angleNow -= 360f;
 
-                waveCrest = waveMid + waveHeight * Mathf.Sin(angleNow);
+                angleConvert = angleNow * Mathf.PI / 180;
+                waveCrest = waveMid + waveHeight * Mathf.Sin(angleConvert);
                 if (waveCrestDebugOpen) transform.GetChild(0).GetComponent<Transform>().position = new Vector3(transform.position.x, waveCrest, transform.position.z);
 
                 timer = 0f;
             }
             yield return 0;
-        } 
+        }
     }
 }

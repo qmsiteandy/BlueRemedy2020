@@ -214,7 +214,8 @@ public class PlayerControl : MonoBehaviour {
 
             if (Oka_ID == 0)
             {
-                if (waterArea.waveCrest - transform.position.y > 0.5f) rb2d.AddForce(Vector2.up * iceFloatForce);
+                Debug.Log(waterArea.waveCrest - transform.position.y);
+                if (waterArea.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
                 else if (waterArea.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (waterArea.waveCrest - transform.position.y / 1f));
             } 
         }
