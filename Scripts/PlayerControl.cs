@@ -46,10 +46,15 @@ public class PlayerControl : MonoBehaviour {
     private GameObject noticeUI;
 
     [Header("水中")]
+    public Transform bubbleMakerTran;
+    private ParticleSystem bubbleMaker;
+    private bool isBubbling = false;
     private int WaterAreaLayerID = 14;
     private float iceFloatForce = 50f;
     private bool isInWater = false;
     private WaterArea waterArea;
+    
+
 
     void Start()
     {
@@ -60,6 +65,8 @@ public class PlayerControl : MonoBehaviour {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         playerEnergy = transform.parent.GetComponent<PlayerEnergy>();
+
+        bubbleMaker = bubbleMakerTran.GetComponentInParent<ParticleSystem>();
 
 
         //---各種圖層MASK設定---
@@ -214,10 +221,19 @@ public class PlayerControl : MonoBehaviour {
 
             if (Oka_ID == 0)
             {
-                Debug.Log(waterArea.waveCrest - transform.position.y);
                 if (waterArea.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
                 else if (waterArea.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (waterArea.waveCrest - transform.position.y / 1f));
-            } 
+            }
+            else
+            {
+                bubbleMakerTran.position = this.transform.position;
+                
+                float depth = waterArea.waveCrest - transform.position.y;
+                if (depth > 0.5f) bubbleMaker.startLifetime = depth - 0.4f;
+
+                if (depth > 0.5f && !isBubbling) { bubbleMaker.Play(); isBubbling = true; }
+                else if(depth < 0.5f && isBubbling){ bubbleMaker.Stop(); isBubbling = false; }
+            }
         }
     }
 
