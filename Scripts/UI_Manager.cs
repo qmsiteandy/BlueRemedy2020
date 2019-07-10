@@ -31,14 +31,15 @@ public class UI_Manager : MonoBehaviour {
     public float switchSpeed = 0.1f;
     public Image[] blossomUI_Img = { null, null, null };
 
+
+    [Header("能量設定")]
     public PlayerEnergy playerEnergy;
 
     void Start ()
     {
         darkPanel.SetActive(true);
 
-        //------
-
+        //---水量---
         waterMax = playerEnergy.waterEnergyMax;
         waterText.text = "" + waterMax;
 
@@ -47,22 +48,21 @@ public class UI_Manager : MonoBehaviour {
 
         waterFillOriRect2D = waterFillRect.anchoredPosition;
 
-        //------
+        //---髒污---
 
         dirtyMax = playerEnergy.dirtMax;
 
         dirtyFillImg = dirtyFill.GetComponent<Image>();
         dirtyFillImg.color = new Color(1f, 1f, 1f, 0f);
 
-        //------
+        //---繁盛---
 
         blossomSlider.value = 0f;
     }
 
     void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A)) { showingOn = true; isSwitching = true; elapsed = 0f; }
-   
+    {   
+        //---繁盛---
         if (isTurnedOn) elapsed += Time.deltaTime;
         if (elapsed > showoffTime) { showingOn = false; isSwitching = true; elapsed = 0f; }
 
@@ -87,9 +87,11 @@ public class UI_Manager : MonoBehaviour {
             }
             else if (blossomUI_Alpha == 0f) isTurnedOn = false;
         }
-        
+
+        //------
     }
 
+    //---水量---
     public void SetWaterUI(int waterEnergy)
     {
         waterText.text = "" + waterEnergy;
@@ -98,6 +100,7 @@ public class UI_Manager : MonoBehaviour {
         else waterFillImg.color = new Color(1f, 1f, 1f);
     }
 
+    //---髒污---
     public void SetDirtyUI(float dirtyDegree)
     {
         //Debug.Log("dirtyDegree " + dirtyDegree);
@@ -106,6 +109,7 @@ public class UI_Manager : MonoBehaviour {
         else dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
     }
 
+    //---繁盛---
     public void SetBlossomUI(float blossomPersentage)
     {
         blossomSlider.value = blossomPersentage;
