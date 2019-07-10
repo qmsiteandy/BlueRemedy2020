@@ -8,7 +8,6 @@ public class PlayerEnergy : MonoBehaviour {
     private int waterEnergy;
     public int dirtMax;
     private int dirt = 0;
-    private float dirtyDegree;
 
     public float chargeDelay = 1f;
     public int waterPerCharge = 3;
@@ -23,7 +22,6 @@ public class PlayerEnergy : MonoBehaviour {
     {
         waterEnergy = waterEnergyMax;
         dirtMax = waterEnergyMax;
-        dirtyDegree = (float)dirt / (dirt + waterEnergy);
 
         for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
@@ -61,6 +59,7 @@ public class PlayerEnergy : MonoBehaviour {
 
     void SetDirtyDegree()
     {
+        float dirtyDegree;
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
         UI_manager.SetDirtyUI(dirtyDegree);
     }

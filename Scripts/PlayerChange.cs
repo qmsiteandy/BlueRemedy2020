@@ -39,11 +39,11 @@ public class PlayerChange : MonoBehaviour {
         {
             if (!playerWheel.isSpinFinish) return
                     ;
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 form_index += 1; if (form_index > 2) form_index = 0; playerWheel.WheelSpinRight(false);
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 form_index -= 1; if (form_index < 0) form_index = 2; playerWheel.WheelSpinRight(true);
             }
@@ -64,18 +64,23 @@ public class PlayerChange : MonoBehaviour {
         }
     }
 
-    void ChangeForm(int form_index)
+    void ChangeForm(int new_index)
     {
         Oka_form[form_now].SetActive(false);
 
         Transform newForm_trans = Oka_form[form_index].GetComponent<Transform>();
         newForm_trans.position = Oka_form[form_now].transform.position;
         newForm_trans.localScale = Oka_form[form_now].transform.localScale;
-        Oka_form[form_index].GetComponent<PlayerControl>().facingRight = Oka_form[form_now].GetComponent<PlayerControl>().facingRight;
-        playerControl = Oka_form[form_index].GetComponent<PlayerControl>();
 
-        Oka_form[form_index].SetActive(true);
-        form_now = form_index;
+        
+        PlayerControl newPlayerControl = Oka_form[new_index].GetComponent<PlayerControl>();
+
+        newPlayerControl.facingRight = playerControl.facingRight;
+
+        Oka_form[new_index].SetActive(true);
+
+        form_now = new_index;
+        playerControl = newPlayerControl;
 
         cameraControl.target = Oka_form[form_now].transform;
     }

@@ -7,15 +7,18 @@ public class PlayerControl : MonoBehaviour {
     [Header("基本參數")]
     [Range(0, 2)]
     public int Oka_ID;
-    public float speedLimit = 8.0f;     //移動速度上限
+    public float initSpeedLimit = 8.0f;
+    private float speedLimit;           //移動速度上限
     public float accelTime = 0.5f;       //加速時間
     public float jumpForce = 650.0f;    //跳躍力道
+    public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     [HideInInspector]
     public bool allCanDo = true;
     [HideInInspector]
     public bool canMove = true;
     [HideInInspector]
     public bool facingRight = true;    //是否面向右
+
 
     [Header("跳躍判斷")]
     public Transform footCheck;         //檢查踩踏地板的點
@@ -24,22 +27,14 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     private LayerMask whatIsWall;
-    [HideInInspector]
     public bool grounded = true;        //是否在地上
     private bool walled = false;
     private bool secondJumping = false;
     private bool pressingJump = false;
 
-    [Header("被刺攻擊")]
-    public int thronLayerID = 14;
-    private float thronAttackTimer = 0f;
-    private float thronAttackDelay = 1f;
-    private int thronAttack = 2;
-
     [Header("長草設定")]
     public int grassLayerID = 15;
     private Transform parent_transform;
-    private Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     private SpriteRenderer spriteRenderer;
     private Animator animator;
     public float xSpeed = 0f;
@@ -50,22 +45,29 @@ public class PlayerControl : MonoBehaviour {
     private bool isPassing;
     private GameObject noticeUI;
 
+    [Header("水中")]
+    private int WaterAreaLayerID = 14;
+    private float iceFloatForce = 50f;
+    private bool isInWater = false;
+    private WaterArea waterArea;
 
     void Start()
     {
+        speedLimit = initSpeedLimit;
+
         parent_transform = GetComponentInParent<Transform>();
-        //取得主角的Rigidbody2D原件
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         playerEnergy = transform.parent.GetComponent<PlayerEnergy>();
 
+
+        //---各種圖層MASK設定---
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsPlatform = LayerMask.GetMask("Platform");
         whatIsWall = LayerMask.GetMask("Wall");
 
-        //-----
-
+        //---NoticeMark--
         noticeUI = this.transform.GetChild(3).gameObject;
         noticeUI.SetActive(false);
     }
@@ -74,7 +76,8 @@ public class PlayerControl : MonoBehaviour {
     {
         if (allCanDo)
         {
-            OnGround();
+            if(!isInWater) OnGround();
+
             if (canMove)
             {
                 Move();
@@ -93,7 +96,6 @@ public class PlayerControl : MonoBehaviour {
 
     void Move()
     {
-
         xSpeed = Input.GetAxis("Horizontal") * speedLimit;
         if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
         rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
@@ -131,7 +133,10 @@ public class PlayerControl : MonoBehaviour {
             if (grounded)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
-                rb2d.AddForce(Vector2.up * jumpForce);
+
+                if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
+                else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
+
                 //設定為不在地上
                 grounded = false;
                 pressingJump = true;
@@ -146,7 +151,9 @@ public class PlayerControl : MonoBehaviour {
             else if (!secondJumping && Oka_ID==2)
             {
                 if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
-                rb2d.AddForce(Vector2.up * jumpForce);
+
+                if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
+                else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
 
                 secondJumping = true;
                 pressingJump = true;
@@ -173,37 +180,58 @@ public class PlayerControl : MonoBehaviour {
         }
     }
 
+
     //---------------------------------------------
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        //---長草---
         if (collider.gameObject.layer == grassLayerID) collider.gameObject.GetComponent<GrassControl>().GrowGrass();
-        else if (collider.gameObject.layer == thronLayerID) thronAttackTimer = 0f;
+
+        //---水中---
+        if (collider.gameObject.layer == WaterAreaLayerID)
+        {
+            waterArea = collider.GetComponent<WaterArea>();
+            GetComponent<Rigidbody2D>().drag = waterArea.waterDrag;
+            speedLimit *= waterArea.speedDownRate;
+            isInWater = true;
+        }
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
-        if (collider.gameObject.layer == thronLayerID)
-        {
-            thronAttackTimer -= Time.deltaTime;
-            if (thronAttackTimer < 0f)
-            {
-                TakeDamage(thronAttack); thronAttackTimer = thronAttackDelay; StartCoroutine(DamagedColor());
-
-                if (facingRight) { rb2d.velocity = Vector3.zero; rb2d.AddForce(new Vector2(-jumpForce * 1.5f, jumpForce * 0.6f)); }
-                else { rb2d.velocity = Vector3.zero; rb2d.AddForce(new Vector2(jumpForce * 1.5f, jumpForce * 0.6f)); }
-            }
-        }
-        else if (collider.gameObject.tag == "Hole" && Oka_ID == 1)
+        //---穿洞---
+        if (collider.gameObject.tag == "Hole" && Oka_ID == 1)
         {
             if (!isPassing) noticeUI.SetActive(true);
             if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
+        }
+
+        //---水中---
+        if (collider.gameObject.layer == WaterAreaLayerID)
+        {
+            grounded = true;
+
+            if (Oka_ID == 0)
+            {
+                if (waterArea.waveCrest - transform.position.y > 0.5f) rb2d.AddForce(Vector2.up * iceFloatForce);
+                else if (waterArea.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (waterArea.waveCrest - transform.position.y / 1f));
+            } 
         }
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
+        //---穿洞---
         if (collider.gameObject.tag == "Hole" && Oka_ID == 1) noticeUI.SetActive(false);
+
+        //---水中---
+        if (collider.gameObject.layer == WaterAreaLayerID)
+        {
+            GetComponent<Rigidbody2D>().drag = 0f;
+            speedLimit = initSpeedLimit;
+            isInWater = false;
+        }
     }
 
     //---------------------------------------------
@@ -242,24 +270,7 @@ public class PlayerControl : MonoBehaviour {
         StartCoroutine(HolePassing(isHorizontal, start, end));
     }
 
-    public void TakeDamage(int damage)
-    {
-        playerEnergy.ModifyDirt(damage);
-        playerEnergy.ModifyWaterEnergy(-damage);
-
-        StartCoroutine(DamagedColor());
-    }
-
-    IEnumerator DamagedColor()
-    {
-        spriteRenderer.color = new Color(0.7f, 0f, 0f);
-
-        yield return new WaitForSeconds(0.08f);
-
-        spriteRenderer.color = new Color(1f, 1f, 1f);
-    }
-
-    IEnumerator HolePassing(bool isHorizontal , Vector3 start , Vector3 end)
+    IEnumerator HolePassing(bool isHorizontal, Vector3 start, Vector3 end)
     {
         allCanDo = false; isPassing = true;
         spriteRenderer.sortingLayerName = "Default";
@@ -267,13 +278,12 @@ public class PlayerControl : MonoBehaviour {
 
         this.transform.position = start;
 
-        if(isHorizontal) while(this.transform.position != end)
+        if (isHorizontal) while (this.transform.position != end)
             {
                 Vector3 newPos = Vector3.Lerp(this.transform.position, end, holePassingSped);
                 newPos = new Vector3(newPos.x, end.y, newPos.z);
                 this.transform.position = newPos;
                 if (Mathf.Abs(this.transform.position.x - end.x) < 0.8f) this.transform.position = end;
-                Debug.Log("this " + this.transform.position.x + " end.x " + end.x);
 
                 yield return null;
             }
@@ -291,4 +301,35 @@ public class PlayerControl : MonoBehaviour {
         spriteRenderer.sortingLayerName = "Player";
         this.GetComponent<CircleCollider2D>().enabled = true;
     }
+
+    public void TakeDamage(int damage)
+    {
+        playerEnergy.ModifyDirt(damage);
+        playerEnergy.ModifyWaterEnergy(-damage);
+
+        StartCoroutine(DamagedColor());
+    }
+    public void TakeDamage(int waterCost,int addDirt)
+    {
+        playerEnergy.ModifyDirt(addDirt);
+        playerEnergy.ModifyWaterEnergy(- waterCost);
+
+        StartCoroutine(DamagedColor());
+    }
+
+    IEnumerator DamagedColor()
+    {
+        spriteRenderer.color = new Color(0.7f, 0f, 0f);
+
+        yield return new WaitForSeconds(0.08f);
+
+        spriteRenderer.color = new Color(1f, 1f, 1f);
+    }
+
+    public void TakeHeal(int waterHeal, int dirtHeal)
+    {
+
+    }
+
+
 }
