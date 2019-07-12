@@ -17,7 +17,7 @@ public class WaterArea : MonoBehaviour {
     private float waveMid;
     public float waveUpdateFreq = 8f; //波峰高度更新頻率
     [Space(10)]
-    public bool waveCrestDebugOpen = false;
+    public bool waveCrestDebugLine = false;
 
 
     void Start()
@@ -28,7 +28,7 @@ public class WaterArea : MonoBehaviour {
 
         if (makeWave) StartCoroutine(MakeWave());
 
-        if (waveCrestDebugOpen)
+        if (waveCrestDebugLine)
         {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetChild(0).gameObject.GetComponent<Transform>().position = new Vector3(transform.position.x, waveCrest, transform.position.z);
@@ -78,7 +78,7 @@ public class WaterArea : MonoBehaviour {
 
                 angleConvert = angleNow * Mathf.PI / 180;
                 waveCrest = waveMid + waveHeight * Mathf.Sin(angleConvert);
-                if (waveCrestDebugOpen) transform.GetChild(0).GetComponent<Transform>().position = new Vector3(transform.position.x, waveCrest, transform.position.z);
+                if (waveCrestDebugLine) transform.GetChild(0).GetComponent<Transform>().position = new Vector3(transform.position.x, waveCrest, transform.position.z);
 
                 timer = 0f;
             }

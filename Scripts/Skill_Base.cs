@@ -38,7 +38,7 @@ public class Skill_Base : MonoBehaviour {
 
         if (Input.GetButtonDown("Attack") && !duringSteps)
         {
-            if (playerControl.grounded == true) NormalAttackInput();
+            if (playerControl.jumpable) NormalAttackInput();
         }
 
         elapsed += Time.deltaTime;
@@ -83,7 +83,6 @@ public class Skill_Base : MonoBehaviour {
         for(int i = 0; i < enemyNum; i++)
         {
             enemyColList[i].transform.parent.GetComponent<Enemy_base>().TakeDamage(1);
-            //enemyColList[i].GetComponent<EnemyTrial>().TakeDamage(1);
         }
 
         

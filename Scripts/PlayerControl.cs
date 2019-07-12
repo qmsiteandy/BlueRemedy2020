@@ -27,7 +27,8 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     private LayerMask whatIsWall;
-    public bool grounded = true;        //是否在地上
+    public bool jumpable = false;
+    private bool onGround, onPlatform;
     private bool walled = false;
     private bool secondJumping = false;
     private bool pressingJump = false;
@@ -77,6 +78,9 @@ public class PlayerControl : MonoBehaviour {
         //---NoticeMark--
         noticeUI = this.transform.GetChild(3).gameObject;
         noticeUI.SetActive(false);
+
+        //---bubble maker init---
+        bubbleMaker.Stop();
     }
 
     void FixedUpdate()
@@ -96,9 +100,11 @@ public class PlayerControl : MonoBehaviour {
     void OnGround()
     {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
-        grounded = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround) || Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+        onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
+        onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+        jumpable = onGround || onPlatform;
         walled = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsWall);
-        if (grounded || walled) secondJumping = false;
+        if (jumpable || walled) secondJumping = false;
     }
 
     void Move()
@@ -134,20 +140,25 @@ public class PlayerControl : MonoBehaviour {
 
     void Jump()
     {
-        if (Input.GetButton("Jump") && !pressingJump)
+        if (Input.GetAxis("Jump") > 0.1f && !pressingJump) 
         {
+            //平台上往下跳
+            if (onPlatform && Input.GetAxis("Vertical") < -0.1f)
+            {
+                StartCoroutine(JumpDownFromPlat());
+                pressingJump = true;
+            } 
             //在地上
-            if (grounded)
+            else if (jumpable)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
                 if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
 
-                //設定為不在地上
-                grounded = false;
                 pressingJump = true;
             }
+            //蹬牆跳
             else if (walled)
             {
                 if (facingRight) { xSpeed = 0f; rb2d.AddForce(new Vector2(-jumpForce *2, jumpForce *1.2f)); }
@@ -155,6 +166,7 @@ public class PlayerControl : MonoBehaviour {
                
                 pressingJump = true;
             }
+            //二段跳
             else if (!secondJumping && Oka_ID==2)
             {
                 if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
@@ -167,7 +179,7 @@ public class PlayerControl : MonoBehaviour {
             }
         }
         //當跳躍鍵放開且此時未著地
-        else if (Input.GetButtonUp("Jump") && !grounded)
+        else if (Input.GetButtonUp("Jump") && !jumpable)
         {
             //呼叫JumpRelease函示
             JumpRelease();
@@ -186,7 +198,6 @@ public class PlayerControl : MonoBehaviour {
             rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * 0.5f);
         }
     }
-
 
     //---------------------------------------------
 
@@ -217,7 +228,7 @@ public class PlayerControl : MonoBehaviour {
         //---水中---
         if (collider.gameObject.layer == WaterAreaLayerID)
         {
-            grounded = true;
+            jumpable = true;
 
             if (Oka_ID == 0)
             {
@@ -229,7 +240,7 @@ public class PlayerControl : MonoBehaviour {
                 bubbleMakerTran.position = this.transform.position;
                 
                 float depth = waterArea.waveCrest - transform.position.y;
-                if (depth > 0.5f) bubbleMaker.startLifetime = depth - 0.4f;
+                if (depth > 0.5f) bubbleMaker.startLifetime = depth * 0.8f;
 
                 if (depth > 0.5f && !isBubbling) { bubbleMaker.Play(); isBubbling = true; }
                 else if(depth < 0.5f && isBubbling){ bubbleMaker.Stop(); isBubbling = false; }
@@ -348,5 +359,17 @@ public class PlayerControl : MonoBehaviour {
 
     }
 
+    IEnumerator JumpDownFromPlat()
+    {
+        float timer = 0f;
+        float colDisTime = 0.2f;
 
+        this.GetComponent<CircleCollider2D>().enabled = false;
+        while (timer < colDisTime)
+        {
+            timer += Time.deltaTime;
+            yield return 0;
+        }
+        this.GetComponent<CircleCollider2D>().enabled = true;
+    }
 }

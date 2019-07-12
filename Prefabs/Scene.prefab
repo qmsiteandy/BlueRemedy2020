@@ -160,6 +160,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1074028358929886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4550735676954546}
+  m_Layer: 0
+  m_Name: background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1140872318105114
 GameObject:
   m_ObjectHideFlags: 1
@@ -1359,7 +1374,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1710921203954752
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -1731,7 +1746,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1906127242511034
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
@@ -1739,7 +1754,7 @@ GameObject:
   - component: {fileID: 4975961835524534}
   - component: {fileID: 212405713665293120}
   m_Layer: 0
-  m_Name: backgroung
+  m_Name: backgroung_mountain
   m_TagString: EZ_Parallax
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2485,14 +2500,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1710921203954752}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.29686356, y: -1.28, z: 101}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4490594056329906}
   - {fileID: 4356967942585846}
-  m_Father: {fileID: 4874859804539742}
-  m_RootOrder: 4
+  m_Father: {fileID: 4550735676954546}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4267272927821270
 Transform:
@@ -2940,6 +2955,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4411064854803540}
   m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4550735676954546
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074028358929886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4975961835524534}
+  - {fileID: 4251058082949206}
+  m_Father: {fileID: 4874859804539742}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4554368648165798
 Transform:
@@ -3511,8 +3541,7 @@ Transform:
   - {fileID: 4463123255405302}
   - {fileID: 4411064854803540}
   - {fileID: 4753821951289142}
-  - {fileID: 4975961835524534}
-  - {fileID: 4251058082949206}
+  - {fileID: 4550735676954546}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3686,8 +3715,8 @@ Transform:
   m_LocalPosition: {x: -36.3, y: 0.34, z: 100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4874859804539742}
-  m_RootOrder: 3
+  m_Father: {fileID: 4550735676954546}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4986809591832104
 Transform:
@@ -4613,7 +4642,7 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.12}
   m_EdgeRadius: 0.11
   m_Points:
   - {x: -7.7738686, y: 7.6743145}
@@ -4747,23 +4776,23 @@ EdgeCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.11, y: 0}
+  m_Offset: {x: -0.32, y: 0}
   m_EdgeRadius: 0.19
   m_Points:
-  - {x: -3.5963063, y: 7.334937}
-  - {x: -3.348743, y: 6.6685805}
-  - {x: -3.4502969, y: 5.826744}
-  - {x: -4.1449265, y: 5.165213}
-  - {x: -4.0612044, y: 4.4650855}
-  - {x: -3.8004384, y: 4.7314787}
-  - {x: -3.6950498, y: 4.5028367}
-  - {x: -3.769897, y: 3.4800181}
-  - {x: -3.8962455, y: 2.7606697}
-  - {x: -3.9175258, y: 1.019702}
-  - {x: -3.795158, y: 0.15746975}
-  - {x: -3.9409862, y: -2.221302}
-  - {x: -3.8747602, y: -3.0493488}
-  - {x: -3.5764356, y: -3.9739923}
+  - {x: -3.520985, y: 7.281161}
+  - {x: -3.2196238, y: 6.571783}
+  - {x: -3.3749735, y: 5.848255}
+  - {x: -3.940491, y: 5.294276}
+  - {x: -4.027401, y: 4.8479958}
+  - {x: -3.6427004, y: 4.675168}
+  - {x: -3.6274493, y: 4.255071}
+  - {x: -3.6346934, y: 3.4800181}
+  - {x: -3.749779, y: 2.6367874}
+  - {x: -3.8048594, y: 0.9633913}
+  - {x: -3.6036189, y: -0.2029171}
+  - {x: -3.8230097, y: -2.221302}
+  - {x: -3.8157694, y: -3.0257635}
+  - {x: -3.5646403, y: -3.9150286}
   - {x: -3.3011212, y: -4.2852287}
 --- !u!68 &68140596238669980
 EdgeCollider2D:
@@ -5003,7 +5032,7 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: -0.27}
   m_EdgeRadius: 0.24
   m_Points:
-  - {x: -3.678328, y: -3.9694395}
+  - {x: -3.7491193, y: -4.028403}
   - {x: -2.9797716, y: -4.551319}
   - {x: -1.386735, y: -4.9221506}
   - {x: 0.54376507, y: -4.804635}
@@ -5011,12 +5040,12 @@ EdgeCollider2D:
   - {x: 2.3824377, y: -5.2783823}
   - {x: 3.4943361, y: -5.266614}
   - {x: 4.1841097, y: -4.9371166}
-  - {x: 4.4853163, y: -4.665077}
-  - {x: 4.6307898, y: -4.393696}
-  - {x: 5.3170557, y: -3.4183722}
-  - {x: 5.891822, y: -3.080968}
+  - {x: 4.5679045, y: -4.629699}
+  - {x: 4.7605658, y: -4.4172816}
+  - {x: 5.3524466, y: -3.4655423}
+  - {x: 6.0451956, y: -3.0220037}
   - {x: 7.1976347, y: -2.9803133}
-  - {x: 8.093118, y: -3.0496912}
+  - {x: 8.234691, y: -3.0143123}
 --- !u!68 &68385020408939184
 EdgeCollider2D:
   m_ObjectHideFlags: 1
@@ -5644,7 +5673,7 @@ MonoBehaviour:
   waveFreq: 0
   waveHeight: 0
   waveUpdateFreq: 6
-  waveCrestDebugOpen: 0
+  waveCrestDebugLine: 0
 --- !u!114 &114441523578734112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5707,7 +5736,7 @@ MonoBehaviour:
   waveFreq: 1.6
   waveHeight: 0.1
   waveUpdateFreq: 8
-  waveCrestDebugOpen: 0
+  waveCrestDebugLine: 0
 --- !u!114 &114627757683919634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5849,7 +5878,7 @@ MonoBehaviour:
   waveFreq: 0
   waveHeight: 0
   waveUpdateFreq: 6
-  waveCrestDebugOpen: 0
+  waveCrestDebugLine: 0
 --- !u!114 &114832237733458552
 MonoBehaviour:
   m_ObjectHideFlags: 1
