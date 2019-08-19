@@ -37,8 +37,8 @@ public class PlayerChange : MonoBehaviour {
         }
         if (Input.GetButton("Change"))
         {
-            if (!playerWheel.isSpinFinish) return
-                    ;
+            if (!playerWheel.isSpinFinish) return;
+
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 form_index += 1; if (form_index > 2) form_index = 0; playerWheel.WheelSpinRight(false);

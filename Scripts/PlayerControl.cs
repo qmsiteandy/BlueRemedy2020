@@ -5,20 +5,19 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 
     [Header("基本參數")]
-    [Range(0, 2)]
-    public int Oka_ID;
+    [Range(0, 2)] public int Oka_ID;
     public float initSpeedLimit = 8.0f;
-    private float speedLimit;           //移動速度上限
+    [HideInInspector] public float speedLimit;           //移動速度上限
     public float accelTime = 0.5f;       //加速時間
+    [HideInInspector] public float xSpeed = 0f;
     public float jumpForce = 650.0f;    //跳躍力道
-    public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
-    [HideInInspector]
-    public bool allCanDo = true;
-    [HideInInspector]
-    public bool canMove = true;
-    [HideInInspector]
-    public bool facingRight = true;    //是否面向右
-
+    [HideInInspector] public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
+    [HideInInspector] public bool allCanDo = true;
+    [HideInInspector] public bool canMove = true;
+    [HideInInspector] public bool facingRight = true;    //是否面向右
+    private SpriteRenderer spriteRenderer;  //用來設定sorting
+    private Animator animator;
+    private PlayerEnergy playerEnergy;
 
     [Header("跳躍判斷")]
     public Transform footCheck;         //檢查踩踏地板的點
@@ -27,7 +26,7 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     private LayerMask whatIsWall;
-    public bool jumpable = false;
+    [HideInInspector] public bool jumpable = false;
     private bool onGround, onPlatform;
     private bool walled = false;
     private bool secondJumping = false;
@@ -35,12 +34,7 @@ public class PlayerControl : MonoBehaviour {
 
     [Header("長草設定")]
     public int grassLayerID = 15;
-    private Transform parent_transform;
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
-    public float xSpeed = 0f;
-    private PlayerEnergy playerEnergy;
-
+    
     [Header("機關設定")]
     public float holePassingSped=0.07f;
     private bool isPassing;
@@ -52,7 +46,7 @@ public class PlayerControl : MonoBehaviour {
     private bool isBubbling = false;
     private int WaterAreaLayerID = 14;
     private float iceFloatForce = 50f;
-    private bool isInWater = false;
+    public bool isInWater = false;
     private WaterArea waterArea;
     
 
@@ -61,7 +55,6 @@ public class PlayerControl : MonoBehaviour {
     {
         speedLimit = initSpeedLimit;
 
-        parent_transform = GetComponentInParent<Transform>();
         rb2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -95,6 +88,7 @@ public class PlayerControl : MonoBehaviour {
                 Jump();
             }
         }
+
     }
 
     void OnGround()
@@ -109,11 +103,18 @@ public class PlayerControl : MonoBehaviour {
 
     void Move()
     {
-        xSpeed = Input.GetAxis("Horizontal") * speedLimit;
+        xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, 0.5f);
         if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
-        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
-
         animator.SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
+
+        if (walled)
+        {
+            xSpeed *= 0.3f;
+            animator.SetFloat("xSpeed", 0f);
+        }
+
+        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
+        
 
         //偵測移動方向及是否需轉面
         if (xSpeed > 0 && !facingRight)
@@ -142,11 +143,12 @@ public class PlayerControl : MonoBehaviour {
     {
         if (Input.GetAxis("Jump") > 0.1f && !pressingJump) 
         {
+            pressingJump = true;
+
             //平台上往下跳
             if (onPlatform && Input.GetAxis("Vertical") < -0.1f)
             {
                 StartCoroutine(JumpDownFromPlat());
-                pressingJump = true;
             } 
             //在地上
             else if (jumpable)
@@ -155,16 +157,12 @@ public class PlayerControl : MonoBehaviour {
 
                 if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
-
-                pressingJump = true;
             }
             //蹬牆跳
             else if (walled)
             {
-                if (facingRight) { xSpeed = 0f; rb2d.AddForce(new Vector2(-jumpForce *2, jumpForce *1.2f)); }
-                else rb2d.AddForce(new Vector2(jumpForce * 2, jumpForce * 1.2f));
-               
-                pressingJump = true;
+                if (facingRight) { rb2d.AddForce(new Vector2(-jumpForce *2, jumpForce *1f)); }
+                else rb2d.AddForce(new Vector2(jumpForce * 2, jumpForce * 1f));
             }
             //二段跳
             else if (!secondJumping && Oka_ID==2)
@@ -174,18 +172,18 @@ public class PlayerControl : MonoBehaviour {
                 if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
 
-                secondJumping = true;
-                pressingJump = true;
+                secondJumping = true;               
             }
         }
         //當跳躍鍵放開且此時未著地
-        else if (Input.GetButtonUp("Jump") && !jumpable)
+        else if (Input.GetAxis("Jump") < 1f && !jumpable)
         {
+            Debug.Log("JumpRelease " + Input.GetAxis("Jump"));
             //呼叫JumpRelease函示
             JumpRelease();
         }
 
-        if (Input.GetButtonUp("Jump")) pressingJump = false;
+        if (Input.GetAxis("Jump") < 0.1f) pressingJump = false;
     }
 
     //彈跳釋放(會影響長按短按地跳躍高度)
@@ -210,9 +208,6 @@ public class PlayerControl : MonoBehaviour {
         if (collider.gameObject.layer == WaterAreaLayerID)
         {
             waterArea = collider.GetComponent<WaterArea>();
-            GetComponent<Rigidbody2D>().drag = waterArea.waterDrag;
-            speedLimit *= waterArea.speedDownRate;
-            isInWater = true;
         }
     }
 
@@ -225,7 +220,7 @@ public class PlayerControl : MonoBehaviour {
             if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
         }
 
-        //---水中---
+        //---水中漂浮&冒泡泡---
         if (collider.gameObject.layer == WaterAreaLayerID)
         {
             jumpable = true;
@@ -253,13 +248,7 @@ public class PlayerControl : MonoBehaviour {
         //---穿洞---
         if (collider.gameObject.tag == "Hole" && Oka_ID == 1) noticeUI.SetActive(false);
 
-        //---水中---
-        if (collider.gameObject.layer == WaterAreaLayerID)
-        {
-            GetComponent<Rigidbody2D>().drag = 0f;
-            speedLimit = initSpeedLimit;
-            isInWater = false;
-        }
+        
     }
 
     //---------------------------------------------

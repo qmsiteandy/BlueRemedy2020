@@ -16,7 +16,7 @@ public class WaterArea : MonoBehaviour {
     public float waveHeight = 0.1f; //設定波浪高度;
     private float waveMid;  //波浪平均高度
     public float waveUpdateFreq = 8f; //波峰高度更新頻率
-    [Space(10)]
+    [Space(10)] //insprctor上間隔
     public bool waveCrestDebugLine = false; //是否要有debug用的波浪高度線
 
 
@@ -43,7 +43,12 @@ public class WaterArea : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Player")
         {
+            PlayerControl playerControl = collider.GetComponent<PlayerControl>();
+            playerControl.speedLimit *= speedDownRate;
+            playerControl.isInWater = true;
 
+            Rigidbody2D rb2d = collider.GetComponent<Rigidbody2D>();
+            rb2d.drag = waterDrag;
         }
     }
 
@@ -59,7 +64,12 @@ public class WaterArea : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Player")
         {
+            PlayerControl playerControl = collider.GetComponent<PlayerControl>();
+            playerControl.speedLimit = playerControl.initSpeedLimit;
+            playerControl.isInWater = false;
 
+            Rigidbody2D rb2d = collider.GetComponent<Rigidbody2D>();
+            rb2d.drag = 0f;
         }
     }
 
