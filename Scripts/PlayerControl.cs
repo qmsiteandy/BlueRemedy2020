@@ -103,7 +103,7 @@ public class PlayerControl : MonoBehaviour {
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
         jumpable = onGround || onPlatform;
-        walled = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsWall);
+        walled = Physics2D.OverlapCircle(frontCheck.position, 0.1f, whatIsWall);
         if (jumpable || walled) secondJumping = false;
     }
 
@@ -356,7 +356,8 @@ public class PlayerControl : MonoBehaviour {
 
     public void TakeHeal(int waterHeal, int dirtHeal)
     {
-
+        playerEnergy.ModifyWaterEnergy(waterHeal);
+        playerEnergy.ModifyDirt(-dirtHeal);
     }
 
     IEnumerator JumpDownFromPlat()

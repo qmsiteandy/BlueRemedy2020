@@ -5,29 +5,32 @@ using UnityEngine;
 public class WaterArea : MonoBehaviour {
 
     [Header("水對主角影響")]
-    public float waterDrag = 2.0f;
-    public float speedDownRate = 0.8f;
+    public float waterDrag = 2.0f;  //水對主角阻力
+    public float speedDownRate = 0.8f;  //水導致主角降速比例
 
     //主要影響冰的飄浮
     [Header("波浪")] 
-    public bool makeWave = false;
-    public float waveCrest;//波浪最高點;
-    public float waveFreq = 1.6f; //波浪頻率
-    public float waveHeight = 0.1f; //波浪高度;
-    private float waveMid;
+    public bool makeWave = false;   //是否有波浪
+    public float waveCrest; //波浪最高點，設公開，主角漂浮時會讀取
+    public float waveFreq = 1.6f; //設定波浪頻率
+    public float waveHeight = 0.1f; //設定波浪高度;
+    private float waveMid;  //波浪平均高度
     public float waveUpdateFreq = 8f; //波峰高度更新頻率
     [Space(10)]
-    public bool waveCrestDebugLine = false;
+    public bool waveCrestDebugLine = false; //是否要有debug用的波浪高度線
 
 
     void Start()
     {
+        //取得WaterArea的collider並設定波浪平均高度
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         if (!makeWave) waveCrest = collider.transform.position.y + collider.offset.y + collider.size.y / 2 + 0.2f;
         else waveMid = collider.transform.position.y + collider.offset.y + collider.size.y / 2 + 0.2f;
 
+        //造浪
         if (makeWave) StartCoroutine(MakeWave());
 
+        //debug用的波浪高度線
         if (waveCrestDebugLine)
         {
             transform.GetChild(0).gameObject.SetActive(true);
