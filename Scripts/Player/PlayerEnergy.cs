@@ -13,7 +13,9 @@ public class PlayerEnergy : MonoBehaviour {
     public int waterPerCharge = 3;
     private float elapsed = 0f;
 
-    private SpriteRenderer[] playerSprite= { null, null, null };
+    //private SpriteRenderer[] playerSprite= { null, null, null };
+    private GameObject[] Oka = { null, null, null };
+    public Material OkaMat;
 
     private UI_Manager UI_manager;
 
@@ -23,8 +25,11 @@ public class PlayerEnergy : MonoBehaviour {
         waterEnergy = waterEnergyMax;
         dirtMax = waterEnergyMax;
 
-        for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
+        //for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
+        //for (int x = 0; x < 3; x++) Oka[x] = transform.GetChild(x).gameObject;
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+
+        OkaMat.SetFloat("Vector1_1381CB45", 0f);
     }
 
     void Update()
@@ -62,5 +67,7 @@ public class PlayerEnergy : MonoBehaviour {
         float dirtyDegree;
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
         UI_manager.SetDirtyUI(dirtyDegree);
+
+        OkaMat.SetFloat("Vector1_1381CB45", dirtyDegree);
     }
 }
