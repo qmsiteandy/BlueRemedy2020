@@ -8,12 +8,15 @@ public class SpringHealing : MonoBehaviour {
     public int TotalAmount = 300;
     public ParticleSystem healingFX;
 
-    public int leftAmount; //剩餘治癒量
+    private int leftAmount; //剩餘治癒量
     private float healingCycle = 1f;
-    public int amountPerTime;
-
+    private int amountPerTime;
     private bool isHealing = false;
-    public float timer = 0f;
+    private float timer = 0f;
+
+    private float springDepth;
+    Transform springTrans;
+    private float springDecreaseSpeed;
 
     private PlayerControl playerControl;
     private Vector3 playerPos;
@@ -26,6 +29,10 @@ public class SpringHealing : MonoBehaviour {
 
         ParticleSystem.MainModule main = healingFX.main;
         main.duration = healingTotalTime;
+
+        springDepth = GetComponent<BoxCollider2D>().size.y;
+        springTrans = transform.parent.GetChild(0).GetComponent<Transform>();
+        springDecreaseSpeed = springDepth / healingTotalTime;
     }
 	
 	// Update is called once per frame
@@ -39,12 +46,15 @@ public class SpringHealing : MonoBehaviour {
 
                 playerControl.TakeHeal(amountPerTime, amountPerTime);
                 leftAmount -= amountPerTime;
+
                 if (leftAmount <= 0) HealingOver();
             }
             else
             {
                 timer += Time.deltaTime;
             }
+
+            springTrans.position -= new Vector3(0f, springDecreaseSpeed * Time.deltaTime, 0f);
         }        
 	}
 
@@ -85,6 +95,7 @@ public class SpringHealing : MonoBehaviour {
 
     void HealingOver()
     {
+        isHealing = false;
         transform.parent.gameObject.SetActive(false);
     }
 }

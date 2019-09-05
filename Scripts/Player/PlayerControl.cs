@@ -32,6 +32,7 @@ public class PlayerControl : MonoBehaviour {
     private bool secondJumping = false;
     private bool pressingJump = false;
     private bool jumpingDown = false;
+    public float shortCantMoveDuration = 0.08f;
 
     [Header("長草設定")]
     public int grassLayerID = 15;
@@ -80,7 +81,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (allCanDo)
         {
-            if(!isInWater) OnGround();
+            if(!isInWater) PointCheck();
 
             if (canMove)
             {
@@ -88,10 +89,9 @@ public class PlayerControl : MonoBehaviour {
                 Jump();
             }
         }
-
     }
 
-    void OnGround()
+    void PointCheck()
     {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
@@ -104,7 +104,7 @@ public class PlayerControl : MonoBehaviour {
 
     void Move()
     {
-        xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, 0.5f);
+        /*xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, 0.5f);
         if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
         animator.SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
 
@@ -114,18 +114,29 @@ public class PlayerControl : MonoBehaviour {
             animator.SetFloat("xSpeed", 0f);
         }
 
-        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);
-        
+        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);*/
 
+        float xInput = Input.GetAxis("Horizontal");
+
+        Vector2 force = new Vector2(xInput * 50, 0f);
+        rb2d.AddForce(force);
+
+        if (xInput != 0) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
+        else rb2d.velocity = new Vector3(0f, rb2d.velocity.y, 0f);
+
+        animator.SetFloat("xSpeed", rb2d.velocity.x);
+
+        #region flipping()
         //偵測移動方向及是否需轉面
-        if (xSpeed > 0 && !facingRight)
+        if (xInput > 0 && !facingRight)
         {
             Flip();
         }
-        else if (xSpeed < 0 && facingRight)
+        else if (xInput < 0 && facingRight)
         {
             Flip();
         }
+        #endregion
     }
 
     void Flip()
@@ -164,13 +175,17 @@ public class PlayerControl : MonoBehaviour {
             //蹬牆跳
             else if (frontTouchWall)
             {
-                if (facingRight) { rb2d.AddForce(new Vector2(-jumpForce *2, jumpForce *1f)); }
-                else rb2d.AddForce(new Vector2(jumpForce * 2, jumpForce * 1f));
+                if (facingRight) { rb2d.AddForce(new Vector2(-jumpForce, jumpForce)); }
+                else rb2d.AddForce(new Vector2(jumpForce, jumpForce));
+
+                StartCoroutine(ShortCantMove(shortCantMoveDuration));
             }
             else if (backTouchWall)
             {
-                if (facingRight) { rb2d.AddForce(new Vector2(jumpForce * 2, jumpForce * 1f)); }
-                else rb2d.AddForce(new Vector2(-jumpForce * 2, jumpForce * 1f));
+                if (facingRight) { rb2d.AddForce(new Vector2(jumpForce, jumpForce)); }
+                else rb2d.AddForce(new Vector2(-jumpForce, jumpForce));
+
+                StartCoroutine(ShortCantMove(shortCantMoveDuration));
             }
             //二段跳
             else if (!secondJumping && Oka_ID==2)
@@ -217,7 +232,6 @@ public class PlayerControl : MonoBehaviour {
             dirtyWater = collider.GetComponent<DirtyWater>();
         }
     }
-
     void OnTriggerStay2D(Collider2D collider)
     {
         //---穿洞---
@@ -228,7 +242,6 @@ public class PlayerControl : MonoBehaviour {
         }
 
     }
-
     void OnTriggerExit2D(Collider2D collider)
     {
         //---穿洞---
@@ -349,6 +362,20 @@ public class PlayerControl : MonoBehaviour {
         this.GetComponent<CircleCollider2D>().enabled = true;
 
         jumpingDown = false;
+    }
+
+    IEnumerator ShortCantMove(float duration)
+    {
+        float timer = 0f;
+
+        canMove = false;
+
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            yield return 0;
+        }
+        canMove = true;
     }
 
     public void InWater()
