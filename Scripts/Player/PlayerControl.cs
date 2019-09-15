@@ -41,6 +41,8 @@ public class PlayerControl : MonoBehaviour {
     public float holePassingSped=0.07f;
     private bool isPassing;
     public GameObject noticeUI;
+    private GameObject tree;
+    private CameraControl cameraControl;
 
     [Header("水中")]
     public Transform bubbleMakerTran;
@@ -55,6 +57,8 @@ public class PlayerControl : MonoBehaviour {
 
     void Start()
     {
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+
         speedLimit = initSpeedLimit;
 
         rb2d = GetComponent<Rigidbody2D>();
@@ -124,7 +128,7 @@ public class PlayerControl : MonoBehaviour {
         if (xInput != 0) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
         else rb2d.velocity = new Vector3(0f, rb2d.velocity.y, 0f);
 
-        animator.SetFloat("xSpeed", rb2d.velocity.x);
+        animator.SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
 
         #region flipping()
         //偵測移動方向及是否需轉面
@@ -154,7 +158,7 @@ public class PlayerControl : MonoBehaviour {
     void Jump()
     {
         //平台上往下跳
-        if (onPlatform && Input.GetAxis("Vertical") < -0.1f && !jumpingDown)
+        if (onPlatform && Input.GetButtonDown("Vertical") && !jumpingDown)
         {
             StartCoroutine(JumpDownFromPlat());
             jumpingDown = true;
@@ -227,7 +231,7 @@ public class PlayerControl : MonoBehaviour {
         if (collider.gameObject.layer == grassLayerID) collider.gameObject.GetComponent<GrassControl>().GrowGrass();
 
         //---水中---
-        if (collider.gameObject.layer == DirtyWaterLayerID)
+        else if (collider.gameObject.layer == DirtyWaterLayerID)
         {
             dirtyWater = collider.GetComponent<DirtyWater>();
         }
@@ -240,18 +244,29 @@ public class PlayerControl : MonoBehaviour {
             if (!isPassing) noticeUI.SetActive(true);
             if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
         }
+        //---毛細---
+        else if (collider.gameObject.name == "root_trigger" && Oka_ID == 1)
+        {
+            if(!isPassing) noticeUI.SetActive(true);
+            if (Input.GetButtonDown("Special") && !isPassing)
+            {
+                tree = collider.transform.parent.parent.gameObject;
+                PassTreeBegin();
+            }
+        }
 
     }
     void OnTriggerExit2D(Collider2D collider)
     {
         //---穿洞---
         if (collider.gameObject.tag == "Hole" && Oka_ID == 1) noticeUI.SetActive(false);
-
-        
+        //---毛細---
+        else if (collider.gameObject.name == "root_trigger" && Oka_ID == 1) noticeUI.SetActive(false);
     }
 
     //---------------------------------------------
 
+    //---滲透---
     void PassHole(Collider2D holeCollider) 
     {
         noticeUI.SetActive(false);
@@ -285,7 +300,6 @@ public class PlayerControl : MonoBehaviour {
         }
         StartCoroutine(HolePassing(isHorizontal, start, end));
     }
-
     IEnumerator HolePassing(bool isHorizontal, Vector3 start, Vector3 end)
     {
         allCanDo = false; isPassing = true;
@@ -318,6 +332,40 @@ public class PlayerControl : MonoBehaviour {
         this.GetComponent<CircleCollider2D>().enabled = true;
     }
 
+    //---毛細---
+    void PassTreeBegin()
+    {
+        isPassing = true;
+        noticeUI.SetActive(false);
+
+        animator.SetTrigger("treePassBegin");
+        //主角下跳anim 並由anim event觸發PassTree
+    }
+    void PassTree() //由anim event觸發
+    {
+        spriteRenderer.enabled = false;
+
+        cameraControl.SetTarget(tree.GetComponent<TreePass>().treeWater.transform);
+
+        tree.GetComponent<TreePass>().Passing(this.gameObject);
+        //！！！還要設定相機跟隨目標切換
+    }
+    public void TreePassOver(Vector3 exitPoint,bool facingRight) //由treePass 呼叫
+    {
+        //讓主角出現並往正確方向跳出去
+        transform.position = exitPoint;
+
+        spriteRenderer.enabled = true;
+
+        if (facingRight) rb2d.AddForce(Vector3.right * 200f);
+        else rb2d.AddForce(Vector3.right * -200f);
+
+        isPassing = false;
+
+        cameraControl.SetTarget(this.gameObject.transform);
+    }
+
+    //---受傷---
     public void TakeDamage(int damage)
     {
         playerEnergy.ModifyDirt(damage);
@@ -332,7 +380,6 @@ public class PlayerControl : MonoBehaviour {
 
         StartCoroutine(DamagedColor());
     }
-
     IEnumerator DamagedColor()
     {
         spriteRenderer.color = new Color(0.7f, 0f, 0f);
@@ -341,13 +388,15 @@ public class PlayerControl : MonoBehaviour {
 
         spriteRenderer.color = new Color(1f, 1f, 1f);
     }
-
+    
+    //---復原---
     public void TakeHeal(int waterHeal, int dirtHeal)
     {
         playerEnergy.ModifyWaterEnergy(waterHeal);
         playerEnergy.ModifyDirt(-dirtHeal);
     }
 
+    //---平台下跳---
     IEnumerator JumpDownFromPlat()
     {
         float timer = 0f;
@@ -378,6 +427,7 @@ public class PlayerControl : MonoBehaviour {
         canMove = true;
     }
 
+    //---水中---
     public void InWater()
     {
         //---水中漂浮&冒泡泡---

@@ -63,4 +63,9 @@ public class CameraControl : MonoBehaviour {
     {
         isFollowMode = true;
     }
+
+    public void SetTarget(Transform newTraget)
+    {
+        target = newTraget;
+    }
 }
