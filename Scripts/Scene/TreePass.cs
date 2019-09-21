@@ -20,17 +20,17 @@ public class TreePass : MonoBehaviour {
     }
 	
     //由playerController呼叫
-	public void Passing(GameObject OkaObj)
+	public void WaterPassing(GameObject OkaObj)
     {
         //樹中水毛細上升anim
-        treeWaterAnim.SetTrigger("waterGoUp");
+        treeWaterAnim.SetTrigger("waterGo");
 
         Oka = OkaObj;
         facingRight = OkaObj.transform.position.x > root_trigger.transform.position.x ? false : true;
     }
 
     //由animation event呼叫
-    void TreePassOver()
+    void WaterPassOver()
     {
         if (Oka == null) return;
 
@@ -40,13 +40,7 @@ public class TreePass : MonoBehaviour {
 
         //particleSystem噴一點水
         GameObject FXObj = Instantiate(waterSplashFX, exitPoint, Quaternion.Euler(0f, facingRight ? 0f : 180f, 0f));
-        Destroy(FXObj, 2f);
+        Destroy(FXObj, 1.5f);
 
-    }
-
-    IEnumerator DestroyFX_Delay(GameObject FXObj, float time)
-    {
-        yield return new WaitForSeconds(time);
-        Destroy(FXObj);
     }
 }

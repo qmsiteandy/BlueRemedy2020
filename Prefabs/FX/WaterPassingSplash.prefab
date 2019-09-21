@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198249961266334070}
   - component: {fileID: 199258125972864112}
   m_Layer: 0
-  m_Name: TreeWaterSplash
+  m_Name: WaterPassingSplash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

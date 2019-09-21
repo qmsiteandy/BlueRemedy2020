@@ -41,7 +41,7 @@ public class PlayerControl : MonoBehaviour {
     public float holePassingSped=0.07f;
     private bool isPassing;
     public GameObject noticeUI;
-    private GameObject tree;
+    private GameObject whatWaterPassing;
     private CameraControl cameraControl;
 
     [Header("水中")]
@@ -108,18 +108,7 @@ public class PlayerControl : MonoBehaviour {
 
     void Move()
     {
-        /*xSpeed = Mathf.Lerp(xSpeed, Input.GetAxis("Horizontal") * speedLimit, 0.5f);
-        if (Mathf.Abs(xSpeed) < 0.1f) xSpeed = 0f;
-        animator.SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
-
-        if (frontTouchWall)
-        {
-            xSpeed *= 0.3f;
-            animator.SetFloat("xSpeed", 0f);
-        }
-
-        rb2d.velocity = new Vector2(xSpeed, rb2d.velocity.y);*/
-
+     
         float xInput = Input.GetAxis("Horizontal");
 
         Vector2 force = new Vector2(xInput * 50, 0f);
@@ -238,117 +227,46 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D collider)
     {
-        //---穿洞---
-        if (collider.gameObject.tag == "Hole" && Oka_ID == 1)
-        {
-            if (!isPassing) noticeUI.SetActive(true);
-            if (Input.GetButtonDown("Special") && !isPassing) PassHole(collider);
-        }
-        //---毛細---
-        else if (collider.gameObject.name == "root_trigger" && Oka_ID == 1)
+        //---滲透&毛細---
+        if (collider.gameObject.tag == "WaterPassingTrigger" && Oka_ID == 1)
         {
             if(!isPassing) noticeUI.SetActive(true);
             if (Input.GetButtonDown("Special") && !isPassing)
             {
-                tree = collider.transform.parent.parent.gameObject;
-                PassTreeBegin();
+                whatWaterPassing = collider.transform.parent.gameObject;
+
+                WaterPassBegin();
             }
         }
-
     }
     void OnTriggerExit2D(Collider2D collider)
     {
-        //---穿洞---
-        if (collider.gameObject.tag == "Hole" && Oka_ID == 1) noticeUI.SetActive(false);
-        //---毛細---
-        else if (collider.gameObject.name == "root_trigger" && Oka_ID == 1) noticeUI.SetActive(false);
+        //---滲透&毛細---
+        if (collider.gameObject.tag == "WaterPassingTrigger" && Oka_ID == 1) noticeUI.SetActive(false);
     }
 
     //---------------------------------------------
 
-    //---滲透---
-    void PassHole(Collider2D holeCollider) 
-    {
-        noticeUI.SetActive(false);
-
-        BoxCollider2D holeCol = holeCollider.GetComponent<BoxCollider2D>();
-
-        bool isHorizontal = holeCol.size.y / holeCol.size.x < 1 ? true : false;
-
-        Vector3 start, end;
-        if (isHorizontal)
-        {
-            if(transform.position.x < holeCollider.transform.position.x)
-            {
-                start = new Vector3(this.transform.position.x, holeCollider.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position + new Vector3(holeCol.size.x / 2, 0f, 0f);
-            }
-            else
-            {
-                start = new Vector3(this.transform.position.x, holeCollider.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position - new Vector3(holeCol.size.x / 2, 0f, 0f);
-            }
-        }
-        else
-        {
-            if (transform.position.y < holeCollider.transform.position.y)
-            {
-                start = new Vector3(holeCollider.transform.position.x, this.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position + new Vector3(0f, holeCol.size.y / 2, 0f);
-            }
-            else
-            {
-                start = new Vector3(holeCollider.transform.position.x, this.transform.position.y, holeCollider.transform.position.z); end = holeCollider.transform.position - new Vector3(0f, holeCol.size.y / 2, 0f);
-            }
-        }
-        StartCoroutine(HolePassing(isHorizontal, start, end));
-    }
-    IEnumerator HolePassing(bool isHorizontal, Vector3 start, Vector3 end)
-    {
-        allCanDo = false; isPassing = true;
-        spriteRenderer.sortingLayerName = "Default";
-        this.GetComponent<CircleCollider2D>().enabled = false;
-
-        this.transform.position = start;
-
-        if (isHorizontal) while (this.transform.position != end)
-            {
-                Vector3 newPos = Vector3.Lerp(this.transform.position, end, holePassingSped);
-                newPos = new Vector3(newPos.x, end.y, newPos.z);
-                this.transform.position = newPos;
-                if (Mathf.Abs(this.transform.position.x - end.x) < 0.8f) this.transform.position = end;
-
-                yield return null;
-            }
-        else while (this.transform.position != end)
-            {
-                Vector3 newPos = Vector3.Lerp(this.transform.position, end, holePassingSped);
-                newPos = new Vector3(end.x, newPos.y, newPos.z);
-                this.transform.position = newPos;
-                if (Mathf.Abs(this.transform.position.y - end.y) < 0.8f) this.transform.position = end;
-
-                yield return null;
-            }
-
-        allCanDo = true; isPassing = false;
-        spriteRenderer.sortingLayerName = "Player";
-        this.GetComponent<CircleCollider2D>().enabled = true;
-    }
-
-    //---毛細---
-    void PassTreeBegin()
+    //---毛細&滲透---
+    void WaterPassBegin()
     {
         isPassing = true;
         noticeUI.SetActive(false);
 
-        animator.SetTrigger("treePassBegin");
-        //主角下跳anim 並由anim event觸發PassTree
+        //主角下跳anim 並由anim event觸發PassTree or HolePass
+        if (whatWaterPassing.name == "tree_passing") { animator.SetTrigger("treePassBegin"); Debug.Log("treePassBegin"); }
+        else if (whatWaterPassing.name == "hole_passing") animator.SetTrigger("holePassBegin");
+        else Debug.Log("anim trigger ERR");
     }
-    void PassTree() //由anim event觸發
+    void TreePass() //由anim event觸發
     {
         spriteRenderer.enabled = false;
 
-        cameraControl.SetTarget(tree.GetComponent<TreePass>().treeWater.transform);
+        //設定相機跟隨目標切換
+        cameraControl.SetTarget(whatWaterPassing.GetComponent<TreePass>().treeWater.transform);
 
-        tree.GetComponent<TreePass>().Passing(this.gameObject);
-        //！！！還要設定相機跟隨目標切換
+        whatWaterPassing.GetComponent<TreePass>().WaterPassing(this.gameObject);
+        
     }
     public void TreePassOver(Vector3 exitPoint,bool facingRight) //由treePass 呼叫
     {
@@ -364,6 +282,31 @@ public class PlayerControl : MonoBehaviour {
 
         cameraControl.SetTarget(this.gameObject.transform);
     }
+    void HolePass() //由anim event觸發
+    {
+        spriteRenderer.enabled = false;
+
+        //設定相機跟隨目標切換
+        //cameraControl.SetTarget(whatWaterPassing.GetComponent<HolePass>().holeWater.transform);
+
+        whatWaterPassing.GetComponent<HolePass>().WaterPassing(this.gameObject);
+    }
+    public void HolePassOver(Vector3 exitPoint, float exitAngle) //由holePass 呼叫
+    {
+        //讓主角出現並往正確方向跳出去
+        transform.position = exitPoint;
+
+        spriteRenderer.enabled = true;
+
+        float force = 200f;
+        rb2d.AddForce(new Vector3(force * Mathf.Cos(exitAngle), force * Mathf.Sin(exitAngle), 0f));
+
+        isPassing = false;
+
+        cameraControl.SetTarget(this.gameObject.transform);
+    }
+
+    //---------------------------------------------
 
     //---受傷---
     public void TakeDamage(int damage)
