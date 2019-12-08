@@ -67,8 +67,7 @@ public class SpringHealing : MonoBehaviour {
 
             isHealing = true;
 
-            healingFX.transform.position = playerPos;
-            healingFX.Play();
+            OpenFX();
         }
     }
     void OnTriggerStay2D(Collider2D collider)
@@ -78,7 +77,7 @@ public class SpringHealing : MonoBehaviour {
             playerControl = collider.GetComponent<PlayerControl>();
 
             playerPos = collider.transform.position;
-            healingFX.transform.position = playerPos;
+            healingFX.transform.position = new Vector3(playerPos.x, healingFX.transform.position.y, healingFX.transform.position.z);
         }
     }
     void OnTriggerExit2D(Collider2D collider)
@@ -89,7 +88,7 @@ public class SpringHealing : MonoBehaviour {
 
             isHealing = false;
 
-            healingFX.Pause();
+            CloseFX();
         }
     }
 
@@ -97,5 +96,14 @@ public class SpringHealing : MonoBehaviour {
     {
         isHealing = false;
         transform.parent.gameObject.SetActive(false);
+    }
+
+    void OpenFX()
+    {
+        healingFX.Play();
+    }
+    void CloseFX()
+    {
+        healingFX.Stop();
     }
 }

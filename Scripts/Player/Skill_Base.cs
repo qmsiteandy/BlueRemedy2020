@@ -2,56 +2,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Base : MonoBehaviour {
+public class Skill_Base : MonoBehaviour
+{
 
-
-    CircleCollider2D attackTrigger;
-    public ContactFilter2D enemyFilter;
-    
-
-    public float skillInputDelay = 0.35f;
-    private float elapsed = 0f;
-
-    private int attackStep = 1;
-    private bool attacking = false;
-    private bool duringSteps = false;
-
+    [Header("基本參數")]
     public int attackWaterCost = 1;
+    protected Transform playerTrans;
+    protected Animator animator;
+    protected PlayerEnergy playerEnergy;
+    protected PlayerControl playerControl;
+    protected PlayerChange playerChange;
+    protected SpriteRenderer spriteRenderer;
+    protected CameraControl cameraControl;
+    protected Collider2D playerCollider;
 
-    private PlayerControl playerControl;
-    private Animator animator;
-    private PlayerEnergy playerEnergy;
+    [Header("AttackTrigger")]
+    protected CircleCollider2D attackTrigger;
+    protected ContactFilter2D enemyFilter;
 
-    void Start ()
+    [Header("Input")]
+    protected float skillInputDelay = 0.3f;
+    protected float elapsed = 0f;
+    protected int inputCount = 0;
+
+    [Header("判斷")]
+    protected int attackStep = 1;
+    protected bool attacking = false;
+    protected bool duringSteps = false;
+
+    [Header("變身")]
+    public GameObject changeNextFX;
+    public float changeNextFX_delay;
+    public GameObject changePreviousFX;
+    public float changePreviousFX_delay;
+
+
+    protected void BaseStart()
     {
-        playerControl = GetComponent<PlayerControl>();
+        playerTrans = this.transform.parent.GetComponent<Transform>();
         animator = GetComponent<Animator>();
         playerEnergy = GetComponentInParent<PlayerEnergy>();
-
-        attackTrigger = this.transform.GetChild(4).GetComponent<CircleCollider2D>();
+        playerControl = GetComponentInParent<PlayerControl>();
+        playerChange = GetComponentInParent<PlayerChange>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        cameraControl = playerControl.cameraControl;
+        playerCollider = GetComponentInParent<Collider2D>();
+        attackTrigger = this.transform.GetChild(0).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
         enemyFilter.useTriggers = true;
     }
-	
-	void Update ()
-    {
 
-        if (Input.GetButtonDown("Attack") && !duringSteps)
+    protected void BaseUpdate()
+    {
+        if (Input.GetButtonDown("Attack")) inputCount += 1;
+
+        if (inputCount >= attackStep)
         {
-            if (playerControl.jumpable) NormalAttackInput();
+            if (PlayerControl.jumpable && !duringSteps) NormalAttack();
         }
 
-        elapsed += Time.deltaTime;
         if (attacking == true)
         {
-            if (elapsed > skillInputDelay) BackNormal();
+            elapsed += Time.deltaTime;
+            if (elapsed > skillInputDelay && !duringSteps) BackNormal();
         }
     }
 
-    void NormalAttackInput()
+    protected void NormalAttack()
     {
         attacking = true;
-        playerControl.canMove = false;
+        PlayerControl.canMove = false;
 
         switch (attackStep)
         {
@@ -64,14 +84,14 @@ public class Skill_Base : MonoBehaviour {
             case 3:
                 animator.SetTrigger("attack_3"); elapsed = 0f; attackStep += 1; duringSteps = true;
                 break;
-            case 4:
-                BackNormal(); 
+            default:
+                if (!duringSteps) BackNormal();
                 break;
         }
     }
 
     //從animation event呼叫攻擊扣血
-    void NormalAttack()
+    public void Damage()
     {
         playerEnergy.ModifyWaterEnergy(-attackWaterCost);
 
@@ -80,25 +100,70 @@ public class Skill_Base : MonoBehaviour {
 
         if (enemyNum < 1) return;
 
-        for(int i = 0; i < enemyNum; i++)
+        for (int i = 0; i < enemyNum; i++)
         {
-            enemyColList[i].transform.parent.GetComponent<Enemy_base>().TakeDamage(1);
+            enemyColList[i].GetComponent<Enemy_base>().TakeDamage(1);
         }
-
-        
     }
 
-    void BackNormal()
-    {
-        attacking = false;
-        attackStep = 1;
-        animator.SetTrigger("back_idle");
-
-        playerControl.canMove = true;
-    }
-
-    void ThisStepFinish()
+    public void BackNormal()
     {
         duringSteps = false;
+        attacking = false;
+        attackStep = 1;
+        inputCount = 0;
+
+        animator.SetTrigger("back_idle");
+        PlayerControl.canMove = true;
+    }
+
+    protected void ThisStepFinish()
+    {
+        duringSteps = false;
+    }
+
+    public void SetCameraTarget(Transform target, float lerpTime)
+    {
+        cameraControl.SetTarget(target, lerpTime);
+    }
+
+    //===============變身相關===============
+
+    //由PlayerChange呼叫
+    public void ChangeStart(bool isChangeNext)
+    {
+        if (isChangeNext)
+        {
+            animator.SetTrigger("change_next");
+            if (changeNextFX != null) StartCoroutine(ChangeFX_Delay(changeNextFX, changeNextFX_delay));
+        }
+        else
+        {
+            animator.SetTrigger("change_previous");
+            if (changePreviousFX != null) StartCoroutine(ChangeFX_Delay(changePreviousFX, changePreviousFX_delay));
+        }
+    }
+    //animation變身完成後呼叫PlayerChange.cs變成另一隻
+    void TransformAnimFinish()
+    {
+        playerChange.ChangeFinish();
+    }
+    //變身完成這隻開啟時呼叫
+    public void TransformReset()
+    {
+        elapsed = 0f;
+        inputCount = 0;
+
+        attackStep = 1;
+        attacking = false;
+        duringSteps = false;
+
+        PlayerControl.canMove = true;
+    }
+    IEnumerator ChangeFX_Delay(GameObject FX, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameObject particle = Instantiate(FX, playerTrans.position, Quaternion.identity);
+        Destroy(particle, 3f);
     }
 }

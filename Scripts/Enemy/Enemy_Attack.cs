@@ -14,6 +14,11 @@ public class Enemy_Attack : MonoBehaviour
     public bool canAttack = false;
     public GameObject attackTarget = null;
 
+    public Rigidbody2D rb2d;
+    public float g = 9.81f;  //g = 9.81 m/s^2
+    public float speed = 0.8f; //物體transform在拋物線路徑上移動的速度，此速度不影響拋物線的形狀
+    public float V0 = 8.0f; //初速度
+
     // Use this for initialization
     void Awake()
     {
@@ -22,6 +27,7 @@ public class Enemy_Attack : MonoBehaviour
     void Start()
     {
         enemy_base = transform.GetComponentInParent<Enemy_base>();
+        rb2d = transform.GetComponentInParent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -48,6 +54,7 @@ public class Enemy_Attack : MonoBehaviour
         {
             attackTarget = other.gameObject;
             enemy_base.isAttacking = true;
+            
         }
     }
 
@@ -75,7 +82,6 @@ public class Enemy_Attack : MonoBehaviour
     {
         if (attackTarget == null) return;
         attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
-        //attackTarget.transform.parent.GetComponent<PlayerControl>().TakeDamage(attackDamage);
     }
 
 

@@ -25,6 +25,11 @@ public class GrassControl : MonoBehaviour {
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && !isGrowed) GrowGrass();
+    }
+
     public void GrowGrass()
     {
         if (isGrowed) return;

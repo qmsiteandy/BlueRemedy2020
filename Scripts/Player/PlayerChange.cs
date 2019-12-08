@@ -6,14 +6,14 @@ public class PlayerChange : MonoBehaviour {
 
     [Header("三態相關")]
     public GameObject[] Oka_form = { null, null, null };
-    public int form_now = 1;
     private int form_index;
-    private bool isWheelShow = false;
+    private bool transforming = false;
+    private bool wheelShow = false;
 
-    public GameObject smokeParticke;
-    public CameraControl cameraControl;
+    /*public GameObject smokeParticke;*/
     private PlayerControl playerControl;
     private PlayerWheel playerWheel;
+    private Transform wheelTrans;
 
 
     // Use this for initialization
@@ -22,78 +22,90 @@ public class PlayerChange : MonoBehaviour {
         Oka_form[1] = this.transform.GetChild(1).gameObject;
         Oka_form[2] = this.transform.GetChild(2).gameObject;
 
-        playerControl = Oka_form[1].GetComponent<PlayerControl>();
-        playerWheel = transform.GetChild(3).GetComponent<PlayerWheel>();
+        playerControl = GetComponent<PlayerControl>();
+        wheelTrans = transform.Find("Wheel").GetComponent<Transform>();
+        playerWheel = wheelTrans.GetComponent<PlayerWheel>();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        if (Input.GetButtonDown("Change") && !isWheelShow)
+        if (Input.GetButtonDown("Change") && !wheelShow && PlayerControl.canMove)
         {
-            form_index = form_now; playerControl.allCanDo = false;
-            playerWheel.WheelShow(); isWheelShow = true;
+            form_index = PlayerControl.OkaID_Now;
+            PlayerControl.canMove = false;
+            playerWheel.WheelShow(); wheelShow = true;
         }
-        if (Input.GetButton("Change") && isWheelShow)
+        else if (Input.GetButton("Change") && !transforming && wheelShow)
         {
-            if (!playerWheel.isSpinFinish) return;
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                form_index += 1; if (form_index > 2) form_index = 0; playerWheel.WheelSpinRight(false);
-            }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                form_index -= 1; if (form_index < 0) form_index = 2; playerWheel.WheelSpinRight(true);
-            }
-        }
-        if (Input.GetButtonUp("Change") && isWheelShow)
-        {
-            playerControl.allCanDo = true;
+                if (PlayerControl.OkaID_Now == 0) { playerWheel.LightFlash(0); return; }
 
-            if (form_index != form_now)
-            {
-                GameObject particle = Instantiate(smokeParticke, Oka_form[form_now].transform.position, Oka_form[form_now].transform.rotation);
-                Destroy(particle, 1.2f);
-
+                form_index = 0;
                 ChangeForm(form_index);
+                playerWheel.WheelIndexSelect(0);
+                playerWheel.WheelDisappear(); wheelShow = false;
             }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (PlayerControl.OkaID_Now == 1) { playerWheel.LightFlash(1); return; }
 
-            playerWheel.WheelDisappear(); isWheelShow = false;
+                form_index = 1;
+                ChangeForm(form_index);
+                playerWheel.WheelIndexSelect(1);
+                playerWheel.WheelDisappear(); wheelShow = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                if (PlayerControl.OkaID_Now == 2) { playerWheel.LightFlash(2); return; }
+
+                form_index = 2;
+                ChangeForm(form_index);
+                playerWheel.WheelIndexSelect(2);
+                playerWheel.WheelDisappear(); wheelShow = false;
+            } 
+        }
+        else if (Input.GetButtonUp("Change") && wheelShow)
+        {
+            playerWheel.WheelDisappear(); wheelShow = false;
+            PlayerControl.canMove = true;
         }
     }
 
     void ChangeForm(int new_index)
     {
-        Oka_form[form_now].SetActive(false);
+        transforming = true;
 
-        Oka_form[new_index].SetActive(true);
-        Transform newForm_trans = Oka_form[new_index].GetComponent<Transform>();
-        newForm_trans.position = Oka_form[form_now].transform.position;
-        //StartCoroutine(PosLerp(newForm_trans, Oka_form[form_now].transform.position));
+        int x = new_index - PlayerControl.OkaID_Now;
+        //change next
+        if (x == 1 || x == -2) Oka_form[PlayerControl.OkaID_Now].GetComponent<Skill_Base>().ChangeStart(true);
+        //change previous
+        else if (x == -1 || x == 2) Oka_form[PlayerControl.OkaID_Now].GetComponent<Skill_Base>().ChangeStart(false);
 
-
-
-        newForm_trans.localScale = Oka_form[form_now].transform.localScale;
-
-        PlayerControl newPlayerControl = Oka_form[new_index].GetComponent<PlayerControl>();
-        newPlayerControl.facingRight = playerControl.facingRight;
-
-        form_now = new_index;
-        playerControl = newPlayerControl;
-
-        cameraControl.target = Oka_form[form_now].transform;
+        playerControl.TrnasformReset();
     }
 
-    /*IEnumerator PosLerp(Transform newForm_trans,Vector3 aimPos)
+    //由Skill_Base呼叫
+    public void ChangeFinish()
     {
-        int segment = 10;
-        Vector2 offset = (aimPos - newForm_trans.position) / segment;
-        for(int i = 0;i< segment; i++)
-        {
-            newForm_trans.position = new Vector3(offset.x, offset.y, 0f);
-            yield return null;
-        }
-    }*/
+        Oka_form[PlayerControl.OkaID_Now].SetActive(false);
+        Oka_form[form_index].SetActive(true);
+        Oka_form[form_index].GetComponent<Skill_Base>().TransformReset();
+
+        PlayerControl.OkaID_Now = form_index;
+
+        transforming = false;
+        PlayerControl.canMove = true;
+    }
+
+    public void WheelUI_Flip()
+    {
+        //取得目前物件的規格
+        Vector3 theScale = wheelTrans.localScale;
+        //使規格的水平方向相反
+        theScale.x *= -1;
+        //套用翻面後的規格
+        wheelTrans.localScale = theScale;
+    } 
 }

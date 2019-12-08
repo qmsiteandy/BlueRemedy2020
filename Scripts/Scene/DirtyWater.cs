@@ -41,7 +41,7 @@ public class DirtyWater : MonoBehaviour {
     {
         if (isPlayerInWater)
         {
-            if (playerControl.Oka_ID == 0) return;
+            if (PlayerControl.OkaID_Now == 0) return;
 
             if (damageTimer >= damageCycle)
             {
@@ -59,7 +59,6 @@ public class DirtyWater : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Player")
         {
-            Debug.Log(collider.gameObject.name + " in");
             playerControl = collider.GetComponent<PlayerControl>();
             playerControl.speedLimit *= speedDownRate;
             playerControl.isInWater = true;
@@ -68,6 +67,14 @@ public class DirtyWater : MonoBehaviour {
             rb2d.drag = waterDrag;
 
             isPlayerInWater = true;
+
+            if (PlayerControl.OkaID_Now == 0) return;
+            else
+            {
+                playerControl.TakeDamage(0, addDirtAmount);
+                damageTimer = 0f;
+            }
+            
         }
     }
 
@@ -75,18 +82,14 @@ public class DirtyWater : MonoBehaviour {
     {
         if (collider.gameObject.tag == "Player")
         {
-            playerControl = collider.GetComponent<PlayerControl>();
-
             playerControl.InWater();
         }
-
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
         {
-            Debug.Log(collider.gameObject.name + " out");
             playerControl = collider.GetComponent<PlayerControl>();
             playerControl.speedLimit = playerControl.initSpeedLimit;
             playerControl.isInWater = false;

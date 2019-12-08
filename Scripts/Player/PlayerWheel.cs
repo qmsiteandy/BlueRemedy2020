@@ -7,97 +7,76 @@ public class PlayerWheel : MonoBehaviour {
     [Header("轉輪物件")]
     private SpriteRenderer wheelLight;
     private Transform wheelBack;
-    private Transform[] iconsTrans = { null, null, null };
-    public bool isSpinFinish = true;
-    private int spinIndexTarget = 1;
-    private float angleNow, angleTarget;
-    private float wheelLightAlpha = 0f;
-
-    private bool turningStop = true;
+    private bool wheelShow = false;
+    private SpriteRenderer[] selected_light = { null, null, null };
+    private SpriteRenderer[] arrows = { null, null, null };
+    private int lightIndex = 1;
     private PlayerChange playerChange;
 
 
-    void Start ()
+    void Start()
     {
         playerChange = transform.parent.GetComponent<PlayerChange>();
 
-        wheelLight =this.transform.GetChild(0).GetComponent<SpriteRenderer>();
-        wheelBack = this.transform.GetChild(1).transform;
-        wheelLight.color = new Color(1f, 1f, 1f, 0f);
+        for (int i = 0; i < 3; i++) selected_light[i] = transform.GetChild(0).transform.GetChild(i).GetComponent<SpriteRenderer>();
+        for (int i = 0; i < 3; i++) arrows[i] = transform.GetChild(1).transform.GetChild(i).GetComponent<SpriteRenderer>();
+        wheelBack = this.transform.GetChild(2).transform;
+
+        for (int i = 0; i < 3; i++)
+        {
+            selected_light[i].color = new Color(1f, 1f, 1f, 0f);
+            arrows[i].color = new Color(1f, 1f, 1f, 0f);
+        }
         wheelBack.gameObject.SetActive(false);
-
-        for (int i = 0; i < 3; i++) iconsTrans[i] = transform.GetChild(1).transform.GetChild(i).GetComponent<Transform>();
-
-        
-    }
-	
-	void Update ()
-    {
-        this.transform.position = playerChange.Oka_form[playerChange.form_now].transform.position;
     }
 
     public void WheelShow()
     {
-        wheelLight.color = new Color(1f, 1f, 1f, 1f);
+        for (int i = 0; i < 3; i++) selected_light[i].color = new Color(1f, 1f, 1f, 0f);
+        selected_light[lightIndex].color = new Color(1f, 1f, 1f, 1f);
+
+        for (int i = 0; i < 3; i++) arrows[i].color = new Color(1f, 1f, 1f, 0.9f);
+        arrows[lightIndex].color = new Color(1f, 1f, 1f, 0.1f);
+
         wheelBack.gameObject.SetActive(true);
+
+        wheelShow = true;
     }
 
     public void WheelDisappear()
     {
-        turningStop = true;
-        wheelLight.color = new Color(1f, 1f, 1f, 0f);
+        for (int i = 0; i < 3; i++)
+        {
+            selected_light[i].color = new Color(1f, 1f, 1f, 0f);
+            arrows[i].color = new Color(1f, 1f, 1f, 0f);
+        }
         wheelBack.gameObject.SetActive(false);
+
+        wheelShow = false;
     }
 
-    public void WheelSpinRight(bool isTurnRight)
+    public void WheelIndexSelect(int index)
     {
-        turningStop = false;
-        StartCoroutine(Spin(isTurnRight));
+        lightIndex = index;
     }
 
-    IEnumerator Spin(bool isTurnRight)
+
+    public void LightFlash(int index)
     {
-        isSpinFinish = false;
-
-        while (wheelLight.color.a > 0 && !turningStop)
-        {
-            wheelLightAlpha = wheelLight.color.a;
-            wheelLightAlpha -= 0.25f;
-            wheelLight.color = new Color(1f, 1f, 1f, wheelLightAlpha);
-
-            yield return null;
-        }
-
-        angleNow = wheelBack.eulerAngles.z;
-        
-        if (isTurnRight) angleTarget = angleNow - 120f; else angleTarget = angleNow + 120f;
-
-        while (angleNow != angleTarget)
-        {
-            angleNow = Mathf.Lerp(angleNow, angleTarget, 0.3f);
-            if (Mathf.Abs(angleNow - angleTarget) < 5f) angleNow = angleTarget;
-            
-
-            wheelBack.rotation = Quaternion.Euler(0f, 0f, angleNow);
-
-            for (int i = 0; i < 3; i++) iconsTrans[i].rotation = Quaternion.Euler(0f, 0f, 0f);
-
-            yield return null;
-        }
-
-        while (wheelLight.color.a < 1 && !turningStop)
-        {
-            wheelLightAlpha = wheelLight.color.a;
-            wheelLightAlpha += 0.25f;
-            wheelLight.color = new Color(1f, 1f, 1f, wheelLightAlpha);
-
-            yield return null;
-        }
-
-        if(turningStop) wheelLight.color = new Color(1f, 1f, 1f, 0f);
-
-        isSpinFinish = true;
+        StartCoroutine(Flash(index));
     }
+    IEnumerator Flash(int index)
+    {
+        float flashDelay = 0.1f;
+        Color oriColor = selected_light[index].color;
 
+        if (wheelShow) selected_light[index].color = new Color(oriColor.r, oriColor.g, oriColor.b, 0.2f);
+        yield return new WaitForSeconds(flashDelay);
+        if (wheelShow) selected_light[index].color = new Color(oriColor.r, oriColor.g, oriColor.b, oriColor.a);
+        yield return new WaitForSeconds(flashDelay);
+        if (wheelShow) selected_light[index].color = new Color(oriColor.r, oriColor.g, oriColor.b, 0.2f);
+        yield return new WaitForSeconds(flashDelay);
+        if (wheelShow) selected_light[index].color = new Color(oriColor.r, oriColor.g, oriColor.b, oriColor.a);
 
+    }
 }

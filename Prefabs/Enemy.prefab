@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4030452619630080}
   - component: {fileID: 58419372816595726}
   - component: {fileID: 114606980858866196}
-  m_Layer: 10
-  m_Name: Enemy_body
+  m_Layer: 0
+  m_Name: Enemy_attack
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,10 +36,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4771505284921774}
-  - component: {fileID: 58574996763252418}
   - component: {fileID: 95790697140456912}
   - component: {fileID: 114677235447729810}
-  m_Layer: 0
+  - component: {fileID: 50302812734230084}
+  - component: {fileID: 58385236974729634}
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +96,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609214305337840}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 69.92, y: -9.36, z: 0}
+  m_LocalPosition: {x: 41, y: 1.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4214793786739832}
@@ -103,6 +104,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50302812734230084
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609214305337840}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 50
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!58 &58385236974729634
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609214305337840}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.02, y: -0.65}
+  serializedVersion: 2
+  m_Radius: 1.1694052
 --- !u!58 &58419372816595726
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -115,24 +151,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.72178173}
+  m_Offset: {x: 0, y: -0.61}
   serializedVersion: 2
-  m_Radius: 1.2217817
---- !u!58 &58574996763252418
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1609214305337840}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.54, y: 0}
-  serializedVersion: 2
-  m_Radius: 3.48
+  m_Radius: 1.6
 --- !u!95 &95790697140456912
 Animator:
   serializedVersion: 3
@@ -167,6 +188,10 @@ MonoBehaviour:
   elapsed: 0
   canAttack: 0
   attackTarget: {fileID: 0}
+  rb2d: {fileID: 0}
+  g: 9.81
+  speed: 0.8
+  V0: 8
 --- !u!114 &114677235447729810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,10 +204,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 0}
-  waterdrop: {fileID: 1720233888591942, guid: aebb436ef9b5ce146be968a698cf1775, type: 2}
+  waterdrop: {fileID: 1659916329073122, guid: 9486b69f2f45734489b56cc215b153e0, type: 2}
   moveRange: 4
-  trackSpeed: 1.5
+  trackSpeed: 6
   closeRange: 1.25
+  FollowRadius: 4.5
   bornTime: 20
   health: 0
   healthMax: 10

@@ -26,10 +26,12 @@ public class WaterDrop : MonoBehaviour {
         if (collision.tag == "Player")
         {
             target = collision.gameObject;
-            waterdrop.SetActive(false);
-            enemy_base.isBorn = true;
+
+            enemy_base.NewBaby();
 
             collision.GetComponentInParent<PlayerEnergy>().ModifyWaterEnergy(waterEnergyCharge);
+
+            Destroy(this.gameObject);
         }
     }
     
