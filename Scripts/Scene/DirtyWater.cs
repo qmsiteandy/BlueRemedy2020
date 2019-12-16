@@ -60,7 +60,7 @@ public class DirtyWater : MonoBehaviour {
         if (collider.gameObject.tag == "Player")
         {
             playerControl = collider.GetComponent<PlayerControl>();
-            playerControl.speedLimit *= speedDownRate;
+            PlayerControl.speedLimit *= speedDownRate;
             playerControl.isInWater = true;
 
             Rigidbody2D rb2d = collider.GetComponent<Rigidbody2D>();
@@ -91,7 +91,7 @@ public class DirtyWater : MonoBehaviour {
         if (collider.gameObject.tag == "Player")
         {
             playerControl = collider.GetComponent<PlayerControl>();
-            playerControl.speedLimit = playerControl.initSpeedLimit;
+            PlayerControl.speedLimit = playerControl.initSpeedLimit;
             playerControl.isInWater = false;
 
             Rigidbody2D rb2d = collider.GetComponent<Rigidbody2D>();

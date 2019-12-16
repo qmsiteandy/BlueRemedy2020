@@ -5,7 +5,7 @@ using UnityEngine;
 public class Flowers : MonoBehaviour {
 
     [Header("花")]
-    public bool isMajorFolower = false;
+    public bool isMainFolower = false;
     private bool isGrowed = false;
     private Light flowerLight;
     private Animator animator;
@@ -22,21 +22,23 @@ public class Flowers : MonoBehaviour {
     public Transform particlePoint;
 
     [Header("擺動")]
-    public float rotateAmount = 20f; // Amount to be rotated
-    private Quaternion oriAngle;
+    public float maxSwinOffset = 0.45f;
+    public float maxSwinSpeed = 0.14f;
+    public float swinbackSpeed = 0.08f;
+    private float swinToAngle, swinSpeed;
+    private float xOffset=0f;
+    private Material material;
 
 
     // Use this for initialization
     void Start ()
     {
         animator = GetComponent<Animator>();
-
-        oriAngle = transform.rotation;
-
-
-        if (isMajorFolower)
+        material = GetComponent<SpriteRenderer>().material;
+        
+        if (isMainFolower)
         {
-            flowerLight = transform.GetChild(1).GetComponent<Light>();
+            flowerLight = transform.GetChild(0).GetComponent<Light>();
             flowerLight.enabled = false;
 
             minorFlowers = new Flowers[minorFlowers_folder.childCount];
@@ -44,61 +46,53 @@ public class Flowers : MonoBehaviour {
         } 
     }
 
+    void Update()
+    {
+        if (xOffset != swinToAngle)
+        {
+            xOffset = Mathf.Lerp(xOffset, swinToAngle, swinSpeed);
+            if (Mathf.Abs(xOffset - swinToAngle) < 0.01f) xOffset = swinToAngle;
+            material.SetFloat("_xOffset", xOffset);
+        }
+        else{ swinToAngle = 0f; swinSpeed=swinbackSpeed; }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
         {
-            if (!isGrowed && isMajorFolower) MajorFlowerGrow();
-
-            if (PlayerControl.facingRight)
-                StartCoroutine(RotateMe(Vector3.forward * -rotateAmount, 0.1f));
-            else
-                StartCoroutine(RotateMe(Vector3.forward * rotateAmount, 0.1f));
+            if (!isGrowed && isMainFolower) MainFlowerGrow();
         }
     }
-
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            if (PlayerControl.xSpeed != 0f)
+            {
+                float speedRate = PlayerControl.xSpeed / PlayerControl.speedLimit;
+                swinToAngle = speedRate * maxSwinOffset;
+                swinSpeed = Mathf.Abs(speedRate * maxSwinSpeed);
+            }
+            else { swinToAngle = 0f; swinSpeed = swinbackSpeed; }
+        }
+    }
+    
     //主花生長
-    void MajorFlowerGrow()
+    void MainFlowerGrow()
     {
         isGrowed = true;
         animator.SetTrigger("grow");
-        StartCoroutine(MinorFlowerGrow(firstGrowDelay, delayBetween));
-    }
-
-    //小花生長
-    public void MinorFlowerGrow()
-    {
-        if (!isGrowed)
-        {
-            isGrowed = true;
-            animator.SetTrigger("grow");
-        } 
-    }
-
-    IEnumerator RotateMe(Vector3 byAngles, float inTime)
-    {
-        Quaternion fromAngle = transform.rotation;
-        Quaternion toAngle = Quaternion.Euler(transform.eulerAngles + byAngles);
-
-        for (float t = 0f; t < 1; t += Time.deltaTime / inTime)
-        {
-            transform.rotation =  Quaternion.Lerp(fromAngle, toAngle, t);
-            yield return null;
-        }
-        for (float t = 1f; t>=0; t -= Time.deltaTime / inTime * 3f)
-        {
-            transform.rotation = Quaternion.Lerp(fromAngle, toAngle, t);
-            yield return null;
-        }
-        transform.rotation = oriAngle;
-
-        if (isMajorFolower && !isParticlePlayed) FollowParticle();
     }
 
     //animation呼叫
-    void OpenLight()
+    void ThingAfterMainGrow()
     {
-        if (isMajorFolower) flowerLight.enabled = true;
+        if (!isMainFolower) return;
+
+        flowerLight.enabled = true;
+        if (isMainFolower && !isParticlePlayed) FollowParticle();
+        if (minorFlowers.Length > 0) StartCoroutine(MinorGrow());
     }
 
     void FollowParticle()
@@ -109,7 +103,7 @@ public class Flowers : MonoBehaviour {
         Destroy(particle, 5f);
     }
 
-    IEnumerator MinorFlowerGrow(float firstGrowDelay, float delayBetween)
+    IEnumerator MinorGrow()
     {
         int minorFlowerSum = minorFlowers.Length;
 
@@ -122,4 +116,12 @@ public class Flowers : MonoBehaviour {
         }
     }
 
+    public void MinorFlowerGrow()
+    {
+        if (!isGrowed)
+        {
+            isGrowed = true;
+            animator.SetTrigger("grow");
+        }
+    }
 }

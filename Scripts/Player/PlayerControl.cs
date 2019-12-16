@@ -7,14 +7,14 @@ public class PlayerControl : MonoBehaviour {
     [Header("基本參數")]
     [Range(0, 2)]static public int OkaID_Now = 1;
     public float initSpeedLimit = 8.0f;
-    [HideInInspector] public float speedLimit;           //移動速度上限
+    [HideInInspector] static public float speedLimit;           //移動速度上限
     public float accelForce = 80f;       //加速時間
-    [HideInInspector] public float xSpeed = 0f;
     public float jumpForce = 650.0f;    //跳躍力道
     public float walljumpForce = 750.0f;
     [HideInInspector] public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     [HideInInspector] static public bool canMove = true;
     [HideInInspector] static public bool facingRight = true;    //是否面向右
+    [HideInInspector] static public float xSpeed = 0f;
     private PlayerEnergy playerEnergy;
     private PlayerChange playerChange;
 
@@ -39,9 +39,7 @@ public class PlayerControl : MonoBehaviour {
     private Skill_Base[] skill_Base = { null, null, null };
     private Skill_Water skill_Water;
 
-    [Header("長草設定")]
-    private int grassLayerID = 15;
-    
+  
     [Header("機關設定")]
     public GameObject noticeUI;
     private Transform noticeUI_Trans;
@@ -99,6 +97,7 @@ public class PlayerControl : MonoBehaviour {
         
         Move();
         Jump();
+
     }
 
     void PointCheck()
@@ -139,6 +138,8 @@ public class PlayerControl : MonoBehaviour {
         {
             if ((facingRight && rb2d.velocity.x < 0f) || (!facingRight && rb2d.velocity.x > 0f)) Flip();
         }
+
+        xSpeed = rb2d.velocity.x;
     }
     void Flip() //偵測移動方向及是否需轉面
     {
@@ -176,7 +177,6 @@ public class PlayerControl : MonoBehaviour {
         if (onPlatform && Input.GetButtonDown("Vertical") && !jumpingDown)
         {
             StartCoroutine(JumpDownFromPlat());
-            jumpingDown = true;
             return;
         }
         if (Input.GetAxis("Jump") > 0.1f && !pressingJump) 
@@ -239,17 +239,14 @@ public class PlayerControl : MonoBehaviour {
     //平台下跳
     IEnumerator JumpDownFromPlat()
     {
-        float timer = 0f;
         float colDisTime = 0.2f;
 
-        this.GetComponent<CircleCollider2D>().enabled = false;
-        while (timer < colDisTime)
-        {
-            timer += Time.deltaTime;
-            yield return 0;
-        }
-        this.GetComponent<CircleCollider2D>().enabled = true;
+        Physics2D.IgnoreLayerCollision(8, 13, true);
+        jumpingDown = true;
 
+        yield return new WaitForSeconds(colDisTime);
+
+        Physics2D.IgnoreLayerCollision(8, 13, false);
         jumpingDown = false;
     }
     #endregion ================↑跳躍相關↑================
@@ -257,9 +254,6 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓trigger相關↓================
     void OnTriggerEnter2D(Collider2D collider)
     {
-        //---長草---
-        //if (collider.gameObject.layer == grassLayerID) collider.gameObject.GetComponent<GrassControl>().GrowGrass();
-
         //---水中---
         if (collider.gameObject.layer == DirtyWaterLayerID)
         {
@@ -282,9 +276,9 @@ public class PlayerControl : MonoBehaviour {
     void OnTriggerStay2D(Collider2D collider)
     {
         //---滲透毛細提示UI&起始呼叫---
-        if (collider.gameObject.tag == "WaterPassingTrigger" && OkaID_Now == 1)
+        if (collider.gameObject.tag == "WaterPassingTrigger")
         {
-            if (!skill_Water.isPassing)
+            if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
                 noticeUI.SetActive(false);
 
@@ -317,7 +311,7 @@ public class PlayerControl : MonoBehaviour {
         }
 
         //---滲透&毛細提醒UI---
-        else if (collider.gameObject.tag == "WaterPassingTrigger" && OkaID_Now == 1) noticeUI.SetActive(false);
+        else if (collider.gameObject.tag == "WaterPassingTrigger") noticeUI.SetActive(false);
 
     }
     #endregion ================↑trigger相關↑================
@@ -410,8 +404,6 @@ public class PlayerControl : MonoBehaviour {
         for(int x = 0; x < 3; x++)
         {
             spriteRenderer[x].color = new Color(1f, 1f, 1f);
-
-            noticeUI.SetActive(false);
         }
     }
 
