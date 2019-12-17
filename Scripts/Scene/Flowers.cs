@@ -68,7 +68,7 @@ public class Flowers : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            if (PlayerControl.xSpeed != 0f)
+            if (Mathf.Abs(PlayerControl.xSpeed) >= 4f)
             {
                 float speedRate = PlayerControl.xSpeed / PlayerControl.speedLimit;
                 swinToAngle = speedRate * maxSwinOffset;
