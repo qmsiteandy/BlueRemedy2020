@@ -54,16 +54,13 @@ public class Skill_Base : MonoBehaviour
 
     protected void BaseUpdate()
     {
-        if (Input.GetButtonDown("Attack"))
-        {
-            if (PlayerControl.footLanding) inputCount += 1;  //普功
-            else SkyAttack();
-        }
+        if (Input.GetButtonDown("Attack")) inputCount += 1;
 
         if (inputCount >= attackStep)
         {
-            if (!duringSteps) NormalAttack();
+            if (PlayerControl.jumpable && !duringSteps) NormalAttack();
         }
+
         if (attacking == true)
         {
             elapsed += Time.deltaTime;
@@ -91,12 +88,6 @@ public class Skill_Base : MonoBehaviour
                 if (!duringSteps) BackNormal();
                 break;
         }
-    }
-
-    protected void SkyAttack()
-    {
-        animator.SetTrigger("sky_attack");
-        PlayerControl.canMove = false;
     }
 
     //從animation event呼叫攻擊扣血
