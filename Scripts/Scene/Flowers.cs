@@ -7,7 +7,6 @@ public class Flowers : MonoBehaviour {
     [Header("花")]
     public bool isMainFolower = false;
     private bool isGrowed = false;
-    private Light flowerLight;
     private Animator animator;
 
     [Header("長小花")]
@@ -17,9 +16,14 @@ public class Flowers : MonoBehaviour {
     public Flowers[] minorFlowers;
 
     [Header("特效")]
-    public GameObject FollowGrowParticle;
+    public GameObject followPollenParticle;
+    private ParticleSystem FollowPollen_PS;
     private bool isParticlePlayed = false;
     public Transform particlePoint;
+
+    [Header("燈光")]
+    private Light flowerLight;
+    private float initIntensity;
 
     [Header("擺動")]
     public float maxSwinOffset = 0.45f;
@@ -36,13 +40,18 @@ public class Flowers : MonoBehaviour {
         animator = GetComponent<Animator>();
         material = GetComponent<SpriteRenderer>().material;
         
+
+
         if (isMainFolower)
         {
             flowerLight = transform.GetChild(0).GetComponent<Light>();
-            flowerLight.enabled = false;
+            initIntensity = flowerLight.intensity;
+            flowerLight.intensity = 0f;
 
             minorFlowers = new Flowers[minorFlowers_folder.childCount];
             for (int x = 0; x < minorFlowers_folder.childCount; x++) minorFlowers[x] = minorFlowers_folder.GetChild(x).GetComponent<Flowers>();
+
+            FollowPollen_PS = followPollenParticle.GetComponent<ParticleSystem>();
         } 
     }
 
@@ -83,15 +92,15 @@ public class Flowers : MonoBehaviour {
     {
         isGrowed = true;
         animator.SetTrigger("grow");
+        if (!isParticlePlayed) FollowParticle();
     }
 
     //animation呼叫
     void ThingAfterMainGrow()
     {
         if (!isMainFolower) return;
-
-        flowerLight.enabled = true;
-        if (isMainFolower && !isParticlePlayed) FollowParticle();
+        
+        StartCoroutine(OpenLight(firstGrowDelay, 1.5f));
         if (minorFlowers.Length > 0) StartCoroutine(MinorGrow());
     }
 
@@ -99,8 +108,23 @@ public class Flowers : MonoBehaviour {
     {
         isParticlePlayed = true;
 
-        GameObject particle = Instantiate(FollowGrowParticle, particlePoint.position, Quaternion.identity);
-        Destroy(particle, 5f);
+        GameObject particle = Instantiate(followPollenParticle, particlePoint.position, Quaternion.identity);
+        Destroy(particle, 10f);
+    }
+
+    IEnumerator OpenLight(float delay, float inTime)
+    {
+        yield return new WaitForSeconds(delay);
+
+        float intensity = 0f;
+        float add = initIntensity / inTime;
+
+        while (intensity < initIntensity)
+        {
+            intensity += add * Time.deltaTime;
+            flowerLight.intensity = intensity;
+            yield return null;
+        }
     }
 
     IEnumerator MinorGrow()
