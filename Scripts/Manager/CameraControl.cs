@@ -59,7 +59,7 @@ public class CameraControl : MonoBehaviour {
     }
 
     //回歸follow主角
-    public void BackNormal()
+    public void BackIdle()
     {
         isFollowMode = true;
     }

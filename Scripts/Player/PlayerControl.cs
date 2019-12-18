@@ -25,7 +25,7 @@ public class PlayerControl : MonoBehaviour {
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     private LayerMask whatIsWall;
-    [HideInInspector] static public bool jumpable = false;
+    [HideInInspector] static public bool footLanding = false;
     private bool onGround, onPlatform;
     private bool frontTouchWall = false, backTouchWall = false;
     private bool secondJumping = false;
@@ -105,10 +105,10 @@ public class PlayerControl : MonoBehaviour {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
-        jumpable = onGround || onPlatform;
+        footLanding = onGround || onPlatform;
         frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.1f, whatIsWall);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
-        if (jumpable || frontTouchWall || backTouchWall) secondJumping = false;
+        if (footLanding || frontTouchWall || backTouchWall) secondJumping = false;
     }
 
     #region ================↓移動轉身相關↓================
@@ -184,7 +184,7 @@ public class PlayerControl : MonoBehaviour {
             pressingJump = true;
                         
             //在地上
-            if (jumpable)
+            if (footLanding)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
@@ -218,7 +218,7 @@ public class PlayerControl : MonoBehaviour {
             }
         }
         //當跳躍鍵放開且此時未著地
-        else if (Input.GetAxis("Jump") < 1f && !jumpable)
+        else if (Input.GetAxis("Jump") < 1f && !footLanding)
         {
             //呼叫JumpRelease函示
             JumpRelease();
@@ -321,7 +321,7 @@ public class PlayerControl : MonoBehaviour {
     public void TakeDamage(int damage)
     {
         if (skill_Water.isPassing) skill_Water.PassingInterrupted();
-        skill_Base[OkaID_Now].BackNormal();
+        skill_Base[OkaID_Now].BackIdle();
 
         playerEnergy.ModifyDirt(damage);
         playerEnergy.ModifyWaterEnergy(-damage);
@@ -334,7 +334,7 @@ public class PlayerControl : MonoBehaviour {
     public void TakeDamage(int waterCost,int addDirt)
     {
         if (skill_Water.isPassing) skill_Water.PassingInterrupted();
-        skill_Base[OkaID_Now].BackNormal();
+        skill_Base[OkaID_Now].BackIdle();
 
         playerEnergy.ModifyDirt(addDirt);
         playerEnergy.ModifyWaterEnergy(- waterCost);
@@ -379,7 +379,7 @@ public class PlayerControl : MonoBehaviour {
     {
         //---水中漂浮&冒泡泡---
         
-        jumpable = true;
+        footLanding = true;
 
         if (OkaID_Now == 0)
         {

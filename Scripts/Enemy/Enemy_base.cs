@@ -139,7 +139,6 @@ public class Enemy_base : MonoBehaviour {
             isInjury = true;
             animator.SetTrigger("Injury");
             StartCoroutine(ChangeColor(new Color(1, 0, 0), 0.1f));
-            Debug.Log("Takedamage:" + health);
         }
     }
 

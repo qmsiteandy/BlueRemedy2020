@@ -6,7 +6,7 @@ public class Skill_Base : MonoBehaviour
 {
 
     [Header("基本參數")]
-    public int attackWaterCost = 1;
+    public int attackWaterCost = 0;
     protected Transform playerTrans;
     protected Animator animator;
     protected PlayerEnergy playerEnergy;
@@ -21,14 +21,14 @@ public class Skill_Base : MonoBehaviour
     protected ContactFilter2D enemyFilter;
 
     [Header("Input")]
-    protected float skillInputDelay = 0.3f;
+    protected float skillInputDelay = 0.35f;
     protected float elapsed = 0f;
-    protected int inputCount = 0;
+    protected int normalattack_input = 0;
 
     [Header("判斷")]
-    protected int attackStep = 1;
+    protected int normalattack_step = 0;
     protected bool attacking = false;
-    protected bool duringSteps = false;
+    protected bool normalinput_delaying = false;
 
     [Header("變身")]
     public GameObject changeNextFX;
@@ -54,44 +54,54 @@ public class Skill_Base : MonoBehaviour
 
     protected void BaseUpdate()
     {
-        if (Input.GetButtonDown("Attack")) inputCount += 1;
-
-        if (inputCount >= attackStep)
+        if (Input.GetButtonDown("Attack"))
         {
-            if (PlayerControl.jumpable && !duringSteps) NormalAttack();
+            if (PlayerControl.footLanding) normalattack_input += 1;
+            else SkyAttack();
         }
 
-        if (attacking == true)
+        if (normalattack_input > normalattack_step)
+        {
+            if (!attacking) NormalAttack();
+        }
+
+        if (normalinput_delaying == true)
         {
             elapsed += Time.deltaTime;
-            if (elapsed > skillInputDelay && !duringSteps) BackNormal();
+            if (elapsed > skillInputDelay) BackIdle();
         }
     }
 
     protected void NormalAttack()
     {
-        attacking = true;
-        PlayerControl.canMove = false;
-
-        switch (attackStep)
+        SetAttacking(true);
+        normalattack_step += 1;
+        
+        switch (normalattack_step)
         {
             case 1:
-                animator.SetTrigger("attack_1"); elapsed = 0f; attackStep += 1; duringSteps = true;
+                animator.SetTrigger("attack_1"); elapsed = 0f; normalinput_delaying = true;
                 break;
             case 2:
-                animator.SetTrigger("attack_2"); elapsed = 0f; attackStep += 1; duringSteps = true;
+                animator.SetTrigger("attack_2"); elapsed = 0f; normalinput_delaying = true;
                 break;
             case 3:
-                animator.SetTrigger("attack_3"); elapsed = 0f; attackStep += 1; duringSteps = true;
+                animator.SetTrigger("attack_3"); elapsed = 0f; normalinput_delaying = true;
                 break;
             default:
-                if (!duringSteps) BackNormal();
+                BackIdle();
                 break;
         }
     }
 
+    protected void SkyAttack()
+    {
+        animator.SetTrigger("sky_attack");
+        SetAttacking(true);
+    }
+
     //從animation event呼叫攻擊扣血
-    public void Damage()
+    protected void Damage()
     {
         playerEnergy.ModifyWaterEnergy(-attackWaterCost);
 
@@ -106,20 +116,25 @@ public class Skill_Base : MonoBehaviour
         }
     }
 
-    public void BackNormal()
+    protected void SetAttacking(bool truefalse)
     {
-        duringSteps = false;
-        attacking = false;
-        attackStep = 1;
-        inputCount = 0;
+        attacking = truefalse;
+        PlayerControl.canMove = !truefalse;
+    }
 
-        animator.SetTrigger("back_idle");
-        PlayerControl.canMove = true;
+    public void BackIdle()
+    {
+        //animator.SetTrigger("back_idle");
+        SetAttacking(false);
+        normalinput_delaying = false;
+        //duringSteps = false;
+        normalattack_step = 0;
+        normalattack_input = 0; 
     }
 
     protected void ThisStepFinish()
     {
-        duringSteps = false;
+        attacking = false;
     }
 
     public void SetCameraTarget(Transform target, float lerpTime)
@@ -127,7 +142,7 @@ public class Skill_Base : MonoBehaviour
         cameraControl.SetTarget(target, lerpTime);
     }
 
-    //===============變身相關===============
+    #region ===============變身相關===============
 
     //由PlayerChange呼叫
     public void ChangeStart(bool isChangeNext)
@@ -151,14 +166,7 @@ public class Skill_Base : MonoBehaviour
     //變身完成這隻開啟時呼叫
     public void TransformReset()
     {
-        elapsed = 0f;
-        inputCount = 0;
-
-        attackStep = 1;
-        attacking = false;
-        duringSteps = false;
-
-        PlayerControl.canMove = true;
+        BackIdle();
     }
     IEnumerator ChangeFX_Delay(GameObject FX, float delay)
     {
@@ -166,4 +174,6 @@ public class Skill_Base : MonoBehaviour
         GameObject particle = Instantiate(FX, playerTrans.position, Quaternion.identity);
         Destroy(particle, 3f);
     }
+
+    #endregion ===============變身相關===============
 }
