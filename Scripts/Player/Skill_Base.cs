@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Skill_Base : MonoBehaviour
 {
-
     [Header("基本參數")]
     public int attackWaterCost = 0;
     protected Transform playerTrans;
@@ -54,7 +53,7 @@ public class Skill_Base : MonoBehaviour
 
     protected void BaseUpdate()
     {
-        if (Input.GetButtonDown("Attack"))
+        if (Input.GetButtonDown("Attack") && PlayerStatus.canSkill)
         {
             if (PlayerControl.footLanding) normalattack_input += 1;
             else SkyAttack();
@@ -119,7 +118,7 @@ public class Skill_Base : MonoBehaviour
     protected void SetAttacking(bool truefalse)
     {
         attacking = truefalse;
-        PlayerControl.canMove = !truefalse;
+        PlayerStatus.isSkilling = truefalse;
     }
 
     public void BackIdle()

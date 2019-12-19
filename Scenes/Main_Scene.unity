@@ -551,7 +551,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1bf45bc96a2baef4a8f3178d37493bc1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1004,7 +1004,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 1bf45bc96a2baef4a8f3178d37493bc1, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3071,7 +3071,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1609214305337840, guid: 7aec822e3715cc349be3694e8f8a7519, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aec822e3715cc349be3694e8f8a7519, type: 2}
@@ -4181,7 +4181,7 @@ MonoBehaviour:
   particlePoint: {fileID: 0}
   maxSwinOffset: 0.45
   maxSwinSpeed: 0.14
-  swinbackSpeed: 0.08
+  swinbackSpeed: 0.14
 --- !u!61 &301726296
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5448,7 +5448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &428830783
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12958,7 +12958,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1092332715}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.209, z: -0.58}
+  m_LocalPosition: {x: 0, y: -0.209, z: -0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1373716925}
@@ -12974,8 +12974,8 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 0.7671719, g: 1, b: 0.43867922, a: 1}
-  m_Intensity: 25
-  m_Range: 5.92
+  m_Intensity: 20
+  m_Range: 5.2
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -17029,7 +17029,7 @@ MonoBehaviour:
   particlePoint: {fileID: 1041025212}
   maxSwinOffset: 0.45
   maxSwinSpeed: 0.14
-  swinbackSpeed: 0.08
+  swinbackSpeed: 0.14
 --- !u!61 &1373716924
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18517,7 +18517,7 @@ MonoBehaviour:
   particlePoint: {fileID: 0}
   maxSwinOffset: 0.45
   maxSwinSpeed: 0.14
-  swinbackSpeed: 0.08
+  swinbackSpeed: 0.14
 --- !u!61 &1473283227
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18773,6 +18773,7 @@ GameObject:
   - component: {fileID: 1496018876}
   - component: {fileID: 1496018873}
   - component: {fileID: 1017761370}
+  - component: {fileID: 1496018877}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -18788,7 +18789,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1496018871}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.4, y: -0.1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 78037352}
@@ -18881,6 +18882,17 @@ MonoBehaviour:
   isInWater: 0
   waterSplashFX: {fileID: 1963430798620808, guid: d7b0a44ceec415b418a11ad3e968a335,
     type: 2}
+--- !u!114 &1496018877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1496018871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01caaa547e5b9f74190a5ac9d01ca791, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1503289813
 GameObject:
   m_ObjectHideFlags: 0
@@ -24750,7 +24762,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.6839622, g: 0.9849981, b: 1, a: 1}
   m_Intensity: 1
-  m_Range: 22.4
+  m_Range: 15.57
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -26915,7 +26927,7 @@ MonoBehaviour:
   particlePoint: {fileID: 0}
   maxSwinOffset: 0.45
   maxSwinSpeed: 0.14
-  swinbackSpeed: 0.08
+  swinbackSpeed: 0.14
 --- !u!61 &1755695342
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -34129,7 +34141,7 @@ MonoBehaviour:
   particlePoint: {fileID: 0}
   maxSwinOffset: 0.45
   maxSwinSpeed: 0.14
-  swinbackSpeed: 0.08
+  swinbackSpeed: 0.14
 --- !u!61 &1903361649
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -15,6 +15,8 @@ public class PlayerChange : MonoBehaviour {
     private PlayerWheel playerWheel;
     private Transform wheelTrans;
 
+    private bool isChangeAxisDown = false;
+
 
     // Use this for initialization
     void Start () {
@@ -27,49 +29,52 @@ public class PlayerChange : MonoBehaviour {
         playerWheel = wheelTrans.GetComponent<PlayerWheel>();
     }
 	
+    
+
 	// Update is called once per frame
-	void Update ()
+	void Update()
     {
-        if (Input.GetButtonDown("Change") && !wheelShow && PlayerControl.canMove)
+        //bool getKey_Change;
+        //if (PlayerStatus.isKeyboardInput()) getKey_Change = Input.GetButton("Change");
+        //else getKey_Change = Input.GetAxis("XBOX_Change") > 0f;
+
+        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0f) && !wheelShow && PlayerStatus.canChange)
         {
-            form_index = PlayerControl.OkaID_Now;
-            PlayerControl.canMove = false;
+            //form_index = PlayerControl.OkaID_Now;
+            PlayerStatus.isChanging = true;
             playerWheel.WheelShow(); wheelShow = true;
         }
-        else if (Input.GetButton("Change") && !transforming && wheelShow)
+        else if ((PlayerStatus.isKeyboardInput() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0f) && !transforming && wheelShow)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetKeyDown(KeyCode.JoystickButton2))
             {
                 if (PlayerControl.OkaID_Now == 0) { playerWheel.LightFlash(0); return; }
-
                 form_index = 0;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(0);
                 playerWheel.WheelDisappear(); wheelShow = false;
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetKeyDown(KeyCode.JoystickButton3))
             {
                 if (PlayerControl.OkaID_Now == 1) { playerWheel.LightFlash(1); return; }
-
                 form_index = 1;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(1);
                 playerWheel.WheelDisappear(); wheelShow = false;
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.RightArrow) : Input.GetKeyDown(KeyCode.JoystickButton1))
             {
                 if (PlayerControl.OkaID_Now == 2) { playerWheel.LightFlash(2); return; }
-
                 form_index = 2;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(2);
                 playerWheel.WheelDisappear(); wheelShow = false;
-            } 
+            }
         }
-        else if (Input.GetButtonUp("Change") && wheelShow)
+        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && wheelShow)
         {
             playerWheel.WheelDisappear(); wheelShow = false;
-            PlayerControl.canMove = true;
+            PlayerStatus.isChanging = false;
         }
     }
 
@@ -84,6 +89,7 @@ public class PlayerChange : MonoBehaviour {
         else if (x == -1 || x == 2) Oka_form[PlayerControl.OkaID_Now].GetComponent<Skill_Base>().ChangeStart(false);
 
         playerControl.TrnasformReset();
+        PlayerStatus.isChanging = true;
     }
 
     //由Skill_Base呼叫
@@ -96,7 +102,7 @@ public class PlayerChange : MonoBehaviour {
         PlayerControl.OkaID_Now = form_index;
 
         transforming = false;
-        PlayerControl.canMove = true;
+        PlayerStatus.isChanging = false;
     }
 
     public void WheelUI_Flip()
@@ -107,5 +113,5 @@ public class PlayerChange : MonoBehaviour {
         theScale.x *= -1;
         //套用翻面後的規格
         wheelTrans.localScale = theScale;
-    } 
+    }
 }

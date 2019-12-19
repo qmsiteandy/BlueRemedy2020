@@ -12,7 +12,6 @@ public class PlayerControl : MonoBehaviour {
     public float jumpForce = 650.0f;    //跳躍力道
     public float walljumpForce = 750.0f;
     [HideInInspector] public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
-    [HideInInspector] static public bool canMove = true;
     [HideInInspector] static public bool facingRight = true;    //是否面向右
     [HideInInspector] static public float xSpeed = 0f;
     private PlayerEnergy playerEnergy;
@@ -97,7 +96,6 @@ public class PlayerControl : MonoBehaviour {
         
         Move();
         Jump();
-
     }
 
     void PointCheck()
@@ -116,9 +114,9 @@ public class PlayerControl : MonoBehaviour {
     {
         float xInput;
 
-        if (canMove)
+        if (PlayerStatus.canMoveAndJump)
         {
-            xInput = Input.GetAxis("Horizontal");
+            xInput = Input.GetAxis("Horizontal") + Input.GetAxis("XBOX_Horizontal");
 
             Vector2 force = new Vector2(xInput * accelForce, 0f);
             rb2d.AddForce(force);
@@ -171,10 +169,10 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓跳躍相關↓================
     void Jump()
     {
-        if (!canMove) return;
+        if (!PlayerStatus.canMoveAndJump) return;
 
         //平台上往下跳
-        if (onPlatform && Input.GetButtonDown("Vertical") && !jumpingDown)
+        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0f) && !jumpingDown)
         {
             StartCoroutine(JumpDownFromPlat());
             return;
@@ -364,14 +362,14 @@ public class PlayerControl : MonoBehaviour {
     {
         float timer = 0f;
 
-        canMove = false;
+        PlayerStatus.canMoveAndJump = false;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
             yield return 0;
         }
-        canMove = true;
+        PlayerStatus.canMoveAndJump = true;
     }
 
     //---水中---

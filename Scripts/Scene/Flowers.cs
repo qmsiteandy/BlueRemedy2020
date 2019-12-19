@@ -24,11 +24,12 @@ public class Flowers : MonoBehaviour {
     [Header("燈光")]
     private Light flowerLight;
     private float initIntensity;
+    private float initRange;
 
     [Header("擺動")]
     public float maxSwinOffset = 0.45f;
     public float maxSwinSpeed = 0.14f;
-    public float swinbackSpeed = 0.08f;
+    public float swinbackSpeed = 0.14f;
     private float swinToAngle, swinSpeed;
     private float xOffset=0f;
     private Material material;
@@ -45,8 +46,8 @@ public class Flowers : MonoBehaviour {
         if (isMainFolower)
         {
             flowerLight = transform.GetChild(0).GetComponent<Light>();
-            initIntensity = flowerLight.intensity;
-            flowerLight.intensity = 0f;
+            initIntensity = flowerLight.intensity; flowerLight.intensity = 0f;
+            initRange = flowerLight.range; flowerLight.range = 0f;
 
             minorFlowers = new Flowers[minorFlowers_folder.childCount];
             for (int x = 0; x < minorFlowers_folder.childCount; x++) minorFlowers[x] = minorFlowers_folder.GetChild(x).GetComponent<Flowers>();
@@ -63,7 +64,7 @@ public class Flowers : MonoBehaviour {
             if (Mathf.Abs(xOffset - swinToAngle) < 0.01f) xOffset = swinToAngle;
             material.SetFloat("_xOffset", xOffset);
         }
-        else{ swinToAngle = 0f; swinSpeed=swinbackSpeed; }
+        else{ swinToAngle = 0f; swinSpeed = swinbackSpeed; }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -77,7 +78,7 @@ public class Flowers : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            if (PlayerControl.xSpeed != 0f)
+            if (Mathf.Abs(PlayerControl.xSpeed) > 4f)
             {
                 float speedRate = PlayerControl.xSpeed / PlayerControl.speedLimit;
                 swinToAngle = speedRate * maxSwinOffset;
@@ -93,6 +94,7 @@ public class Flowers : MonoBehaviour {
         isGrowed = true;
         animator.SetTrigger("grow");
         if (!isParticlePlayed) FollowParticle();
+        StartCoroutine(OpenLight(firstGrowDelay, 1.5f));
     }
 
     //animation呼叫
@@ -100,7 +102,6 @@ public class Flowers : MonoBehaviour {
     {
         if (!isMainFolower) return;
         
-        StartCoroutine(OpenLight(firstGrowDelay, 1.5f));
         if (minorFlowers.Length > 0) StartCoroutine(MinorGrow());
     }
 
@@ -116,15 +117,20 @@ public class Flowers : MonoBehaviour {
     {
         yield return new WaitForSeconds(delay);
 
-        float intensity = 0f;
-        float add = initIntensity / inTime;
+        float elapsed = 0f;
+        float addIntensity = initIntensity / inTime;
+        float addRange = initRange / inTime;
 
-        while (intensity < initIntensity)
-        {
-            intensity += add * Time.deltaTime;
-            flowerLight.intensity = intensity;
+        do{
+            flowerLight.intensity += addIntensity * Time.deltaTime;
+            flowerLight.range += addRange * Time.deltaTime;
+
+            elapsed += Time.deltaTime;
             yield return null;
-        }
+        }while (elapsed < inTime);
+
+        flowerLight.intensity = initIntensity;
+        flowerLight.range = initRange;
     }
 
     IEnumerator MinorGrow()
