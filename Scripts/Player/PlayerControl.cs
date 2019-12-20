@@ -6,6 +6,7 @@ public class PlayerControl : MonoBehaviour {
 
     [Header("基本參數")]
     [Range(0, 2)]static public int OkaID_Now = 1;
+    private float xInput;
     public float initSpeedLimit = 8.0f;
     [HideInInspector] static public float speedLimit;           //移動速度上限
     public float accelForce = 80f;       //加速時間
@@ -104,7 +105,7 @@ public class PlayerControl : MonoBehaviour {
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
         footLanding = onGround || onPlatform;
-        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.1f, whatIsWall);
+        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.35f, whatIsWall);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
         if (footLanding || frontTouchWall || backTouchWall) secondJumping = false;
     }
@@ -112,8 +113,6 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓移動轉身相關↓================
     void Move()
     {
-        float xInput;
-
         if (PlayerStatus.canMoveAndJump)
         {
             xInput = Input.GetAxis("Horizontal") + Input.GetAxis("XBOX_Horizontal");
@@ -172,7 +171,7 @@ public class PlayerControl : MonoBehaviour {
         if (!PlayerStatus.canMoveAndJump) return;
 
         //平台上往下跳
-        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0f) && !jumpingDown)
+        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumpingDown)
         {
             StartCoroutine(JumpDownFromPlat());
             return;
@@ -192,8 +191,8 @@ public class PlayerControl : MonoBehaviour {
             //蹬牆跳
             else if (frontTouchWall)
             {
-                if (facingRight) { rb2d.AddForce(new Vector2(-walljumpForce * 0.8f, walljumpForce)); }
-                else { rb2d.AddForce(new Vector2(walljumpForce * 0.8f, walljumpForce)); }
+                if (facingRight) { rb2d.AddForce(new Vector2(-walljumpForce * (xInput>0f ? 2.5f : 0.8f), walljumpForce)); }
+                else { rb2d.AddForce(new Vector2(walljumpForce * (xInput < 0f ? 2.5f : 0.8f), walljumpForce)); }
 
                 StartCoroutine(ShortCantMove(shortCantMoveDuration));
             }

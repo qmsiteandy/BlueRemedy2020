@@ -8,12 +8,11 @@ public class PlayerChange : MonoBehaviour {
     public GameObject[] Oka_form = { null, null, null };
     private int form_index;
     private bool transforming = false;
-    private bool wheelShow = false;
 
     /*public GameObject smokeParticke;*/
     private PlayerControl playerControl;
     private PlayerWheel playerWheel;
-    private Transform wheelTrans;
+    private RectTransform wheelTrans;
 
     private bool isChangeAxisDown = false;
 
@@ -25,7 +24,7 @@ public class PlayerChange : MonoBehaviour {
         Oka_form[2] = this.transform.GetChild(2).gameObject;
 
         playerControl = GetComponent<PlayerControl>();
-        wheelTrans = transform.Find("Wheel").GetComponent<Transform>();
+        wheelTrans = transform.Find("WheelCanvas").GetComponent<RectTransform>();
         playerWheel = wheelTrans.GetComponent<PlayerWheel>();
     }
 	
@@ -38,13 +37,13 @@ public class PlayerChange : MonoBehaviour {
         //if (PlayerStatus.isKeyboardInput()) getKey_Change = Input.GetButton("Change");
         //else getKey_Change = Input.GetAxis("XBOX_Change") > 0f;
 
-        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0f) && !wheelShow && PlayerStatus.canChange)
+        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0f) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
         {
             //form_index = PlayerControl.OkaID_Now;
             PlayerStatus.isChanging = true;
-            playerWheel.WheelShow(); wheelShow = true;
+            playerWheel.WheelShow();
         }
-        else if ((PlayerStatus.isKeyboardInput() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0f) && !transforming && wheelShow)
+        else if ((PlayerStatus.isKeyboardInput() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0f) && !transforming && playerWheel.Get_wheelShow())
         {
             if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetKeyDown(KeyCode.JoystickButton2))
             {
@@ -52,7 +51,7 @@ public class PlayerChange : MonoBehaviour {
                 form_index = 0;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(0);
-                playerWheel.WheelDisappear(); wheelShow = false;
+                playerWheel.WheelDisappear(); 
             }
             else if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetKeyDown(KeyCode.JoystickButton3))
             {
@@ -60,7 +59,7 @@ public class PlayerChange : MonoBehaviour {
                 form_index = 1;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(1);
-                playerWheel.WheelDisappear(); wheelShow = false;
+                playerWheel.WheelDisappear();
             }
             else if (PlayerStatus.isKeyboardInput() ? Input.GetKeyDown(KeyCode.RightArrow) : Input.GetKeyDown(KeyCode.JoystickButton1))
             {
@@ -68,12 +67,12 @@ public class PlayerChange : MonoBehaviour {
                 form_index = 2;
                 ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(2);
-                playerWheel.WheelDisappear(); wheelShow = false;
+                playerWheel.WheelDisappear();
             }
         }
-        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && wheelShow)
+        if ((PlayerStatus.isKeyboardInput() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && playerWheel.Get_wheelShow())
         {
-            playerWheel.WheelDisappear(); wheelShow = false;
+            playerWheel.WheelDisappear();
             PlayerStatus.isChanging = false;
         }
     }

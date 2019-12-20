@@ -6,39 +6,51 @@ using UnityEngine.UI;
 
 public class TeachingUI_Control : MonoBehaviour {
 
-    [Header("基本參數")]
+    [Header("UI顯現")]
     public float fadeUpSpeed = 5f;
     public float fadeDownSpeed = 4f;
     private CanvasGroup canvasGroup;
     private float alpha;
     private bool isFadingUp = false;
 
-	// Use this for initialization
-	void Start ()
+    [Header("按鍵UI切換")]  //keyboard按鍵和joystick按鍵
+    public bool hasButtonUI = false;
+    public GameObject keyboardButtonGroup;
+    public GameObject joystickButtonGroup;
+    private bool isKeyboardInput = true;
+
+    // Use this for initialization
+    void Start ()
     {
         alpha = 0f;
 
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = alpha;
 
+        if (hasButtonUI) SetButtonUIState(isKeyboardInput);
     }
 
     // Update is called once per frame
     void Update ()
     {
-        
         if (isFadingUp && canvasGroup.alpha < 1f)
         {
             alpha += fadeUpSpeed * Time.deltaTime;
             if (alpha > 1f) alpha = 1f;
-            canvasGroup.alpha = alpha;
         }
         else if (!isFadingUp && canvasGroup.alpha > 0f)
         {
             alpha -= fadeDownSpeed * Time.deltaTime;
             if (alpha < 0f) alpha = 0f;
-            canvasGroup.alpha = alpha;
         }
+
+        canvasGroup.alpha = alpha;
+
+        if (hasButtonUI)
+        {
+            if (isKeyboardInput && !PlayerStatus.isKeyboardInput()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
+            else if(!isKeyboardInput && PlayerStatus.isKeyboardInput()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
+        } 
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -55,5 +67,11 @@ public class TeachingUI_Control : MonoBehaviour {
         {
             isFadingUp = false;
         }
+    }
+
+    void SetButtonUIState(bool isKeyboardInput)
+    {
+        if (isKeyboardInput) { keyboardButtonGroup.SetActive(true); joystickButtonGroup.SetActive(false); }
+        else { keyboardButtonGroup.SetActive(false); joystickButtonGroup.SetActive(true); }
     }
 }
