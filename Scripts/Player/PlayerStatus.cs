@@ -14,8 +14,13 @@ public class PlayerStatus : MonoBehaviour{
     public static bool canChange = true;
 
     //===InputMode===
+    private static bool isJoystickConnected = false;
     private static bool keyboardInput = true;   //若否則為搖桿
 
+    private void Start()
+    {
+        isJoystickConnected = Input.GetJoystickNames().Length > 0;
+    }
 
     private void Update()
     {
@@ -33,14 +38,16 @@ public class PlayerStatus : MonoBehaviour{
             canMoveAndJump = false;
             canSkill = false;
         }
+
+        Debug.Log("isChanging " + isChanging + " canSkill " + canSkill);
     }
 
-
-    #region inputMode
+#region inputMode
 
     //OnGUI自動Update，不須放入Update函式
     void OnGUI()
     {
+        if (!isJoystickConnected) return;
         switch (keyboardInput)
         {
             case true:
@@ -93,10 +100,10 @@ public class PlayerStatus : MonoBehaviour{
         }
         return false;
     }
-    static public bool isKeyboardInput()
+    static public bool Get_isKeyboard()
     {
         return keyboardInput;
     }
 
-    #endregion
+#endregion
 }

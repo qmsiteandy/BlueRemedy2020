@@ -48,8 +48,8 @@ public class TeachingUI_Control : MonoBehaviour {
 
         if (hasButtonUI)
         {
-            if (isKeyboardInput && !PlayerStatus.isKeyboardInput()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
-            else if(!isKeyboardInput && PlayerStatus.isKeyboardInput()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
+            if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
+            else if(!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
         } 
     }
 

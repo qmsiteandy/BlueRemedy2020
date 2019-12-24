@@ -53,6 +53,8 @@ public class HolePass : MonoBehaviour {
     {
         if (Oka == null) return;
 
+        holeWater1.SetActive(false); holeWater2.SetActive(false);
+
         //呼叫playerController 讓主角出現並往正確方向跳出去
         Vector3 exitPoint = beginFromFirstEnd ? secondEnd.position : firstEnd.position;
         float exitAngle = beginFromFirstEnd ? secondEndAngle : firstEndAngle;

@@ -112,7 +112,7 @@ public class Skill_Water : Skill_Base
         cameraControl.SetTarget(this.gameObject.transform, 0.01f);
     }
 
-    IEnumerator OpenRendererDelay() { yield return new WaitForSeconds(0.001f); SetOkaRenderAndCol(true); }
+    IEnumerator OpenRendererDelay() { yield return new WaitForSeconds(0.01f); SetOkaRenderAndCol(true); }
     //由PassOut animation呼叫
     public void SetMoveableAfterPassOut() { PlayerStatus.isSkilling = false; isPassing = false; }
     public void PassingInterrupted() { isPassing = false; PlayerStatus.isSkilling = false; }

@@ -31,6 +31,7 @@ public class PlayerControl : MonoBehaviour {
     private bool secondJumping = false;
     private bool pressingJump = false;
     private bool jumpingDown = false;
+    public bool isStickOnWall = false;
     private float shortCantMoveDuration = 0.08f;
 
     [Header("三態個別")]
@@ -97,6 +98,7 @@ public class PlayerControl : MonoBehaviour {
         
         Move();
         Jump();
+        WallStick();
     }
 
     void PointCheck()
@@ -107,7 +109,21 @@ public class PlayerControl : MonoBehaviour {
         footLanding = onGround || onPlatform;
         frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.35f, whatIsWall);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
-        if (footLanding || frontTouchWall || backTouchWall) secondJumping = false;
+        if (footLanding || frontTouchWall || backTouchWall) secondJumping = false; 
+    }
+
+    void WallStick()
+    {
+        //if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
+        //{
+        //    isStickOnWall = true;
+        //    animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+        //}
+        //else if(isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
+        //{
+        //    isStickOnWall = false;
+        //    animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+        //}
     }
 
     #region ================↓移動轉身相關↓================
@@ -122,7 +138,7 @@ public class PlayerControl : MonoBehaviour {
         }
         else xInput = 0f;
 
-        if (xInput != 0) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
+        if (!frontTouchWall) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
         else
         {
             if (Mathf.Abs(rb2d.velocity.x) > 0.4f) rb2d.velocity = new Vector3(rb2d.velocity.x * 0.9f, rb2d.velocity.y, 0f);
@@ -179,7 +195,7 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetAxis("Jump") > 0.1f && !pressingJump) 
         {
             pressingJump = true;
-                        
+            
             //在地上
             if (footLanding)
             {
@@ -189,15 +205,19 @@ public class PlayerControl : MonoBehaviour {
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
             }
             //蹬牆跳
-            else if (frontTouchWall)
+            else if (frontTouchWall && !footLanding)
             {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+
                 if (facingRight) { rb2d.AddForce(new Vector2(-walljumpForce * (xInput>0f ? 2.5f : 0.8f), walljumpForce)); }
                 else { rb2d.AddForce(new Vector2(walljumpForce * (xInput < 0f ? 2.5f : 0.8f), walljumpForce)); }
 
                 StartCoroutine(ShortCantMove(shortCantMoveDuration));
             }
-            else if (backTouchWall)
+            else if (backTouchWall && !footLanding)
             {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+
                 if (facingRight) { rb2d.AddForce(new Vector2(walljumpForce * 0.8f, walljumpForce)); }
                 else { rb2d.AddForce(new Vector2(-walljumpForce * 0.8f, walljumpForce)); }
 
@@ -206,20 +226,21 @@ public class PlayerControl : MonoBehaviour {
             //二段跳
             else if (!secondJumping && OkaID_Now == 2)
             {
-                if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+                //if (rb2d.velocity.y < 0) rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
                 if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
-                else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
+                else rb2d.AddForce(Vector2.up * jumpForce * 0.6f);
 
                 secondJumping = true;               
             }
         }
-        //當跳躍鍵放開且此時未著地
-        else if (Input.GetAxis("Jump") < 1f && !footLanding)
-        {
-            //呼叫JumpRelease函示
-            JumpRelease();
-        }
+        ////當跳躍鍵放開且此時未著地
+        //else if (Input.GetAxis("Jump") < 1f && !footLanding)
+        //{
+        //    //呼叫JumpRelease函示
+        //    JumpRelease();
+        //}
 
         if (Input.GetAxis("Jump") < 0.1f) pressingJump = false;
     }
@@ -312,6 +333,47 @@ public class PlayerControl : MonoBehaviour {
 
     }
     #endregion ================↑trigger相關↑================
+
+    #region ================↓collider相關↓================
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 12)   //Wall Layer
+        {
+            if (isStickOnWall)
+            {
+                Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
+                float stickAngle = Mathf.Atan(contactNormal.y / contactNormal.x); //計算角度
+                stickAngle = stickAngle * 180f / Mathf.PI;
+                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, stickAngle);
+            }
+            if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
+            {
+                isStickOnWall = true;
+                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+            }
+            else if (isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
+            {
+                isStickOnWall = false;
+                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+
+                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+            }
+        }
+    }
+    void OnCollisionExit2D(Collision2D collision)   
+    {
+        if (collision.gameObject.layer == 12)   //Wall Layer
+        {
+            if (isStickOnWall)
+            {
+                isStickOnWall = false;
+                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+
+                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+            }
+        }
+    }
+    #endregion ================↑collider相關↑================
 
     #region ================↓受傷復原相關↓================
     //---受傷(多載:同時or個別設定水量髒污的影響)---

@@ -23,6 +23,8 @@ public class TreePass : MonoBehaviour {
         skill_Water = player.Find("Oka_water").GetComponent<Skill_Water>();
 
         treeWaterAnim = GetComponent<Animator>();
+
+        treeWater.SetActive(false);
     }
 	
     //由Skill_Water呼叫
@@ -30,7 +32,7 @@ public class TreePass : MonoBehaviour {
     {
         skill_Water.SetWaterdropTrans(treeWater.transform);
 
-        //樹中水毛細上升anim
+        treeWater.SetActive(true);
         treeWaterAnim.SetTrigger("waterGo");
 
         Oka = OkaObj;
@@ -41,6 +43,8 @@ public class TreePass : MonoBehaviour {
     void WaterPassOver()
     {
         if (Oka == null) return;
+
+        treeWater.SetActive(false);
 
         //呼叫playerController 讓主角出現並往正確方向跳出去
         Vector3 exitPoint = facingRight ? rightEnd.position : leftEnd.position;
