@@ -29,12 +29,6 @@ public class Skill_Base : MonoBehaviour
     protected bool attacking = false;
     protected bool normalinput_delaying = false;
 
-    [Header("變身")]
-    public GameObject changeNextFX;
-    public float changeNextFX_delay;
-    public GameObject changePreviousFX;
-    public float changePreviousFX_delay;
-
 
     protected void BaseStart()
     {
@@ -149,12 +143,10 @@ public class Skill_Base : MonoBehaviour
         if (isChangeNext)
         {
             animator.SetTrigger("change_next");
-            if (changeNextFX != null) StartCoroutine(ChangeFX_Delay(changeNextFX, changeNextFX_delay));
         }
         else
         {
             animator.SetTrigger("change_previous");
-            if (changePreviousFX != null) StartCoroutine(ChangeFX_Delay(changePreviousFX, changePreviousFX_delay));
         }
     }
     //animation變身完成後呼叫PlayerChange.cs變成另一隻
@@ -166,12 +158,6 @@ public class Skill_Base : MonoBehaviour
     public void TransformReset()
     {
         BackIdle();
-    }
-    IEnumerator ChangeFX_Delay(GameObject FX, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        GameObject particle = Instantiate(FX, playerTrans.position, Quaternion.identity);
-        Destroy(particle, 3f);
     }
 
     #endregion ===============變身相關===============

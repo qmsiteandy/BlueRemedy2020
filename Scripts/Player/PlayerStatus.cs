@@ -12,6 +12,7 @@ public class PlayerStatus : MonoBehaviour{
     public static bool canMoveAndJump = true;
     public static bool canSkill = true;
     public static bool canChange = true;
+    public static bool canBeHurt = true;
 
     //===InputMode===
     private static bool isJoystickConnected = false;
@@ -27,6 +28,7 @@ public class PlayerStatus : MonoBehaviour{
         canMoveAndJump = true;
         canSkill = true;
         canChange = true;
+        canBeHurt = true;
 
         if (isSkilling)
         {
@@ -37,9 +39,8 @@ public class PlayerStatus : MonoBehaviour{
         {
             canMoveAndJump = false;
             canSkill = false;
+            canBeHurt = false;
         }
-
-        Debug.Log("isChanging " + isChanging + " canSkill " + canSkill);
     }
 
 #region inputMode

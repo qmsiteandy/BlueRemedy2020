@@ -349,12 +349,14 @@ public class PlayerControl : MonoBehaviour {
             if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
             {
                 isStickOnWall = true;
-                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+                animator[OkaID_Now].SetTrigger("wallStickIn");
+                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
             }
             else if (isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
             {
                 isStickOnWall = false;
-                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+                animator[OkaID_Now].SetTrigger("wallJumpOut");
+                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
 
                 transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
             }
@@ -364,10 +366,12 @@ public class PlayerControl : MonoBehaviour {
     {
         if (collision.gameObject.layer == 12)   //Wall Layer
         {
+            
             if (isStickOnWall)
             {
                 isStickOnWall = false;
-                animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
+                animator[OkaID_Now].SetTrigger("wallJumpOut");
+                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
 
                 transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
             }
@@ -379,6 +383,8 @@ public class PlayerControl : MonoBehaviour {
     //---受傷(多載:同時or個別設定水量髒污的影響)---
     public void TakeDamage(int damage)
     {
+        if (!PlayerStatus.canBeHurt) return;
+
         if (skill_Water.isPassing) skill_Water.PassingInterrupted();
         skill_Base[OkaID_Now].BackIdle();
 
@@ -392,6 +398,8 @@ public class PlayerControl : MonoBehaviour {
     }
     public void TakeDamage(int waterCost,int addDirt)
     {
+        if (!PlayerStatus.canBeHurt) return;
+
         if (skill_Water.isPassing) skill_Water.PassingInterrupted();
         skill_Base[OkaID_Now].BackIdle();
 
