@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DirtyWater : MonoBehaviour {
+public class Water_Area : MonoBehaviour {
 
     [Header("水對主角影響")]
     public float waterDrag = 2.0f;  //水對主角阻力

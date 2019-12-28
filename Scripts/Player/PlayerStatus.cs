@@ -7,6 +7,7 @@ public class PlayerStatus : MonoBehaviour{
     //===Status===
     public static bool isSkilling = false;
     public static bool isChanging = false;
+    public static bool isWallSticking = false;
 
     //===CanDoWhat===
     public static bool canMoveAndJump = true;
@@ -40,6 +41,11 @@ public class PlayerStatus : MonoBehaviour{
             canMoveAndJump = false;
             canSkill = false;
             canBeHurt = false;
+        }
+        else if (isWallSticking)
+        {
+            canSkill = false;
+            canChange = false;
         }
     }
 

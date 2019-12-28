@@ -36,7 +36,7 @@ GameObject:
   - component: {fileID: 4296519291800632}
   - component: {fileID: 331688889400728912}
   m_Layer: 0
-  m_Name: waterfall_mask
+  m_Name: water_mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,8 +226,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 517389995
-  m_SortingLayer: 7
+  m_SortingLayerID: -1757119853
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 180b127d815334c478a598f242d91a54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}

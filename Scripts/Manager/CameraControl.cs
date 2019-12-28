@@ -9,7 +9,7 @@ public class CameraControl : MonoBehaviour {
     public float lookUpMove = 1.2f;     //向上看時camera垂直移動距離
     public float lookDownMove = 3f;     //向下看時camera垂直移動距離
 
-    private Vector3 offset;             //camera與主角相對位置差距
+    private Vector3 offset = new Vector3(0f, 0f, 0f);             //camera與主角相對位置差距
     private Vector3 AimPos;             //camera目標前往位置
     private bool isFollowMode = true;   //是否為一般跟隨模式
 
@@ -17,13 +17,13 @@ public class CameraControl : MonoBehaviour {
     void Start()
     {
         //設定相機初始位置
-        transform.position = camera_target.position + new Vector3(0f, 0f, 0f);
+        transform.position = camera_target.position + offset;
     }
 
     void FixedUpdate()
     {
         //如果是followMode，設定camera目標前往位置
-        if (isFollowMode) { AimPos = camera_target.position + new Vector3(0f, 0f, 0f); }
+        if (isFollowMode) { AimPos = camera_target.position + offset; }
 
         //平滑移動camera
         Vector3 smoothPos = Vector3.Lerp(transform.position, AimPos, smoothSpeed);
@@ -75,5 +75,9 @@ public class CameraControl : MonoBehaviour {
     {
         yield return (new WaitForSeconds(delay));
         camera_target = newTraget;
+    }
+    public void SetCameraPos(Vector3 goal)
+    {
+        transform.position = goal + offset;
     }
 }

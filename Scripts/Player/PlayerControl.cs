@@ -52,7 +52,7 @@ public class PlayerControl : MonoBehaviour {
     private int DirtyWaterLayerID = 14;
     private float iceFloatForce = 50f;
     public bool isInWater = false;
-    private DirtyWater dirtyWater;
+    private Water_Area water_area;
     public GameObject waterSplashFX;
     
 
@@ -275,10 +275,11 @@ public class PlayerControl : MonoBehaviour {
         //---水中---
         if (collider.gameObject.layer == DirtyWaterLayerID)
         {
-            dirtyWater = collider.GetComponent<DirtyWater>();
+            water_area = collider.GetComponent<Water_Area>();
+            for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Scene"; spriteRenderer[x].sortingOrder = -1; }
 
             //跳入水面的水花
-            if (rb2d.velocity.y < -1.5f)
+                if (rb2d.velocity.y < -1.5f)
             {
                 float splashScale = Mathf.Lerp(0.2f, 0.8f, rb2d.velocity.y / -20f);
 
@@ -314,6 +315,7 @@ public class PlayerControl : MonoBehaviour {
         //---水中---
         if (collider.gameObject.layer == DirtyWaterLayerID)
         {
+            for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Player"; spriteRenderer[x].sortingOrder = 0; }
             //跳出水面的水花
             if (rb2d.velocity.y > 0.3f)
             {
@@ -348,13 +350,13 @@ public class PlayerControl : MonoBehaviour {
             }
             if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
             {
-                isStickOnWall = true;
+                isStickOnWall = true; PlayerStatus.isWallSticking = true;
                 animator[OkaID_Now].SetTrigger("wallStickIn");
                 animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
             }
             else if (isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
             {
-                isStickOnWall = false;
+                isStickOnWall = false; PlayerStatus.isWallSticking = false;
                 animator[OkaID_Now].SetTrigger("wallJumpOut");
                 animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
 
@@ -369,7 +371,7 @@ public class PlayerControl : MonoBehaviour {
             
             if (isStickOnWall)
             {
-                isStickOnWall = false;
+                isStickOnWall = false; PlayerStatus.isWallSticking = false;
                 animator[OkaID_Now].SetTrigger("wallJumpOut");
                 animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
 
@@ -450,14 +452,14 @@ public class PlayerControl : MonoBehaviour {
 
         if (OkaID_Now == 0)
         {
-            if (dirtyWater.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
-            else if (dirtyWater.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (dirtyWater.waveCrest - transform.position.y / 1f));
+            if (water_area.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
+            else if (water_area.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (water_area.waveCrest - transform.position.y / 1f));
 
-            if(isBubbling) bubbleMaker.Stop();
+            if (isBubbling) { bubbleMaker.Stop(); isBubbling = false; }
         }
         else
         {
-            float depth = dirtyWater.waveCrest - transform.position.y;
+            float depth = water_area.waveCrest - transform.position.y;
             if (depth > 0.5f) bubbleMaker.startLifetime = depth * 0.8f;
 
             if (depth > 0.5f && !isBubbling) { bubbleMaker.Play(); isBubbling = true; }
