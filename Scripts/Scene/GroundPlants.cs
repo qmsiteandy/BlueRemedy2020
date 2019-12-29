@@ -33,6 +33,11 @@ public class GroundPlants : MonoBehaviour {
             //this.transform.position -= new Vector3(0f, YShift, 0f);
             //this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, YShift);
         }
+        else
+        {
+            animator = GetComponent<Animator>();
+            animator.enabled = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

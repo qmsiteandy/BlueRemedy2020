@@ -11,13 +11,14 @@ public class Water_Area : MonoBehaviour {
     //主要影響冰的飄浮
     [Header("波浪")] 
     public bool makeWave = false;   //是否有波浪
-    public float waveCrest; //波浪最高點，設公開，主角漂浮時會讀取
+    [HideInInspector] public float waveCrest; //波浪最高點，設公開，主角漂浮時會讀取
     public float waveFreq = 1.6f; //設定波浪頻率
     public float waveHeight = 0.1f; //設定波浪高度;
     private float waveMid;  //波浪平均高度
-    public float waveUpdateFreq = 8f; //波峰高度更新頻率
+    private float waveUpdateFreq = 8f; //波峰高度更新頻率
 
     [Header("對主角增加髒汙")]
+    public bool isDirtyWater = false;
     public int addDirtAmount = 5;
     public float damageCycle = 2f;   //持續在水中，弄髒的週期
     private float damageTimer = 0f;
@@ -39,7 +40,7 @@ public class Water_Area : MonoBehaviour {
 
     void Update()
     {
-        if (isPlayerInWater)
+        if (isPlayerInWater && isDirtyWater)
         {
             if (PlayerControl.OkaID_Now == 0) return;
 
@@ -68,7 +69,7 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = true;
 
-            if (PlayerControl.OkaID_Now == 0) return;
+            if (PlayerControl.OkaID_Now == 0 || !isDirtyWater) return;
             else
             {
                 playerControl.TakeDamage(0, addDirtAmount);

@@ -298,7 +298,6 @@ public class PlayerControl : MonoBehaviour {
         //---滲透毛細提示UI&起始呼叫---
         if (collider.gameObject.tag == "WaterPassingTrigger")
         {
-            Debug.Log(OkaID_Now+" "+skill_Water.isPassing);
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
                 noticeUI.SetActive(false);
