@@ -294,18 +294,20 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D collider)
     {
+        
         //---滲透毛細提示UI&起始呼叫---
         if (collider.gameObject.tag == "WaterPassingTrigger")
         {
+            Debug.Log(OkaID_Now+" "+skill_Water.isPassing);
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
                 noticeUI.SetActive(false);
 
                 if (collider.name == "root_trigger") noticeUI.SetActive(true);
-                else if ((collider.name == "leftEnd" && facingRight) || (collider.name == "rightEnd" && !facingRight)) noticeUI.SetActive(true);
+                else if ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)) noticeUI.SetActive(true);
                 else return;
 
-                skill_Water.PassBegin(collider);
+                skill_Water.WaitPassInput(collider);
             }
             else noticeUI.SetActive(false);
         }
@@ -415,7 +417,7 @@ public class PlayerControl : MonoBehaviour {
     }
     IEnumerator DamagedColor()
     {
-        spriteRenderer[OkaID_Now].color = new Color(0.7f, 0f, 0f);
+        spriteRenderer[OkaID_Now].color = new Color(1f, 0.3962386f, 0.3726415f);
 
         yield return new WaitForSeconds(0.08f);
 

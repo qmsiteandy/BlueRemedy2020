@@ -30,7 +30,7 @@ public class Skill_Water : Skill_Base
 
     #region ================↓毛細滲透相關↓================
 
-    public void PassBegin(Collider2D passTrigger) //由playerControl的TriggerStay呼叫
+    public void WaitPassInput(Collider2D passTrigger) //由playerControl的TriggerStay呼叫
     {
         if (Input.GetButtonDown("Special") && !isPassing && PlayerStatus.canSkill)
         {
