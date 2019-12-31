@@ -96,6 +96,12 @@ public class SpringHealing : MonoBehaviour {
     {
         isHealing = false;
         transform.parent.gameObject.SetActive(false);
+
+        for (int x = 0; x < 3; x++)
+        {
+            Renderer m_playerRenderer = playerControl.transform.GetChild(x).GetComponent<Renderer>();
+            m_playerRenderer.sortingLayerName = "Player"; m_playerRenderer.sortingOrder = 0;
+        }
     }
 
     void OpenFX()

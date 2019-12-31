@@ -1,31 +1,27 @@
 fileFormatVersion: 2
-guid: 26358670c0d365a4a8d4c59cb4c94e13
+guid: 415dccb8876da0649970eff29e8a9f28
 TextureImporter:
   fileIDToRecycleName:
-    21300000: waterfall_sprite sheet_0
-    21300002: waterfall_sprite sheet_1
-    21300004: waterfall_sprite sheet_2
-    21300006: waterfall_sprite sheet_3
-    21300008: waterfall_sprite sheet_4
-    21300010: waterfall_sprite sheet_5
-    21300012: waterfall_sprite sheet_6
-    21300014: waterfall_sprite sheet_7
-    21300016: waterfall_sprite sheet_8
-    21300018: waterfall_sprite sheet_9
-    21300020: waterfall_sprite sheet_10
-    21300022: waterfall_sprite sheet_11
-    21300024: waterfall_sprite sheet_12
-    21300026: waterfall_sprite sheet_13
-    21300028: waterfall_sprite sheet_14
-    21300030: waterfall_sprite sheet_15
-    21300032: waterfall_sprite sheet_16
-    21300034: waterfall_sprite sheet_17
-    21300036: waterfall_sprite sheet_18
-    21300038: waterfall_sprite sheet_19
-    21300040: waterfall_sprite sheet_20
-    21300042: waterfall_sprite sheet_21
-    21300044: waterfall_sprite sheet_22
-    21300046: waterfall_sprite sheet_23
+    21300000: attack_0
+    21300002: attack_1
+    21300004: attack_2
+    21300006: attack_3
+    21300008: attack_4
+    21300010: attack_5
+    21300012: attack_6
+    21300014: attack_7
+    21300016: attack_8
+    21300018: attack_9
+    21300020: attack_10
+    21300022: attack_11
+    21300024: attack_12
+    21300026: attack_13
+    21300028: attack_14
+    21300030: attack_15
+    21300032: attack_16
+    21300034: attack_17
+    21300036: attack_18
+    21300038: attack_19
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -84,7 +80,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -95,18 +91,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 8192
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Android
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -119,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: waterfall_sprite sheet_0
+      name: attack_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 4893
-        width: 1867
-        height: 1631
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,19 +118,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1bdfcd14cf33724469030ceed7983124
+      spriteID: 1259eae3a0da6e6419d69de877423bc2
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_1
+      name: attack_1
       rect:
         serializedVersion: 2
-        x: 1867
-        y: 4893
-        width: 1867
-        height: 1631
+        x: 400
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,19 +138,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: da72d992a9ca3ad468cbec19f23263b4
+      spriteID: 435eff499d2c8f148a70e78c7fb8a290
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_2
+      name: attack_2
       rect:
         serializedVersion: 2
-        x: 3734
-        y: 4893
-        width: 1867
-        height: 1631
+        x: 800
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,19 +158,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb35cc2a74a233b4b817ddac610a4c9d
+      spriteID: 2c0230b7c8d42e944b4725e8cc16c73c
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_3
+      name: attack_3
       rect:
         serializedVersion: 2
-        x: 5601
-        y: 4893
-        width: 1867
-        height: 1631
+        x: 1200
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,19 +178,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6be5af193931d94994dff0a5a593b4e
+      spriteID: f101dd3007a64554485d0254550256c5
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_4
+      name: attack_4
       rect:
         serializedVersion: 2
-        x: 7468
-        y: 4893
-        width: 1867
-        height: 1631
+        x: 1600
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,19 +198,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74bdbd200bd29f74383df5c620ff3da7
+      spriteID: 8b65016c1e03dc44ab79aa624a10d4f6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_5
+      name: attack_5
       rect:
         serializedVersion: 2
-        x: 9335
-        y: 4893
-        width: 1867
-        height: 1631
+        x: 2000
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -233,19 +218,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 254ee05839e6f15418941e78b0af3634
+      spriteID: ea9c7c7a834559e4592fa197edb4f81f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_6
+      name: attack_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 3262
-        width: 1867
-        height: 1631
+        x: 2400
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -253,19 +238,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bf2ee00fdaf18da42888d05822e15a37
+      spriteID: 2f2e38d6f67f6b44fbadf4098f0743ef
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_7
+      name: attack_7
       rect:
         serializedVersion: 2
-        x: 1867
-        y: 3262
-        width: 1867
-        height: 1631
+        x: 2800
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -273,19 +258,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 542d684fb96dac943a008e541d237741
+      spriteID: a38000d2527e8ba43abd3823c25a6cfb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_8
+      name: attack_8
       rect:
         serializedVersion: 2
-        x: 3734
-        y: 3262
-        width: 1867
-        height: 1631
+        x: 3200
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,19 +278,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1abfe3dd81f1b314c9fe93c7bd076489
+      spriteID: cce1fdb89bdf55446818fa74358a2d05
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_9
+      name: attack_9
       rect:
         serializedVersion: 2
-        x: 5601
-        y: 3262
-        width: 1867
-        height: 1631
+        x: 3600
+        y: 400
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,179 +298,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bfbabbbbe0bfde4385be2a634e21c40
+      spriteID: 5593206da3ed3d340a0901f45c63196f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_10
-      rect:
-        serializedVersion: 2
-        x: 7468
-        y: 3262
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 42da4533b39d21b44a89ebda7152b083
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_11
-      rect:
-        serializedVersion: 2
-        x: 9335
-        y: 3262
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a332645c1a787d642ab6581292c4dfb5
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_12
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6748a6adf2bdeba4187f70e3553cc743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_13
-      rect:
-        serializedVersion: 2
-        x: 1867
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a695fe75781e19647a2dc3c270e7db50
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_14
-      rect:
-        serializedVersion: 2
-        x: 3734
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2274877624586df4cbf2148c808fe88e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_15
-      rect:
-        serializedVersion: 2
-        x: 5601
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 69b1ba4548fb68c4ab66fbe061867c72
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_16
-      rect:
-        serializedVersion: 2
-        x: 7468
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2d43dcf0ee4259142880f3db579b9eed
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_17
-      rect:
-        serializedVersion: 2
-        x: 9335
-        y: 1631
-        width: 1867
-        height: 1631
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c5ffdd2349cf2bc4898b0b532a3c3084
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: waterfall_sprite sheet_18
+      name: attack_10
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -493,19 +318,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97d772dcfec20034f969d4aab7c22c62
+      spriteID: f7b6527530ccdb64fa0d9abf3ead0b5b
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_19
+      name: attack_11
       rect:
         serializedVersion: 2
-        x: 1867
+        x: 400
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -513,19 +338,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3b4a396d51010394d86cf844a7a20909
+      spriteID: ebaab8de7c479474ba05d4ab0a6b9b32
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_20
+      name: attack_12
       rect:
         serializedVersion: 2
-        x: 3734
+        x: 800
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -533,19 +358,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a006bc9cb8d34f54e81836fbd4aad558
+      spriteID: 0299c022f6f963c4091a621b0b0af684
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_21
+      name: attack_13
       rect:
         serializedVersion: 2
-        x: 5601
+        x: 1200
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -553,19 +378,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1865f8be2aafacd4a9271ff5e4b5de18
+      spriteID: 07d74aae0abd0814b95632bee49f3322
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_22
+      name: attack_14
       rect:
         serializedVersion: 2
-        x: 7468
+        x: 1600
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -573,19 +398,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce7cae400e3117d40a18e529d337f47c
+      spriteID: 365a1ea8ffb281641ad2b2f2381a1081
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: waterfall_sprite sheet_23
+      name: attack_15
       rect:
         serializedVersion: 2
-        x: 9335
+        x: 1995
         y: 0
-        width: 1867
-        height: 1631
+        width: 400
+        height: 400
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -593,7 +418,87 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5256543b0cf05c49ab163bc7dbcb2ba
+      spriteID: d1df38fcdaee72a45b16d7d5362621e4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_16
+      rect:
+        serializedVersion: 2
+        x: 2400
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2523beae427b194f899b7705a0cd7b5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_17
+      rect:
+        serializedVersion: 2
+        x: 2795
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d4a72a6cfc77f645923c94ff5487fae
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_18
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d69aa1c88dcfd2740afbac2be09524ce
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_19
+      rect:
+        serializedVersion: 2
+        x: 3600
+        y: 0
+        width: 400
+        height: 400
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282ffec6f1f892a4ab4c58495fd16c8f
       vertices: []
       indices: 
       edges: []
@@ -601,7 +506,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b1c887c9d8f1794498b073d3a5676d3d
+    spriteID: 2f42167803631544cbfc21f36ad49ef7
     vertices: []
     indices: 
     edges: []

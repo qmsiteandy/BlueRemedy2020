@@ -138,13 +138,17 @@ public class Enemy_base : MonoBehaviour {
             }
             isInjury = true;
             animator.SetTrigger("Injury");
-            StartCoroutine(ChangeColor(new Color(1, 0, 0), 0.1f));
+            StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
         }
     }
 
     public void InjuryOver()
     {
         isInjury = false;
+    }
+    public void AttackStart()
+    {
+        isAttacking = true;
     }
     public void AttackOver()
     {

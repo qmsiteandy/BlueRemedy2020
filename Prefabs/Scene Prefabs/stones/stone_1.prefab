@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4590893117766160}
   - component: {fileID: 212572126737882166}
   - component: {fileID: 58400373331849052}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: stone_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

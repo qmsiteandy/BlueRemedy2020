@@ -6,7 +6,7 @@ public class Enemy_Attack : MonoBehaviour
 {
 
     public int attackDamage = 15;
-    public float attackDelay = 2f;
+    public float attackDelay = 1.5f;
     private Enemy_base enemy_base;
     Animator animator;
 
@@ -15,9 +15,6 @@ public class Enemy_Attack : MonoBehaviour
     public GameObject attackTarget = null;
 
     public Rigidbody2D rb2d;
-    public float g = 9.81f;  //g = 9.81 m/s^2
-    public float speed = 0.8f; //物體transform在拋物線路徑上移動的速度，此速度不影響拋物線的形狀
-    public float V0 = 8.0f; //初速度
 
     // Use this for initialization
     void Awake()
@@ -53,7 +50,7 @@ public class Enemy_Attack : MonoBehaviour
         if (other.tag == "Player")
         {
             attackTarget = other.gameObject;
-            enemy_base.isAttacking = true;
+            //enemy_base.isAttacking = true;
             
         }
     }
@@ -64,7 +61,7 @@ public class Enemy_Attack : MonoBehaviour
         if (other.tag == "Player")
         {
             attackTarget = null;
-            enemy_base.isAttacking = false;
+            //enemy_base.isAttacking = false;
         }
     }
 

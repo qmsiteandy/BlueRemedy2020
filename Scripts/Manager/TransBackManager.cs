@@ -38,13 +38,16 @@ public class TransBackManager : MonoBehaviour {
 
     IEnumerator TransBack(Vector3 TransBackPos)
     {
-        while (darkBlockPanel.color.a < 1f) { darkBlockPanel.color += new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
         
+        while (darkBlockPanel.color.a < 1f) { darkBlockPanel.color += new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
+        PlayerStatus.isTransingBack = true;
+
         cameraControl.SetCameraPos(RecordPointManager.Get_playerRecordPos());
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
 
         yield return new WaitForSeconds(0.5f);
 
+        PlayerStatus.isTransingBack = false;
         while (darkBlockPanel.color.a > 0f) { darkBlockPanel.color -= new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
     }
 }

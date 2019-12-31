@@ -12,13 +12,14 @@ public class GroundPlants : MonoBehaviour {
 
     [Header("長出")]
     [HideInInspector] public bool b_isGrowFromMainFolwer = false;
-    //private float oriYPos;
-    //public static float YShift = 1.5f;
-    //private static float appearSpeed = 0.1f;
+    private bool b_animateGrow;
     private bool isGrowed = false;
     private Animator animator;
+    private float oriYPos;
+    private static float YShift = 0.5f;
+    private static float appearSpeed = 0.1f;
 
-	void Start ()
+    void Start ()
     {
         if (b_GrowAndCountedBlossom)
         {
@@ -29,14 +30,19 @@ public class GroundPlants : MonoBehaviour {
 
             //---草長出---
             animator = GetComponent<Animator>();
-            //oriYPos = transform.position.y;
-            //this.transform.position -= new Vector3(0f, YShift, 0f);
-            //this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, YShift);
+            b_animateGrow = (animator != null);
+
+            if (!b_animateGrow)
+            {
+                oriYPos = transform.position.y;
+                this.transform.position -= new Vector3(0f, YShift, 0f);
+                this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, YShift);
+            } 
         }
         else
         {
             animator = GetComponent<Animator>();
-            animator.enabled = false;
+            if (animator != null) animator.enabled = false;
         }
     }
 
@@ -61,21 +67,21 @@ public class GroundPlants : MonoBehaviour {
         float persentage = nowGrassRange / totalGrassRange;
         UI_manager.SetBlossomUI(persentage);
 
-        animator.SetTrigger("grow");
-        //StartCoroutine(GrassLerpGrow());
+        if(b_animateGrow) animator.SetTrigger("grow");
+        else StartCoroutine(GrassLerpGrow());
 
         isGrowed = true;
     }
 
-    //IEnumerator GrassLerpGrow()
-    //{
-    //    while (this.transform.position.y < oriYPos)
-    //    {
-    //        float newYPos = Mathf.Lerp(this.transform.position.y, oriYPos, appearSpeed);
-    //        this.transform.position = new Vector3(this.transform.position.x, newYPos, this.transform.position.z);
-    //        this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, 0f);
+    IEnumerator GrassLerpGrow()
+    {
+        while (this.transform.position.y < oriYPos)
+        {
+            float newYPos = Mathf.Lerp(this.transform.position.y, oriYPos, appearSpeed);
+            this.transform.position = new Vector3(this.transform.position.x, newYPos, this.transform.position.z);
+            this.GetComponent<BoxCollider2D>().offset = new Vector2(0f, 0f);
 
-    //        yield return null;
-    //    } 
-    //}
+            yield return null;
+        }
+    }
 }

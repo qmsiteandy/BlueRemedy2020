@@ -8,6 +8,7 @@ public class PlayerStatus : MonoBehaviour{
     public static bool isSkilling = false;
     public static bool isChanging = false;
     public static bool isWallSticking = false;
+    public static bool isTransingBack = false;
 
     //===CanDoWhat===
     public static bool canMoveAndJump = true;
@@ -46,6 +47,13 @@ public class PlayerStatus : MonoBehaviour{
         {
             canSkill = false;
             canChange = false;
+        }
+        else if (isTransingBack)
+        {
+            canMoveAndJump = false;
+            canSkill = false;
+            canChange = false;
+            canBeHurt = false;
         }
     }
 
