@@ -42,6 +42,7 @@ public class PlayerStatus : MonoBehaviour{
             canMoveAndJump = false;
             canSkill = false;
             canBeHurt = false;
+            canChange = false;
         }
         else if (isWallSticking)
         {

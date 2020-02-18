@@ -39,38 +39,41 @@ public class PlayerChange : MonoBehaviour {
 
         if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0f) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
         {
-            //form_index = PlayerControl.OkaID_Now;
+            form_index = PlayerControl.OkaID_Now;
             PlayerStatus.isChanging = true;
             playerWheel.WheelShow();
         }
         else if ((PlayerStatus.Get_isKeyboard() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0f) && !transforming && playerWheel.Get_wheelShow())
         {
-            if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetKeyDown(KeyCode.JoystickButton2))
+            //選擇"冰"
+            if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetAxis("XBOX_Horizontal") < -0.7f)
             {
-                if (PlayerControl.OkaID_Now == 0) { playerWheel.LightFlash(0); return; }
                 form_index = 0;
-                ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(0);
+                Debug.Log("Left");
             }
-            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetKeyDown(KeyCode.JoystickButton3))
+            //選擇"水"
+            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetAxis("XBOX_Vertical") < -0.7f)
             {
-                if (PlayerControl.OkaID_Now == 1) { playerWheel.LightFlash(1); return; }
                 form_index = 1;
-                ChangeForm(form_index);
                 playerWheel.WheelIndexSelect(1);
+                Debug.Log("UP");
             }
-            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.RightArrow) : Input.GetKeyDown(KeyCode.JoystickButton1))
-            {
-                if (PlayerControl.OkaID_Now == 2) { playerWheel.LightFlash(2); return; }
-                form_index = 2;
-                ChangeForm(form_index);
+            //選擇"雲"
+            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.RightArrow) : Input.GetAxis("XBOX_Horizontal") > 0.7f)
+            {               
+                form_index = 2;                
                 playerWheel.WheelIndexSelect(2);
+                Debug.Log("Right");
             }
         }
         if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && playerWheel.Get_wheelShow())
         {
-            playerWheel.WheelDisappear();
-            PlayerStatus.isChanging = false;
+
+            if (form_index != PlayerControl.OkaID_Now) ChangeForm(form_index);
+            else PlayerStatus.isChanging = false;
+
+            playerWheel.WheelDisappear();            
         }
     }
 
@@ -97,6 +100,7 @@ public class PlayerChange : MonoBehaviour {
         PlayerControl.OkaID_Now = form_index;
 
         transforming = false;
+        PlayerStatus.isChanging = false;
     }
 
     public void WheelUI_Flip()

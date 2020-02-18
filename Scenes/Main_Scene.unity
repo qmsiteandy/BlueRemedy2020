@@ -6556,6 +6556,10 @@ Prefab:
       propertyPath: m_SortingLayerID
       value: -1953987339
       objectReference: {fileID: 0}
+    - target: {fileID: 1046733378593068, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
   m_IsPrefabAsset: 0
@@ -9310,7 +9314,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4285865132737414, guid: 8ea33d9f6255daf4aa17786fb0a1ca6b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 10.08
+      value: 11.4
       objectReference: {fileID: 0}
     - target: {fileID: 4285865132737414, guid: 8ea33d9f6255daf4aa17786fb0a1ca6b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -9344,6 +9348,11 @@ Prefab:
     - target: {fileID: 1362642739848600, guid: 8ea33d9f6255daf4aa17786fb0a1ca6b, type: 2}
       propertyPath: m_Name
       value: RecordPoint (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 61077432332698964, guid: 8ea33d9f6255daf4aa17786fb0a1ca6b,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 2.88
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ea33d9f6255daf4aa17786fb0a1ca6b, type: 2}

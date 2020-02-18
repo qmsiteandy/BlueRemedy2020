@@ -16,10 +16,10 @@ public class PlayerWheel : MonoBehaviour {
     
     private PlayerChange playerChange;
 
-    [Header("按鍵UI切換")]  //keyboard按鍵和joystick按鍵
-    public GameObject keyboardButtonGroup;
-    public GameObject joystickButtonGroup;
-    private bool isKeyboardInput = true;
+    //[Header("按鍵UI切換")]  //keyboard按鍵和joystick按鍵
+    //public GameObject keyboardButtonGroup;
+    //public GameObject joystickButtonGroup;
+    //private bool isKeyboardInput = true;
 
 
     void Start()
@@ -30,13 +30,13 @@ public class PlayerWheel : MonoBehaviour {
         WheelCanvas.alpha = 0f;
 
         for (int i = 0; i < 3; i++) { selected_light[i] = transform.GetChild(0).transform.GetChild(i).gameObject; selected_light[i].SetActive(false); }
-        for (int i = 0; i < 3; i++)
+        /*for (int i = 0; i < 3; i++)
         {
             input_arrows_UI[i] = transform.GetChild(2).GetChild(0).GetChild(i).gameObject; input_arrows_UI[i].SetActive(false);
             input_buttons_UI[i] = transform.GetChild(2).GetChild(1).GetChild(i).gameObject; input_buttons_UI[i].SetActive(false);
-        }
+        }*/
         
-        SetButtonUIState(isKeyboardInput);
+        //SetButtonUIState(isKeyboardInput);
     }
 
     void Update()
@@ -45,44 +45,45 @@ public class PlayerWheel : MonoBehaviour {
         {
             for (int i = 0; i < 3; i++)
             {
-                input_arrows_UI[i].SetActive(true);
-                input_buttons_UI[i].SetActive(true);
+                //input_arrows_UI[i].SetActive(true);
+                //input_buttons_UI[i].SetActive(true);
                 selected_light[i].SetActive(false);
             }
-            switch (PlayerControl.OkaID_Now)
+            switch (lightIndex)
             {
                 case (0):
                     {
-                        input_arrows_UI[0].SetActive(false);
-                        input_buttons_UI[0].SetActive(false);
+                        //input_arrows_UI[0].SetActive(false);
+                        //input_buttons_UI[0].SetActive(false);
                         selected_light[0].SetActive(true);
                     }
                     break;
                 case (1):
                     {
-                        input_arrows_UI[1].SetActive(false);
-                        input_buttons_UI[1].SetActive(false);
+                        //input_arrows_UI[1].SetActive(false);
+                        //input_buttons_UI[1].SetActive(false);
                         selected_light[1].SetActive(true);
                     }
                     break;
                 case (2):
                     {
-                        input_arrows_UI[2].SetActive(false);
-                        input_buttons_UI[2].SetActive(false);
+                        //input_arrows_UI[2].SetActive(false);
+                        //input_buttons_UI[2].SetActive(false);
                         selected_light[2].SetActive(true);
                     }
                     break;
                 default: break;
             }
-
-            if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
-            else if (!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
+            
+            /*if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
+            else if (!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }*/
         }
     }
 
     public void WheelShow()
     {
         WheelCanvas.alpha = 1f;
+        lightIndex = PlayerControl.OkaID_Now;
         wheelShow = true;
     }
 
@@ -115,11 +116,11 @@ public class PlayerWheel : MonoBehaviour {
         if (wheelShow) selected_light[index].SetActive(true);
     }
 
-    void SetButtonUIState(bool isKeyboardInput)
+    /*void SetButtonUIState(bool isKeyboardInput)
     {
         if (isKeyboardInput) { keyboardButtonGroup.SetActive(true); joystickButtonGroup.SetActive(false); }
         else { keyboardButtonGroup.SetActive(false); joystickButtonGroup.SetActive(true); }
-    }
+    }*/
 
     public bool Get_wheelShow() { return (wheelShow); }
 }
