@@ -13,11 +13,15 @@ public class CameraControl : MonoBehaviour {
     private Vector3 AimPos;             //camera目標前往位置
     private bool isFollowMode = true;   //是否為一般跟隨模式
 
+    private Transform childTrans;
+
 
     void Start()
     {
         //設定相機初始位置
         transform.position = camera_target.position + offset;
+
+        childTrans = transform.GetChild(0).transform;
     }
 
     void FixedUpdate()
@@ -79,5 +83,39 @@ public class CameraControl : MonoBehaviour {
     public void SetCameraPos(Vector3 goal)
     {
         transform.position = goal + offset;
+    }
+
+    public void Shake(float shakeAmount, float cycle, float duration)
+    {
+        StartCoroutine(Shake_routine(shakeAmount, cycle, duration));
+    }
+    IEnumerator Shake_routine(float shakeAmount, float cycle, float duration)
+    {
+        float shake_elapsed = 0;
+        float cycle_timer = cycle;
+        Vector2 camera_point = Vector2.zero;
+        Vector2 oriPos = childTrans.localPosition;
+
+        while (shake_elapsed < duration)
+        {
+            shake_elapsed += Time.deltaTime;
+
+            if (cycle_timer < cycle)
+            {
+                cycle_timer += Time.deltaTime;
+                //childTrans.position = Vector2.Lerp(childTrans.localPosition, camera_point, cycle);
+                childTrans.localPosition = camera_point;
+            }
+            else
+            {
+                cycle_timer = 0f;
+                camera_point = oriPos + Random.insideUnitCircle * shakeAmount;
+                Debug.Log(camera_point);
+            }
+
+            yield return null;
+        }
+
+        childTrans.localPosition = oriPos;
     }
 }

@@ -9,9 +9,11 @@ public class PlayerStatus : MonoBehaviour{
     public static bool isChanging = false;
     public static bool isWallSticking = false;
     public static bool isTransingBack = false;
+    public static bool isInInteractTrigger = false;
 
     //===CanDoWhat===
-    public static bool canMoveAndJump = true;
+    public static bool canMove = true;
+    public static bool canJump = true;
     public static bool canSkill = true;
     public static bool canChange = true;
     public static bool canBeHurt = true;
@@ -27,19 +29,19 @@ public class PlayerStatus : MonoBehaviour{
 
     private void Update()
     {
-        canMoveAndJump = true;
+        canMove = canJump = true;
         canSkill = true;
         canChange = true;
         canBeHurt = true;
 
         if (isSkilling)
         {
-            canMoveAndJump = false;
+            canMove = canJump = false;
             canChange = false;
         }
         else if (isChanging)
         {
-            canMoveAndJump = false;
+            canMove = canJump = false;
             canSkill = false;
             canBeHurt = false;
             canChange = false;
@@ -51,10 +53,14 @@ public class PlayerStatus : MonoBehaviour{
         }
         else if (isTransingBack)
         {
-            canMoveAndJump = false;
+            canMove = canJump = false;
             canSkill = false;
             canChange = false;
             canBeHurt = false;
+        }
+        else if (isInInteractTrigger)
+        {
+            canJump = false;
         }
     }
 

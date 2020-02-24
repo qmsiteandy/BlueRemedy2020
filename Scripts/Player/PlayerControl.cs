@@ -129,7 +129,7 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓移動轉身相關↓================
     void Move()
     {
-        if (PlayerStatus.canMoveAndJump)
+        if (PlayerStatus.canMove)
         {
             xInput = Input.GetAxis("Horizontal") + Input.GetAxis("XBOX_Horizontal");
 
@@ -184,7 +184,7 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓跳躍相關↓================
     void Jump()
     {
-        if (!PlayerStatus.canMoveAndJump) return;
+        if (!PlayerStatus.canJump) return;
 
         //平台上往下跳
         if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumpingDown)
@@ -279,7 +279,7 @@ public class PlayerControl : MonoBehaviour {
             for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Scene"; spriteRenderer[x].sortingOrder = -1; }
 
             //跳入水面的水花
-                if (rb2d.velocity.y < -1.5f)
+            if (rb2d.velocity.y < -1.5f)
             {
                 float splashScale = Mathf.Lerp(0.2f, 0.8f, rb2d.velocity.y / -20f);
 
@@ -293,8 +293,7 @@ public class PlayerControl : MonoBehaviour {
         }
     }
     void OnTriggerStay2D(Collider2D collider)
-    {
-        
+    {        
         //---滲透毛細提示UI&起始呼叫---
         if (collider.gameObject.tag == "WaterPassingTrigger")
         {
@@ -302,10 +301,12 @@ public class PlayerControl : MonoBehaviour {
             {
                 noticeUI.SetActive(false);
 
-                if (collider.name == "root_trigger") noticeUI.SetActive(true);
-                else if ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)) noticeUI.SetActive(true);
-                else return;
-
+                if (collider.name == "root_trigger" ||
+                 ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)))
+                {
+                    noticeUI.SetActive(true);
+                    PlayerStatus.isInInteractTrigger = true;
+                }
                 skill_Water.WaitPassInput(collider);
             }
             else noticeUI.SetActive(false);
@@ -332,8 +333,11 @@ public class PlayerControl : MonoBehaviour {
         }
 
         //---滲透&毛細提醒UI---
-        else if (collider.gameObject.tag == "WaterPassingTrigger") noticeUI.SetActive(false);
-
+        else if (collider.gameObject.tag == "WaterPassingTrigger")
+        {
+            noticeUI.SetActive(false);
+            PlayerStatus.isInInteractTrigger = false;
+        }
     }
     #endregion ================↑trigger相關↑================
 
@@ -434,14 +438,14 @@ public class PlayerControl : MonoBehaviour {
     {
         float timer = 0f;
 
-        PlayerStatus.canMoveAndJump = false;
+        PlayerStatus.canMove = false;
 
         while (timer < duration)
         {
             timer += Time.deltaTime;
             yield return 0;
         }
-        PlayerStatus.canMoveAndJump = true;
+        PlayerStatus.canMove = true;
     }
 
     //---水中---

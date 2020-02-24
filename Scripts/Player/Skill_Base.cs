@@ -101,11 +101,16 @@ public class Skill_Base : MonoBehaviour
         Collider2D[] enemyColList = new Collider2D[5];
         int enemyNum = attackTrigger.OverlapCollider(enemyFilter, enemyColList);
 
-        if (enemyNum < 1) return;
-
-        for (int i = 0; i < enemyNum; i++)
+        if (enemyNum > 0)
         {
-            enemyColList[i].GetComponent<Enemy_base>().TakeDamage(1);
+            cameraControl.Shake(0.1f, 0.02f, 0.08f);
+
+            for (int i = 0; i < enemyNum; i++)
+            {
+                Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
+                enemy_Base.TakeDamage(1);
+                //enemy_Base.AddForce(new Vector3(PlayerControl.facingRight ? 1000f : -1000f, 0f, 0f));
+            }
         }
     }
 

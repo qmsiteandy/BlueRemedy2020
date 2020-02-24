@@ -50,21 +50,18 @@ public class PlayerChange : MonoBehaviour {
             {
                 form_index = 0;
                 playerWheel.WheelIndexSelect(0);
-                Debug.Log("Left");
             }
             //選擇"水"
             else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetAxis("XBOX_Vertical") < -0.7f)
             {
                 form_index = 1;
                 playerWheel.WheelIndexSelect(1);
-                Debug.Log("UP");
             }
             //選擇"雲"
             else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.RightArrow) : Input.GetAxis("XBOX_Horizontal") > 0.7f)
             {               
                 form_index = 2;                
                 playerWheel.WheelIndexSelect(2);
-                Debug.Log("Right");
             }
         }
         if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && playerWheel.Get_wheelShow())
@@ -101,6 +98,7 @@ public class PlayerChange : MonoBehaviour {
 
         transforming = false;
         PlayerStatus.isChanging = false;
+        PlayerStatus.isInInteractTrigger = false;
     }
 
     public void WheelUI_Flip()
