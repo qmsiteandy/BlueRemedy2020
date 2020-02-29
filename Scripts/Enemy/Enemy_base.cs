@@ -8,10 +8,11 @@ public class Enemy_base : MonoBehaviour {
     Animator animator;
     SpriteRenderer spriteRenderer;  //怪物圖的render
     Vector2 centerPos;      //移動的區域中點
-    public GameObject enemy;
+    Enemy_Dead enemy_dead;
     Enemy_Attack enemy_attack;
-    public GameObject waterdrop;
-    
+    GameObject enemy;
+    public CameraControl cameraControl;
+
     [Header("Move Settings")]
     public float moveRange = 4f;    //移動範圍半徑
     private float posNow = 0f;      //目前移動相對中點的位置
@@ -19,6 +20,7 @@ public class Enemy_base : MonoBehaviour {
     public float trackSpeed = 6f;
     public float closeRange = 1.25f;
     private Rigidbody2D rb2d;
+    private CircleCollider2D BodyCollider;
 
     [Header("Track Settings")]
     public float FollowRadius = 4.5f;
@@ -28,15 +30,10 @@ public class Enemy_base : MonoBehaviour {
     [Header("Awake Settings")]
     private float bornTime = 8f;
 
-    [Header("Health Settings")]
-    public int health;
-    public int healthMax = 200;
-
     [Header("Action Settings")]
     public bool isTracking = false;
     public bool isAttacking;
     public bool isInjury;
-    public bool isDead;
     public bool isBorn;
 
     
@@ -47,48 +44,44 @@ public class Enemy_base : MonoBehaviour {
     {
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        BodyCollider = GetComponent<CircleCollider2D>();
         centerPos = transform.position; //移動中點設為最初的位置
     }
 
     void Start()
     {
-        health = healthMax;
         enemy = transform.GetChild(0).gameObject;
         enemy_attack = transform.GetComponentInChildren<Enemy_Attack>();
+        enemy_dead = transform.GetComponent<Enemy_Dead>();
         rb2d = GetComponent<Rigidbody2D>();
         playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
     void Update()
     {
-        if(!isDead){
+        if(!enemy_dead.isDead){
             FindPlayer();
 
-            if (isTracking)
-            {
-                Tracking();
-            }
-            else
+            if (!isTracking)
             {
                 animator.SetBool("Walk", false);
             }
+            else
+            {
+                if (enemy_attack.Attack_Wait == true)
+                {
+                    animator.SetBool("Walk", false);
+                }
+                else if(isTracking || enemy_attack.Attack_Wait== false)
+                {
+                    Tracking();
+                }
+            }
         }
-        //if (isBorn)
-        //{
-        //    bornTime -= Time.deltaTime; //重生倒數
-        //    if (bornTime <= 0)
-        //    {
-        //        isDead = false;
-        //        enemy.SetActive(true);
-        //        animator.SetTrigger("Born");
-        //        gameObject.GetComponent<CircleCollider2D>().enabled = true;
-        //        health = healthMax;
-        //        isBorn = false;
-        //        bornTime = 20f;
-        //    }
-        //}
     }
 
+    #region ================↓追蹤主角↓================
     void FindPlayer()
     {
         bool traceMode = isTracking;
@@ -106,9 +99,11 @@ public class Enemy_base : MonoBehaviour {
     {
         if (target != null && !isAttacking)
         {
+           
             animator.SetBool("Walk", true);
             Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
             if (Mathf.Abs(diff.x) <= closeRange) return;
+
             if (diff.x > 0 && transform.position.x < centerPos.x + moveRange)
             {
                 rb2d.velocity = new Vector2(trackSpeed, rb2d.velocity.y);
@@ -124,16 +119,18 @@ public class Enemy_base : MonoBehaviour {
             transform.localScale = faceVec;
         }
     }
+    #endregion ================↑追蹤主角↑================
 
+    #region ================↓受到攻擊↓================
     public void TakeDamage(int damage)
     {
-        if (!isDead)
+        if (!enemy_dead.isDead && isAttacking == false)
         {
-            health -= damage;
-            if (health <= 0)
+            enemy_dead.health -= damage;
+            if (enemy_dead.health <= 0)
             {
-                health = 0;
-                isDead = true;
+                enemy_dead.health = 0;
+                enemy_dead.isDead = true;
                 animator.SetTrigger("Dead");
             }
             isInjury = true;
@@ -141,51 +138,49 @@ public class Enemy_base : MonoBehaviour {
             StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
         }
     }
+    #endregion ================↑受到攻擊↑================
 
     public void InjuryOver()
     {
         isInjury = false;
     }
+
     public void AttackStart()
     {
         isAttacking = true;
+        enemy_attack.Attack_Wait = false;
     }
+
     public void AttackOver()
     {
         isAttacking = false;
+        enemy_attack.Attack_Wait = true;
+        animator.SetTrigger("AttackWait");
     }
 
-    public void Dead()
-    {
-        
-        Debug.Log(enemy.name + "die");
-        GameObject water = Instantiate(waterdrop, enemy.transform.position, Quaternion.identity);
-        water.GetComponent<WaterDrop>().enemy_base= this;
-        water.transform.SetParent(this.transform);
-        enemy.SetActive(false);
-    }
-  
-
-    public void Attack()
+    public void Attack_Damage()
     {
         enemy_attack.Damage();
     }
 
-    public void NewBaby()
+    public void BodyColliderClose()
     {
-        StartCoroutine(RebornAfterTime(bornTime));
+        BodyCollider.offset = new Vector2(-0.02f, 2f);
+        BodyCollider.radius = 0.01f;
+        rb2d.isKinematic = true;
     }
 
-    IEnumerator RebornAfterTime(float time)
+    public void BodyColliderOpen()
     {
-        yield return new WaitForSeconds(time);
-
-        isDead = false;
-        enemy.SetActive(true);
-        health = healthMax;
-        animator.SetTrigger("Born");
-        Debug.Log("born");
+        rb2d.isKinematic = false;
+        BodyCollider.offset = new Vector2(-0.02f, -0.65f);
+        BodyCollider.radius = 1.169405f;
     }
+
+    //public void CameraShake()
+    //{
+    //    cameraControl.Shake(0.3f, 0.1f, 0.05f);
+    //}
 
     IEnumerator ChangeColor(Color color, float colorChangeTime)
     {

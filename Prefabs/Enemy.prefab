@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4771505284921774}
   - component: {fileID: 95790697140456912}
   - component: {fileID: 114677235447729810}
+  - component: {fileID: 114455764160644844}
   - component: {fileID: 50302812734230084}
   - component: {fileID: 58385236974729634}
   m_Layer: 10
@@ -172,6 +173,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114455764160644844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609214305337840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149c27c5d05c30543b48ce6c9482e949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterdrop: {fileID: 1659916329073122, guid: 9486b69f2f45734489b56cc215b153e0, type: 2}
+  enemy: {fileID: 0}
+  isDead: 0
+  health: 0
+  healthMax: 10
 --- !u!114 &114606980858866196
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -200,18 +217,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5376073dcf844468815085db41f5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 0}
-  waterdrop: {fileID: 1659916329073122, guid: 9486b69f2f45734489b56cc215b153e0, type: 2}
+  cameraControl: {fileID: 0}
   moveRange: 4
   trackSpeed: 6
   closeRange: 1.25
   FollowRadius: 4.5
-  health: 0
-  healthMax: 10
   isTracking: 0
   isAttacking: 0
   isInjury: 0
-  isDead: 0
   isBorn: 0
 --- !u!212 &212646421460461414
 SpriteRenderer:

@@ -110,7 +110,6 @@ public class CameraControl : MonoBehaviour {
             {
                 cycle_timer = 0f;
                 camera_point = oriPos + Random.insideUnitCircle * shakeAmount;
-                Debug.Log(camera_point);
             }
 
             yield return null;

@@ -94,8 +94,9 @@ public class PlayerControl : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(!isInWater) PointCheck();
-        
+        //if(!isInWater) PointCheck();
+        PointCheck();
+
         Move();
         Jump();
         WallStick();
@@ -107,7 +108,7 @@ public class PlayerControl : MonoBehaviour {
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
         footLanding = onGround || onPlatform;
-        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.35f, whatIsWall);
+        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsWall);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
         if (footLanding || frontTouchWall || backTouchWall) secondJumping = false; 
     }

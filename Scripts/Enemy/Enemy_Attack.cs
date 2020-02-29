@@ -9,10 +9,12 @@ public class Enemy_Attack : MonoBehaviour
     public float attackDelay = 1.5f;
     private Enemy_base enemy_base;
     Animator animator;
+    public CameraControl cameraControl;
 
     public float elapsed = 0f;
     public bool canAttack = false;
     public GameObject attackTarget = null;
+    public bool Attack_Wait = false;
 
     public Rigidbody2D rb2d;
 
@@ -25,6 +27,7 @@ public class Enemy_Attack : MonoBehaviour
     {
         enemy_base = transform.GetComponentInParent<Enemy_base>();
         rb2d = transform.GetComponentInParent<Rigidbody2D>();
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
     // Update is called once per frame
@@ -39,9 +42,15 @@ public class Enemy_Attack : MonoBehaviour
         {
             canAttack = true;
             elapsed = 0f;
+            Attack_Wait = false;
         }
 
         Attack();
+
+        if (attackTarget == null)
+        {
+            Attack_Wait = false;
+        }
 
     }
 
@@ -50,8 +59,6 @@ public class Enemy_Attack : MonoBehaviour
         if (other.tag == "Player")
         {
             attackTarget = other.gameObject;
-            //enemy_base.isAttacking = true;
-            
         }
     }
 
@@ -61,13 +68,12 @@ public class Enemy_Attack : MonoBehaviour
         if (other.tag == "Player")
         {
             attackTarget = null;
-            //enemy_base.isAttacking = false;
         }
     }
 
     public void Attack()
     {
-        if (canAttack && attackTarget != null)
+        if (canAttack && attackTarget != null && enemy_base.isInjury == false)
         {
             animator.SetTrigger("Attack");
 
@@ -79,6 +85,7 @@ public class Enemy_Attack : MonoBehaviour
     {
         if (attackTarget == null) return;
         attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
+        cameraControl.Shake(0.3f, 0.1f, 0.05f);
     }
 
 
