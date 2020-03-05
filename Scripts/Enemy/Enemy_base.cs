@@ -36,8 +36,9 @@ public class Enemy_base : MonoBehaviour {
     public bool isInjury;
     public bool isBorn;
 
-    
-
+    [Header("Mud Splash")]
+    public GameObject mudSplashFX;
+    public float enemyColRadius;
 
     // Use this for initialization
     void Awake()
@@ -56,6 +57,8 @@ public class Enemy_base : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D>();
         playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
         cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+
+        enemyColRadius = GetComponent<CircleCollider2D>().radius;   //for setting mud splash position
     }
 
     void Update()
@@ -124,7 +127,7 @@ public class Enemy_base : MonoBehaviour {
     #region ================↓受到攻擊↓================
     public void TakeDamage(int damage)
     {
-        if (!enemy_dead.isDead && isAttacking == false)
+        if (!enemy_dead.isDead)
         {
             enemy_dead.health -= damage;
             if (enemy_dead.health <= 0)
@@ -134,8 +137,17 @@ public class Enemy_base : MonoBehaviour {
                 animator.SetTrigger("Dead");
             }
             isInjury = true;
-            animator.SetTrigger("Injury");
+            if(isAttacking == false)
+            {
+                animator.SetTrigger("Injury");
+            }
             StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
+
+
+            Vector3 mudSplashPosition = this.transform.position + new Vector3((PlayerControl.facingRight ? enemyColRadius * 0.5f : -enemyColRadius * 0.5f), 0f, 0f);
+            Vector3 mudSplashRotation = new Vector3(0f, PlayerControl.facingRight ? 0f : 180f, 0f);
+            GameObject FX_obj = Instantiate(mudSplashFX, mudSplashPosition,Quaternion.Euler(mudSplashRotation));
+            Destroy(FX_obj, 1f);
         }
     }
     #endregion ================↑受到攻擊↑================
@@ -155,7 +167,6 @@ public class Enemy_base : MonoBehaviour {
     {
         isAttacking = false;
         enemy_attack.Attack_Wait = true;
-        animator.SetTrigger("AttackWait");
     }
 
     public void Attack_Damage()

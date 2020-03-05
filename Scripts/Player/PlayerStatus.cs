@@ -10,6 +10,7 @@ public class PlayerStatus : MonoBehaviour{
     public static bool isWallSticking = false;
     public static bool isTransingBack = false;
     public static bool isInInteractTrigger = false;
+    public static bool isWaterPassing = false;
 
     //===CanDoWhat===
     public static bool canMove = true;
@@ -61,6 +62,13 @@ public class PlayerStatus : MonoBehaviour{
         else if (isInInteractTrigger)
         {
             canJump = false;
+        }
+        else if (isWaterPassing)
+        {
+            canMove = canJump = false;
+            canSkill = false;
+            canChange = false;
+            canBeHurt = false;
         }
     }
 

@@ -39,10 +39,12 @@ public class Skill_Water : Skill_Base
             if (passTrigger.transform.parent.name == "tree_passing")
             {
                 TreePassBegin();
+                PlayerStatus.isWaterPassing = true;
             }
             else if (passTrigger.transform.parent.name == "hole_passing")
             {
                 HolePassBegin();
+                PlayerStatus.isWaterPassing = true;
             }
         }
     }
@@ -54,7 +56,6 @@ public class Skill_Water : Skill_Base
     {
         isPassing = true;
         playerControl.noticeUI.SetActive(false);
-        PlayerStatus.isSkilling = true;
 
         //主角下跳anim 並由anim event觸發TreePass
         if (whatWaterPassing.name == "tree_passing") animator.SetTrigger("treePassBegin");
@@ -85,7 +86,6 @@ public class Skill_Water : Skill_Base
     {
         isPassing = true;
         playerControl.noticeUI.SetActive(false);
-        PlayerStatus.isSkilling = true;
 
         //anim event觸發HolePass
         if (whatWaterPassing.name == "hole_passing") animator.SetTrigger("horiHoleBegin");
@@ -114,8 +114,8 @@ public class Skill_Water : Skill_Base
 
     IEnumerator OpenRendererDelay() { yield return new WaitForSeconds(0.01f); SetOkaRenderAndCol(true); }
     //由PassOut animation呼叫
-    public void SetMoveableAfterPassOut() { PlayerStatus.isSkilling = false; isPassing = false; }
-    public void PassingInterrupted() { isPassing = false; PlayerStatus.isSkilling = false; }
+    public void SetMoveableAfterPassOut() { PlayerStatus.isWaterPassing = false; isPassing = false; }
+    public void PassingInterrupted() { isPassing = false; PlayerStatus.isWaterPassing = false; }
     void SetOkaRenderAndCol(bool truefalse)
     {
         spriteRenderer.enabled = truefalse;

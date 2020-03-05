@@ -6,7 +6,7 @@ public class Enemy_Dead : MonoBehaviour {
 
     Animator animator;
     public GameObject waterdrop;
-    public GameObject enemy;
+    GameObject enemy;
     public bool isDead;
     private Enemy_base enemy_base;
 
@@ -32,11 +32,10 @@ public class Enemy_Dead : MonoBehaviour {
 
     public void Dead()
     {
-
-        Debug.Log(enemy.name + "die");
         GameObject water = Instantiate(waterdrop, enemy.transform.position, Quaternion.identity);
         water.GetComponent<WaterDrop>().enemy_dead = this;
         water.transform.SetParent(this.transform);
+        water.transform.localScale = new Vector3(enemy.transform.localScale.x, 1f, 1f);
         enemy.SetActive(false);
     }
 
@@ -53,6 +52,5 @@ public class Enemy_Dead : MonoBehaviour {
         enemy.SetActive(true);
         health = healthMax;
         animator.SetTrigger("Born");
-        Debug.Log("born");
     }
 }

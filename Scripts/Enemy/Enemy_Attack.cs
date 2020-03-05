@@ -16,8 +16,6 @@ public class Enemy_Attack : MonoBehaviour
     public GameObject attackTarget = null;
     public bool Attack_Wait = false;
 
-    public Rigidbody2D rb2d;
-
     // Use this for initialization
     void Awake()
     {
@@ -26,7 +24,6 @@ public class Enemy_Attack : MonoBehaviour
     void Start()
     {
         enemy_base = transform.GetComponentInParent<Enemy_base>();
-        rb2d = transform.GetComponentInParent<Rigidbody2D>();
         cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
@@ -73,7 +70,7 @@ public class Enemy_Attack : MonoBehaviour
 
     public void Attack()
     {
-        if (canAttack && attackTarget != null && enemy_base.isInjury == false)
+        if (canAttack && attackTarget != null)
         {
             animator.SetTrigger("Attack");
 
@@ -87,8 +84,5 @@ public class Enemy_Attack : MonoBehaviour
         attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
         cameraControl.Shake(0.3f, 0.1f, 0.05f);
     }
-
-
-
 
 }
