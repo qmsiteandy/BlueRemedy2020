@@ -103,12 +103,10 @@ public class Skill_Base : MonoBehaviour
 
         if (enemyNum > 0)
         {
-            cameraControl.Shake(0.15f, 0.02f, 0.08f);
-
             for (int i = 0; i < enemyNum; i++)
             {
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
-                enemy_Base.TakeDamage(3);
+                enemy_Base.TakeDamage(1);
             }
         }
     }
