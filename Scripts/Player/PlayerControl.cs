@@ -107,7 +107,7 @@ public class PlayerControl : MonoBehaviour {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
-        footLanding = onGround || onPlatform;
+        footLanding = onGround || onPlatform || isInWater;
         frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsWall);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
         if (footLanding || frontTouchWall || backTouchWall) secondJumping = false; 
@@ -453,8 +453,6 @@ public class PlayerControl : MonoBehaviour {
     public void InWater()
     {
         //---水中漂浮&冒泡泡---
-        
-        footLanding = true;
 
         if (OkaID_Now == 0)
         {
