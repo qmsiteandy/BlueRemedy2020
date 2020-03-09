@@ -19,6 +19,8 @@ public class TransBackManager : MonoBehaviour {
     {
         darkBlockPanel.gameObject.SetActive(true);
         darkBlockPanel.color = new Color(0f, 0f, 0f, 0f);
+
+        playerTrans = GameObject.Find("Player").transform;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

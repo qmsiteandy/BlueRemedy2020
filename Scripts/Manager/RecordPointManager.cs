@@ -18,6 +18,7 @@ public class RecordPointManager : MonoBehaviour {
         if(collision.tag == "Player")
         {
             playerRecordPos = this.transform.position;
+            Debug.Log(playerRecordPos);
         }
     }
 

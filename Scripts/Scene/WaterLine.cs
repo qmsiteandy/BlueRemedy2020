@@ -34,7 +34,8 @@ public class WaterLine : MonoBehaviour
     private float widthPerMesh = 0.2f;
     public Material material;
     public Color color = Color.blue;
-    public Color waveColor;
+    public Color deepColor;
+    //public Color waveColor;
 
     private WaterLinePart[] parts;
 
@@ -61,7 +62,8 @@ public class WaterLine : MonoBehaviour
         size = (int)Mathf.Ceil(Width / widthPerMesh);
         currentHeight = Height;
 
-        material.color = color;
+        material.SetColor("_Color", color);
+        material.SetColor("_DeepColor", deepColor);
 
         parts = new WaterLinePart[size];
 
@@ -234,7 +236,7 @@ public class WaterLine : MonoBehaviour
             parts[i].gameObject.transform.localPosition = newPosition;
 
             //Update the bar color
-            Color newColor = Color.Lerp(color, waveColor, Mathf.Abs(parts[i].height) / 0.2f);
+            //Color newColor = Color.Lerp(color, waveColor, Mathf.Abs(parts[i].height) / 0.2f);
 
         }
 
