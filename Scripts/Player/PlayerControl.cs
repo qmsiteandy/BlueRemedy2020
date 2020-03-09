@@ -39,7 +39,6 @@ public class PlayerControl : MonoBehaviour {
     private Animator[] animator = { null, null, null };
     private Skill_Base[] skill_Base = { null, null, null };
     private Skill_Water skill_Water;
-
   
     [Header("機關設定")]
     public GameObject noticeUI;
@@ -54,8 +53,9 @@ public class PlayerControl : MonoBehaviour {
     public bool isInWater = false;
     private Water_Area water_area;
     public GameObject waterSplashFX;
-    
 
+    //---用於髒污塗層的遮罩---
+    private SpriteMask spriteMask;
 
     void Start()
     {
@@ -90,6 +90,9 @@ public class PlayerControl : MonoBehaviour {
         //---bubble maker init---
         bubbleMaker = transform.Find("BubbleMaker").GetComponent<ParticleSystem>();
         bubbleMaker.Stop();
+
+        //---用於髒污塗層的遮罩---
+        spriteMask = this.GetComponent<SpriteMask>();
     }
 
     void FixedUpdate()
@@ -100,6 +103,12 @@ public class PlayerControl : MonoBehaviour {
         Move();
         Jump();
         WallStick();
+    }
+
+    void Update()
+    {
+        //---用於髒污塗層的遮罩---
+        spriteMask.sprite = spriteRenderer[OkaID_Now].sprite;
     }
 
     void PointCheck()
@@ -453,7 +462,6 @@ public class PlayerControl : MonoBehaviour {
     public void InWater()
     {
         //---水中漂浮&冒泡泡---
-
         if (OkaID_Now == 0)
         {
             if (water_area.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);

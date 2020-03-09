@@ -34,6 +34,7 @@ public class WaterLine : MonoBehaviour
     private float widthPerMesh = 0.2f;
     public Material material;
     public Color color = Color.blue;
+    public Color waveColor;
 
     private WaterLinePart[] parts;
 
@@ -195,8 +196,6 @@ public class WaterLine : MonoBehaviour
             Clear();
             Initialize();
         }
-
-        color = material.color;
 #endif
 
         // Water tension is simulated by a simple linear convolution over the height field.
@@ -213,6 +212,7 @@ public class WaterLine : MonoBehaviour
             int j = i - 1;
             int k = i + 1;
             parts[i].height = (parts[i].gameObject.transform.localPosition.y + parts[j].gameObject.transform.localPosition.y + parts[k].gameObject.transform.localPosition.y) / 3.0f;
+            if (parts[i].height > -0.0005f && parts[i].height < 0.0005f) parts[i].height = 0f;
         }
 
         // Velocity and height are updated... 
@@ -232,6 +232,10 @@ public class WaterLine : MonoBehaviour
                 parts[i].height,
                 parts[i].gameObject.transform.localPosition.z);
             parts[i].gameObject.transform.localPosition = newPosition;
+
+            //Update the bar color
+            Color newColor = Color.Lerp(color, waveColor, Mathf.Abs(parts[i].height) / 0.2f);
+
         }
 
         // Update meshes
