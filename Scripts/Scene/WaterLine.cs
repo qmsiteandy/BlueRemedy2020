@@ -170,7 +170,7 @@ public class WaterLine : MonoBehaviour
         mesh.uv = uvs;
 
         // Triangles
-        mesh.triangles = new int[] { 5, 4, 0, 0, 1, 5, 0, 2, 3, 3, 1, 0 };
+        mesh.triangles = new int[] { 5, 4, 0, 0, 1, 5 , 0, 2, 3, 3, 1, 0 };
         
 
         // For shader

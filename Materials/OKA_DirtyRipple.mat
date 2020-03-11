@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: DirtyRipple
+  m_Name: OKA_DirtyRipple
   m_Shader: {fileID: 4800000, guid: 756f8b3799df78b439261a5b1086ebc5, type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -85,6 +85,7 @@ Material:
     - _drityDegree: 1
     m_Colors:
     - Color_7A2B3DDB: {r: 0.44705883, g: 1.5686275, b: 0, a: 0.6509804}
+    - Vector2_95E68773: {r: 1, g: 5, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
