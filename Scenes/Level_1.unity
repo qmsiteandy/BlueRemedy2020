@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2406,11 +2406,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4455475929541198, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 88.7
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4455475929541198, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4455475929541198, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
       propertyPath: m_LocalPosition.z
@@ -10006,7 +10006,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 938122762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 110.49, y: 11.74, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1459300695}
@@ -10542,7 +10542,6 @@ MonoBehaviour:
   dirtMax: 0
   chargeDelay: 1
   waterPerCharge: 3
-  dirtyRipple: {fileID: 809521699}
 --- !u!4 &1021779946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4589951854228788, guid: 88dc2e4c724b8024683bd634a5f08e07,

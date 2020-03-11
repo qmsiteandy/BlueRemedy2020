@@ -16,8 +16,6 @@ public class PlayerEnergy : MonoBehaviour {
     //private SpriteRenderer[] playerSprite= { null, null, null };
     private UI_Manager UI_manager;
 
-    public GameObject dirtyRipple;
-    private Material dirtyRippleMat;
 
 
     void Start ()
@@ -30,9 +28,6 @@ public class PlayerEnergy : MonoBehaviour {
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
 
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
-
-        dirtyRippleMat = dirtyRipple.GetComponent<SpriteRenderer>().material;
-        dirtyRippleMat.SetFloat("_dirtyRippleMat", 0f);
     }
 
     void Update()
@@ -71,7 +66,5 @@ public class PlayerEnergy : MonoBehaviour {
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
 
         UI_manager.SetDirtyUI(dirtyDegree);
-
-        dirtyRippleMat.SetFloat("_drityDegree", dirtyDegree);
     }
 }

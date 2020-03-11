@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 4174578881870036}
   - component: {fileID: 50062089695822174}
   - component: {fileID: 58005739804721980}
+  - component: {fileID: 331337278052891870}
   - component: {fileID: 114846006182302476}
   - component: {fileID: 114568163351713274}
   - component: {fileID: 114400343338324764}
@@ -595,7 +596,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.2, y: 11.8, z: 0}
+  m_LocalPosition: {x: 0, y: -0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4461479680767640}
@@ -1128,7 +1129,7 @@ MonoBehaviour:
   waterEnergyMax: 200
   dirtMax: 0
   chargeDelay: 1
-  waterPerCharge: 3
+  waterPerCharge: 68
 --- !u!114 &114437804865547854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1346,7 +1347,8 @@ MonoBehaviour:
   isStickOnWall: 0
   noticeUI: {fileID: 1912185296287264}
   cameraControl: {fileID: 0}
-  bubbleMaker: {fileID: 0}
+  bubbleMaker: {fileID: 198225874524594912, guid: 184c04682f5de884ebdb57891fa1dfb5,
+    type: 2}
   isInWater: 0
   waterSplashFX: {fileID: 1963430798620808, guid: d7b0a44ceec415b418a11ad3e968a335,
     type: 2}
@@ -1442,8 +1444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d469cd625fdb62e459a93261c68591da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboardButtonGroup: {fileID: 1614903805791576}
-  joystickButtonGroup: {fileID: 1165066590881872}
 --- !u!114 &114992999780758880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6096,7 +6096,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 517389995
-  m_SortingLayer: 7
+  m_SortingLayer: 5
   m_SortingOrder: 1
   m_RenderMode: 0
   m_SortMode: 0
@@ -6197,7 +6197,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1193475029
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6f8e9b6ef72a9d6419bd3d106aea91c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6243,7 +6243,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1193475029
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 73e8fe259be6f0a44a12edb222f5754d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6289,7 +6289,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1193475029
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ee0988d5fb274944599cea19389128a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6335,7 +6335,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1193475029
-  m_SortingLayer: 5
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a381e16f64a0d134b8c9ab5e0e25ad2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -6830,3 +6830,48 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!331 &331337278052891870
+SpriteMask:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1817263097560632}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
