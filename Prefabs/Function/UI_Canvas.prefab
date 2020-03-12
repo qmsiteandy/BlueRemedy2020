@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 222694860353882602}
   - component: {fileID: 114073827707221856}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 224593834676499378}
   - component: {fileID: 114695842534758776}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 222125766705405654}
   - component: {fileID: 114043580391914944}
   m_Layer: 5
-  m_Name: Text
+  m_Name: text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -172,6 +172,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224546183786977904}
+  - component: {fileID: 225530909885097588}
   m_Layer: 5
   m_Name: BlossomUI
   m_TagString: Untagged
@@ -208,7 +209,7 @@ GameObject:
   - component: {fileID: 222897579871335842}
   - component: {fileID: 114410704333391160}
   m_Layer: 5
-  m_Name: Background
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,7 +244,7 @@ GameObject:
   - component: {fileID: 224319485110833690}
   - component: {fileID: 222032881137252414}
   m_Layer: 5
-  m_Name: Fill Area
+  m_Name: fill area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,7 +261,7 @@ GameObject:
   - component: {fileID: 222869090910232580}
   - component: {fileID: 114502276570116404}
   m_Layer: 5
-  m_Name: Cover
+  m_Name: cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +278,7 @@ GameObject:
   - component: {fileID: 222449889240289856}
   - component: {fileID: 114711255211729964}
   m_Layer: 5
-  m_Name: Cover
+  m_Name: cover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -662,19 +663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df148744b9a7de3408e02a4c368ebc3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darkPanel: {fileID: 0}
-  waterFill: {fileID: 1169312703324066}
   Yshift: 550
-  waterText: {fileID: 114043580391914944}
-  dirtyFill: {fileID: 1600668254660272}
-  blossomSlider: {fileID: 114695842534758776}
   showoffTime: 6
   switchSpeed: 0.1
-  blossomUI_Img:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerEnergy: {fileID: 0}
 --- !u!114 &114695842534758776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1268,3 +1259,14 @@ RectTransform:
   m_AnchoredPosition: {x: -777.91003, y: -377}
   m_SizeDelta: {x: -280.8, y: -157.9}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &225530909885097588
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574734572360306}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

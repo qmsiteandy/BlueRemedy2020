@@ -74,7 +74,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1063155718120494
 GameObject:
   m_ObjectHideFlags: 1
@@ -1340,13 +1340,9 @@ MonoBehaviour:
   jumpForce: 650
   walljumpForce: 750
   rb2d: {fileID: 0}
-  footCheck: {fileID: 4091820262829870}
-  frontCheck: {fileID: 4787054163495660}
-  backCheck: {fileID: 4730337868205162}
   checkRadius: 0.4
   isStickOnWall: 0
   noticeUI: {fileID: 1912185296287264}
-  cameraControl: {fileID: 0}
   bubbleMaker: {fileID: 198225874524594912, guid: 184c04682f5de884ebdb57891fa1dfb5,
     type: 2}
   isInWater: 0

@@ -38,7 +38,7 @@ public class Skill_Base : MonoBehaviour
         playerControl = GetComponentInParent<PlayerControl>();
         playerChange = GetComponentInParent<PlayerChange>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        cameraControl = playerControl.cameraControl;
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
         playerCollider = GetComponentInParent<Collider2D>();
         attackTrigger = this.transform.GetChild(0).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));

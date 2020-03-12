@@ -401,13 +401,16 @@ public class EZParallax : MonoBehaviour
 	//Can be called manually when autoInitialization is disabled.
 	public void InitializeParallax()
 	{
-		if(m_playerObj == null)
+
+        //m_playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (m_playerObj == null)
 		{
 			Debug.LogError("EZ Parallax: EZParallax initialized, but a player has not been assigned. Aborting.");
 			return;
 		}
-		
-		if(m_mainCamera == null)
+
+        //m_mainCamera = GameObject.Find("CameraHolder").transform.GetChild(0).gameObject; 
+        if (m_mainCamera == null)
 		{
 			Debug.LogError("EZ Parallax: EZParallax initialized, but a camera has not been assigned. Aborting.");
 			return;

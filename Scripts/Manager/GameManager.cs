@@ -5,19 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject blackPanel;
-
+    private Transform playerTrans;
+    private Transform blackPanel;
 
 	// Use this for initialization
 	void Start ()
     {
-        GameObject.DontDestroyOnLoad(this);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        blackPanel = transform.Find("Canvas").Find("BlackPanel");
+
+    }
 
     public void GoToScene(int sceneNum)
     {
@@ -29,6 +26,7 @@ public class GameManager : MonoBehaviour {
         blackPanel.GetComponent<panel>().FadeIn();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneNum);
+        playerTrans.position = new Vector3(0f, 0f, 0f);
         blackPanel.GetComponent<panel>().FadeOut();
         yield return new WaitForSeconds(1f);
         //Player can move

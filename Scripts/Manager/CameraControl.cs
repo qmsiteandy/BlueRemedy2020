@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraControl : MonoBehaviour {
 
-    public Transform camera_target;            //camera追蹤目標
+    private Transform camera_target;            //camera追蹤目標
     public float smoothSpeed = 0.25f;   //camera移動速度
     public float lookUpMove = 1.2f;     //向上看時camera垂直移動距離
     public float lookDownMove = 3f;     //向下看時camera垂直移動距離
@@ -18,6 +18,7 @@ public class CameraControl : MonoBehaviour {
 
     void Start()
     {
+        camera_target = GameObject.FindGameObjectWithTag("Player").transform;
         //設定相機初始位置
         transform.position = camera_target.position + offset;
 

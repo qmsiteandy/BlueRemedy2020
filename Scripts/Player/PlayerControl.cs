@@ -19,8 +19,8 @@ public class PlayerControl : MonoBehaviour {
     private PlayerChange playerChange;
 
     [Header("跳躍判斷")]
-    public Transform footCheck;         //檢查踩踏地板的點
-    public Transform frontCheck, backCheck;
+    private Transform footCheck;         //檢查踩踏地板的點
+    private Transform frontCheck, backCheck;
     public float checkRadius = 0.4f;    //檢查踩踏地板的判斷半徑
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
@@ -41,9 +41,9 @@ public class PlayerControl : MonoBehaviour {
     private Skill_Water skill_Water;
   
     [Header("機關設定")]
-    public GameObject noticeUI;
+    [HideInInspector] public GameObject noticeUI;
     private Transform noticeUI_Trans;
-    public CameraControl cameraControl;
+    private CameraControl cameraControl;
 
     [Header("水中")]
     public ParticleSystem bubbleMaker;
@@ -57,13 +57,17 @@ public class PlayerControl : MonoBehaviour {
     //---用於髒污塗層的遮罩---
     private SpriteMask spriteMask;
 
-    void Start()
+    void Awake()
     {
         cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
 
         rb2d = GetComponent<Rigidbody2D>();
         playerEnergy = this.GetComponent<PlayerEnergy>();
         playerChange = this.GetComponent<PlayerChange>();
+
+        footCheck = transform.Find("footPoint");
+        frontCheck = transform.Find("frontPoint");
+        backCheck = transform.Find("backPoint");
 
         for (int x = 0; x < 3; x++)
         {
@@ -84,6 +88,7 @@ public class PlayerControl : MonoBehaviour {
         whatIsWall = LayerMask.GetMask("Wall");
 
         //---NoticeMark--
+        noticeUI.transform.Find("notice mark");
         noticeUI.SetActive(false);
         noticeUI_Trans = noticeUI.GetComponent<Transform>();
 
@@ -93,6 +98,8 @@ public class PlayerControl : MonoBehaviour {
 
         //---用於髒污塗層的遮罩---
         spriteMask = this.GetComponent<SpriteMask>();
+
+        DontDestroyOnLoad(this);
     }
 
     void FixedUpdate()
