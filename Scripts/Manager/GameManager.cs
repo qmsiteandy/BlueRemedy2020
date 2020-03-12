@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour {
     {
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
         blackPanel = transform.Find("Canvas").Find("BlackPanel");
-
     }
 
     public void GoToScene(int sceneNum)
@@ -22,13 +21,15 @@ public class GameManager : MonoBehaviour {
     }
     IEnumerator ChangeScene(int sceneNum)
     {
-        //Player cant move
+        PlayerStatus.isChangingScene = true;
         blackPanel.GetComponent<panel>().FadeIn();
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneNum);
         playerTrans.position = new Vector3(0f, 0f, 0f);
         blackPanel.GetComponent<panel>().FadeOut();
         yield return new WaitForSeconds(1f);
-        //Player can move
+        PlayerStatus.isChangingScene = false;
     }
+
+   
 }

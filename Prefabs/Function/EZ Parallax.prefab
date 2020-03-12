@@ -59,32 +59,5 @@ MonoBehaviour:
   m_parallaxSpeedScalarY: 1
   m_autoInitialize: 1
   m_enableDollyZoom: 1
-  m_parallaxElements:
-  - name: backgroung
-    m_parallaxObject: {fileID: 0}
-    privateParallaxSpeedScalarX: 0.88
-    privateParallaxSpeedScalarY: 1
-    isMotorized: 0
-    motorizationPaused: 0
-    spawnsDuplicateOnX: 0
-    randomSpawnX: 0
-    spawnGroupIndex: 0
-    numElementsInSeriesX: 0
-    hasCustomName: 1
-    needsNewScreenspaceExtents: 1
-    initialMotorSpeed: 0
-    initialSpawnDistanceX: 0
-    initialSpawnDistanceMinX: 0
-    initialSpawnDistanceMaxX: 0
-    initialRightSpawnDistanceX: 0
-    initialLeftSpawnDistanceX: 0
-    altSpawnAnchorY: 0
-    useRandomYSpawnAltOffset: 0
-    randomYSpawnLowestAltOffset: 0
-    randomYSpawnHighestAltOffset: 0
-    isDupe: 0
-    scale: 1
-    fullBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
+  m_parallaxElements: []
   m_randomOffsetHistorySize: 300
