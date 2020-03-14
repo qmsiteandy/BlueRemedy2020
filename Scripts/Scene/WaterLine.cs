@@ -34,11 +34,8 @@ public class WaterLine : MonoBehaviour
     private float widthPerMesh = 0.2f;
     public Material material;
     public Color color = Color.blue;
-<<<<<<< HEAD
     public Color deepColor;
     //public Color waveColor;
-=======
->>>>>>> master
 
     private WaterLinePart[] parts;
 
@@ -65,12 +62,8 @@ public class WaterLine : MonoBehaviour
         size = (int)Mathf.Ceil(Width / widthPerMesh);
         currentHeight = Height;
 
-<<<<<<< HEAD
         material.SetColor("_Color", color);
         material.SetColor("_DeepColor", deepColor);
-=======
-        material.color = color;
->>>>>>> master
 
         parts = new WaterLinePart[size];
 
@@ -177,11 +170,7 @@ public class WaterLine : MonoBehaviour
         mesh.uv = uvs;
 
         // Triangles
-<<<<<<< HEAD
         mesh.triangles = new int[] { 5, 4, 0, 0, 1, 5 , 0, 2, 3, 3, 1, 0 };
-=======
-        mesh.triangles = new int[] { 5, 4, 0, 0, 1, 5, 0, 2, 3, 3, 1, 0 };
->>>>>>> master
         
 
         // For shader
@@ -209,11 +198,6 @@ public class WaterLine : MonoBehaviour
             Clear();
             Initialize();
         }
-<<<<<<< HEAD
-=======
-
-        color = material.color;
->>>>>>> master
 #endif
 
         // Water tension is simulated by a simple linear convolution over the height field.
@@ -230,10 +214,7 @@ public class WaterLine : MonoBehaviour
             int j = i - 1;
             int k = i + 1;
             parts[i].height = (parts[i].gameObject.transform.localPosition.y + parts[j].gameObject.transform.localPosition.y + parts[k].gameObject.transform.localPosition.y) / 3.0f;
-<<<<<<< HEAD
             if (parts[i].height > -0.0005f && parts[i].height < 0.0005f) parts[i].height = 0f;
-=======
->>>>>>> master
         }
 
         // Velocity and height are updated... 
@@ -253,13 +234,10 @@ public class WaterLine : MonoBehaviour
                 parts[i].height,
                 parts[i].gameObject.transform.localPosition.z);
             parts[i].gameObject.transform.localPosition = newPosition;
-<<<<<<< HEAD
 
             //Update the bar color
             //Color newColor = Color.Lerp(color, waveColor, Mathf.Abs(parts[i].height) / 0.2f);
 
-=======
->>>>>>> master
         }
 
         // Update meshes

@@ -11,10 +11,7 @@ public class PlayerStatus : MonoBehaviour{
     public static bool isTransingBack = false;
     public static bool isInInteractTrigger = false;
     public static bool isWaterPassing = false;
-<<<<<<< HEAD
     public static bool isChangingScene = false;
-=======
->>>>>>> master
 
     //===CanDoWhat===
     public static bool canMove = true;
@@ -74,7 +71,6 @@ public class PlayerStatus : MonoBehaviour{
             canChange = false;
             canBeHurt = false;
         }
-<<<<<<< HEAD
         else if (isChangingScene)
         {
             canMove = canJump = false;
@@ -82,8 +78,6 @@ public class PlayerStatus : MonoBehaviour{
             canChange = false;
             canBeHurt = false;
         }
-=======
->>>>>>> master
     }
 
 #region inputMode
