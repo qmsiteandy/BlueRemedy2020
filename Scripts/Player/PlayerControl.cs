@@ -28,7 +28,7 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector] static public bool footLanding = false;
     private bool onGround, onPlatform;
     private bool frontTouchWall = false, backTouchWall = false;
-    private bool secondJumping = false;
+    private bool jumping = false, secondJumping = false;
     private bool pressingJump = false;
     private bool jumpingDown = false;
     public bool isStickOnWall = false;
@@ -203,10 +203,26 @@ public class PlayerControl : MonoBehaviour {
     {
         if (!PlayerStatus.canJump) return;
 
+
+        bool touchGround = (footLanding || frontTouchWall || backTouchWall);
+        animator[OkaID_Now].SetBool("touchGroung", touchGround);
+        jumping = !touchGround;
+
+        animator[OkaID_Now].SetBool("jumpFall", false);
+        animator[OkaID_Now].SetBool("jumpUp", false);
+
+        if (jumping)
+        {
+            if(rb2d.velocity.y < -0.1f) animator[OkaID_Now].SetBool("jumpFall", true);
+            if (rb2d.velocity.y > 0.1f) animator[OkaID_Now].SetBool("jumpUp", true);
+        }
+
+
         //平台上往下跳
-        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumpingDown)
+        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumping)
         {
             StartCoroutine(JumpDownFromPlat());
+
             return;
         }
         if (Input.GetAxis("Jump") > 0.1f && !pressingJump) 
@@ -214,7 +230,7 @@ public class PlayerControl : MonoBehaviour {
             pressingJump = true;
             
             //在地上
-            if (footLanding)
+            if (footLanding && !jumping)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
@@ -222,7 +238,7 @@ public class PlayerControl : MonoBehaviour {
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
             }
             //蹬牆跳
-            else if (frontTouchWall && !footLanding)
+            else if (frontTouchWall && !footLanding && !jumping)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
@@ -231,7 +247,7 @@ public class PlayerControl : MonoBehaviour {
 
                 StartCoroutine(ShortCantMove(shortCantMoveDuration));
             }
-            else if (backTouchWall && !footLanding)
+            else if (backTouchWall && !footLanding && !jumping)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
 
@@ -249,7 +265,9 @@ public class PlayerControl : MonoBehaviour {
                 if (!isInWater) rb2d.AddForce(Vector2.up * jumpForce);
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.6f);
 
-                secondJumping = true;               
+                secondJumping = true;
+
+                animator[OkaID_Now].SetTrigger("gas_jumpTwice");
             }
         }
         ////當跳躍鍵放開且此時未著地
@@ -259,7 +277,9 @@ public class PlayerControl : MonoBehaviour {
         //    JumpRelease();
         //}
 
+        //輸入為零
         if (Input.GetAxis("Jump") < 0.1f) pressingJump = false;
+  
     }
     //彈跳釋放(會影響長按短按地跳躍高度)
     void JumpRelease()
@@ -277,12 +297,12 @@ public class PlayerControl : MonoBehaviour {
         float colDisTime = 0.2f;
 
         Physics2D.IgnoreLayerCollision(8, 13, true);
-        jumpingDown = true;
+        //jumpingDown = true;
 
         yield return new WaitForSeconds(colDisTime);
 
         Physics2D.IgnoreLayerCollision(8, 13, false);
-        jumpingDown = false;
+        //jumpingDown = false;
     }
     #endregion ================↑跳躍相關↑================
 
