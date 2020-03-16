@@ -114,7 +114,9 @@ public class UI_Manager : MonoBehaviour {
     //---水量---
     public void SetWaterUI(int waterEnergy)
     {
-        if (waterUI != null) return;
+        if (waterUI == null) return;
+
+        //Debug.Log("waterEnergy " + waterEnergy);
 
         waterText.text = "" + waterEnergy;
         waterFillRect.anchoredPosition = waterFillOriRect2D - new Vector2(0f, Yshift * (waterMax - waterEnergy) / waterMax);
@@ -125,9 +127,11 @@ public class UI_Manager : MonoBehaviour {
     //---髒污---
     public void SetDirtyUI(float dirtyDegree)
     {
-        if (dirtyUI != null) return;
+        
+        if (dirtyUI == null) return;
 
         //Debug.Log("dirtyDegree " + dirtyDegree);
+
         dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
         if(dirtyDegree>0.6f) dirtyFillImg.color = new Color(1f, 0f, 0f, dirtyDegree);
         else dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
@@ -136,7 +140,7 @@ public class UI_Manager : MonoBehaviour {
     //---繁盛---
     public void SetBlossomUI(float blossomPersentage)
     {
-        if (blossomUI != null) return;
+        if (blossomUI == null) return;
 
         blossomSlider.value = blossomPersentage;
         showingOn = true; isSwitching = true;

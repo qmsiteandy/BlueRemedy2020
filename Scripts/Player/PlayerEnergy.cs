@@ -9,12 +9,14 @@ public class PlayerEnergy : MonoBehaviour {
     public int dirtMax;
     private int dirt = 0;
 
-    public float chargeDelay = 1f;
-    public int waterPerCharge = 3;
+    private float chargeDelay = 1f;
+    private int waterPerCharge = 3;
     private float elapsed = 0f;
 
     //private SpriteRenderer[] playerSprite= { null, null, null };
     private UI_Manager UI_manager;
+
+    private Material dirtyRippeMat;
 
 
 
@@ -27,7 +29,8 @@ public class PlayerEnergy : MonoBehaviour {
         //for (int x = 0; x < 3; x++) Oka[x] = transform.GetChild(x).gameObject;
         UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
 
-        UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        dirtyRippeMat = this.transform.Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
+        dirtyRippeMat.SetFloat("_drityDegree", 0);
     }
 
     void Update()
@@ -35,7 +38,7 @@ public class PlayerEnergy : MonoBehaviour {
         if (elapsed > chargeDelay) { ModifyWaterEnergy(waterPerCharge); elapsed = 0f; }
         elapsed += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Y)) { dirt += 10; waterEnergy -= 10; }
+        if (Input.GetKeyDown(KeyCode.Y)) { ModifyDirt(10); ModifyWaterEnergy(-10); }
     }
 
     public void ModifyWaterEnergy(int amount)
@@ -66,5 +69,6 @@ public class PlayerEnergy : MonoBehaviour {
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
 
         UI_manager.SetDirtyUI(dirtyDegree);
+        dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
     }
 }

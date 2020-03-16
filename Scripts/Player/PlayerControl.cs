@@ -28,11 +28,13 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector] static public bool footLanding = false;
     private bool onGround, onPlatform;
     private bool frontTouchWall = false, backTouchWall = false;
-    private bool jumping = false, secondJumping = false;
+    [HideInInspector] public bool jumping = false;
+    private bool secondJumping = false;
     private bool pressingJump = false;
     private bool jumpingDown = false;
     public bool isStickOnWall = false;
     private float shortCantMoveDuration = 0.08f;
+    public GameObject jumptwice_deco;
 
     [Header("三態個別")]
     private SpriteRenderer[] spriteRenderer = { null, null, null };  //用來設定sorting
@@ -54,8 +56,8 @@ public class PlayerControl : MonoBehaviour {
     private Water_Area water_area;
     public GameObject waterSplashFX;
 
-    //---用於髒污塗層的遮罩---
-    private SpriteMask spriteMask;
+    [Header("髒污ripple")]
+    private SpriteMask rippleMask;
 
     void Awake()
     {
@@ -96,10 +98,8 @@ public class PlayerControl : MonoBehaviour {
         bubbleMaker = transform.Find("BubbleMaker").GetComponent<ParticleSystem>();
         bubbleMaker.Stop();
 
-        //---用於髒污塗層的遮罩---
-        spriteMask = this.GetComponent<SpriteMask>();
-
-        DontDestroyOnLoad(this);
+        //---用於髒污ripple的材質遮罩設定---
+        rippleMask = this.GetComponent<SpriteMask>();
     }
 
     void FixedUpdate()
@@ -115,7 +115,7 @@ public class PlayerControl : MonoBehaviour {
     void Update()
     {
         //---用於髒污塗層的遮罩---
-        spriteMask.sprite = spriteRenderer[OkaID_Now].sprite;
+        rippleMask.sprite = spriteRenderer[OkaID_Now].sprite;
     }
 
     void PointCheck()
@@ -268,6 +268,9 @@ public class PlayerControl : MonoBehaviour {
                 secondJumping = true;
 
                 animator[OkaID_Now].SetTrigger("gas_jumpTwice");
+
+                GameObject FX = Instantiate(jumptwice_deco, transform.position + new Vector3(0, 0, 0f), Quaternion.identity);
+                Destroy(FX, 1f);
             }
         }
         ////當跳躍鍵放開且此時未著地
@@ -279,7 +282,8 @@ public class PlayerControl : MonoBehaviour {
 
         //輸入為零
         if (Input.GetAxis("Jump") < 0.1f) pressingJump = false;
-  
+
+        PlayerStatus.isLanding = touchGround;
     }
     //彈跳釋放(會影響長按短按地跳躍高度)
     void JumpRelease()

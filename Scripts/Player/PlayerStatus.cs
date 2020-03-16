@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour{
-    
+
     //===Status===
+    public static bool isLanding = false;
     public static bool isSkilling = false;
     public static bool isChanging = false;
     public static bool isWallSticking = false;
@@ -77,6 +78,10 @@ public class PlayerStatus : MonoBehaviour{
             canSkill = false;
             canChange = false;
             canBeHurt = false;
+        }
+        else if (!isLanding)
+        {
+            canChange = false;
         }
     }
 

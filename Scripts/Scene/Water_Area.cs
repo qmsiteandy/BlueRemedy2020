@@ -25,7 +25,8 @@ public class Water_Area : MonoBehaviour {
     private bool isPlayerInWater = false;
     private PlayerControl playerControl;
 
-    public WaterLine waterLine;
+    //public WaterLine waterLine;
+
 
 
 
@@ -39,7 +40,7 @@ public class Water_Area : MonoBehaviour {
         //造浪
         if (makeWave) StartCoroutine(MakeWave());
 
-        waterLine = GetComponent<WaterLine>();
+        //waterLine = GetComponent<WaterLine>();
     }
 
     void Update()
@@ -66,7 +67,7 @@ public class Water_Area : MonoBehaviour {
         {
             //跳入水面製造波浪
             float playerYSpeed = collider.GetComponent<PlayerControl>().rb2d.velocity.y;
-            waterLine.Splash(collider.transform.position, Mathf.Lerp(-0.5f, -3.5f, playerYSpeed / -20f));
+            //waterLine.Splash(collider.transform.position, Mathf.Lerp(-0.5f, -3.5f, playerYSpeed / -20f));
 
             playerControl = collider.GetComponent<PlayerControl>();
             PlayerControl.speedLimit *= speedDownRate;
@@ -100,7 +101,7 @@ public class Water_Area : MonoBehaviour {
         {
             //跳出水面製造波浪
             float playerYSpeed = collider.GetComponent<PlayerControl>().rb2d.velocity.y;
-            waterLine.Splash(collider.transform.position, Mathf.Lerp(0.5f, 3.5f, playerYSpeed / -20f));
+            //waterLine.Splash(collider.transform.position, Mathf.Lerp(0.5f, 3.5f, playerYSpeed / -20f));
 
             playerControl = collider.GetComponent<PlayerControl>();
             PlayerControl.speedLimit = playerControl.initSpeedLimit;
