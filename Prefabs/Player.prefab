@@ -1367,6 +1367,7 @@ MonoBehaviour:
   walljumpForce: 750
   rb2d: {fileID: 0}
   checkRadius: 0.4
+  jumping: 0
   isStickOnWall: 0
   jumptwice_deco: {fileID: 1304074465162842, guid: 7e21e7680d7d2ac4d924f3a826743f33,
     type: 2}

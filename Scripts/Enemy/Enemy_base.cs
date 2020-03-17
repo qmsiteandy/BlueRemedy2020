@@ -82,6 +82,7 @@ public class Enemy_base : MonoBehaviour {
                 }
             }
         }
+
     }
 
     #region ================↓追蹤主角↓================
@@ -130,14 +131,14 @@ public class Enemy_base : MonoBehaviour {
         if (!enemy_dead.isDead)
         {
             enemy_dead.health -= damage;
+            //isInjury = true;
             if (enemy_dead.health <= 0)
             {
                 enemy_dead.health = 0;
                 enemy_dead.isDead = true;
                 animator.SetTrigger("Dead");
             }
-            isInjury = true;
-            if(isAttacking == false)
+            else if(isAttacking == false)
             {
                 animator.SetTrigger("Injury");
             }
@@ -152,10 +153,10 @@ public class Enemy_base : MonoBehaviour {
     }
     #endregion ================↑受到攻擊↑================
 
-    public void InjuryOver()
-    {
-        isInjury = false;
-    }
+    //public void InjuryOver()
+    //{
+    //    isInjury = false;
+    //}
 
     public void AttackStart()
     {
