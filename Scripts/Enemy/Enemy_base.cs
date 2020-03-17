@@ -35,6 +35,7 @@ public class Enemy_base : MonoBehaviour {
     public bool isAttacking;
     public bool isInjury;
     public bool isBorn;
+    public bool isFreeze = false;
 
     [Header("Mud Splash")]
     public GameObject mudSplashFX;
@@ -66,7 +67,7 @@ public class Enemy_base : MonoBehaviour {
         if(!enemy_dead.isDead){
             FindPlayer();
 
-            if (!isTracking)
+            if (!isTracking || isFreeze == true)
             {
                 animator.SetBool("Walk", false);
             }
@@ -101,9 +102,9 @@ public class Enemy_base : MonoBehaviour {
 
     void Tracking()
     {
-        if (target != null && !isAttacking)
+        if (target != null && !isAttacking && isFreeze == false)
         {
-           
+
             animator.SetBool("Walk", true);
             Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
             if (Mathf.Abs(diff.x) <= closeRange) return;
@@ -141,6 +142,7 @@ public class Enemy_base : MonoBehaviour {
             else if(isAttacking == false)
             {
                 animator.SetTrigger("Injury");
+                StartCoroutine(Freeze(0.5f));
             }
             StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
 
@@ -151,6 +153,14 @@ public class Enemy_base : MonoBehaviour {
             Destroy(FX_obj, 1f);
         }
     }
+
+    //被攻擊時擊退
+    public void KnockBack(Vector3 direction, float force)
+    {
+        this.rb2d.AddForce(direction * force);
+    }
+
+
     #endregion ================↑受到攻擊↑================
 
     //public void InjuryOver()
@@ -179,7 +189,8 @@ public class Enemy_base : MonoBehaviour {
     {
         BodyCollider.offset = new Vector2(-0.02f, 2f);
         BodyCollider.radius = 0.01f;
-        rb2d.isKinematic = true;
+        //rb2d.isKinematic = true;
+        rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     public void BodyColliderOpen()
@@ -187,6 +198,8 @@ public class Enemy_base : MonoBehaviour {
         rb2d.isKinematic = false;
         BodyCollider.offset = new Vector2(-0.02f, -0.65f);
         BodyCollider.radius = 1.169405f;
+
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     //public void CameraShake()
@@ -201,6 +214,15 @@ public class Enemy_base : MonoBehaviour {
         yield return new WaitForSeconds(colorChangeTime);
 
         spriteRenderer.color = new Color(1, 1, 1);
+    }
+
+    IEnumerator Freeze(float freezeTime)
+    {
+        isFreeze = true;
+
+        yield return new WaitForSeconds(freezeTime);
+
+        isFreeze = false;
     }
 
 }

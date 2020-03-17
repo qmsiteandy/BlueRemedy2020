@@ -70,7 +70,7 @@ public class Enemy_Attack : MonoBehaviour
 
     public void Attack()
     {
-        if (canAttack && attackTarget != null)
+        if (canAttack && attackTarget != null && enemy_base.isFreeze == false)
         {
             animator.SetTrigger("Attack");
 

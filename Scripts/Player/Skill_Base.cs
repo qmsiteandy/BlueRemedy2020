@@ -105,8 +105,11 @@ public class Skill_Base : MonoBehaviour
         {
             for (int i = 0; i < enemyNum; i++)
             {
+                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
+
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);
+                enemy_Base.KnockBack(PlayerControl.facingRight? Vector3.right: Vector3.left, 250f);
             }
         }
     }

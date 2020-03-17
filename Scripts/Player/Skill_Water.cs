@@ -34,6 +34,7 @@ public class Skill_Water : Skill_Base
     {
         if (Input.GetButtonDown("Special") && !isPassing && PlayerStatus.canSkill)
         {
+            Debug.Log("Input");
             whatWaterPassing = passTrigger.transform.parent.gameObject;
 
             if (passTrigger.transform.parent.name == "tree_passing")
