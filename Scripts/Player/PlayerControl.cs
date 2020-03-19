@@ -24,10 +24,10 @@ public class PlayerControl : MonoBehaviour {
     public float checkRadius = 0.4f;    //檢查踩踏地板的判斷半徑
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
-    private LayerMask whatIsWall;
     [HideInInspector] static public bool footLanding = false;
     private bool onGround, onPlatform;
     private bool frontTouchWall = false, backTouchWall = false;
+    private bool touchGround;
     [HideInInspector] public bool jumping = false;
     private bool secondJumping = false;
     private bool pressingJump = false;
@@ -87,7 +87,6 @@ public class PlayerControl : MonoBehaviour {
         //---各種圖層MASK設定---
         whatIsGround = LayerMask.GetMask("Ground");
         whatIsPlatform = LayerMask.GetMask("Platform");
-        whatIsWall = LayerMask.GetMask("Wall");
 
         //---NoticeMark--
         noticeUI.transform.Find("notice mark");
@@ -123,9 +122,13 @@ public class PlayerControl : MonoBehaviour {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
         onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
         onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+
         footLanding = onGround || onPlatform || isInWater;
-        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsWall);
-        backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsWall);
+        frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsGround);
+        backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsGround);
+
+        touchGround = (footLanding || frontTouchWall || backTouchWall);
+
         if (footLanding || frontTouchWall || backTouchWall) secondJumping = false; 
     }
 
@@ -153,7 +156,6 @@ public class PlayerControl : MonoBehaviour {
             Vector2 force = new Vector2(xInput * accelForce, 0f);
             rb2d.AddForce(force);
         }
-        else xInput = 0f;
 
         if (!frontTouchWall) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
         else
@@ -203,8 +205,6 @@ public class PlayerControl : MonoBehaviour {
     {
         if (!PlayerStatus.canJump) return;
 
-
-        bool touchGround = (footLanding || frontTouchWall || backTouchWall);
         animator[OkaID_Now].SetBool("touchGroung", touchGround);
         jumping = !touchGround;
 
@@ -385,44 +385,55 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓collider相關↓================
     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.layer == 12)   //Wall Layer
+        if(collision.gameObject.layer == 9 || collision.gameObject.layer == 13)
         {
-            if (isStickOnWall)
-            {
-                Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
-                float stickAngle = Mathf.Atan(contactNormal.y / contactNormal.x); //計算角度
-                stickAngle = stickAngle * 180f / Mathf.PI;
-                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, stickAngle);
-            }
-            if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
-            {
-                isStickOnWall = true; PlayerStatus.isWallSticking = true;
-                animator[OkaID_Now].SetTrigger("wallStickIn");
-                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
-            }
-            else if (isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
-            {
-                isStickOnWall = false; PlayerStatus.isWallSticking = false;
-                animator[OkaID_Now].SetTrigger("wallJumpOut");
-                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
+            Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
+            float angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
 
-                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+            Debug.Log(angleWithCol);
+
+
+            if(footLanding && Mathf.Abs(angleWithCol) >= 35f)
+            {
+                float rotateAngle = angleWithCol > 0f ? -(90f - angleWithCol) : (90f + angleWithCol);
+                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotateAngle);
+            }
+            else if (Mathf.Abs(angleWithCol) < 35f)
+            {
+                if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall)
+                {
+                    isStickOnWall = true; PlayerStatus.isWallSticking = true;
+                    animator[OkaID_Now].SetTrigger("wallStickIn");
+                    animator[OkaID_Now].SetBool("wall_isSticking", true);
+                }
+                else if (isStickOnWall && (Mathf.Abs(xInput) == 0f))
+                {
+                    isStickOnWall = false; PlayerStatus.isWallSticking = false;
+                    animator[OkaID_Now].SetTrigger("wallJumpOut");
+                    animator[OkaID_Now].SetBool("wall_isSticking", false);
+
+                    transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+                }
+
+                if (isStickOnWall)
+                {
+                    transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angleWithCol);
+                }
             }
         }
     }
     void OnCollisionExit2D(Collision2D collision)   
     {
-        if (collision.gameObject.layer == 12)   //Wall Layer
+        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13)
         {
-            
             if (isStickOnWall)
             {
                 isStickOnWall = false; PlayerStatus.isWallSticking = false;
                 animator[OkaID_Now].SetTrigger("wallJumpOut");
-                animator[OkaID_Now].SetBool("wall_isSticking", isStickOnWall);
-
-                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+                animator[OkaID_Now].SetBool("wall_isSticking", false);
             }
+
+            transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
         }
     }
     #endregion ================↑collider相關↑================
