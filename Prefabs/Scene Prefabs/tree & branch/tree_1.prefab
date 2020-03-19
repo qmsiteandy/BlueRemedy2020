@@ -273,8 +273,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1755797522411242}
   m_LocalRotation: {x: -0, y: -0, z: -0.039129354, w: 0.9992342}
-  m_LocalPosition: {x: -25.02, y: 2.72, z: 0}
-  m_LocalScale: {x: 1.8098, y: 1.8098, z: 1.8098}
+  m_LocalPosition: {x: -25.170002, y: 2.7299995, z: 0}
+  m_LocalScale: {x: 1.8098003, y: 1.8098003, z: 1.8098}
   m_Children:
   - {fileID: 4272499579612912}
   - {fileID: 4847776916902720}
@@ -457,7 +457,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.8414478, y: 1}
+  m_Size: {x: 1.78, y: 1}
   m_EdgeRadius: 0
 --- !u!68 &68070185491803492
 EdgeCollider2D:
