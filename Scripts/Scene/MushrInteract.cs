@@ -49,8 +49,8 @@ public class MushrInteract : MonoBehaviour {
         for (int x = 0; x < platformCol.pointCount; x++)
         {
             colliderpoints[x] = BoneTransList[x].position - platformCol.transform.position;
-            colliderpoints[x].x /= transform.localScale.x;
-            colliderpoints[x].y /= transform.localScale.y;
+            colliderpoints[x].x /= transform.lossyScale.x;
+            colliderpoints[x].y /= transform.lossyScale.y;
         }
         platformTrig.points = platformCol.points = colliderpoints;
     }
@@ -62,7 +62,8 @@ public class MushrInteract : MonoBehaviour {
         for (int x = 0; x < platformCol.pointCount; x++)
         {
             platformColPoints[x] = platformCol.transform.position +
-                new Vector3(platformCol.points[x].x * transform.localScale.x, platformCol.points[x].y * transform.localScale.y, 0f);
+                new Vector3(platformCol.points[x].x * transform.lossyScale.x, platformCol.points[x].y * transform.lossyScale.y, 0f);
+            
         }
 
     }
@@ -71,6 +72,7 @@ public class MushrInteract : MonoBehaviour {
     {
         BoneTransList = new Transform[platformCol.pointCount];
         BoneTrans_CpmpareAndLink(this.transform.Find("root"), platformColPoints);
+
     }
 
     void BoneTrans_CpmpareAndLink(Transform rootTrans, Vector3[] colVecs)

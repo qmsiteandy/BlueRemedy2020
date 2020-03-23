@@ -87,8 +87,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4470371420603740}
-  - component: {fileID: 95064651043131710}
   - component: {fileID: 114611507512209824}
+  - component: {fileID: 95115055333692760}
   m_Layer: 12
   m_Name: tree_passing
   m_TagString: Untagged
@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 4156041519972874}
   - component: {fileID: 212854419643023158}
   - component: {fileID: 68615600904792944}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: tree_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ EdgeCollider2D:
   - {x: 0.2135477, y: -1.6900114}
   - {x: 0.3759241, y: -3.309176}
   - {x: 0.5711832, y: -3.7387404}
---- !u!95 &95064651043131710
+--- !u!95 &95115055333692760
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -535,7 +535,7 @@ Animator:
   m_GameObject: {fileID: 1383940435952268}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 1aadefcb6d521bd4ba1d0e7406a41586, type: 2}
+  m_Controller: {fileID: 9100000, guid: 654e0cec93e44cf4eb4c927eae976d40, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

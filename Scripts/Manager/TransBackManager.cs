@@ -8,19 +8,21 @@ public class TransBackManager : MonoBehaviour {
     //可以設定玩家進入設定好的collider後傳回上一個recordPoint
     //或也可以直接互叫函式傳回
 
-    public Transform playerTrans;
-    public CameraControl cameraControl;
+    private Transform playerTrans;
+    private CameraControl cameraControl;
 
     [Header("Dark Panel")]
-    public Image darkBlockPanel;
+    private Image darkBlockPanel;
     private float fadeSpeed = 0.08f;
 
 	void Start ()
     {
+        darkBlockPanel = GameObject.Find("GameManager").transform.GetChild(0).GetChild(0).GetComponent<Image>();
         darkBlockPanel.gameObject.SetActive(true);
         darkBlockPanel.color = new Color(0f, 0f, 0f, 0f);
 
-        playerTrans = GameObject.Find("Player").transform;
+        playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

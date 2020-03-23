@@ -118,4 +118,9 @@ public class CameraControl : MonoBehaviour {
 
         childTrans.localPosition = oriPos;
     }
+
+    public void NewLevelInit()
+    {
+
+    }
 }
