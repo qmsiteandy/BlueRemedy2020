@@ -17,6 +17,8 @@ public class PlayerControl : MonoBehaviour {
     [HideInInspector] static public float xSpeed = 0f;
     private PlayerEnergy playerEnergy;
     private PlayerChange playerChange;
+    private float angleWithCol = 0f;    //與Ground & Wall 夾角
+    private float GroundWall_angleLimit = 35f;
 
     [Header("跳躍判斷")]
     private Transform footCheck;         //檢查踩踏地板的點
@@ -33,7 +35,6 @@ public class PlayerControl : MonoBehaviour {
     private bool pressingJump = false;
     private bool jumpingDown = false;
     public bool isStickOnWall = false;
-    private float shortCantMoveDuration = 0.08f;
     public GameObject jumptwice_deco;
 
     [Header("三態個別")]
@@ -85,7 +86,7 @@ public class PlayerControl : MonoBehaviour {
 
 
         //---各種圖層MASK設定---
-        whatIsGround = LayerMask.GetMask("Ground");
+        whatIsGround = LayerMask.GetMask("Ground & Wall");
         whatIsPlatform = LayerMask.GetMask("Platform");
 
         //---NoticeMark--
@@ -120,8 +121,8 @@ public class PlayerControl : MonoBehaviour {
     void PointCheck()
     {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
-        onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
-        onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+        onGround = Mathf.Abs(angleWithCol) >= GroundWall_angleLimit && Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
+        onPlatform = Mathf.Abs(angleWithCol) >= GroundWall_angleLimit && Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
 
         footLanding = onGround || onPlatform || isInWater;
         frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsGround);
@@ -245,7 +246,7 @@ public class PlayerControl : MonoBehaviour {
                 if (facingRight) { rb2d.AddForce(new Vector2(-walljumpForce * (xInput>0f ? 2.5f : 0.8f), walljumpForce)); }
                 else { rb2d.AddForce(new Vector2(walljumpForce * (xInput < 0f ? 2.5f : 0.8f), walljumpForce)); }
 
-                StartCoroutine(ShortCantMove(shortCantMoveDuration));
+                StartCoroutine(ShortCantMove(0.8f));
             }
             else if (backTouchWall && !footLanding && !jumping)
             {
@@ -254,7 +255,7 @@ public class PlayerControl : MonoBehaviour {
                 if (facingRight) { rb2d.AddForce(new Vector2(walljumpForce * 0.8f, walljumpForce)); }
                 else { rb2d.AddForce(new Vector2(-walljumpForce * 0.8f, walljumpForce)); }
 
-                StartCoroutine(ShortCantMove(shortCantMoveDuration));
+                StartCoroutine(ShortCantMove(0.8f));
             }
             //二段跳
             else if (!secondJumping && OkaID_Now == 2)
@@ -388,17 +389,20 @@ public class PlayerControl : MonoBehaviour {
         if(collision.gameObject.layer == 9 || collision.gameObject.layer == 13)
         {
             Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
-            float angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
+            angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
 
-            Debug.Log(angleWithCol);
+            //Debug.Log(angleWithCol);
 
-
-            if(footLanding && Mathf.Abs(angleWithCol) >= 35f)
+            //Walk
+            if(footLanding && Mathf.Abs(angleWithCol) >= GroundWall_angleLimit)
             {
                 float rotateAngle = angleWithCol > 0f ? -(90f - angleWithCol) : (90f + angleWithCol);
+                rotateAngle = rotateAngle * 0.5f;   //不要讓OKA傾斜太多
+
                 transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotateAngle);
             }
-            else if (Mathf.Abs(angleWithCol) < 35f)
+            //Stick
+            else if (Mathf.Abs(angleWithCol) < GroundWall_angleLimit)
             {
                 if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall)
                 {
@@ -488,15 +492,10 @@ public class PlayerControl : MonoBehaviour {
 
     IEnumerator ShortCantMove(float duration)
     {
-        float timer = 0f;
-
         PlayerStatus.canMove = false;
 
-        while (timer < duration)
-        {
-            timer += Time.deltaTime;
-            yield return 0;
-        }
+        yield return new WaitForSeconds(duration);
+
         PlayerStatus.canMove = true;
     }
 

@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4404559105615970}
   - component: {fileID: 212476834472824022}
   - component: {fileID: 68376266967686534}
-  m_Layer: 12
+  m_Layer: 9
   m_Name: ground_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501632451422150}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.72, y: -7.66, z: 0}
+  m_LocalPosition: {x: 10.720005, y: -7.66, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4008892106317496}
@@ -116,7 +116,8 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0.2
   m_Points:
-  - {x: -9.973404, y: 12.892646}
+  - {x: -10.371483, y: 12.516847}
+  - {x: -9.886887, y: 12.949106}
   - {x: -6.0438538, y: 12.911541}
   - {x: -5.1818542, y: 12.465736}
 --- !u!68 &68876622617232264
@@ -134,8 +135,8 @@ EdgeCollider2D:
   m_Offset: {x: -0.32, y: 0}
   m_EdgeRadius: 0.2
   m_Points:
-  - {x: -5.0912166, y: 1.1482487}
-  - {x: -4.7314296, y: 0.6068373}
+  - {x: -4.931915, y: 0.7502384}
+  - {x: -4.53231, y: 0.39456558}
   - {x: -3.9887464, y: 0.1329794}
   - {x: -2.6316679, y: -0.06911087}
   - {x: -0.98202485, y: -0.011345863}
@@ -225,7 +226,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1757119853
   m_SortingLayer: 1
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: a8c57623b18830549b2066eb68f89b68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
