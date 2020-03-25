@@ -46,7 +46,7 @@ public class PlayerControl : MonoBehaviour {
     [Header("機關設定")]
     [HideInInspector] public GameObject noticeUI;
     private Transform noticeUI_Trans;
-    private CameraControl cameraControl;
+    public CameraControl cameraControl;
 
     [Header("水中")]
     public ParticleSystem bubbleMaker;
@@ -62,8 +62,6 @@ public class PlayerControl : MonoBehaviour {
 
     void Awake()
     {
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
-
         rb2d = GetComponent<Rigidbody2D>();
         playerEnergy = this.GetComponent<PlayerEnergy>();
         playerChange = this.GetComponent<PlayerChange>();
@@ -83,6 +81,8 @@ public class PlayerControl : MonoBehaviour {
         skill_Water = this.transform.GetChild(1).GetComponent<Skill_Water>();
 
         speedLimit = initSpeedLimit;
+
+        NewLevelInit();
 
 
         //---各種圖層MASK設定---
@@ -533,5 +533,14 @@ public class PlayerControl : MonoBehaviour {
     {
         Vector3 pos = Vector3.Lerp(this.transform.position, GoalPos, time);
         transform.position = pos;
+    }
+
+    public void NewLevelInit()
+    {
+        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+
+        GameObject UIManager = GameObject.Find("UI_Canvas");
+        if (UIManager == null) { playerEnergy.enabled = false;  }
+        else { playerEnergy.enabled = true; playerEnergy.ConnectNewLevelUI();  }
     }
 }

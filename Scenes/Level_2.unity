@@ -123,7 +123,7 @@ Prefab:
     - target: {fileID: 224719853810021820, guid: efb110f8b5b35014b86146872bc341c5,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224719853810021820, guid: efb110f8b5b35014b86146872bc341c5,
         type: 2}
@@ -163,7 +163,7 @@ Prefab:
     - target: {fileID: 224719853810021820, guid: efb110f8b5b35014b86146872bc341c5,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224719853810021820, guid: efb110f8b5b35014b86146872bc341c5,
         type: 2}
@@ -265,7 +265,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4174578881870036, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1817263097560632, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_IsActive
@@ -311,7 +311,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4455475929541198, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 20036438411907488, guid: 2afefe1211f16f44c89981b5f5b405fe,
         type: 2}
@@ -327,6 +327,10 @@ Prefab:
         type: 2}
       propertyPath: m_BackGroundColor.b
       value: 0.7607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815397659680194, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
+      propertyPath: m_Name
+      value: CameraHolder
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114586802965310448, guid: 2afefe1211f16f44c89981b5f5b405fe, type: 2}
@@ -475,7 +479,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2099937904
 Prefab:

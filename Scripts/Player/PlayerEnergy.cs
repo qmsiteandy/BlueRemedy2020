@@ -18,8 +18,6 @@ public class PlayerEnergy : MonoBehaviour {
 
     private Material dirtyRippeMat;
 
-
-
     void Start ()
     {
         waterEnergy = waterEnergyMax;
@@ -70,5 +68,10 @@ public class PlayerEnergy : MonoBehaviour {
 
         UI_manager.SetDirtyUI(dirtyDegree);
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
+    }
+
+    public void ConnectNewLevelUI()
+    {
+        UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
     }
 }

@@ -38,7 +38,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4455475929541198}
-  - component: {fileID: 114586802965310448}
   - component: {fileID: 114562779317231260}
   m_Layer: 0
   m_Name: CameraHolder
@@ -194,17 +193,6 @@ MonoBehaviour:
   smoothSpeed: 0.1
   lookUpMove: 1.2
   lookDownMove: 3
---- !u!114 &114586802965310448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815397659680194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7e990806ded32c41bbd908e02fa566b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114677487029577044
 MonoBehaviour:
   m_ObjectHideFlags: 1

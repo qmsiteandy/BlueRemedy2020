@@ -30,7 +30,6 @@ public class MushEndInteract : MonoBehaviour {
 
     public void AddYForce(float yForce)
     {
-        Debug.Log(transform.name + " yForce: " + yForce);
         rb2d.AddForce(-Vector2.up * yForce);
     }
 }

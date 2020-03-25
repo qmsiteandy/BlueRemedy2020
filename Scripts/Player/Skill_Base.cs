@@ -12,7 +12,6 @@ public class Skill_Base : MonoBehaviour
     protected PlayerControl playerControl;
     protected PlayerChange playerChange;
     protected SpriteRenderer spriteRenderer;
-    protected CameraControl cameraControl;
     protected Collider2D playerCollider;
 
     [Header("AttackTrigger")]
@@ -38,7 +37,6 @@ public class Skill_Base : MonoBehaviour
         playerControl = GetComponentInParent<PlayerControl>();
         playerChange = GetComponentInParent<PlayerChange>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
         playerCollider = GetComponentInParent<Collider2D>();
         attackTrigger = this.transform.GetChild(0).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
@@ -137,7 +135,7 @@ public class Skill_Base : MonoBehaviour
 
     public void SetCameraTarget(Transform target, float lerpTime)
     {
-        cameraControl.SetTarget(target, lerpTime);
+        playerControl.cameraControl.SetTarget(target, lerpTime);
     }
 
     #region ===============變身相關===============

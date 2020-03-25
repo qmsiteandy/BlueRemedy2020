@@ -38,7 +38,6 @@ public class Brunch_InWater : MonoBehaviour {
         {
             rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
             //rbFreezeAll(0.2f);
-            Debug.Log("enter");
         }
     }
 

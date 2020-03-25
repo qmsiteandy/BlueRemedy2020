@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
         blackPanel.GetComponent<panel>().FadeOut();
         yield return new WaitForSeconds(1f);
         PlayerStatus.isChangingScene = false;
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().NewLevelInit();
     }
 
    
