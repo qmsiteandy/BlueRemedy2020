@@ -25,9 +25,10 @@ public class PlayerEnergy : MonoBehaviour {
 
         //for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
         //for (int x = 0; x < 3; x++) Oka[x] = transform.GetChild(x).gameObject;
-        UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        if(GameObject.Find("UI_Canvas") != null) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
 
         dirtyRippeMat = this.transform.Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
+
         dirtyRippeMat.SetFloat("_drityDegree", 0);
     }
 
@@ -47,7 +48,7 @@ public class PlayerEnergy : MonoBehaviour {
 
         SetDirtyDegree();
 
-        UI_manager.SetWaterUI(waterEnergy);
+        if (UI_manager != null) UI_manager.SetWaterUI(waterEnergy);
 
         if (waterEnergy == 0) ; //GameOver
     }
@@ -66,12 +67,14 @@ public class PlayerEnergy : MonoBehaviour {
         float dirtyDegree;
         dirtyDegree = (float)dirt / (dirt + waterEnergy);
 
-        UI_manager.SetDirtyUI(dirtyDegree);
+        if (UI_manager != null) UI_manager.SetDirtyUI(dirtyDegree);
+        
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
     }
 
     public void ConnectNewLevelUI()
     {
-        UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        if (GameObject.Find("UI_Canvas") != null) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        else UI_manager = null;
     }
 }

@@ -794,19 +794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df148744b9a7de3408e02a4c368ebc3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darkPanel: {fileID: 1893373318246010}
-  waterFill: {fileID: 1612390138381186}
   Yshift: 550
-  waterText: {fileID: 114206451462414696}
-  dirtyFill: {fileID: 1115154619616292}
-  blossomSlider: {fileID: 114680337347415124}
   showoffTime: 6
   switchSpeed: 0.1
-  blossomUI_Img:
-  - {fileID: 114652119775668866}
-  - {fileID: 114780147229362714}
-  - {fileID: 114867117779675618}
-  playerEnergy: {fileID: 0}
 --- !u!114 &114772174129703286
 MonoBehaviour:
   m_ObjectHideFlags: 1

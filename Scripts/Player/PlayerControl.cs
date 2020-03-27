@@ -6,7 +6,7 @@ public class PlayerControl : MonoBehaviour {
 
     [Header("基本參數")]
     [Range(0, 2)]static public int OkaID_Now = 1;
-    private float xInput;
+    public float xInput;
     public float initSpeedLimit = 8.0f;
     [HideInInspector] static public float speedLimit;           //移動速度上限
     public float accelForce = 80f;       //加速時間
@@ -23,11 +23,12 @@ public class PlayerControl : MonoBehaviour {
     [Header("跳躍判斷")]
     private Transform footCheck;         //檢查踩踏地板的點
     private Transform frontCheck, backCheck;
-    public float checkRadius = 0.4f;    //檢查踩踏地板的判斷半徑
+    private float checkRadius = 0.2f;    //檢查踩踏地板的判斷半徑
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     [HideInInspector] static public bool footLanding = false;
-    private bool onGround, onPlatform;
+    public bool onGround, onPlatform;
+    public GameObject objUnderFoot;
     private bool frontTouchWall = false, backTouchWall = false;
     private bool touchGround;
     [HideInInspector] public bool jumping = false;
@@ -102,6 +103,11 @@ public class PlayerControl : MonoBehaviour {
         rippleMask = this.GetComponent<SpriteMask>();
     }
 
+    void Start()
+    {
+        for (int x = 0; x < 3; x++) { if (transform.GetChild(x).gameObject.active == true) OkaID_Now = x; }
+    }
+
     void FixedUpdate()
     {
         //if(!isInWater) PointCheck();
@@ -109,7 +115,6 @@ public class PlayerControl : MonoBehaviour {
 
         Move();
         Jump();
-        WallStick();
     }
 
     void Update()
@@ -121,10 +126,11 @@ public class PlayerControl : MonoBehaviour {
     void PointCheck()
     {
         //以半徑圓範圍偵測是否在地上，儲存到grounded
-        onGround = Mathf.Abs(angleWithCol) >= GroundWall_angleLimit && Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround);
-        onPlatform = Mathf.Abs(angleWithCol) >= GroundWall_angleLimit && Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform);
+        if(onGround = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround)) objUnderFoot = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsGround).gameObject;
+        if(onPlatform = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform)) objUnderFoot = Physics2D.OverlapCircle(footCheck.position, checkRadius, whatIsPlatform).gameObject;
 
         footLanding = onGround || onPlatform || isInWater;
+
         frontTouchWall = Physics2D.OverlapCircle(frontCheck.position, 0.45f, whatIsGround);
         backTouchWall = Physics2D.OverlapCircle(backCheck.position, 0.35f, whatIsGround);
 
@@ -133,33 +139,18 @@ public class PlayerControl : MonoBehaviour {
         if (footLanding || frontTouchWall || backTouchWall) secondJumping = false; 
     }
 
-    void WallStick()
-    {
-        //if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall && !footLanding)
-        //{
-        //    isStickOnWall = true;
-        //    animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
-        //}
-        //else if(isStickOnWall && (!frontTouchWall || Mathf.Abs(xInput) == 0f || footLanding))
-        //{
-        //    isStickOnWall = false;
-        //    animator[OkaID_Now].SetBool("stickOnWall", isStickOnWall);
-        //}
-    }
-
     #region ================↓移動轉身相關↓================
     void Move()
     {
+        xInput = Input.GetAxis("Horizontal") + Input.GetAxis("XBOX_Horizontal");
+
+        
         if (PlayerStatus.canMove)
         {
-            xInput = Input.GetAxis("Horizontal") + Input.GetAxis("XBOX_Horizontal");
-
-            Vector2 force = new Vector2(xInput * accelForce, 0f);
-            rb2d.AddForce(force);
+            rb2d.velocity = new Vector2(speedLimit * xInput, rb2d.velocity.y);
         }
 
-        if (!frontTouchWall) rb2d.velocity = new Vector3(Mathf.Clamp(rb2d.velocity.x, xInput * speedLimit, xInput * speedLimit), rb2d.velocity.y, 0f);
-        else
+        if (frontTouchWall)
         {
             if (Mathf.Abs(rb2d.velocity.x) > 0.4f) rb2d.velocity = new Vector3(rb2d.velocity.x * 0.9f, rb2d.velocity.y, 0f);
             else rb2d.velocity = new Vector3(0f, rb2d.velocity.y, 0f);
@@ -169,7 +160,7 @@ public class PlayerControl : MonoBehaviour {
 
         if (xInput != 0f)
         {
-            if ((facingRight && rb2d.velocity.x < 0f) || (!facingRight && rb2d.velocity.x > 0f)) Flip();
+            if ((facingRight && xInput < 0f) || (!facingRight && xInput > 0f)) Flip();
         }
 
         xSpeed = rb2d.velocity.x;
@@ -299,7 +290,7 @@ public class PlayerControl : MonoBehaviour {
     //平台下跳
     IEnumerator JumpDownFromPlat()
     {
-        float colDisTime = 0.2f;
+        float colDisTime = 0.5f;
 
         Physics2D.IgnoreLayerCollision(8, 13, true);
         //jumpingDown = true;
@@ -335,7 +326,7 @@ public class PlayerControl : MonoBehaviour {
         }
     }
     void OnTriggerStay2D(Collider2D collider)
-    {        
+    {
         //---滲透毛細提示UI&起始呼叫---
         if (collider.gameObject.tag == "WaterPassingTrigger")
         {
@@ -391,26 +382,26 @@ public class PlayerControl : MonoBehaviour {
             Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
             angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
 
-            //Debug.Log(angleWithCol);
+            ////Walk
+            //if(footLanding && Mathf.Abs(angleWithCol) >= GroundWall_angleLimit)
+            //{
+            //    float rotateAngle = angleWithCol > 0f ? -(90f - angleWithCol) : (90f + angleWithCol);
+            //    rotateAngle = rotateAngle * 0.5f;   //不要讓OKA傾斜太多
 
-            //Walk
-            if(footLanding && Mathf.Abs(angleWithCol) >= GroundWall_angleLimit)
-            {
-                float rotateAngle = angleWithCol > 0f ? -(90f - angleWithCol) : (90f + angleWithCol);
-                rotateAngle = rotateAngle * 0.5f;   //不要讓OKA傾斜太多
+            //    transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotateAngle);
+            //}
 
-                transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, rotateAngle);
-            }
             //Stick
-            else if (Mathf.Abs(angleWithCol) < GroundWall_angleLimit)
+            if (Mathf.Abs(angleWithCol) < GroundWall_angleLimit && !footLanding)
             {
+                Debug.Log(angleWithCol+" "+ xInput +" "+ frontTouchWall);
                 if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall)
                 {
                     isStickOnWall = true; PlayerStatus.isWallSticking = true;
                     animator[OkaID_Now].SetTrigger("wallStickIn");
                     animator[OkaID_Now].SetBool("wall_isSticking", true);
                 }
-                else if (isStickOnWall && (Mathf.Abs(xInput) == 0f))
+                else if (isStickOnWall && ((Mathf.Abs(xInput) == 0f) || !frontTouchWall))
                 {
                     isStickOnWall = false; PlayerStatus.isWallSticking = false;
                     animator[OkaID_Now].SetTrigger("wallJumpOut");
@@ -540,7 +531,7 @@ public class PlayerControl : MonoBehaviour {
         cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
 
         GameObject UIManager = GameObject.Find("UI_Canvas");
-        if (UIManager == null) { playerEnergy.enabled = false;  }
-        else { playerEnergy.enabled = true; playerEnergy.ConnectNewLevelUI();  }
+        if (UIManager == null) { /*playerEnergy.enabled = false;*/  }
+        else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI();  }
     }
 }
