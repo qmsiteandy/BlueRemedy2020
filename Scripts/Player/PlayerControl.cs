@@ -7,7 +7,7 @@ public class PlayerControl : MonoBehaviour {
     [Header("基本參數")]
     [Range(0, 2)]static public int OkaID_Now = 1;
     public float xInput;
-    public float initSpeedLimit = 8.0f;
+    public float initSpeedLimit = 8f;
     [HideInInspector] static public float speedLimit;           //移動速度上限
     public float accelForce = 80f;       //加速時間
     public float jumpForce = 650.0f;    //跳躍力道
@@ -148,6 +148,10 @@ public class PlayerControl : MonoBehaviour {
         if (PlayerStatus.canMove)
         {
             rb2d.velocity = new Vector2(speedLimit * xInput, rb2d.velocity.y);
+        }
+        else
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x * 0.85f, rb2d.velocity.y);
         }
 
         if (frontTouchWall)
