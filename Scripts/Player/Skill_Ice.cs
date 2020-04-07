@@ -102,8 +102,9 @@ public class Skill_Ice : Skill_Base {
                     iceThrowAngle = -90f;
                     iceThrowForce = 500f;
 
-                    playerControl.rb2d.AddForce(Vector2.up * playerControl.jumpForce);
-                    StartCoroutine(IceThrow_colDis(0.35f));
+                    playerControl.rb2d.AddForce(Vector2.up * 600f);
+                    //StartCoroutine(IceThrow_colDis(0.35f));
+                    iceObj.GetComponent<SpecialBigIce>().StartCoroutine(IceThrow_colDis(0.5f));
                 }
                 else
                 {

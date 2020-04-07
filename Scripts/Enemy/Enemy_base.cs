@@ -64,7 +64,8 @@ public class Enemy_base : MonoBehaviour {
 
     void Update()
     {
-        if(!enemy_dead.isDead){
+        if (!enemy_dead.isDead)
+        {
             FindPlayer();
 
             if (!isTracking || isFreeze == true)
@@ -77,7 +78,7 @@ public class Enemy_base : MonoBehaviour {
                 {
                     animator.SetBool("Walk", false);
                 }
-                else if(isTracking || enemy_attack.Attack_Wait== false)
+                else if (isTracking || enemy_attack.Attack_Wait == false)
                 {
                     Tracking();
                 }

@@ -21,14 +21,11 @@ public class Water_Area : MonoBehaviour {
     public bool isDirtyWater = false;
     public int addDirtAmount = 5;
     public float damageCycle = 2f;   //持續在水中，弄髒的週期
-    private float damageTimer = 0f;
     private bool isPlayerInWater = false;
     private PlayerControl playerControl;
+    private Coroutine routineWaterDamage;
 
     //public WaterLine waterLine;
-
-
-
 
     void Start()
     {
@@ -48,16 +45,6 @@ public class Water_Area : MonoBehaviour {
         if (isPlayerInWater && isDirtyWater)
         {
             if (PlayerControl.OkaID_Now == 0) return;
-
-            if (damageTimer >= damageCycle)
-            {
-                playerControl.TakeDamage(0, addDirtAmount);
-                damageTimer = 0f;
-            }
-            else
-            {
-                damageTimer += Time.deltaTime;
-            }
         }
     }
 
@@ -78,11 +65,11 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = true;
 
-            if (PlayerControl.OkaID_Now == 0 || !isDirtyWater) return;
-            else
+            //髒水傷害主角
+            if (isDirtyWater)
             {
-                playerControl.TakeDamage(0, addDirtAmount);
-                damageTimer = 0f;
+                if (routineWaterDamage != null) { StopCoroutine(routineWaterDamage); routineWaterDamage = null; }
+                routineWaterDamage = StartCoroutine(DamageRoutine(addDirtAmount, damageCycle));
             }
         }
     }
@@ -112,7 +99,8 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = false;
             playerControl = null;
-            damageTimer = 0f;
+
+            if (routineWaterDamage != null) { StopCoroutine(routineWaterDamage); routineWaterDamage = null; }
         }
     }
 
@@ -139,5 +127,22 @@ public class Water_Area : MonoBehaviour {
             }
             yield return 0;
         }
+    }
+
+    IEnumerator DamageRoutine(int amount, float delay)
+    {
+        float timer = 0f;
+
+        while(true)
+        {
+            timer -= Time.deltaTime;
+
+            if ( timer <=0f && isPlayerInWater != null)
+            {
+                playerControl.TakeDamage(0, amount);
+                timer = delay; Debug.Log("Damage");
+            }
+            yield return null;
+        } 
     }
 }

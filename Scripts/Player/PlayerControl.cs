@@ -9,9 +9,8 @@ public class PlayerControl : MonoBehaviour {
     public float xInput;
     public float initSpeedLimit = 8f;
     [HideInInspector] static public float speedLimit;           //移動速度上限
-    public float accelForce = 80f;       //加速時間
-    public float jumpForce = 650.0f;    //跳躍力道
-    public float walljumpForce = 750.0f;
+    private float jumpForce = 700.0f;    //跳躍力道
+    private float walljumpForce = 750.0f;
     [HideInInspector] public Rigidbody2D rb2d;          //儲存主角的Rigidbody2D原件
     [HideInInspector] static public bool facingRight = true;    //是否面向右
     [HideInInspector] static public float xSpeed = 0f;
@@ -398,7 +397,6 @@ public class PlayerControl : MonoBehaviour {
             //Stick
             if (Mathf.Abs(angleWithCol) < GroundWall_angleLimit && !footLanding)
             {
-                Debug.Log(angleWithCol+" "+ xInput +" "+ frontTouchWall);
                 if (!isStickOnWall && Mathf.Abs(xInput) > 0f && frontTouchWall)
                 {
                     isStickOnWall = true; PlayerStatus.isWallSticking = true;
@@ -532,7 +530,7 @@ public class PlayerControl : MonoBehaviour {
 
     public void NewLevelInit()
     {
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+        //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
 
         GameObject UIManager = GameObject.Find("UI_Canvas");
         if (UIManager == null) { /*playerEnergy.enabled = false;*/  }

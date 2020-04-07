@@ -15,7 +15,6 @@ public class CameraControl : MonoBehaviour {
 
     private Transform childTrans;
 
-
     void Start()
     {
         camera_target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -121,6 +120,5 @@ public class CameraControl : MonoBehaviour {
 
     public void NewLevelInit()
     {
-
     }
 }

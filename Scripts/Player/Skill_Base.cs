@@ -133,11 +133,6 @@ public class Skill_Base : MonoBehaviour
         attacking = false;
     }
 
-    public void SetCameraTarget(Transform target, float lerpTime)
-    {
-        playerControl.cameraControl.SetTarget(target, lerpTime);
-    }
-
     #region ===============變身相關===============
 
     //由PlayerChange呼叫

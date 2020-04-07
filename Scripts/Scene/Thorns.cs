@@ -27,8 +27,8 @@ public class Thorns : MonoBehaviour {
         playerControl = Oka.GetComponent<PlayerControl>();
         playerControl.TakeDamage(thronAttack);
 
-        if (PlayerControl.facingRight) { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(-playerControl.jumpForce * 0.2f, playerControl.jumpForce * 0.3f)); }
-        else { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(playerControl.jumpForce * 0.2f, playerControl.jumpForce * 0.3f)); }
+        if (PlayerControl.facingRight) { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(-150f, 200f)); }
+        else { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(150f, 200f)); }
     }
 
 }

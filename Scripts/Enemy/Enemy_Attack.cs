@@ -9,12 +9,14 @@ public class Enemy_Attack : MonoBehaviour
     public float attackDelay = 1.5f;
     private Enemy_base enemy_base;
     Animator animator;
-    public CameraControl cameraControl;
+    //public CameraControl cameraControl;
 
     public float elapsed = 0f;
     public bool canAttack = false;
     public GameObject attackTarget = null;
     public bool Attack_Wait = false;
+
+    private Cinemachine.CinemachineImpulseSource MyInpulse;
 
     // Use this for initialization
     void Awake()
@@ -24,7 +26,9 @@ public class Enemy_Attack : MonoBehaviour
     void Start()
     {
         enemy_base = transform.GetComponentInParent<Enemy_base>();
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+        //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+
+        MyInpulse = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
@@ -80,9 +84,15 @@ public class Enemy_Attack : MonoBehaviour
 
     public void Damage()
     {
-        if (attackTarget == null) return;
-        attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
-        cameraControl.Shake(0.3f, 0.1f, 0.05f);
+        //cameraControl.Shake(0.3f, 0.1f, 0.05f);
+        MyInpulse.GenerateImpulse();
+
+        if (attackTarget != null)
+        {
+            attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
+        }
+
+        
     }
 
 }

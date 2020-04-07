@@ -12,12 +12,12 @@ public class SpecialBigIce : MonoBehaviour {
     private bool isInWater = false;
     private PlayerControl playerControl;
     public float player_xOffset = 0f;
+    private SpriteRenderer spriteRenderer;
     
-
-
     void Awake ()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Update()
@@ -31,6 +31,9 @@ public class SpecialBigIce : MonoBehaviour {
         {
             water_area = collision.GetComponent<Water_Area>();
             rb2d.drag = 3f;
+
+
+            spriteRenderer.sortingLayerName = "Scene"; spriteRenderer.sortingOrder = -1;
 
             isInWater = true;
         }
@@ -53,7 +56,12 @@ public class SpecialBigIce : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        isInWater = false;
+        if (collision.gameObject.layer == WaterLayerID)
+        {
+            isInWater = false;
+
+            spriteRenderer.sortingLayerName = "Skill"; spriteRenderer.sortingOrder = 0;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -107,5 +115,12 @@ public class SpecialBigIce : MonoBehaviour {
     {
         yield return new WaitForSeconds(destroyTime);
         Destroy(this.gameObject);
+    }
+
+    public IEnumerator IceThrow_colDis(float colDisTime)
+    {
+        GetComponent<BoxCollider2D>().enabled = false;
+        yield return new WaitForSeconds(colDisTime);
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 }

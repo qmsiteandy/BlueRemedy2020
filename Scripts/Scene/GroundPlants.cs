@@ -26,7 +26,9 @@ public class GroundPlants : MonoBehaviour {
             //---計算豐饒---
             thisGrassRange = this.GetComponent<BoxCollider2D>().size.x;
             totalGrassRange += thisGrassRange;
-            UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+
+            if (GameObject.Find("UI_Canvas") == null) UI_manager = null;
+            else UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
 
             //---草長出---
             animator = GetComponent<Animator>();
@@ -65,7 +67,7 @@ public class GroundPlants : MonoBehaviour {
 
         nowGrassRange += thisGrassRange;
         float persentage = nowGrassRange / totalGrassRange;
-        UI_manager.SetBlossomUI(persentage);
+        if(UI_manager!=null) UI_manager.SetBlossomUI(persentage);
 
         if(b_animateGrow) animator.SetTrigger("grow");
         else StartCoroutine(GrassLerpGrow());

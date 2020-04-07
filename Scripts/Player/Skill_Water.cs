@@ -66,7 +66,6 @@ public class Skill_Water : Skill_Base
         SetOkaRenderAndCol(false);
 
         whatWaterPassing.GetComponent<TreePass>().WaterPassing(this.transform.gameObject);
-        SetCameraTarget(waterdropTrans, 0.01f);
         waterdropPassing = true;
     }
     public void TreePassOver(Vector3 exitPoint, bool facingRight) //由treePass 呼叫
@@ -78,8 +77,6 @@ public class Skill_Water : Skill_Base
 
         animator.SetTrigger("passOut");
         StartCoroutine(OpenRendererDelay());
-
-        SetCameraTarget(this.gameObject.transform, 0.01f);
     }
 
     void HolePassBegin()
@@ -96,7 +93,6 @@ public class Skill_Water : Skill_Base
         SetOkaRenderAndCol(false);
 
         whatWaterPassing.GetComponent<HolePass>().WaterPassing(this.transform.gameObject);
-        SetCameraTarget(waterdropTrans, 0.01f);
         waterdropPassing = true;
     }
     public void HolePassOver(Vector3 exitPoint, float exitAngle) //由holePass 呼叫
@@ -108,8 +104,6 @@ public class Skill_Water : Skill_Base
 
         animator.SetTrigger("passOut");
         StartCoroutine(OpenRendererDelay()); //若同時animator.SetTrigger("passOut") & 開啟renderer 會有BUG
-
-        SetCameraTarget(this.gameObject.transform, 0.01f);
     }
 
     IEnumerator OpenRendererDelay() { yield return new WaitForSeconds(0.01f); SetOkaRenderAndCol(true); }

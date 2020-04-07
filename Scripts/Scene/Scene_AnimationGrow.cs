@@ -5,6 +5,7 @@ using UnityEngine;
 public class Scene_AnimationGrow : MonoBehaviour {
 
     private bool isGrowed = false;
+    private bool isShaked = false;
     private Animator animator;
 
 	// Use this for initialization
@@ -29,5 +30,14 @@ public class Scene_AnimationGrow : MonoBehaviour {
     {
         isGrowed = true;
         animator.SetTrigger("Grow");
+    }
+
+    public void Shake()
+    {
+        if(isShaked == false)
+        {
+            isShaked = true;
+            animator.SetTrigger("Shake");
+        }
     }
 }

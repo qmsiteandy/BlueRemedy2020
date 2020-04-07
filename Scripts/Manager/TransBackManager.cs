@@ -9,7 +9,7 @@ public class TransBackManager : MonoBehaviour {
     //或也可以直接互叫函式傳回
 
     private Transform playerTrans;
-    private CameraControl cameraControl;
+    //private CameraControl cameraControl;
 
     [Header("Dark Panel")]
     private Image darkBlockPanel;
@@ -22,7 +22,7 @@ public class TransBackManager : MonoBehaviour {
         darkBlockPanel.color = new Color(0f, 0f, 0f, 0f);
 
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+        //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -46,7 +46,7 @@ public class TransBackManager : MonoBehaviour {
         while (darkBlockPanel.color.a < 1f) { darkBlockPanel.color += new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
         PlayerStatus.isTransingBack = true;
 
-        cameraControl.SetCameraPos(RecordPointManager.Get_playerRecordPos());
+        //cameraControl.SetCameraPos(RecordPointManager.Get_playerRecordPos());
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
 
         yield return new WaitForSeconds(0.5f);

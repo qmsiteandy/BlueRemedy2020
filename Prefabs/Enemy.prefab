@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4030452619630080}
   - component: {fileID: 58419372816595726}
   - component: {fileID: 114606980858866196}
+  - component: {fileID: 114855324874922058}
   m_Layer: 0
   m_Name: Enemy_attack
   m_TagString: Enemy
@@ -43,7 +44,7 @@ GameObject:
   - component: {fileID: 58385236974729634}
   m_Layer: 10
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +117,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 50
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -201,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 15
   attackDelay: 2
-  cameraControl: {fileID: 0}
   elapsed: 0
   canAttack: 0
   attackTarget: {fileID: 0}
@@ -226,9 +226,68 @@ MonoBehaviour:
   isAttacking: 0
   isInjury: 0
   isBorn: 0
+  isFreeze: 0
   mudSplashFX: {fileID: 1551946751906462, guid: 83cf7151616e8ba45a64bee67b1096a1,
     type: 2}
   enemyColRadius: 0
+--- !u!114 &114855324874922058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571210171978704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_RawSignal: {fileID: 11400000, guid: b241f91b9ccf8ff489abf204b30d3112, type: 2}
+    m_AmplitudeGain: 1.6
+    m_FrequencyGain: 3.34
+    m_RepeatMode: 0
+    m_Randomize: 0
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 1
+          outSlope: 1
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0.2
+      m_SustainTime: 0
+      m_DecayTime: 0
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 1000
 --- !u!212 &212646421460461414
 SpriteRenderer:
   m_ObjectHideFlags: 1
