@@ -11,6 +11,9 @@ public class Skill_Water : Skill_Base
     private Transform waterdropTrans;
     GameObject playerPointLight;
 
+    [Header("Normal Skill")]
+    public GameObject Attack3_FX;
+
     // Use this for initialization
     void Start ()
     {
@@ -127,6 +130,12 @@ public class Skill_Water : Skill_Base
             yield return null;
         }
     }
-    
+
     #endregion ================↑毛細滲透相關↑================
+
+    void Attack3_FX_Init()
+    {
+        GameObject FX = Instantiate(Attack3_FX, this.transform.position, Quaternion.identity);
+        if (!PlayerControl.facingRight) FX.transform.localScale = new Vector3(-FX.transform.localScale.x, FX.transform.localScale.y, FX.transform.localScale.z);
+    }
 }

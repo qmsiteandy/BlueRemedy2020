@@ -1,14 +1,15 @@
 fileFormatVersion: 2
-guid: d698fb0c6d9400849ad56e20c4a207c7
+guid: ef660f669a5590b4e8e9985de9f5b3bb
 TextureImporter:
   fileIDToRecycleName:
-    21300000: attack_s_icepike_0
-    21300002: attack_s_icepike_1
-    21300004: attack_s_icepike_2
-    21300006: attack_s_icepike_3
-    21300008: attack_s_icepike_4
-    21300010: attack_s_icepike_5
-    21300012: attack_s_icepike_6
+    21300000: attack_l_tsunami_0
+    21300002: attack_l_tsunami_1
+    21300004: attack_l_tsunami_2
+    21300006: attack_l_tsunami_3
+    21300008: attack_l_tsunami_4
+    21300010: attack_l_tsunami_5
+    21300012: attack_l_tsunami_6
+    21300014: attack_l_tsunami_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -102,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack_s_icepike_0
+      name: attack_l_tsunami_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 718.6666
-        width: 346
-        height: 359.33334
+        y: 1080
+        width: 720
+        height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -116,19 +117,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 080bc87c7f7693048b3bb3049648ca7b
+      spriteID: 9e80caa6aeb0b5b4488b39ef7edc357f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_s_icepike_1
+      name: attack_l_tsunami_1
       rect:
         serializedVersion: 2
-        x: 346
-        y: 718.6666
-        width: 346
-        height: 359.33334
+        x: 720
+        y: 1080
+        width: 720
+        height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,19 +137,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8dec95c9dc61fad44b3e85f652719191
+      spriteID: 5eb06b791ceac3d43aa674c5740b3262
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_s_icepike_2
+      name: attack_l_tsunami_2
       rect:
         serializedVersion: 2
-        x: 692
-        y: 718.6666
-        width: 346
-        height: 359.33334
+        x: 1440
+        y: 1080
+        width: 720
+        height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,79 +157,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9253e6f5d9bd39e42a0048631723c71d
+      spriteID: eba65c9d92de62f40b73f9f611bd8393
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_s_icepike_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 359.66666
-        width: 346
-        height: 359.33334
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1f0d23a3cb66744a99f71470d98a511
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_s_icepike_4
-      rect:
-        serializedVersion: 2
-        x: 346
-        y: 359.66666
-        width: 346
-        height: 359.33334
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b29605aa4d670f546b136d57411d29f1
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_s_icepike_5
-      rect:
-        serializedVersion: 2
-        x: 692
-        y: 359.66666
-        width: 346
-        height: 359.33334
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 87dd2becf5c6e314da18374ae337b561
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_s_icepike_6
+      name: attack_l_tsunami_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.6666565
-        width: 346
-        height: 359.33334
+        y: 540
+        width: 720
+        height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,7 +177,87 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53f619ed8dfe8ad46a8277b1a47b7136
+      spriteID: 91af684ea0114ac449d51495ca754f42
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_l_tsunami_4
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a87ee8eb01d5ab646865fffcaf98477f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_l_tsunami_5
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 540
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28faa48a237db0440a416c599f6de260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_l_tsunami_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 207adc69650e1824ebe2b9ae540bcc1e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: attack_l_tsunami_7
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d20cbf018c93d5b41ba474ea98b7977c
       vertices: []
       indices: 
       edges: []
@@ -244,7 +265,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2fd293e2b55fc0c4283fe200474493d8
+    spriteID: abb4a82c83a868b45b14c43bedbcfe3e
     vertices: []
     indices: 
     edges: []

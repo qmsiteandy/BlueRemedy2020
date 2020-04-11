@@ -8,14 +8,17 @@ public class PlayerStatus : MonoBehaviour{
     public static bool isLanding = false;
     public static bool isSkilling = false;
     public static bool isChanging = false;
+    public static bool isHitRecover = false;
     public static bool isWallSticking = false;
     public static bool isTransingBack = false;
     public static bool isInInteractTrigger = false;
     public static bool isWaterPassing = false;
     public static bool isChangingScene = false;
+    public static bool isSleeping = false;
 
     //===CanDoWhat===
     public static bool canMove = true;
+    public static bool canFlip = true;
     public static bool canJump = true;
     public static bool canSkill = true;
     public static bool canChange = true;
@@ -33,55 +36,77 @@ public class PlayerStatus : MonoBehaviour{
     private void Update()
     {
         canMove = canJump = true;
+        canFlip = true;
         canSkill = true;
         canChange = true;
         canBeHurt = true;
 
+        if (!isLanding)
+        {
+            canChange = false;
+        }
         if (isSkilling)
         {
             canMove = canJump = false;
             canChange = false;
         }
-        else if (isChanging)
+        if (isChanging)
         {
             canMove = canJump = false;
+            canFlip = false;
             canSkill = false;
             canBeHurt = false;
             canChange = false;
         }
-        else if (isWallSticking)
+        if (isHitRecover)
         {
+            canMove = canJump = false;
+            canFlip = false;
+            canSkill = false;
+            canBeHurt = false;
+            canChange = false;
+        }
+        if (isWallSticking)
+        {
+            canFlip = false;
             canSkill = false;
             canChange = false;
         }
-        else if (isTransingBack)
+        if (isTransingBack)
         {
             canMove = canJump = false;
+            canFlip = false;
             canSkill = false;
             canChange = false;
             canBeHurt = false;
         }
-        else if (isInInteractTrigger)
+        if (isInInteractTrigger)
         {
             canJump = false;
         }
-        else if (isWaterPassing)
+        if (isWaterPassing)
         {
             canMove = canJump = false;
+            canFlip = false;
             canSkill = false;
             canChange = false;
             canBeHurt = false;
         }
-        else if (isChangingScene)
+        if (isChangingScene)
         {
             canMove = canJump = false;
+            canFlip = false;
             canSkill = false;
             canChange = false;
             canBeHurt = false;
         }
-        else if (!isLanding)
+        if (isSleeping)
         {
+            canMove = canJump = false;
+            canFlip = false;
+            canSkill = false;
             canChange = false;
+            canBeHurt = false;
         }
     }
 

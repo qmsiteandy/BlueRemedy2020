@@ -120,6 +120,12 @@ public class PlayerControl : MonoBehaviour {
     {
         //---用於髒污塗層的遮罩---
         rippleMask.sprite = spriteRenderer[OkaID_Now].sprite;
+
+        if (PlayerStatus.isSleeping)
+        {
+            if(Input.anyKeyDown) animator[OkaID_Now].SetTrigger("sleepAwake");
+        }
+
     }
 
     void PointCheck()
@@ -161,7 +167,7 @@ public class PlayerControl : MonoBehaviour {
 
         animator[OkaID_Now].SetFloat("xSpeed", Mathf.Abs(rb2d.velocity.x));
 
-        if (xInput != 0f)
+        if (xInput != 0f && PlayerStatus.canFlip)
         {
             if ((facingRight && xInput < 0f) || (!facingRight && xInput > 0f)) Flip();
         }
@@ -450,7 +456,7 @@ public class PlayerControl : MonoBehaviour {
         animator[OkaID_Now].SetTrigger("gotHurt");
         StartCoroutine(ShortCantMove(0.2f));
 
-        StartCoroutine(DamagedColor());
+        StartCoroutine(DamageHitRecover());
     }
     public void TakeDamage(int waterCost,int addDirt)
     {
@@ -465,15 +471,17 @@ public class PlayerControl : MonoBehaviour {
         animator[OkaID_Now].SetTrigger("gotHurt");
         StartCoroutine(ShortCantMove(0.2f));
 
-        StartCoroutine(DamagedColor());
+        StartCoroutine(DamageHitRecover());
     }
-    IEnumerator DamagedColor()
+    IEnumerator DamageHitRecover()
     {
         spriteRenderer[OkaID_Now].color = new Color(1f, 0.3962386f, 0.3726415f);
+        PlayerStatus.isHitRecover = true;
 
         yield return new WaitForSeconds(0.08f);
 
         spriteRenderer[OkaID_Now].color = new Color(1f, 1f, 1f);
+        PlayerStatus.isHitRecover = false;
     }
     //---復原---
     public void TakeHeal(int waterHeal, int dirtHeal)
@@ -535,5 +543,15 @@ public class PlayerControl : MonoBehaviour {
         GameObject UIManager = GameObject.Find("UI_Canvas");
         if (UIManager == null) { /*playerEnergy.enabled = false;*/  }
         else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI();  }
+    }
+
+    public void FallAsleep()
+    {
+        PlayerStatus.isSleeping = true;
+        animator[OkaID_Now].SetTrigger("fallAsleep");
+    }
+    public void SleepAwake()   //sleepAwake animation呼叫skillBase，再由skillbase呼叫此函式
+    {
+        PlayerStatus.isSleeping = false;
     }
 }

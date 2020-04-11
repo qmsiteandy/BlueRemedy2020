@@ -25,10 +25,11 @@ public class TransBackManager : MonoBehaviour {
         //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
+            Debug.Log("Transback");
             Vector3 backPos = RecordPointManager.Get_playerRecordPos();
             StartCoroutine(TransBack(backPos));
         }

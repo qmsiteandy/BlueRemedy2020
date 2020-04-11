@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill_Base : MonoBehaviour
 {
     [Header("基本參數")]
-    public int attackWaterCost = 0;
+    public int attack3WaterCost = 10;
     protected Transform playerTrans;
     protected Animator animator;
     protected PlayerEnergy playerEnergy;
@@ -19,7 +19,7 @@ public class Skill_Base : MonoBehaviour
     protected ContactFilter2D enemyFilter;
 
     [Header("Input")]
-    protected float skillInputDelay = 0.35f;
+    protected float skillInputDelay = 0.5f;
     protected float elapsed = 0f;
     protected int normalattack_input = 0;
 
@@ -78,6 +78,7 @@ public class Skill_Base : MonoBehaviour
                 break;
             case 3:
                 animator.SetTrigger("attack_3"); elapsed = 0f; normalinput_delaying = true;
+                playerEnergy.ModifyWaterEnergy(-attack3WaterCost);
                 break;
             default:
                 BackIdle();
@@ -88,14 +89,13 @@ public class Skill_Base : MonoBehaviour
     protected void SkyAttack()
     {
         animator.SetTrigger("sky_attack");
+
         SetAttacking(true);
     }
 
     //從animation event呼叫攻擊扣血
     protected void Damage()
     {
-        playerEnergy.ModifyWaterEnergy(-attackWaterCost);
-
         Collider2D[] enemyColList = new Collider2D[5];
         int enemyNum = attackTrigger.OverlapCollider(enemyFilter, enemyColList);
 
@@ -156,6 +156,10 @@ public class Skill_Base : MonoBehaviour
     public void TransformReset()
     {
         BackIdle();
+    }
+    void SleepAwake()
+    {
+        playerControl.SleepAwake();
     }
 
     #endregion ===============變身相關===============

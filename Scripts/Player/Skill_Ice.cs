@@ -20,6 +20,7 @@ public class Skill_Ice : Skill_Base {
 
     [Header("Normal Skill")]
     public GameObject Attack3_FX;
+    private Coroutine iceGrow_coroutine;
 
     void Awake()
     {
@@ -193,8 +194,40 @@ public class Skill_Ice : Skill_Base {
 
     void Attack3_FX_Init()
     {
-        GameObject FX = Instantiate(Attack3_FX, this.transform.position, Quaternion.identity);
-        if (!PlayerControl.facingRight) FX.transform.localScale = new Vector3(-FX.transform.localScale.x, FX.transform.localScale.y, FX.transform.localScale.z);
-        Destroy(FX, 5f);
+        iceGrow_coroutine = StartCoroutine(IceGrow(PlayerControl.facingRight));
+    }
+
+    IEnumerator IceGrow(bool rightDirection)
+    {
+        float timeBetween = 0.1f;
+        float ydiffRange = 0.75f;   //下一個冰塊產生處可允許的垂直高度差範圍
+
+        float xdistanceBetwee = 1.5f;
+        float xMaxDistance = 10f;
+
+        int iceMaxCount = (int) Mathf.Floor(xMaxDistance / xdistanceBetwee);
+
+        Vector2 startPos = this.transform.position - Vector3.up *0.5f;
+        Vector2 newIcePos = startPos + Vector2.right * (rightDirection ? xdistanceBetwee : -xdistanceBetwee);
+
+        for(int count = 1; count <= iceMaxCount; count++)
+        {
+            if (rightDirection) newIcePos += Vector2.right * xdistanceBetwee;
+            else newIcePos -= Vector2.right * xdistanceBetwee;
+
+            RaycastHit2D hit = Physics2D.Raycast(newIcePos + Vector2.up * ydiffRange, Vector2.down, ydiffRange*2f, 
+                1 << LayerMask.NameToLayer("Ground & Wall") | 1 << LayerMask.NameToLayer("Platform"));
+
+            if (hit != false)
+            {
+                newIcePos = new Vector2(newIcePos.x, hit.point.y);
+
+                GameObject FX = Instantiate(Attack3_FX, newIcePos, Quaternion.identity);
+                if (!rightDirection) FX.transform.localScale = new Vector3(-FX.transform.localScale.x, FX.transform.localScale.y, FX.transform.localScale.z);
+
+                yield return new WaitForSeconds(timeBetween);
+            }
+            else break;
+        }  
     }
 }

@@ -685,7 +685,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 156.8, y: -44.9, z: 0}
+  m_LocalPosition: {x: 161.7, y: -46.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4686785024120380}
@@ -1096,9 +1096,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1b54abc1c40eb4a90ae0d29e15a296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackWaterCost: 1
+  attack3WaterCost: 10
   icePrefab: {fileID: 1788951788860208, guid: 19c2aec502e4813439bd3b9cf2fb8118, type: 2}
-  Attack3_FX: {fileID: 1211667956538604, guid: 3759e902dcefd2048917264e99a1da87, type: 2}
+  Attack3_FX: {fileID: 1844806377894382, guid: 3759e902dcefd2048917264e99a1da87, type: 2}
 --- !u!114 &114116566571257936
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1110,8 +1110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c306b1fc7661bd749988e27672150c19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackWaterCost: 1
+  attack3WaterCost: 10
   isPassing: 0
+  Attack3_FX: {fileID: 1296425552275400, guid: 4f709c4f02e8ffa4c947b816888eaaa0, type: 2}
 --- !u!114 &114128445740635564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1325,7 +1326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200a70fb9ff95384da2bc51e20164e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackWaterCost: 1
+  attack3WaterCost: 10
 --- !u!114 &114568163351713274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6421,12 +6422,12 @@ SpriteRenderer:
   m_SortingLayerID: 1193475029
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f8e9b6ef72a9d6419bd3d106aea91c0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af5646688da7690488c0be9c8c36c224, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7.2, y: 5.3999996}
+  m_Size: {x: 1.15, y: 1.1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -6472,7 +6473,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.1, y: 1.06}
+  m_Size: {x: 7.2, y: 5.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
