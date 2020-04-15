@@ -34,6 +34,16 @@ public class attack_s_icepike : MonoBehaviour {
         }
     }
 
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Enemy")
+    //    {
+    //        Enemy_base enemy_Base = collision.gameObject.GetComponent<Enemy_base>();
+    //        enemy_Base.TakeDamage(1);
+    //        enemy_Base.KnockBack(PlayerControl.facingRight ? Vector3.right : Vector3.left, 150f);
+    //    }
+    //}
+
     void Finish()
     {
         Destroy(this.transform.parent.gameObject);

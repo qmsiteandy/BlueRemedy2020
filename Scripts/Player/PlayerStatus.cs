@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerStatus : MonoBehaviour{
 
+    public static bool canControl = true;
+
     //===Status===
     public static bool isLanding = false;
     public static bool isSkilling = false;
@@ -35,78 +37,90 @@ public class PlayerStatus : MonoBehaviour{
 
     private void Update()
     {
-        canMove = canJump = true;
-        canFlip = true;
-        canSkill = true;
-        canChange = true;
-        canBeHurt = true;
+        if (!canControl)
+        {
+            canMove = canJump = false;
+            canFlip = false;
+            canSkill = false;
+            canChange = false;
+            canBeHurt = false;
+        }
+        else
+        {
+            canMove = canJump = true;
+            canFlip = true;
+            canSkill = true;
+            canChange = true;
+            canBeHurt = true;
 
-        if (!isLanding)
-        {
-            canChange = false;
-        }
-        if (isSkilling)
-        {
-            canMove = canJump = false;
-            canChange = false;
-        }
-        if (isChanging)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canBeHurt = false;
-            canChange = false;
-        }
-        if (isHitRecover)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canBeHurt = false;
-            canChange = false;
-        }
-        if (isWallSticking)
-        {
-            canFlip = false;
-            canSkill = false;
-            canChange = false;
-        }
-        if (isTransingBack)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canChange = false;
-            canBeHurt = false;
-        }
-        if (isInInteractTrigger)
-        {
-            canJump = false;
-        }
-        if (isWaterPassing)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canChange = false;
-            canBeHurt = false;
-        }
-        if (isChangingScene)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canChange = false;
-            canBeHurt = false;
-        }
-        if (isSleeping)
-        {
-            canMove = canJump = false;
-            canFlip = false;
-            canSkill = false;
-            canChange = false;
-            canBeHurt = false;
+            if (!isLanding)
+            {
+                canChange = false;
+            }
+            if (isSkilling)
+            {
+                canMove = canJump = false;
+                canChange = false;
+                canFlip = false;
+            }
+            if (isChanging)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canBeHurt = false;
+                canChange = false;
+            }
+            if (isHitRecover)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canBeHurt = false;
+                canChange = false;
+            }
+            if (isWallSticking)
+            {
+                canFlip = false;
+                canSkill = false;
+                canChange = false;
+            }
+            if (isTransingBack)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canChange = false;
+                canBeHurt = false;
+            }
+            if (isInInteractTrigger)
+            {
+                canJump = false;
+            }
+            if (isWaterPassing)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canChange = false;
+                canBeHurt = false;
+            }
+            if (isChangingScene)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canChange = false;
+                canBeHurt = false;
+            }
+            if (isSleeping)
+            {
+                canMove = canJump = false;
+                canFlip = false;
+                canSkill = false;
+                canChange = false;
+                canBeHurt = false;
+            }
         }
     }
 

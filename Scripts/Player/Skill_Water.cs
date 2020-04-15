@@ -58,7 +58,7 @@ public class Skill_Water : Skill_Base
     void TreePassBegin()
     {
         isPassing = true;
-        playerControl.noticeUI.SetActive(false);
+        playerControl.NoticeUI_Setting(999);
 
         //主角下跳anim 並由anim event觸發TreePass
         if (whatWaterPassing.name == "tree_passing") animator.SetTrigger("treePassBegin");
@@ -85,7 +85,7 @@ public class Skill_Water : Skill_Base
     void HolePassBegin()
     {
         isPassing = true;
-        playerControl.noticeUI.SetActive(false);
+        playerControl.NoticeUI_Setting(999);
 
         //anim event觸發HolePass
         if (whatWaterPassing.name == "hole_passing") animator.SetTrigger("horiHoleBegin");

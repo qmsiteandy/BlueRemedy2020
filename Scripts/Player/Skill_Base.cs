@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill_Base : MonoBehaviour
 {
     [Header("基本參數")]
-    public int attack3WaterCost = 10;
+    public int attack3WaterCost = 5;
     protected Transform playerTrans;
     protected Animator animator;
     protected PlayerEnergy playerEnergy;
@@ -20,13 +20,12 @@ public class Skill_Base : MonoBehaviour
 
     [Header("Input")]
     protected float skillInputDelay = 0.5f;
-    protected float elapsed = 0f;
     protected int normalattack_input = 0;
+    protected Coroutine inputDelayRoutine;
 
     [Header("判斷")]
     protected int normalattack_step = 0;
     protected bool attacking = false;
-    protected bool normalinput_delaying = false;
 
 
     protected void BaseStart()
@@ -55,12 +54,6 @@ public class Skill_Base : MonoBehaviour
         {
             if (!attacking) NormalAttack();
         }
-
-        if (normalinput_delaying == true)
-        {
-            elapsed += Time.deltaTime;
-            if (elapsed > skillInputDelay) BackIdle();
-        }
     }
 
     protected void NormalAttack()
@@ -71,17 +64,29 @@ public class Skill_Base : MonoBehaviour
         switch (normalattack_step)
         {
             case 1:
-                animator.SetTrigger("attack_1"); elapsed = 0f; normalinput_delaying = true;
+                {
+                    animator.SetTrigger("attack_1");
+
+                    if (inputDelayRoutine != null) StopCoroutine(inputDelayRoutine);
+                    inputDelayRoutine = StartCoroutine(Normalinput_Delaying());
+                }
                 break;
             case 2:
-                animator.SetTrigger("attack_2"); elapsed = 0f; normalinput_delaying = true;
+                {
+                    animator.SetTrigger("attack_2");
+
+                    if (inputDelayRoutine != null) StopCoroutine(inputDelayRoutine);
+                    inputDelayRoutine = StartCoroutine(Normalinput_Delaying());
+                }
                 break;
             case 3:
-                animator.SetTrigger("attack_3"); elapsed = 0f; normalinput_delaying = true;
-                playerEnergy.ModifyWaterEnergy(-attack3WaterCost);
-                break;
-            default:
-                BackIdle();
+                {
+                    //"attack_3" animation最後要呼叫BackIdle 
+                    animator.SetTrigger("attack_3");
+                    playerEnergy.ModifyWaterEnergy(-attack3WaterCost);
+
+                    if (inputDelayRoutine != null) StopCoroutine(inputDelayRoutine);
+                }   
                 break;
         }
     }
@@ -121,11 +126,21 @@ public class Skill_Base : MonoBehaviour
     public void BackIdle()
     {
         //animator.SetTrigger("back_idle");
+
         SetAttacking(false);
-        normalinput_delaying = false;
-        //duringSteps = false;
+        if (inputDelayRoutine != null) StopCoroutine(inputDelayRoutine);
+
         normalattack_step = 0;
         normalattack_input = 0; 
+    }
+
+    IEnumerator Normalinput_Delaying()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < skillInputDelay) { elapsed += Time.deltaTime;  yield return null; }
+
+        BackIdle();
     }
 
     protected void ThisStepFinish()

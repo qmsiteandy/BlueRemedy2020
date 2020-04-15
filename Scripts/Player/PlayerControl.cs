@@ -44,9 +44,11 @@ public class PlayerControl : MonoBehaviour {
     private Skill_Water skill_Water;
   
     [Header("機關設定")]
-    [HideInInspector] public GameObject noticeUI;
     private Transform noticeUI_Trans;
+    private GameObject[] noticeUI;
+    private int noticeIndexNow;
     public CameraControl cameraControl;
+
 
     [Header("水中")]
     public ParticleSystem bubbleMaker;
@@ -90,9 +92,11 @@ public class PlayerControl : MonoBehaviour {
         whatIsPlatform = LayerMask.GetMask("Platform");
 
         //---NoticeMark--
-        noticeUI.transform.Find("notice mark");
-        noticeUI.SetActive(false);
-        noticeUI_Trans = noticeUI.GetComponent<Transform>();
+        noticeUI_Trans = this.transform.Find("noticeUI_folder").GetComponent<Transform>();
+
+        noticeUI = new GameObject[noticeUI_Trans.childCount];
+        for (int x = 0; x < noticeUI.Length; x++) noticeUI[x] = noticeUI_Trans.GetChild(x).gameObject;
+        NoticeUI_Setting(999);
 
         //---bubble maker init---
         bubbleMaker = transform.Find("BubbleMaker").GetComponent<ParticleSystem>();
@@ -176,25 +180,17 @@ public class PlayerControl : MonoBehaviour {
     }
     void Flip() //偵測移動方向及是否需轉面
     {
-        //bool變數代表方向
         facingRight = !facingRight;
-        //取得目前物件的規格
         Vector3 theScale = transform.localScale;
-        //使規格的水平方向相反
         theScale.x *= -1;
-        //套用翻面後的規格
         transform.localScale = theScale;
 
         UI_Flip(); 
     }
     void UI_Flip()//避免主角轉身時連UI也轉了，所以要再轉一次
     {
-        
-        //取得目前物件的規格
         Vector3 theScale = noticeUI_Trans.localScale;
-        //使規格的水平方向相反
         theScale.x *= -1;
-        //套用翻面後的規格
         noticeUI_Trans.localScale = theScale;
 
         playerChange.WheelUI_Flip();
@@ -204,8 +200,6 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓跳躍相關↓================
     void Jump()
     {
-        if (!PlayerStatus.canJump) return;
-
         animator[OkaID_Now].SetBool("touchGroung", touchGround);
         jumping = !touchGround;
 
@@ -218,6 +212,7 @@ public class PlayerControl : MonoBehaviour {
             if (rb2d.velocity.y > 0.1f) animator[OkaID_Now].SetBool("jumpUp", true);
         }
 
+        if (!PlayerStatus.canJump) return;
 
         //平台上往下跳
         if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumping)
@@ -341,17 +336,17 @@ public class PlayerControl : MonoBehaviour {
         {
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
-                noticeUI.SetActive(false);
-
                 if (collider.name == "root_trigger" ||
                  ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)))
                 {
-                    noticeUI.SetActive(true);
+                    NoticeUI_Setting(3);    //跳出驚嘆號
                     PlayerStatus.isInInteractTrigger = true;
+
+                    skill_Water.WaitPassInput(collider);
                 }
-                skill_Water.WaitPassInput(collider);
+                else NoticeUI_Setting(999);
             }
-            else noticeUI.SetActive(false);
+            else if(OkaID_Now == 0 || OkaID_Now == 2) NoticeUI_Setting(1); //跳出water提示
         }
     }
     void OnTriggerExit2D(Collider2D collider)
@@ -377,7 +372,7 @@ public class PlayerControl : MonoBehaviour {
         //---滲透&毛細提醒UI---
         else if (collider.gameObject.tag == "WaterPassingTrigger")
         {
-            noticeUI.SetActive(false);
+            NoticeUI_Setting(999);  //關閉提示UI
             PlayerStatus.isInInteractTrigger = false;
         }
     }
@@ -447,7 +442,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (!PlayerStatus.canBeHurt) return;
 
-        if (skill_Water.isPassing) skill_Water.PassingInterrupted();
+        //if (skill_Water.isPassing) skill_Water.PassingInterrupted();
         skill_Base[OkaID_Now].BackIdle();
 
         playerEnergy.ModifyDirt(damage);
@@ -462,7 +457,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if (!PlayerStatus.canBeHurt) return;
 
-        if (skill_Water.isPassing) skill_Water.PassingInterrupted();
+        //if (skill_Water.isPassing) skill_Water.PassingInterrupted();
         skill_Base[OkaID_Now].BackIdle();
 
         playerEnergy.ModifyDirt(addDirt);
@@ -521,7 +516,19 @@ public class PlayerControl : MonoBehaviour {
         } 
     }
 
-    //關閉UI
+    //NoticeUI setting
+    public void NoticeUI_Setting(int index)
+    {
+        if(index!= noticeIndexNow)
+        {
+            for (int x = 0; x < noticeUI.Length; x++) { noticeUI[x].SetActive(false); }
+            if (index < noticeUI.Length) { noticeUI[index].SetActive(true); }
+
+            noticeIndexNow = index;
+        }
+    }
+
+
     public void TrnasformReset()
     {
         for(int x = 0; x < 3; x++)
@@ -553,5 +560,21 @@ public class PlayerControl : MonoBehaviour {
     public void SleepAwake()   //sleepAwake animation呼叫skillBase，再由skillbase呼叫此函式
     {
         PlayerStatus.isSleeping = false;
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            PlayerStatus.canControl = false;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            PlayerStatus.canControl = true;
+        }
     }
 }

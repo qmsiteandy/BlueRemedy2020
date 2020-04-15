@@ -192,6 +192,7 @@ public class Skill_Ice : Skill_Base {
         Physics2D.IgnoreLayerCollision(8, iceObj_layer, false);
     }
 
+
     void Attack3_FX_Init()
     {
         iceGrow_coroutine = StartCoroutine(IceGrow(PlayerControl.facingRight));
@@ -200,34 +201,54 @@ public class Skill_Ice : Skill_Base {
     IEnumerator IceGrow(bool rightDirection)
     {
         float timeBetween = 0.1f;
-        float ydiffRange = 0.75f;   //下一個冰塊產生處可允許的垂直高度差範圍
 
         float xdistanceBetwee = 1.5f;
         float xMaxDistance = 10f;
 
-        int iceMaxCount = (int) Mathf.Floor(xMaxDistance / xdistanceBetwee);
+        int iceMaxCount = (int)Mathf.Floor(xMaxDistance / xdistanceBetwee);
+        int count = 0;
 
-        Vector2 startPos = this.transform.position - Vector3.up *0.5f;
-        Vector2 newIcePos = startPos + Vector2.right * (rightDirection ? xdistanceBetwee : -xdistanceBetwee);
+        float iceScale = 0.6f;
+        float iceScaleIncrease = 0.1f;
 
-        for(int count = 1; count <= iceMaxCount; count++)
+        float maxSlopeRatio = 0.75f; //允許斜坡角度
+        float ydiffRange = xdistanceBetwee * maxSlopeRatio;   //下一個冰塊產生處可允許的垂直高度差範圍
+
+        Vector2 startPos = this.transform.position + new Vector3((rightDirection ? 1.15f : -1.15f), -0.5f, 0f);
+        Vector2 newIcePos = startPos;
+
+        for (count = 0; count < iceMaxCount; count++)
         {
-            if (rightDirection) newIcePos += Vector2.right * xdistanceBetwee;
-            else newIcePos -= Vector2.right * xdistanceBetwee;
-
-            RaycastHit2D hit = Physics2D.Raycast(newIcePos + Vector2.up * ydiffRange, Vector2.down, ydiffRange*2f, 
+            //檢測前方障礙物，若有障礙物則不生成下一枝冰柱
+            RaycastHit2D frontHit = Physics2D.Raycast(newIcePos + Vector2.up * 1f, (rightDirection ? Vector2.right : Vector2.left), 1f/ maxSlopeRatio,
                 1 << LayerMask.NameToLayer("Ground & Wall") | 1 << LayerMask.NameToLayer("Platform"));
+            if (frontHit == true) break;
 
-            if (hit != false)
+            //檢測下方地板位置
+            RaycastHit2D downHit = Physics2D.Raycast(newIcePos + Vector2.up * ydiffRange, Vector2.down, ydiffRange*2f, 
+                1 << LayerMask.NameToLayer("Ground & Wall") | 1 << LayerMask.NameToLayer("Platform"));
+            if (downHit == true)
             {
-                newIcePos = new Vector2(newIcePos.x, hit.point.y);
+                newIcePos = new Vector2(newIcePos.x, downHit.point.y);
 
                 GameObject FX = Instantiate(Attack3_FX, newIcePos, Quaternion.identity);
-                if (!rightDirection) FX.transform.localScale = new Vector3(-FX.transform.localScale.x, FX.transform.localScale.y, FX.transform.localScale.z);
-
-                yield return new WaitForSeconds(timeBetween);
+                FX.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
             }
             else break;
+
+            //scale加大
+            iceScale += iceScaleIncrease;
+
+            //下一枝冰柱的位置
+            newIcePos += Vector2.right * (rightDirection ? xdistanceBetwee * iceScale : -xdistanceBetwee * iceScale);
+
+            yield return new WaitForSeconds(timeBetween);
         }  
+        //至少生成一枝
+        if(count == 0)
+        {
+            GameObject FX = Instantiate(Attack3_FX, startPos, Quaternion.identity);
+            FX.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
+        }
     }
 }
