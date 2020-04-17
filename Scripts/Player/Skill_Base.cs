@@ -39,7 +39,6 @@ public class Skill_Base : MonoBehaviour
         playerCollider = GetComponentInParent<Collider2D>();
         attackTrigger = this.transform.GetChild(0).GetComponent<CircleCollider2D>();
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
-        enemyFilter.useTriggers = true;
     }
 
     protected void BaseUpdate()
@@ -112,7 +111,7 @@ public class Skill_Base : MonoBehaviour
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);
-                enemy_Base.KnockBack(PlayerControl.facingRight? Vector3.right: Vector3.left, 250f);
+                enemy_Base.KnockBack(PlayerControl.facingRight? Vector3.right: Vector3.left, 100f);
             }
         }
     }
@@ -146,6 +145,8 @@ public class Skill_Base : MonoBehaviour
     protected void ThisStepFinish()
     {
         attacking = false;
+
+        if(normalattack_step >= 3) BackIdle();
     }
 
     #region ===============變身相關===============

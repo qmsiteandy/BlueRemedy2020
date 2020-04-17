@@ -170,7 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4650641635658312}
   - component: {fileID: 61032272461706968}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: root_trigger
   m_TagString: WaterPassingTrigger
   m_Icon: {fileID: 0}

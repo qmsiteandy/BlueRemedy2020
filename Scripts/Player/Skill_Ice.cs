@@ -6,6 +6,7 @@ public class Skill_Ice : Skill_Base {
 
     [Header("Special Skill")]
     public GameObject icePrefab;
+    private int specialCost_max = 10;
     private GameObject iceObj;
     private int iceObj_layer;
     private float specialInput_holdTime = 0f;
@@ -42,12 +43,12 @@ public class Skill_Ice : Skill_Base {
 
         if (Input.GetButton("Attack") && PlayerStatus.canSkill && normalattack_input <= 1)
         {
-            SetAttacking(true);
-
             specialInput_holdTime += Time.deltaTime;
 
             if(specialInput_holdTime >= 0.3f)
             {
+                SpecialAttacking(true);
+
                 switch (specialSkill_state)
                 {
                     //開始charging
@@ -97,6 +98,7 @@ public class Skill_Ice : Skill_Base {
             if(specialSkill_state == SpecialSkill_State.charging)
             {
                 float downThrowRange = 15f;
+                //往下丟
                 if(iceThrowAngle > -90f - downThrowRange && iceThrowAngle < -90f + downThrowRange)
                 {
                     animator.SetTrigger("specialSkill_release");    //throwout由release動畫呼叫
@@ -107,11 +109,14 @@ public class Skill_Ice : Skill_Base {
                     //StartCoroutine(IceThrow_colDis(0.35f));
                     iceObj.GetComponent<SpecialBigIce>().StartCoroutine(IceThrow_colDis(0.5f));
                 }
+                //往側邊丟
                 else
                 {
                     animator.SetTrigger("specialSkill_release");    //throwout由release動畫呼叫
                     iceThrowForce = 1000f;
                 }
+
+                playerEnergy.ModifyWaterEnergy(-(int)(specialCost_max * iceSize / iceMaxSize));
 
                 specialSkill_state = SpecialSkill_State.none;
 
@@ -119,7 +124,7 @@ public class Skill_Ice : Skill_Base {
             }
         }
     }
-
+    #region ===special skill===
     void ThrowIce_AngleInput()
     {
         if (PlayerStatus.Get_isKeyboard())
@@ -131,10 +136,6 @@ public class Skill_Ice : Skill_Base {
             {
                 iceThrowAngle = Mathf.Atan2(yInput, xInput);
                 iceThrowAngle = iceThrowAngle / Mathf.PI * 180f;
-
-                //if (iceThrowAngle == -90f) iceThrowAngle = 270f;
-                //else if (iceThrowAngle == -45f) iceThrowAngle = 315f;
-                //else if (iceThrowAngle == -135f) iceThrowAngle = 225f;
             }
         }
         else
@@ -181,9 +182,14 @@ public class Skill_Ice : Skill_Base {
         iceObj.transform.SetParent(null);
         iceObj = null;
     }
+    void SpecialAttacking(bool truefalse)
+    {
+        attacking = truefalse;
+        PlayerStatus.isSpecialSkilling = truefalse;
+    }
     void SpecialSkillOver()
     {
-        SetAttacking(false);
+        SpecialAttacking(false);
     }
     IEnumerator IceThrow_colDis(float colDisTime)
     {
@@ -191,7 +197,7 @@ public class Skill_Ice : Skill_Base {
         yield return new WaitForSeconds(colDisTime);
         Physics2D.IgnoreLayerCollision(8, iceObj_layer, false);
     }
-
+    #endregion
 
     void Attack3_FX_Init()
     {
@@ -221,12 +227,12 @@ public class Skill_Ice : Skill_Base {
         {
             //檢測前方障礙物，若有障礙物則不生成下一枝冰柱
             RaycastHit2D frontHit = Physics2D.Raycast(newIcePos + Vector2.up * 1f, (rightDirection ? Vector2.right : Vector2.left), 1f/ maxSlopeRatio,
-                1 << LayerMask.NameToLayer("Ground & Wall") | 1 << LayerMask.NameToLayer("Platform"));
+                LayerMask.GetMask("Ground & Wall") | LayerMask.GetMask("Platform"));
             if (frontHit == true) break;
 
             //檢測下方地板位置
-            RaycastHit2D downHit = Physics2D.Raycast(newIcePos + Vector2.up * ydiffRange, Vector2.down, ydiffRange*2f, 
-                1 << LayerMask.NameToLayer("Ground & Wall") | 1 << LayerMask.NameToLayer("Platform"));
+            RaycastHit2D downHit = Physics2D.Raycast(newIcePos + Vector2.up * ydiffRange, Vector2.down, ydiffRange*2f,
+                LayerMask.GetMask("Ground & Wall") | LayerMask.GetMask("Platform"));
             if (downHit == true)
             {
                 newIcePos = new Vector2(newIcePos.x, downHit.point.y);

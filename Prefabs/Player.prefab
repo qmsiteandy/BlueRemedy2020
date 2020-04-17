@@ -479,7 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4784363545742644}
   - component: {fileID: 58093562723579674}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: attackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4355650509630350}
   - component: {fileID: 58816033273535368}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: attackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -814,7 +814,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4205325776999568}
   - component: {fileID: 58830584496544044}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: attackTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -925,7 +925,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 98.83, y: 16.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4686785024120380}
@@ -1613,6 +1613,8 @@ MonoBehaviour:
   attack3WaterCost: 10
   isPassing: 0
   Attack3_FX: {fileID: 1296425552275400, guid: 4f709c4f02e8ffa4c947b816888eaaa0, type: 2}
+  waterCanonPrefab: {fileID: 1401507354562960, guid: 84c1db2e95e15f84b9c673b8c480106a,
+    type: 2}
 --- !u!114 &114128445740635564
 MonoBehaviour:
   m_ObjectHideFlags: 1

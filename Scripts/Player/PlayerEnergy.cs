@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerEnergy : MonoBehaviour {
 
+    private bool isEnergyUsing = true;
+
     public int waterEnergyMax = 200;
     private int waterEnergy;
     public int dirtMax;
@@ -16,6 +18,8 @@ public class PlayerEnergy : MonoBehaviour {
     //private SpriteRenderer[] playerSprite= { null, null, null };
     private UI_Manager UI_manager;
 
+    private GameManager gameManager;
+
     private Material dirtyRippeMat;
 
     void Start ()
@@ -25,7 +29,10 @@ public class PlayerEnergy : MonoBehaviour {
 
         //for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
         //for (int x = 0; x < 3; x++) Oka[x] = transform.GetChild(x).gameObject;
-        if(GameObject.Find("UI_Canvas") != null) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        isEnergyUsing = GameObject.Find("UI_Canvas") != null;
+        if (isEnergyUsing) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         dirtyRippeMat = this.transform.Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
 
@@ -37,11 +44,13 @@ public class PlayerEnergy : MonoBehaviour {
         if (elapsed > chargeDelay) { ModifyWaterEnergy(waterPerCharge); elapsed = 0f; }
         elapsed += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Y)) { ModifyDirt(10); ModifyWaterEnergy(-10); }
+        if (Input.GetKeyDown(KeyCode.Backspace)) { ModifyWaterEnergy(-10); }
     }
 
     public void ModifyWaterEnergy(int amount)
     {
+        if (!isEnergyUsing) return;
+
         waterEnergy += amount;
         if (waterEnergy > waterEnergyMax) waterEnergy = waterEnergyMax;
         else if (waterEnergy < 0) waterEnergy = 0;
@@ -50,11 +59,13 @@ public class PlayerEnergy : MonoBehaviour {
 
         if (UI_manager != null) UI_manager.SetWaterUI(waterEnergy);
 
-        if (waterEnergy == 0) ; //GameOver
+        if (waterEnergy == 0) Dead(); //GameOver
     }
 
     public void ModifyDirt(int amount)
     {
+        if (!isEnergyUsing) return;
+
         dirt += amount;
         if (dirt > dirtMax) dirt = dirtMax;
         else if (dirt < 0) dirt = 0;
@@ -70,11 +81,25 @@ public class PlayerEnergy : MonoBehaviour {
         if (UI_manager != null) UI_manager.SetDirtyUI(dirtyDegree);
         
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
+
+        if (dirtyDegree > 0.95) Dead(); //GameOver
     }
 
     public void ConnectNewLevelUI()
     {
-        if (GameObject.Find("UI_Canvas") != null) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+        isEnergyUsing = GameObject.Find("UI_Canvas") != null;
+        if (isEnergyUsing) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
         else UI_manager = null;
+    }
+
+    public void ResetEnegy()
+    {
+        waterEnergy = waterEnergyMax;
+        dirt = 0;
+    }
+
+    void Dead()
+    {
+        gameManager.Dead();
     }
 }

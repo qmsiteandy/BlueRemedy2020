@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class attack_l_tsunami : MonoBehaviour {
+public class special_l_waterCanon : MonoBehaviour {
 
-    [Header("AttackTrigger")]
-    protected CircleCollider2D attackTrigger;
-    protected ContactFilter2D enemyFilter;
+    public int damageAmount = 1;
+    private Collider2D attackTrigger;
+    private ContactFilter2D enemyFilter;
+    private float canonAngle = 0f;
 
     // Use this for initialization
     void Start ()
     {
-        attackTrigger = this.GetComponent<CircleCollider2D>();
+        attackTrigger = this.GetComponent<Collider2D>();
+
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
-        enemyFilter.useTriggers = true;
     }
 
     void Damage()
@@ -28,10 +29,16 @@ public class attack_l_tsunami : MonoBehaviour {
                 if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
-                enemy_Base.TakeDamage(1);
-                enemy_Base.KnockBack(PlayerControl.facingRight ? Vector3.right : Vector3.left, 100f);
+                enemy_Base.TakeDamage(damageAmount);
+                enemy_Base.KnockBack(new Vector2(Mathf.Cos(canonAngle), Mathf.Sin(canonAngle)), 150f);
             }
         }
+    }
+
+    public void SetAngle(float angle)
+    {
+        canonAngle = angle;
+        canonAngle = canonAngle * Mathf.PI / 180f;
     }
 
     void Finish()

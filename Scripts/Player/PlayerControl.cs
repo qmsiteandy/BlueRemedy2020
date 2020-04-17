@@ -53,7 +53,7 @@ public class PlayerControl : MonoBehaviour {
     [Header("水中")]
     public ParticleSystem bubbleMaker;
     private bool isBubbling = false;
-    private int DirtyWaterLayerID = 14;
+    //private int DirtyWaterLayerID = 14;
     private float iceFloatForce = 50f;
     public bool isInWater = false;
     private Water_Area water_area;
@@ -310,7 +310,7 @@ public class PlayerControl : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collider)
     {
         //---水中---
-        if (collider.gameObject.layer == DirtyWaterLayerID)
+        if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
             water_area = collider.GetComponent<Water_Area>();
             for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Scene"; spriteRenderer[x].sortingOrder = -1; }
@@ -332,7 +332,7 @@ public class PlayerControl : MonoBehaviour {
     void OnTriggerStay2D(Collider2D collider)
     {
         //---滲透毛細提示UI&起始呼叫---
-        if (collider.gameObject.tag == "WaterPassingTrigger")
+        if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
         {
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
@@ -352,7 +352,7 @@ public class PlayerControl : MonoBehaviour {
     void OnTriggerExit2D(Collider2D collider)
     {
         //---水中---
-        if (collider.gameObject.layer == DirtyWaterLayerID)
+        if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
             for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Player"; spriteRenderer[x].sortingOrder = 0; }
             //跳出水面的水花
@@ -370,7 +370,7 @@ public class PlayerControl : MonoBehaviour {
         }
 
         //---滲透&毛細提醒UI---
-        else if (collider.gameObject.tag == "WaterPassingTrigger")
+        else if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
         {
             NoticeUI_Setting(999);  //關閉提示UI
             PlayerStatus.isInInteractTrigger = false;
@@ -381,7 +381,7 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓collider相關↓================
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.layer == 9 || collision.gameObject.layer == 13)
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Ground & Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
             Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
             angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
@@ -422,7 +422,7 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnCollisionExit2D(Collision2D collision)   
     {
-        if (collision.gameObject.layer == 9 || collision.gameObject.layer == 13)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground & Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
             if (isStickOnWall)
             {

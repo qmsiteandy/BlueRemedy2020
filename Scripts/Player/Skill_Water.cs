@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Skill_Water : Skill_Base
 {
+    [Header("毛細滲透")]
     private float holePassingSped = 0.07f;
     [HideInInspector] public bool isPassing = false;
     private bool waterdropPassing = false;
@@ -14,6 +15,17 @@ public class Skill_Water : Skill_Base
     [Header("Normal Skill")]
     public GameObject Attack3_FX;
 
+    [Header("Special Skill")]
+    public GameObject waterCanonPrefab;
+    private int specialCost = 20;
+    private GameObject waterCanonObj;
+    private enum SpecialSkill_State { none, charging, throwout }
+    private SpecialSkill_State specialSkill_state = SpecialSkill_State.none;
+    private float canonDirectionAngle = 0f;
+    private float specialInput_holdTime = 0f;
+    private bool isSpitting = false;
+    private Coroutine reactionF_routine;
+
     // Use this for initialization
     void Start ()
     {
@@ -21,14 +33,82 @@ public class Skill_Water : Skill_Base
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         BaseUpdate();
 
+        //毛細滲透
         if (waterdropPassing)
         {
             playerTrans.position = waterdropTrans.position;
-        }  
+        }
+
+        //Special Skill
+        if (Input.GetButton("Attack") && PlayerStatus.canSkill && normalattack_input <= 1)
+        {
+            specialInput_holdTime += Time.deltaTime;   
+
+            if (specialInput_holdTime >= 0.3f)
+            {
+                SpecialAttacking(true);
+
+                switch (specialSkill_state)
+                {
+                    //開始charging
+                    case SpecialSkill_State.none:
+                        {
+                            animator.SetTrigger("specialSkill_charging");
+
+                            canonDirectionAngle = PlayerControl.facingRight ? 0f : 180f;
+
+                            if (waterCanonObj!=null) { Destroy(waterCanonObj); waterCanonObj = null; }
+                            waterCanonObj = Instantiate(waterCanonPrefab, this.transform.position,Quaternion.identity, this.transform);
+                            waterCanonObj.transform.localScale = Vector3.one;
+
+                            specialSkill_state = SpecialSkill_State.charging;
+                        }
+                        break;
+
+                    //charging中
+                    case SpecialSkill_State.charging:
+
+                        if (!isSpitting)
+                        {
+                            WaterCanon_AngleInput();
+                            SetOKA_direction(canonDirectionAngle);
+                        }
+                        
+                        break;
+                }
+            }
+        }
+        //釋放
+        else if (Input.GetButtonUp("Attack"))
+        {
+            specialInput_holdTime = 0f;
+
+            if (specialSkill_state == SpecialSkill_State.charging)
+            {
+                animator.SetTrigger("specialSkill_release");
+                waterCanonObj.transform.GetChild(0).GetComponent<Animator>().SetTrigger("release");
+                waterCanonObj.transform.GetChild(0).GetComponent<special_l_waterCanon>().SetAngle(canonDirectionAngle);
+
+                playerEnergy.ModifyWaterEnergy(-specialCost);
+
+                SetSpitting(true);
+
+                //反作用力
+                if (reactionF_routine != null) StopCoroutine(reactionF_routine);
+                reactionF_routine = StartCoroutine(ReactionForce());
+
+                specialSkill_state = SpecialSkill_State.throwout;
+            }
+        }
+        //噴發中
+        else if (specialSkill_state == SpecialSkill_State.throwout)
+        {
+            
+        }
     }
 
     #region ================↓毛細滲透相關↓================
@@ -138,4 +218,86 @@ public class Skill_Water : Skill_Base
         GameObject FX = Instantiate(Attack3_FX, this.transform.position, Quaternion.identity);
         if (!PlayerControl.facingRight) FX.transform.localScale = new Vector3(-FX.transform.localScale.x, FX.transform.localScale.y, FX.transform.localScale.z);
     }
+
+    #region special skill
+    void WaterCanon_AngleInput()
+    {
+        if (PlayerStatus.Get_isKeyboard())
+        {
+            float xInput = Input.GetAxis("Horizontal");
+            float yInput = Input.GetAxis("Vertical");
+
+            if (Mathf.Abs(xInput) >= 0.1f || Mathf.Abs(yInput) >= 0.1f)
+            {
+                canonDirectionAngle = Mathf.Atan2(yInput, xInput);
+                canonDirectionAngle = canonDirectionAngle / Mathf.PI * 180f;
+            }
+        }
+        else
+        {
+            float xInput = Input.GetAxis("XBOX_Horizontal");
+            float yInput = Input.GetAxis("XBOX_Vertical");
+
+            if (Mathf.Abs(xInput) >= 0.1f || Mathf.Abs(yInput) >= 0.1f)
+            {
+                canonDirectionAngle = Mathf.Atan2(-yInput, xInput);
+                canonDirectionAngle = canonDirectionAngle / Mathf.PI * 180f;
+            }
+        }
+    }
+    void SetOKA_direction(float toDegree)
+    {
+        if (toDegree > 90f) toDegree = 180f - toDegree;
+        else if (toDegree < -90f) toDegree = -180 - toDegree;
+       
+        this.transform.localEulerAngles = new Vector3(0f, 0f, toDegree);
+    }
+    void SpecialAttacking(bool truefalse)
+    {
+        attacking = truefalse;
+        PlayerStatus.isSpecialSkilling = truefalse;
+    }
+    void SetSpitting(bool truefalse)
+    {
+        isSpitting = truefalse;
+        PlayerStatus.canControl = !truefalse;
+    }
+    //反作用力(力量會由大變小)
+    IEnumerator ReactionForce()
+    {
+        float delayTime = 0.1f;
+        yield return new WaitForSeconds(delayTime);
+
+        float reactionF_angle = canonDirectionAngle / 180f * Mathf.PI;
+        Vector2 reactionF_direction = new Vector2(-Mathf.Cos(reactionF_angle), -Mathf.Sin(reactionF_angle));
+        float Force = 80f;
+
+        while (true)
+        {
+            playerControl.rb2d.AddForce(reactionF_direction * Force);
+            if (Force > 20f) Force *= 0.8f; //讓後退速度變慢但又不至於完全停止
+
+            yield return null;
+        }
+    }
+    void canonSpitStop()
+    {
+        if (waterCanonObj != null)
+        {
+            waterCanonObj.transform.SetParent(null);
+            waterCanonObj = null;
+        }
+        SetSpitting(false);
+        SetOKA_direction(0f);
+
+        //停止反作用力
+        if (reactionF_routine != null) StopCoroutine(reactionF_routine);
+
+        specialSkill_state = SpecialSkill_State.none;
+    }
+    void SpecialSkillOver()
+    {
+        SpecialAttacking(false);
+    }
+    #endregion
 }

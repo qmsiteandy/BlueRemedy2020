@@ -29,7 +29,7 @@ public class attack_s_icepike : MonoBehaviour {
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);
-                enemy_Base.KnockBack(PlayerControl.facingRight ? Vector3.right : Vector3.left, 150f);
+                enemy_Base.KnockBack(PlayerControl.facingRight ? Vector3.right : Vector3.left, 100f);
             }
         }
     }

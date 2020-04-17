@@ -140,7 +140,7 @@ public class Water_Area : MonoBehaviour {
             if ( timer <=0f && isPlayerInWater != null)
             {
                 playerControl.TakeDamage(0, amount);
-                timer = delay; Debug.Log("Damage");
+                timer = delay; 
             }
             yield return null;
         } 
