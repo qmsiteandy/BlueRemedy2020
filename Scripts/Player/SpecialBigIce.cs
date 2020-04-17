@@ -70,6 +70,14 @@ public class SpecialBigIce : MonoBehaviour {
         {
             playerControl = collision.gameObject.GetComponent<PlayerControl>();
         }
+        else if (collision.gameObject.tag == "Enemy")
+        {
+            if (this.rb2d.velocity.magnitude > 5f)
+            {
+                int damage = (int)((this.rb2d.velocity.magnitude - 5f) * 0.5f);
+                collision.gameObject.GetComponent<Enemy_base>().TakeDamage(damage);
+            } 
+        }
     }
 
     void OnCollisionStay2D(Collision2D collision)

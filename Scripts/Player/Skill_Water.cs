@@ -138,7 +138,7 @@ public class Skill_Water : Skill_Base
     void TreePassBegin()
     {
         isPassing = true;
-        playerControl.NoticeUI_Setting(999);
+        playerControl.noticeUIControl.NoticeUI_Setting(999);
 
         //主角下跳anim 並由anim event觸發TreePass
         if (whatWaterPassing.name == "tree_passing") animator.SetTrigger("treePassBegin");
@@ -165,7 +165,7 @@ public class Skill_Water : Skill_Base
     void HolePassBegin()
     {
         isPassing = true;
-        playerControl.NoticeUI_Setting(999);
+        playerControl.noticeUIControl.NoticeUI_Setting(999);
 
         //anim event觸發HolePass
         if (whatWaterPassing.name == "hole_passing") animator.SetTrigger("horiHoleBegin");
@@ -270,12 +270,12 @@ public class Skill_Water : Skill_Base
 
         float reactionF_angle = canonDirectionAngle / 180f * Mathf.PI;
         Vector2 reactionF_direction = new Vector2(-Mathf.Cos(reactionF_angle), -Mathf.Sin(reactionF_angle));
-        float Force = 80f;
+        float Force = 100f;
 
         while (true)
         {
             playerControl.rb2d.AddForce(reactionF_direction * Force);
-            if (Force > 20f) Force *= 0.8f; //讓後退速度變慢但又不至於完全停止
+            if (Force > 10f) Force *= 0.1f; //讓後退速度變慢但又不至於完全停止
 
             yield return null;
         }

@@ -54,10 +54,10 @@ public class PlayerStatus : MonoBehaviour{
             canChange = true;
             canBeHurt = true;
 
-            if (!isLanding)
-            {
-                canChange = false;
-            }
+            //if (!isLanding)
+            //{
+            //    canChange = false;
+            //}
             if (isSkilling)
             {
                 canMove = canJump = false;

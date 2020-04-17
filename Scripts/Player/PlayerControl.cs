@@ -42,11 +42,9 @@ public class PlayerControl : MonoBehaviour {
     private Animator[] animator = { null, null, null };
     private Skill_Base[] skill_Base = { null, null, null };
     private Skill_Water skill_Water;
-  
+
     [Header("機關設定")]
-    private Transform noticeUI_Trans;
-    private GameObject[] noticeUI;
-    private int noticeIndexNow;
+    public NoticeUIControl noticeUIControl;
     public CameraControl cameraControl;
 
 
@@ -84,19 +82,14 @@ public class PlayerControl : MonoBehaviour {
 
         speedLimit = initSpeedLimit;
 
-        NewLevelInit();
-
-
         //---各種圖層MASK設定---
         whatIsGround = LayerMask.GetMask("Ground & Wall");
         whatIsPlatform = LayerMask.GetMask("Platform");
 
         //---NoticeMark--
-        noticeUI_Trans = this.transform.Find("noticeUI_folder").GetComponent<Transform>();
-
-        noticeUI = new GameObject[noticeUI_Trans.childCount];
-        for (int x = 0; x < noticeUI.Length; x++) noticeUI[x] = noticeUI_Trans.GetChild(x).gameObject;
-        NoticeUI_Setting(999);
+        noticeUIControl = this.transform.Find("noticeUI_folder").GetComponent<NoticeUIControl>();
+        
+        //NoticeUI_Setting(999);
 
         //---bubble maker init---
         bubbleMaker = transform.Find("BubbleMaker").GetComponent<ParticleSystem>();
@@ -189,10 +182,6 @@ public class PlayerControl : MonoBehaviour {
     }
     void UI_Flip()//避免主角轉身時連UI也轉了，所以要再轉一次
     {
-        Vector3 theScale = noticeUI_Trans.localScale;
-        theScale.x *= -1;
-        noticeUI_Trans.localScale = theScale;
-
         playerChange.WheelUI_Flip();
     }
     #endregion ================↑移動轉身相關↑================
@@ -331,22 +320,23 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D collider)
     {
-        //---滲透毛細提示UI&起始呼叫---
+        //SceneTrigger
         if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
         {
+            //---滲透毛細提示UI&起始呼叫---
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
                 if (collider.name == "root_trigger" ||
                  ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)))
                 {
-                    NoticeUI_Setting(3);    //跳出驚嘆號
+                    noticeUIControl.NoticeUI_Setting(3);    //跳出驚嘆號
                     PlayerStatus.isInInteractTrigger = true;
 
                     skill_Water.WaitPassInput(collider);
                 }
-                else NoticeUI_Setting(999);
+                else noticeUIControl.NoticeUI_Setting(999);
             }
-            else if(OkaID_Now == 0 || OkaID_Now == 2) NoticeUI_Setting(1); //跳出water提示
+            else if(OkaID_Now == 0 || OkaID_Now == 2) noticeUIControl.NoticeUI_Setting(1); //跳出water提示
         }
     }
     void OnTriggerExit2D(Collider2D collider)
@@ -372,7 +362,7 @@ public class PlayerControl : MonoBehaviour {
         //---滲透&毛細提醒UI---
         else if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
         {
-            NoticeUI_Setting(999);  //關閉提示UI
+            noticeUIControl.NoticeUI_Setting(999);  //關閉提示UI
             PlayerStatus.isInInteractTrigger = false;
         }
     }
@@ -516,19 +506,6 @@ public class PlayerControl : MonoBehaviour {
         } 
     }
 
-    //NoticeUI setting
-    public void NoticeUI_Setting(int index)
-    {
-        if(index!= noticeIndexNow)
-        {
-            for (int x = 0; x < noticeUI.Length; x++) { noticeUI[x].SetActive(false); }
-            if (index < noticeUI.Length) { noticeUI[index].SetActive(true); }
-
-            noticeIndexNow = index;
-        }
-    }
-
-
     public void TrnasformReset()
     {
         for(int x = 0; x < 3; x++)
@@ -549,7 +526,9 @@ public class PlayerControl : MonoBehaviour {
 
         GameObject UIManager = GameObject.Find("UI_Canvas");
         if (UIManager == null) { /*playerEnergy.enabled = false;*/  }
-        else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI();  }
+        else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI(); }
+
+        noticeUIControl.NoticeUI_Setting(999);
     }
 
     public void FallAsleep()
@@ -560,21 +539,5 @@ public class PlayerControl : MonoBehaviour {
     public void SleepAwake()   //sleepAwake animation呼叫skillBase，再由skillbase呼叫此函式
     {
         PlayerStatus.isSleeping = false;
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            PlayerStatus.canControl = false;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            PlayerStatus.canControl = true;
-        }
     }
 }
