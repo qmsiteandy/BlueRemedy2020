@@ -298,6 +298,11 @@ public class PlayerControl : MonoBehaviour {
     #region ================↓trigger相關↓================
     void OnTriggerEnter2D(Collider2D collider)
     {
+        //---SceneTrigger
+        if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
+        {
+            PlayerStatus.isInInteractTrigger = true;
+        }
         //---水中---
         if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
@@ -320,27 +325,30 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnTriggerStay2D(Collider2D collider)
     {
-        //SceneTrigger
-        if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
+        if (collider.gameObject.tag == "WaterPassingTrigger")
         {
             //---滲透毛細提示UI&起始呼叫---
             if (OkaID_Now == 1 && !skill_Water.isPassing)
             {
                 if (collider.name == "root_trigger" ||
-                 ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)))
+                    ((collider.name == "firstEnd" && facingRight) || (collider.name == "secondEnd" && !facingRight)))
                 {
                     noticeUIControl.NoticeUI_Setting(3);    //跳出驚嘆號
-                    PlayerStatus.isInInteractTrigger = true;
-
+                        
                     skill_Water.WaitPassInput(collider);
                 }
                 else noticeUIControl.NoticeUI_Setting(999);
             }
-            else if(OkaID_Now == 0 || OkaID_Now == 2) noticeUIControl.NoticeUI_Setting(1); //跳出water提示
+            else if (OkaID_Now == 0 || OkaID_Now == 2) noticeUIControl.NoticeUI_Setting(1); //跳出water提示
         }
     }
     void OnTriggerExit2D(Collider2D collider)
     {
+        //---SceneTrigger
+        if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
+        {
+            PlayerStatus.isInInteractTrigger = false;
+        }
         //---水中---
         if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
@@ -358,9 +366,8 @@ public class PlayerControl : MonoBehaviour {
                 Destroy(splash, 1f);
             }
         }
-
         //---滲透&毛細提醒UI---
-        else if (collider.gameObject.layer == LayerMask.NameToLayer("SceneTrigger"))
+        if (collider.gameObject.tag == "WaterPassingTrigger")
         {
             noticeUIControl.NoticeUI_Setting(999);  //關閉提示UI
             PlayerStatus.isInInteractTrigger = false;
@@ -529,6 +536,8 @@ public class PlayerControl : MonoBehaviour {
         else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI(); }
 
         noticeUIControl.NoticeUI_Setting(999);
+
+        PlayerStatus.StatusReset();
     }
 
     public void FallAsleep()

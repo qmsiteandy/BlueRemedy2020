@@ -27,6 +27,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void LevelClear(int level)
+    {
+        LevelData.ClearLevel(level);
+        GoToScene(StartMenuNum);
+    }
+
     public void GoToScene(int sceneNum)
     {
         StartCoroutine(ChangeScene(sceneNum));

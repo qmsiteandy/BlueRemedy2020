@@ -130,6 +130,21 @@ public class PlayerStatus : MonoBehaviour{
         }
     }
 
+    public static void StatusReset()
+    {
+        isLanding = false;
+        isSkilling = false;
+        isSpecialSkilling = false;
+        isChanging = false;
+        isHitRecover = false;
+        isWallSticking = false;
+        isTransingBack = false;
+        isInInteractTrigger = false;
+        isWaterPassing = false;
+        isChangingScene = false;
+        isSleeping = false;
+}
+
 #region inputMode
 
     //OnGUI自動Update，不須放入Update函式
