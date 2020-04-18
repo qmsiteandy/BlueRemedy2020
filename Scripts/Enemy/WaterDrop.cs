@@ -7,6 +7,7 @@ public class WaterDrop : MonoBehaviour {
     GameObject target;
     public GameObject waterdrop;
     public Enemy_Dead enemy_dead;
+    public Enemy_base enemy_base;
 
     public int waterEnergyCharge = 30;
  
@@ -29,6 +30,8 @@ public class WaterDrop : MonoBehaviour {
             target = collision.gameObject;
 
             enemy_dead.NewBaby();
+
+            //enemy_base.NewBaby();
 
             collision.GetComponentInParent<PlayerEnergy>().ModifyWaterEnergy(waterEnergyCharge);
 

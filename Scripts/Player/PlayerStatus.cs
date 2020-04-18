@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStatus : MonoBehaviour{
+public class PlayerStatus : MonoBehaviour {
+
+    public enum Season { none, spring, summer, fall, winter };
+    private static Season inSeason = Season.none;
 
     public static bool canControl = true;
 
@@ -143,9 +146,16 @@ public class PlayerStatus : MonoBehaviour{
         isWaterPassing = false;
         isChangingScene = false;
         isSleeping = false;
-}
+    }
 
-#region inputMode
+    //所處季節
+    static public void set_inSeason(Season season)
+    {
+        if (season != inSeason) inSeason = season;
+    }
+    static public Season get_inSeason() { return (inSeason); }
+
+    #region inputMode
 
     //OnGUI自動Update，不須放入Update函式
     void OnGUI()

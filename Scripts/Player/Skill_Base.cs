@@ -163,6 +163,10 @@ public class Skill_Base : MonoBehaviour
             animator.SetTrigger("change_previous");
         }
     }
+    public void WrongSeasonChange()
+    {
+        animator.SetTrigger("change_fail");
+    }
     //animation變身完成後呼叫PlayerChange.cs變成另一隻
     void TransformAnimFinish()
     {
@@ -173,10 +177,11 @@ public class Skill_Base : MonoBehaviour
     {
         BackIdle();
     }
+
+    #endregion ===============變身相關===============
+
     void SleepAwake()
     {
         playerControl.SleepAwake();
     }
-
-    #endregion ===============變身相關===============
 }

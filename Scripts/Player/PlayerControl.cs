@@ -177,12 +177,6 @@ public class PlayerControl : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
-
-        UI_Flip(); 
-    }
-    void UI_Flip()//避免主角轉身時連UI也轉了，所以要再轉一次
-    {
-        playerChange.WheelUI_Flip();
     }
     #endregion ================↑移動轉身相關↑================
 

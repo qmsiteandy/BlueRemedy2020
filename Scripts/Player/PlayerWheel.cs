@@ -74,9 +74,14 @@ public class PlayerWheel : MonoBehaviour {
                     break;
                 default: break;
             }
-            
+
             /*if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
             else if (!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }*/
+
+            if (wheelShow)
+            {
+                this.transform.localScale = new Vector3((PlayerControl.facingRight ? 1f : -1f), 1f, 1f);
+            }
         }
     }
 

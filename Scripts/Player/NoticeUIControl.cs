@@ -35,13 +35,14 @@ public class NoticeUIControl : MonoBehaviour {
             if (index < noticeUI.Length && isOpen == false)
             {
                 noticeBG_animator.SetTrigger("open");
+                noticeBG_animator.SetBool("isOpen", true);
                 StartCoroutine(OpenMarkDelay(0.2f));
                 isOpen = true;
             }
             //關閉整個noticeUI_folder
             else if (index >= noticeUI.Length && isOpen == true)
             {
-                noticeBG_animator.SetTrigger("close");
+                noticeBG_animator.SetBool("isOpen", false);
                 CloseMark();
                 isOpen = false;
             }

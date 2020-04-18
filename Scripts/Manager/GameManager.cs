@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
 
     private Transform playerTrans;
-    private Transform blackPanel;
+    private CanvasGroup canvasGroup;
+    private Coroutine fade_rouine;
 
     //回到初始頁面
     public int StartMenuNum = 0;
@@ -15,7 +16,9 @@ public class GameManager : MonoBehaviour {
     void Start ()
     {
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
-        blackPanel = transform.Find("Canvas").Find("BlackPanel");
+
+        transform.Find("Canvas").gameObject.SetActive(true);
+        canvasGroup = transform.Find("Canvas").GetComponent<CanvasGroup>();
     }
 
     void Update()
@@ -40,13 +43,13 @@ public class GameManager : MonoBehaviour {
     IEnumerator ChangeScene(int sceneNum)
     {
         PlayerStatus.isChangingScene = true;
-        blackPanel.GetComponent<panel>().FadeIn();
+        BlackFadeInOut(true, 0.7f);
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(sceneNum);
         playerTrans.position = new Vector3(0f, 0f, 0f);
         playerTrans.GetComponent<PlayerEnergy>().ResetEnegy();
-        blackPanel.GetComponent<panel>().FadeOut();
-        yield return new WaitForSeconds(1f);
+        BlackFadeInOut(false, 0.7f);
+        yield return new WaitForSeconds(0.7f);
         PlayerStatus.isChangingScene = false;
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().NewLevelInit();
     }
@@ -54,6 +57,21 @@ public class GameManager : MonoBehaviour {
     public void Dead()
     {
         PlayerStatus.canControl = false;
-        blackPanel.GetComponent<panel>().FadeIn();
+        BlackFadeInOut(true, 0.5f);
     }
+
+    void BlackFadeInOut(bool isFadeIn, float inTime)
+    {
+        if (fade_rouine != null) { StopCoroutine(fade_rouine); fade_rouine = null; }
+
+        fade_rouine = StartCoroutine(BlackFadeIn(isFadeIn, inTime));
+    }
+    IEnumerator BlackFadeIn(bool isFadeIn, float inTime)
+    {
+        float fadeSpeed = 1f / inTime;
+
+        if(isFadeIn) while (canvasGroup.alpha < 1f) { canvasGroup.alpha += fadeSpeed * Time.deltaTime; yield return null; }
+        else while (canvasGroup.alpha > 0f) { canvasGroup.alpha -= fadeSpeed * Time.deltaTime; yield return null; }
+    }
+
 }

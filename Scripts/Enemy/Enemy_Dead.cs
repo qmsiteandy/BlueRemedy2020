@@ -48,7 +48,8 @@ public class Enemy_Dead : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
         isDead = false;
-        enemy_base.BodyColliderOpen();
+        //enemy_base.BodyColliderOpen();
+        //transform.position = enemy_base.centerPos;
         enemy.SetActive(true);
         health = healthMax;
         animator.SetTrigger("Born");

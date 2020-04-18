@@ -72,11 +72,27 @@ public class PlayerChange : MonoBehaviour {
 
             playerWheel.WheelDisappear();            
         }
+
+        //季節錯誤時會換回水
+        if (PlayerStatus.canChange && !transforming)
+        {
+            if (PlayerControl.OkaID_Now == 0 && (PlayerStatus.get_inSeason() == PlayerStatus.Season.summer))
+            {
+                playerControl.noticeUIControl.NoticeUI_Setting(4);
+                WrongSeasonChange(1);
+            }
+            else if (PlayerControl.OkaID_Now == 2 && (PlayerStatus.get_inSeason() == PlayerStatus.Season.winter))
+            {
+                playerControl.noticeUIControl.NoticeUI_Setting(5);
+                WrongSeasonChange(1);
+            }
+        }
     }
 
     void ChangeForm(int new_index)
     {
         transforming = true;
+        PlayerStatus.isChanging = true;
 
         int x = new_index - PlayerControl.OkaID_Now;
         //change next
@@ -84,6 +100,18 @@ public class PlayerChange : MonoBehaviour {
         //change previous
         else if (x == -1 || x == 2) Oka_form[PlayerControl.OkaID_Now].GetComponent<Skill_Base>().ChangeStart(false);
 
+        playerControl.TrnasformReset();
+    }
+
+    //季節錯誤時會換回水
+    void WrongSeasonChange(int newIndex)
+    {
+        transforming = true;
+        PlayerStatus.isChanging = true;
+
+        form_index = 1;
+
+        Oka_form[PlayerControl.OkaID_Now].GetComponent<Skill_Base>().WrongSeasonChange();
         playerControl.TrnasformReset();
     }
 
@@ -99,15 +127,8 @@ public class PlayerChange : MonoBehaviour {
         transforming = false;
         PlayerStatus.isChanging = false;
         PlayerStatus.isInInteractTrigger = false;
-    }
 
-    public void WheelUI_Flip()
-    {
-        //取得目前物件的規格
-        Vector3 theScale = wheelTrans.localScale;
-        //使規格的水平方向相反
-        theScale.x *= -1;
-        //套用翻面後的規格
-        wheelTrans.localScale = theScale;
+        //Update中change fail時有呼叫，變身完後要關閉noticeUI
+        playerControl.noticeUIControl.NoticeUI_Setting(999);
     }
 }

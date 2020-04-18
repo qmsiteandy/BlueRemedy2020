@@ -6,7 +6,7 @@ public class Enemy_Attack : MonoBehaviour
 {
 
     public int attackDamage = 15;
-    public float attackDelay = 1.5f;
+    public float attackDelay = 2f;
     private Enemy_base enemy_base;
     Animator animator;
     //public CameraControl cameraControl;
