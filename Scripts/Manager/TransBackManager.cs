@@ -10,19 +10,15 @@ public class TransBackManager : MonoBehaviour {
 
     private Transform playerTrans;
     //private CameraControl cameraControl;
+    private GameManager gameManager;
 
-    [Header("Dark Panel")]
-    private Image darkBlockPanel;
-    private float fadeSpeed = 0.08f;
+
 
 	void Start ()
     {
-        darkBlockPanel = GameObject.Find("GameManager").transform.GetChild(0).GetChild(0).GetComponent<Image>();
-        darkBlockPanel.gameObject.SetActive(true);
-        darkBlockPanel.color = new Color(0f, 0f, 0f, 0f);
-
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
         //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -43,8 +39,8 @@ public class TransBackManager : MonoBehaviour {
 
     IEnumerator TransBack(Vector3 TransBackPos)
     {
-        
-        while (darkBlockPanel.color.a < 1f) { darkBlockPanel.color += new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
+
+        gameManager.BlackFadeInOut(true, 0.3f);
         PlayerStatus.isTransingBack = true;
 
         //cameraControl.SetCameraPos(RecordPointManager.Get_playerRecordPos());
@@ -53,6 +49,6 @@ public class TransBackManager : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
 
         PlayerStatus.isTransingBack = false;
-        while (darkBlockPanel.color.a > 0f) { darkBlockPanel.color -= new Color(0f, 0f, 0f, fadeSpeed); yield return null; }
+        gameManager.BlackFadeInOut(false, 0.3f);
     }
 }

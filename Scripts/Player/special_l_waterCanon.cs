@@ -7,6 +7,7 @@ public class special_l_waterCanon : MonoBehaviour {
     public int damageAmount = 1;
     private Collider2D attackTrigger;
     private ContactFilter2D enemyFilter;
+    protected ContactFilter2D canAtkObjFilter;
     private float canonAngle = 0f;
 
     // Use this for initialization
@@ -15,22 +16,34 @@ public class special_l_waterCanon : MonoBehaviour {
         attackTrigger = this.GetComponent<Collider2D>();
 
         enemyFilter.SetLayerMask(LayerMask.GetMask("Enemy"));
+        canAtkObjFilter.SetLayerMask(LayerMask.GetMask("CanAtkObj"));
     }
 
     void Damage()
     {
         Collider2D[] enemyColList = new Collider2D[5];
-        int enemyNum = attackTrigger.OverlapCollider(enemyFilter, enemyColList);
+        int enemyCount = attackTrigger.OverlapCollider(enemyFilter, enemyColList);
 
-        if (enemyNum > 0)
+        if (enemyCount > 0)
         {
-            for (int i = 0; i < enemyNum; i++)
+            for (int i = 0; i < enemyCount; i++)
             {
                 if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
-                enemy_Base.TakeDamage(damageAmount);
-                enemy_Base.KnockBack(new Vector2(Mathf.Cos(canonAngle), Mathf.Sin(canonAngle)), 150f);
+                enemy_Base.TakeDamage(1);
+                enemy_Base.KnockBack(PlayerControl.facingRight ? Vector3.right : Vector3.left, 100f);
+            }
+        }
+
+        Collider2D[] atkObjColList = new Collider2D[5];
+        int ObjCount = attackTrigger.OverlapCollider(canAtkObjFilter, atkObjColList);
+
+        if (ObjCount > 0)
+        {
+            for (int i = 0; i < ObjCount; i++)
+            {
+                atkObjColList[i].GetComponent<CanAtkObj>().TakeDamage(1);
             }
         }
     }

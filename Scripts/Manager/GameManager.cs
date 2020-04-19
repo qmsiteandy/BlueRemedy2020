@@ -18,7 +18,10 @@ public class GameManager : MonoBehaviour {
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
 
         transform.Find("Canvas").gameObject.SetActive(true);
+        transform.Find("Vignette").gameObject.SetActive(true);
+
         canvasGroup = transform.Find("Canvas").GetComponent<CanvasGroup>();
+        canvasGroup.alpha = 0f;
     }
 
     void Update()
@@ -60,7 +63,7 @@ public class GameManager : MonoBehaviour {
         BlackFadeInOut(true, 0.5f);
     }
 
-    void BlackFadeInOut(bool isFadeIn, float inTime)
+    public void BlackFadeInOut(bool isFadeIn, float inTime)
     {
         if (fade_rouine != null) { StopCoroutine(fade_rouine); fade_rouine = null; }
 

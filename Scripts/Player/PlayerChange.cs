@@ -126,7 +126,6 @@ public class PlayerChange : MonoBehaviour {
 
         transforming = false;
         PlayerStatus.isChanging = false;
-        PlayerStatus.isInInteractTrigger = false;
 
         //Update中change fail時有呼叫，變身完後要關閉noticeUI
         playerControl.noticeUIControl.NoticeUI_Setting(999);
