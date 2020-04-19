@@ -13,12 +13,6 @@ public class TeachingUI_Control : MonoBehaviour {
     private float alpha;
     private bool isFadingUp = false;
 
-    [Header("按鍵UI切換")]  //keyboard按鍵和joystick按鍵
-    public bool hasButtonUI = false;
-    public GameObject keyboardButtonGroup;
-    public GameObject joystickButtonGroup;
-    private bool isKeyboardInput = true;
-
     // Use this for initialization
     void Start ()
     {
@@ -26,8 +20,6 @@ public class TeachingUI_Control : MonoBehaviour {
 
         canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = alpha;
-
-        if (hasButtonUI) SetButtonUIState(isKeyboardInput);
     }
 
     // Update is called once per frame
@@ -45,12 +37,6 @@ public class TeachingUI_Control : MonoBehaviour {
         }
 
         canvasGroup.alpha = alpha;
-
-        if (hasButtonUI)
-        {
-            if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
-            else if(!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
-        } 
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -67,11 +53,5 @@ public class TeachingUI_Control : MonoBehaviour {
         {
             isFadingUp = false;
         }
-    }
-
-    void SetButtonUIState(bool isKeyboardInput)
-    {
-        if (isKeyboardInput) { keyboardButtonGroup.SetActive(true); joystickButtonGroup.SetActive(false); }
-        else { keyboardButtonGroup.SetActive(false); joystickButtonGroup.SetActive(true); }
     }
 }

@@ -37,13 +37,13 @@ public class PlayerChange : MonoBehaviour {
         //if (PlayerStatus.isKeyboardInput()) getKey_Change = Input.GetButton("Change");
         //else getKey_Change = Input.GetAxis("XBOX_Change") > 0f;
 
-        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0f) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
+        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonDown("Change") : Input.GetButtonDown("XBOX_Change")) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
         {
             form_index = PlayerControl.OkaID_Now;
             PlayerStatus.isChanging = true;
             playerWheel.WheelShow();
         }
-        else if ((PlayerStatus.Get_isKeyboard() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0f) && !transforming && playerWheel.Get_wheelShow())
+        else if ((PlayerStatus.Get_isKeyboard() ? Input.GetButton("Change") : Input.GetButton("XBOX_Change")) && !transforming && playerWheel.Get_wheelShow())
         {
             //選擇"冰"
             if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetAxis("XBOX_Horizontal") < -0.7f)
@@ -64,7 +64,7 @@ public class PlayerChange : MonoBehaviour {
                 playerWheel.WheelIndexSelect(2);
             }
         }
-        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") == 0f) && playerWheel.Get_wheelShow())
+        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetButtonUp("XBOX_Change")) && playerWheel.Get_wheelShow())
         {
 
             if (form_index != PlayerControl.OkaID_Now) ChangeForm(form_index);

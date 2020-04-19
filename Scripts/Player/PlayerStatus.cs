@@ -16,7 +16,6 @@ public class PlayerStatus : MonoBehaviour {
     public static bool isChanging = false;
     public static bool isHitRecover = false;
     public static bool isWallSticking = false;
-    public static bool isTransingBack = false;
     public static bool isInInteractTrigger = false;
     public static bool isWaterPassing = false;
     public static bool isChangingScene = false;
@@ -94,14 +93,6 @@ public class PlayerStatus : MonoBehaviour {
                 canSkill = false;
                 canChange = false;
             }
-            if (isTransingBack)
-            {
-                canMove = canJump = false;
-                canFlip = false;
-                canSkill = false;
-                canChange = false;
-                canBeHurt = false;
-            }
             if (isInInteractTrigger)
             {
                 canJump = false;
@@ -141,7 +132,6 @@ public class PlayerStatus : MonoBehaviour {
         isChanging = false;
         isHitRecover = false;
         isWallSticking = false;
-        isTransingBack = false;
         isInInteractTrigger = false;
         isWaterPassing = false;
         isChangingScene = false;
