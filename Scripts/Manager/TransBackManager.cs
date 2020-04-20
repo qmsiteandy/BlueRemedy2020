@@ -29,14 +29,18 @@ public class TransBackManager : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             timer += Time.deltaTime;
-            if (timer >= stayingTime) TransBack();
+            if (timer >= stayingTime)
+            {
+                TransBack();
+                timer = 0f;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            timer += Time.deltaTime;
+            timer = 0f;
         }
     }
 

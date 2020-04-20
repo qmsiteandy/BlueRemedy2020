@@ -214,7 +214,7 @@ public class Skill_Ice : Skill_Base {
         int iceMaxCount = (int)Mathf.Floor(xMaxDistance / xdistanceBetwee);
         int count = 0;
 
-        float iceScale = 0.6f;
+        float iceScale = 0.4f;
         float iceScaleIncrease = 0.1f;
 
         float maxSlopeRatio = 0.75f; //允許斜坡角度

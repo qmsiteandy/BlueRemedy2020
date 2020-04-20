@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelData{
 
 	private static int PlayerInWhichLevel;
-    private static int LevelRecord = -1;
+    private static int LevelRecord = 5;
 
     public static void set_PlayerInWhichLevel(int level) { PlayerInWhichLevel = level; }
     public static void ClearLevel(int level) { if (level > LevelRecord) LevelRecord = level; }

@@ -21,7 +21,7 @@ public class ButtomUIManager : MonoBehaviour {
 
     void Update ()
     {
-        if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
+        if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; this.SetButtonUIState(isKeyboardInput); }
         else if (!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
     }
 

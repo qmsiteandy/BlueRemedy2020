@@ -55,13 +55,14 @@ GameObject:
   m_Component:
   - component: {fileID: 4109425363135980}
   - component: {fileID: 114571079820336572}
+  - component: {fileID: 114494558563544840}
   m_Layer: 0
   m_Name: CM vcam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4109425363135980
 Transform:
   m_ObjectHideFlags: 1
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1602306196283168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: -0.93, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4237162757451498}
@@ -95,8 +96,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139820985840792}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 71.8, y: 12.8, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -32.589508, y: -5.566205, z: 0.04375}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4109425363135980}
@@ -128,13 +129,27 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 12.361015, y: -2.1907196}
-      - {x: 12.30854, y: 4.190362}
-      - {x: -14.920124, y: 4.287257}
+      - {x: 12.399834, y: 9.479129}
+      - {x: -14.828838, y: 9.302468}
       - {x: -14.766399, y: -2.2655506}
       - {x: -9.139595, y: -2.4779472}
       - {x: -6.915291, y: -8.240922}
       - {x: 5.9847717, y: -8.055122}
       - {x: 7.836876, y: -2.1063547}
+--- !u!114 &114494558563544840
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1602306196283168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 1
 --- !u!114 &114558160312850246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -194,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_FollowOffset: {x: -1.0099945, y: 0, z: -10}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1

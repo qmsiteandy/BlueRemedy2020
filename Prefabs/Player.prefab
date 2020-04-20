@@ -303,7 +303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1279462365597620
 GameObject:
   m_ObjectHideFlags: 1
@@ -349,13 +349,14 @@ GameObject:
   - component: {fileID: 212794919419270022}
   - component: {fileID: 95882756266829956}
   - component: {fileID: 114059520270967674}
+  - component: {fileID: 331279707637273954}
   m_Layer: 0
   m_Name: Oka_ice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1307993183873182
 GameObject:
   m_ObjectHideFlags: 1
@@ -1084,7 +1085,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 154.47, y: 5.28, z: 0}
+  m_LocalPosition: {x: 238.7, y: 9.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4686785024120380}
@@ -7467,7 +7468,7 @@ SpriteRenderer:
   m_SortingLayerID: 1193475029
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: af5646688da7690488c0be9c8c36c224, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fc48104138d10d442979cd7135678697, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7651,7 +7652,7 @@ SpriteRenderer:
   m_SortingLayerID: 1193475029
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 73e8fe259be6f0a44a12edb222f5754d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c7383d7ebaa3e484f901dceb6e9cee74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -7743,12 +7744,12 @@ SpriteRenderer:
   m_SortingLayerID: 1193475029
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300012, guid: 9d0d7b68bf226b64fba8c5638a6e63c7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 38e2f38f82e27f3409e18026a29ccfad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.15, y: 1.13}
+  m_Size: {x: 7.2, y: 5.3999996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -8502,6 +8503,51 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
+--- !u!331 &331279707637273954
+SpriteMask:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1307374830444632}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10758, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
 --- !u!331 &331337278052891870
 SpriteMask:
   m_ObjectHideFlags: 1
