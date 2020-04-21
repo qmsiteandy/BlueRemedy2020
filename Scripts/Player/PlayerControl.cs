@@ -198,7 +198,7 @@ public class PlayerControl : MonoBehaviour {
         if (!PlayerStatus.canJump) return;
 
         //平台上往下跳
-        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") > 0.5f) && !jumping)
+        if (onPlatform && (Input.GetAxis("Vertical") < 0f || Input.GetAxis("XBOX_Vertical") < -0.5f) && !jumping)
         {
             StartCoroutine(JumpDownFromPlat());
 

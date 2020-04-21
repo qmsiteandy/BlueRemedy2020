@@ -18,7 +18,6 @@ public class PlayerStatus : MonoBehaviour {
     public static bool isWallSticking = false;
     public static bool isInInteractTrigger = false;
     public static bool isWaterPassing = false;
-    public static bool isChangingScene = false;
     public static bool isSleeping = false;
 
     //===CanDoWhat===
@@ -105,14 +104,6 @@ public class PlayerStatus : MonoBehaviour {
                 canChange = false;
                 canBeHurt = false;
             }
-            if (isChangingScene)
-            {
-                canMove = canJump = false;
-                canFlip = false;
-                canSkill = false;
-                canChange = false;
-                canBeHurt = false;
-            }
             if (isSleeping)
             {
                 canMove = canJump = false;
@@ -134,7 +125,6 @@ public class PlayerStatus : MonoBehaviour {
         isWallSticking = false;
         isInInteractTrigger = false;
         isWaterPassing = false;
-        isChangingScene = false;
         isSleeping = false;
     }
 

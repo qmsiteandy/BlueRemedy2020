@@ -26,7 +26,7 @@ public class attack_s_icepike : MonoBehaviour {
         {
             for (int i = 0; i < enemyCount; i++)
             {
-                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
+                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) continue;
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);
@@ -41,7 +41,8 @@ public class attack_s_icepike : MonoBehaviour {
         {
             for (int i = 0; i < ObjCount; i++)
             {
-                atkObjColList[i].GetComponent<CanAtkObj>().TakeDamage(1);
+                CanAtkObj canAtkObj = atkObjColList[i].GetComponent<CanAtkObj>();
+                if (canAtkObj != null) canAtkObj.TakeDamage(1);
             }
         }
     }

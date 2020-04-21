@@ -240,7 +240,7 @@ public class Skill_Water : Skill_Base
 
             if (Mathf.Abs(xInput) >= 0.1f || Mathf.Abs(yInput) >= 0.1f)
             {
-                canonDirectionAngle = Mathf.Atan2(-yInput, xInput);
+                canonDirectionAngle = Mathf.Atan2(yInput, xInput);
                 canonDirectionAngle = canonDirectionAngle / Mathf.PI * 180f;
             }
         }

@@ -26,7 +26,7 @@ public class attack_l_tsunami : MonoBehaviour {
         {
             for (int i = 0; i < enemyNum; i++)
             {
-                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
+                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) continue;
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);

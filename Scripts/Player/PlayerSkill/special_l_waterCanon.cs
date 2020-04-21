@@ -28,7 +28,7 @@ public class special_l_waterCanon : MonoBehaviour {
         {
             for (int i = 0; i < enemyCount; i++)
             {
-                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) break;
+                if (enemyColList[i].GetComponent<Enemy_Dead>().isDead == true) continue;
 
                 Enemy_base enemy_Base = enemyColList[i].GetComponent<Enemy_base>();
                 enemy_Base.TakeDamage(1);

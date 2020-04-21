@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour {
     private CanvasGroup canvasGroup;
     private Coroutine fade_rouine;
 
-    //回到初始頁面
-    public int StartMenuNum = 0;
+    private bool isESC = false;
 
     // Use this for initialization
     void Start ()
@@ -26,35 +25,47 @@ public class GameManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("ESC"))
         {
-            //Debug.Log("esc");
-            GoToScene(StartMenuNum);
+            if(SceneManager.GetActiveScene().buildIndex > 0)
+            {
+                isESC = !isESC;
+                SetEscMenu(isESC);
+            }
         }
     }
 
     public void LevelClear(int level)
     {
         LevelData.ClearLevel(level);
-        GoToScene(StartMenuNum);
+        GoToScene("Level_Room");
     }
 
+    public void GoToScene(string sceneName)
+    {
+        StartCoroutine(ChangeScene(sceneName, 9999));
+    }
     public void GoToScene(int sceneNum)
     {
-        StartCoroutine(ChangeScene(sceneNum));
+        StartCoroutine(ChangeScene(" ", sceneNum));
     }
-    IEnumerator ChangeScene(int sceneNum)
+    IEnumerator ChangeScene(string sceneName, int sceneNum)
     {
-        PlayerStatus.isChangingScene = true;
+        PlayerStatus.canControl = false;
         BlackFadeInOut(true, 0.7f);
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene(sceneNum);
+
+        playerTrans.GetComponent<PlayerChange>().ForceChangeForm(1);
+
+        if (sceneNum != 9999) SceneManager.LoadScene(sceneNum);
+        else SceneManager.LoadScene(sceneName);
+
         playerTrans.position = new Vector3(0f, 0f, 0f);
         playerTrans.GetComponent<PlayerEnergy>().ResetEnegy();
         BlackFadeInOut(false, 0.7f);
         yield return new WaitForSeconds(0.7f);
-        PlayerStatus.isChangingScene = false;
-        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerControl>().NewLevelInit();
+        PlayerStatus.canControl = true;
+        playerTrans.GetComponent<PlayerControl>().NewLevelInit();
     }
 
     public void Dead()
@@ -77,4 +88,11 @@ public class GameManager : MonoBehaviour {
         else while (canvasGroup.alpha > 0f) { canvasGroup.alpha -= fadeSpeed * Time.deltaTime; yield return null; }
     }
 
+    public void SetEscMenu(bool isEscOpen)
+    {
+        Time.timeScale = isEscOpen ? 0f : 1f;
+        PlayerStatus.canControl = !isEscOpen;
+
+        transform.Find("ESC_Canvas").gameObject.SetActive(isEscOpen);
+    }
 }

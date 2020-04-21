@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelDoor : MonoBehaviour {
 
     [Header("門功能")]
-    public int toLevel;
+    public string toSceneName;
     public Sprite doorClose;
     public Sprite doorOpen;
     private float enterInputTime = 0f;
@@ -36,7 +37,7 @@ public class LevelDoor : MonoBehaviour {
     void Awake ()
     {
         //---門的樣式
-        if (toLevel <= LevelData.get_LevelRecord() + 1)
+        if (SceneManager.GetSceneByName("toSceneName").buildIndex <= LevelData.get_LevelRecord() + 1)
         {
             this.transform.Find("door_IMG").GetComponent<SpriteRenderer>().sprite = doorOpen;
             thisDoorOpen = true;
@@ -146,6 +147,6 @@ public class LevelDoor : MonoBehaviour {
     public void ChangeScene()
     {
         isChange = true;
-        GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene(toLevel);
+        GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene(toSceneName);
     }
 }

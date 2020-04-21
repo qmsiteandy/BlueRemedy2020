@@ -22,6 +22,7 @@ public class UI_Manager : MonoBehaviour {
     private Transform dirtyUI;
     private int dirtyMax;
     private Image dirtyFillImg;
+    private Text dirtyText;
 
     [Header("繁盛UI")]
     public float showoffTime = 6f;
@@ -63,9 +64,11 @@ public class UI_Manager : MonoBehaviour {
 
             Transform dirtyFill = dirtyUI.Find("mask").GetChild(0);
             
-
             dirtyFillImg = dirtyFill.GetComponent<Image>();
             dirtyFillImg.color = new Color(1f, 1f, 1f, 0f);
+
+            dirtyText = dirtyUI.Find("text").GetComponent<Text>();
+            dirtyText.text = 0 + "%";
         }
 
         //---繁盛---
@@ -135,6 +138,8 @@ public class UI_Manager : MonoBehaviour {
         dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
         if(dirtyDegree>0.6f) dirtyFillImg.color = new Color(1f, 0f, 0f, dirtyDegree);
         else dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
+
+        dirtyText.text = (int)(dirtyDegree * 100f) + "%";
     }
 
     //---繁盛---

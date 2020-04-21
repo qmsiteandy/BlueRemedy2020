@@ -16,7 +16,6 @@ public class PlayerChange : MonoBehaviour {
 
     private bool isChangeAxisDown = false;
 
-
     // Use this for initialization
     void Start () {
         Oka_form[0] = this.transform.GetChild(0).gameObject;
@@ -37,13 +36,13 @@ public class PlayerChange : MonoBehaviour {
         //if (PlayerStatus.isKeyboardInput()) getKey_Change = Input.GetButton("Change");
         //else getKey_Change = Input.GetAxis("XBOX_Change") > 0f;
 
-        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonDown("Change") : Input.GetButtonDown("XBOX_Change")) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
+        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonDown("Change") : Input.GetAxis("XBOX_Change") > 0.5f) && !playerWheel.Get_wheelShow() && PlayerStatus.canChange)
         {
             form_index = PlayerControl.OkaID_Now;
             PlayerStatus.isChanging = true;
             playerWheel.WheelShow();
         }
-        else if ((PlayerStatus.Get_isKeyboard() ? Input.GetButton("Change") : Input.GetButton("XBOX_Change")) && !transforming && playerWheel.Get_wheelShow())
+        else if ((PlayerStatus.Get_isKeyboard() ? Input.GetButton("Change") : Input.GetAxis("XBOX_Change") > 0.5f) && !transforming && playerWheel.Get_wheelShow())
         {
             //選擇"冰"
             if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.LeftArrow) : Input.GetAxis("XBOX_Horizontal") < -0.7f)
@@ -52,7 +51,7 @@ public class PlayerChange : MonoBehaviour {
                 playerWheel.WheelIndexSelect(0);
             }
             //選擇"水"
-            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetAxis("XBOX_Vertical") < -0.7f)
+            else if (PlayerStatus.Get_isKeyboard() ? Input.GetKeyDown(KeyCode.UpArrow) : Input.GetAxis("XBOX_Vertical") > 0.7f)
             {
                 form_index = 1;
                 playerWheel.WheelIndexSelect(1);
@@ -64,7 +63,7 @@ public class PlayerChange : MonoBehaviour {
                 playerWheel.WheelIndexSelect(2);
             }
         }
-        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetButtonUp("XBOX_Change")) && playerWheel.Get_wheelShow())
+        if ((PlayerStatus.Get_isKeyboard() ? Input.GetButtonUp("Change") : Input.GetAxis("XBOX_Change") < 0.5f) && playerWheel.Get_wheelShow())
         {
 
             if (form_index != PlayerControl.OkaID_Now) ChangeForm(form_index);
@@ -129,5 +128,14 @@ public class PlayerChange : MonoBehaviour {
 
         //Update中change fail時有呼叫，變身完後要關閉noticeUI
         playerControl.noticeUIControl.NoticeUI_Setting(999);
+    }
+
+    //強制轉換，忽略中間動畫
+    public void ForceChangeForm(int new_index)
+    {
+        Oka_form[PlayerControl.OkaID_Now].SetActive(false);
+        Oka_form[new_index].SetActive(true);
+        Oka_form[form_index].GetComponent<Skill_Base>().TransformReset();
+        PlayerControl.OkaID_Now = new_index;
     }
 }

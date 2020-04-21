@@ -145,7 +145,7 @@ public class Skill_Ice : Skill_Base {
 
             if (Mathf.Abs(xInput) >= 0.1f || Mathf.Abs(yInput) >= 0.1f)
             {
-                iceThrowAngle = Mathf.Atan2(-yInput, xInput);
+                iceThrowAngle = Mathf.Atan2(yInput, xInput);
                 iceThrowAngle = iceThrowAngle / Mathf.PI * 180f;
             }
         }
