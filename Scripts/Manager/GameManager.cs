@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
         BlackFadeInOut(true, 0.7f);
         yield return new WaitForSeconds(1f);
 
-        playerTrans.GetComponent<PlayerChange>().ForceChangeForm(1);
+        //playerTrans.GetComponent<PlayerChange>().ForceChangeForm(1);
 
         if (sceneNum != 9999) SceneManager.LoadScene(sceneNum);
         else SceneManager.LoadScene(sceneName);
