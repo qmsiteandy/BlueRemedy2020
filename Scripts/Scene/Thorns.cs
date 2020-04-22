@@ -9,15 +9,6 @@ public class Thorns : MonoBehaviour {
     private int thronAttack = 2;
     private PlayerControl playerControl;
 
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.gameObject.tag == "Player")
-        {
-            playerControl = collider.GetComponent<PlayerControl>();
-
-            Attack();
-        }
-    }
     void OnTriggerStay2D(Collider2D collider)
     {
         if (collider.gameObject.tag == "Player")
@@ -25,18 +16,19 @@ public class Thorns : MonoBehaviour {
             timer -= Time.deltaTime;
             if (timer < 0f)
             {
-                Attack();
-
+                Attack(collider.gameObject);
                 timer = thronAttackDelay;
             }
         }
     }
 
-    void Attack()
+    void Attack(GameObject Oka)
     {
+        playerControl = Oka.GetComponent<PlayerControl>();
         playerControl.TakeDamage(thronAttack);
 
-        if (PlayerControl.facingRight) { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.velocity = new Vector2(-10f, 10f); }
-        else { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.velocity = new Vector2(10f, 10f); }
+        if (PlayerControl.facingRight) { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(-150f, 200f)); }
+        else { playerControl.rb2d.velocity = Vector3.zero; playerControl.rb2d.AddForce(new Vector2(150f, 200f)); }
     }
+
 }

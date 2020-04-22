@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2496,7 +2496,7 @@ Prefab:
     - target: {fileID: 114781409557485582, guid: 10f97a066041e6a40afddb4bdfca7174,
         type: 2}
       propertyPath: toSceneName
-      value: Level_2
+      value: Level_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}

@@ -7,7 +7,7 @@ public class Enemy_Attack : MonoBehaviour
 
     public int attackDamage = 15;
     public float attackDelay = 2f;
-    private Enemy_base enemy_base;
+    protected Enemy_base enemy_base;
     Animator animator;
     //public CameraControl cameraControl;
 
@@ -16,23 +16,16 @@ public class Enemy_Attack : MonoBehaviour
     public GameObject attackTarget = null;
     public bool Attack_Wait = false;
 
-    private Cinemachine.CinemachineImpulseSource MyInpulse;
 
     // Use this for initialization
-    void Awake()
+    public void Awake()
     {
         animator = transform.GetComponentInParent<Animator>();
-    }
-    void Start()
-    {
         enemy_base = transform.GetComponentInParent<Enemy_base>();
-        //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
-
-        MyInpulse = GetComponent<Cinemachine.CinemachineImpulseSource>();
     }
 
     // Update is called once per frame
-    void Update()
+     public void Update()
     {
 
         if (elapsed < attackDelay && !canAttack)
@@ -55,7 +48,7 @@ public class Enemy_Attack : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    protected void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
@@ -63,7 +56,7 @@ public class Enemy_Attack : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    protected void OnTriggerExit2D(Collider2D other)
     {
         
         if (other.tag == "Player")
@@ -82,16 +75,13 @@ public class Enemy_Attack : MonoBehaviour
         }
     }
 
-    public void Damage()
+    public virtual void Damage()
     {
-        //cameraControl.Shake(0.3f, 0.1f, 0.05f);
-        MyInpulse.GenerateImpulse();
 
         if (attackTarget != null)
         {
             attackTarget.GetComponent<PlayerControl>().TakeDamage(attackDamage);
         }
-
         
     }
 

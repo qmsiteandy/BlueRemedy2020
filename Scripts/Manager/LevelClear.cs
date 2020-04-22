@@ -1,22 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement;
-
+using UnityEngine.SceneManagement;
 
 public class LevelClear : MonoBehaviour {
 
-    void OnTriggerEnter2D(Collider2D other)
+    private bool isChange = false;
+
+    // Use this for initialization
+    void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Clear();
+            if(isChange == false)
+            {
+                ChangeScene();
+            }
         }
     }
 
-    void Clear()
+    public void ChangeScene()
     {
-        int thisLevelIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        GameObject.Find("GameManager").GetComponent<GameManager>().LevelClear(thisLevelIndex);
+        isChange = true;
+        GameObject.Find("GameManager").GetComponent<GameManager>().LevelClear(SceneManager.GetActiveScene().buildIndex);
+
     }
 }

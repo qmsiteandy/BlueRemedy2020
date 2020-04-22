@@ -4,23 +4,21 @@ using UnityEngine;
 
 public class Enemy_Dead : MonoBehaviour {
 
-    Animator animator;
+    protected Animator animator;
     public GameObject waterdrop;
-    GameObject enemy;
+    protected GameObject enemy;
     public bool isDead;
-    private Enemy_base enemy_base;
 
     [Header("Awake Settings")]
-    private float bornTime = 8f;
+    protected float bornTime = 8f;
 
     [Header("Health Settings")]
     public int health;
     public int healthMax = 10;
 
     // Use this for initialization
-    void Start () {
+    protected void Awake() {
         enemy = transform.GetChild(0).gameObject;
-        enemy_base = transform.GetComponent<Enemy_base>();
         animator = GetComponent<Animator>();
         health = healthMax;
     }
@@ -30,7 +28,7 @@ public class Enemy_Dead : MonoBehaviour {
 
     }
 
-    public void Dead()
+    public virtual void Dead()
     {
         GameObject water = Instantiate(waterdrop, enemy.transform.position, Quaternion.identity);
         water.GetComponent<WaterDrop>().enemy_dead = this;
@@ -44,14 +42,12 @@ public class Enemy_Dead : MonoBehaviour {
         StartCoroutine(RebornAfterTime(bornTime));
     }
 
-    IEnumerator RebornAfterTime(float time)
-    {
+    public virtual IEnumerator RebornAfterTime(float time) {
         yield return new WaitForSeconds(time);
         isDead = false;
-        //enemy_base.BodyColliderOpen();
-        //transform.position = enemy_base.centerPos;
         enemy.SetActive(true);
         health = healthMax;
         animator.SetTrigger("Born");
     }
+
 }

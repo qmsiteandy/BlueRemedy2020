@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 61322940999471682}
   - component: {fileID: 95541650714272208}
   - component: {fileID: 114392979746056458}
+  - component: {fileID: 114724766970611866}
   m_Layer: 0
   m_Name: wint_g_2
   m_TagString: Untagged
@@ -97,6 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52dc87d30a2187f4d81269e315f7af64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114724766970611866
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1823732448979216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ff4d836864549419c0b2408fcf1646, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212820841106814936
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -112,7 +124,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 25798b7b20de6584583516b60c6daba3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

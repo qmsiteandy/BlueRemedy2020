@@ -13,10 +13,8 @@ public class Enemy_base : MonoBehaviour {
     protected Rigidbody2D rb2d;
     protected Enemy_Dead enemy_dead;
     protected Enemy_Attack enemy_attack;
-    public CameraControl cameraControl;
 
     public bool isAttacking;
-    public bool isInjury;
     public bool isFreeze = false;
 
     //Start & Upda
@@ -29,8 +27,6 @@ public class Enemy_base : MonoBehaviour {
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-
-        cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
     }
 
 

@@ -8,6 +8,7 @@ public class Brunch_InWater : MonoBehaviour {
     private int WaterLayerID = 14;
     private Rigidbody2D rb2d;
     public float FloatForce = 30f;
+    public bool InWater = false;
 
     // Use this for initialization
     void Start () {
@@ -29,6 +30,16 @@ public class Brunch_InWater : MonoBehaviour {
             
             if (water_area.waveCrest - transform.position.y > 0.4f * GetComponent<BoxCollider2D>().size.y) rb2d.AddForce(Vector2.up * FloatForce);
             else if (water_area.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * FloatForce * (water_area.waveCrest - transform.position.y / 1f));
+            InWater = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == WaterLayerID)
+        {
+            InWater = false;
+            rb2d.constraints = RigidbodyConstraints2D.None;
         }
     }
 
@@ -36,8 +47,12 @@ public class Brunch_InWater : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-            rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
-            //rbFreezeAll(0.2f);
+            if(InWater == true)
+            {
+                rb2d.constraints = RigidbodyConstraints2D.FreezeAll;
+                //rbFreezeAll(0.2f);
+            }
+            
         }
     }
 
@@ -45,11 +60,15 @@ public class Brunch_InWater : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-            if (collision.transform.position.y - transform.position.y > 0)
+            if(InWater == true)
             {
-                rb2d.AddForce(Vector2.up * 40f);
+                rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                if (collision.transform.position.y - transform.position.y > 0)
+                {
+                    rb2d.AddForce(Vector2.up * 40f);
+                }
             }
+            
         }
     }
 
@@ -57,7 +76,11 @@ public class Brunch_InWater : MonoBehaviour {
     {
         if(collision.gameObject.tag == "Player")
         {
-            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            if(InWater == true)
+            {
+                rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+            }
+            
         }
     }
 

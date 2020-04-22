@@ -21,11 +21,14 @@ public class Water_Area : MonoBehaviour {
     public bool isDirtyWater = false;
     public int addDirtAmount = 5;
     public float damageCycle = 2f;   //持續在水中，弄髒的週期
+    private float damageTimer = 0f;
     private bool isPlayerInWater = false;
     private PlayerControl playerControl;
-    private Coroutine routineWaterDamage;
 
     //public WaterLine waterLine;
+
+    public bool InWater = false;
+
 
     void Start()
     {
@@ -45,11 +48,22 @@ public class Water_Area : MonoBehaviour {
         if (isPlayerInWater && isDirtyWater)
         {
             if (PlayerControl.OkaID_Now == 0) return;
+
+            if (damageTimer >= damageCycle)
+            {
+                playerControl.TakeDamage(0, addDirtAmount);
+                damageTimer = 0f;
+            }
+            else
+            {
+                damageTimer += Time.deltaTime;
+            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider)
     {
+        InWater = true;
         if (collider.gameObject.tag == "Player")
         {
             //跳入水面製造波浪
@@ -65,17 +79,18 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = true;
 
-            //髒水傷害主角
-            if (isDirtyWater)
+            if (PlayerControl.OkaID_Now == 0 || !isDirtyWater) return;
+            else
             {
-                if (routineWaterDamage != null) { StopCoroutine(routineWaterDamage); routineWaterDamage = null; }
-                routineWaterDamage = StartCoroutine(DamageRoutine(addDirtAmount, damageCycle));
+                playerControl.TakeDamage(0, addDirtAmount);
+                damageTimer = 0f;
             }
         }
     }
 
     void OnTriggerStay2D(Collider2D collider)
     {
+        InWater = true;
         if (collider.gameObject.tag == "Player")
         {
             playerControl.InWater();
@@ -84,6 +99,7 @@ public class Water_Area : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D collider)
     {
+        InWater = false;
         if (collider.gameObject.tag == "Player")
         {
             //跳出水面製造波浪
@@ -99,8 +115,7 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = false;
             playerControl = null;
-
-            if (routineWaterDamage != null) { StopCoroutine(routineWaterDamage); routineWaterDamage = null; }
+            damageTimer = 0f;
         }
     }
 
@@ -127,22 +142,5 @@ public class Water_Area : MonoBehaviour {
             }
             yield return 0;
         }
-    }
-
-    IEnumerator DamageRoutine(int amount, float delay)
-    {
-        float timer = 0f;
-
-        while(true)
-        {
-            timer -= Time.deltaTime;
-
-            if ( timer <=0f && isPlayerInWater != null)
-            {
-                playerControl.TakeDamage(0, amount);
-                timer = delay; 
-            }
-            yield return null;
-        } 
     }
 }

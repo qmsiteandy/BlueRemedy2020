@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4030452619630080}
   - component: {fileID: 58419372816595726}
-  - component: {fileID: 114606980858866196}
+  - component: {fileID: 114722309024685224}
   - component: {fileID: 114855324874922058}
   m_Layer: 0
   m_Name: Enemy_attack
@@ -38,8 +38,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4771505284921774}
   - component: {fileID: 95790697140456912}
-  - component: {fileID: 114058321751965526}
-  - component: {fileID: 114455764160644844}
+  - component: {fileID: 114066314037158050}
+  - component: {fileID: 114399404832364526}
   - component: {fileID: 50302812734230084}
   - component: {fileID: 58385236974729634}
   m_Layer: 10
@@ -60,6 +60,21 @@ GameObject:
   - component: {fileID: 212646421460461414}
   m_Layer: 0
   m_Name: Enemy_0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1986494352329862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4620110095386604}
+  m_Layer: 10
+  m_Name: dropInitPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,6 +106,19 @@ Transform:
   m_Father: {fileID: 4771505284921774}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4620110095386604
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1986494352329862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4771505284921774}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4771505284921774
 Transform:
   m_ObjectHideFlags: 1
@@ -98,11 +126,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1609214305337840}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 115.1, y: 10.9, z: 0}
+  m_LocalPosition: {x: 6.3, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4214793786739832}
   - {fileID: 4030452619630080}
+  - {fileID: 4620110095386604}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -174,7 +203,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114058321751965526
+--- !u!114 &114066314037158050
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,12 +211,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1609214305337840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf414a9bb9d9c04429be5ccfc9c29462, type: 3}
+  m_Script: {fileID: 11500000, guid: 4eacba7022458144ea8450bdcbe95cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraControl: {fileID: 0}
   isAttacking: 0
-  isInjury: 0
   isFreeze: 0
   centerPos: {x: 0, y: 0}
   moveRange: 4
@@ -196,9 +223,10 @@ MonoBehaviour:
   BodyColliderOffset: {x: 0, y: 0}
   FollowRadius: 4.5
   isTracking: 0
-  mudSplashFX: {fileID: 0}
+  mudSplashFX: {fileID: 1551946751906462, guid: 83cf7151616e8ba45a64bee67b1096a1,
+    type: 2}
   enemyColRadius: 0
---- !u!114 &114455764160644844
+--- !u!114 &114399404832364526
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,14 +234,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1609214305337840}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149c27c5d05c30543b48ce6c9482e949, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dc7b49d2b77a404ba60a3b696516dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   waterdrop: {fileID: 1659916329073122, guid: 9486b69f2f45734489b56cc215b153e0, type: 2}
   isDead: 0
   health: 0
   healthMax: 10
---- !u!114 &114606980858866196
+--- !u!114 &114722309024685224
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,7 +249,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1571210171978704}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6f1ebe6941ae64aa8537d3470861d0, type: 3}
+  m_Script: {fileID: 11500000, guid: a1a5b4f81e70e814b9e0809bee3f60bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 15
@@ -303,7 +331,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 25798b7b20de6584583516b60c6daba3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
