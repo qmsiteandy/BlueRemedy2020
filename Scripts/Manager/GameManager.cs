@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     private CanvasGroup canvasGroup;
     private Coroutine fade_rouine;
 
+    private ESC_Menu esc_menu;
     private bool isESC = false;
 
     // Use this for initialization
@@ -21,16 +22,20 @@ public class GameManager : MonoBehaviour {
 
         canvasGroup = transform.Find("Canvas").GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0f;
+
+        esc_menu = transform.Find("ESC_Canvas").GetComponent<ESC_Menu>();
     }
 
     void Update()
     {
         if (Input.GetButtonDown("ESC"))
         {
-            if(SceneManager.GetActiveScene().buildIndex > 0)
+            Debug.Log(SceneManager.GetActiveScene().buildIndex); Debug.Log(SceneManager.GetActiveScene().name);
+            if (SceneManager.GetActiveScene().buildIndex > 0)
             {
                 isESC = !isESC;
                 SetEscMenu(isESC);
+                Debug.Log("isESC " + isESC);
             }
         }
     }
@@ -93,6 +98,8 @@ public class GameManager : MonoBehaviour {
         Time.timeScale = isEscOpen ? 0f : 1f;
         PlayerStatus.canControl = !isEscOpen;
 
-        transform.Find("ESC_Canvas").gameObject.SetActive(isEscOpen);
+        if(isEscOpen) esc_menu.gameObject.SetActive(true);
+        else
+            if(esc_menu.ESC_Step == ESC_Menu.Step.mian) esc_menu.gameObject.SetActive(false);
     }
 }

@@ -14,7 +14,6 @@ TextureImporter:
     21300018: special_s_charging_9
     21300020: special_s_charging_10
     21300022: special_s_charging_11
-    21300024: special_s_charging_12
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -122,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4f6d8f08eb70f394991418db635709de
+      spriteID: a2ae64b884f37384dbe1333caf98bfd9
       vertices: []
       indices: 
       edges: []
@@ -142,7 +141,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 31d9a3910f52e6d429f7d75ae75319eb
+      spriteID: 11ee40c0fd39d71458cb748f3d7eb504
       vertices: []
       indices: 
       edges: []
@@ -162,7 +161,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bb317fdd348177c4aa14da57fbfbbc81
+      spriteID: c8936ab1494934b48ad5b18b3a23e700
       vertices: []
       indices: 
       edges: []
@@ -171,8 +170,8 @@ TextureImporter:
       name: special_s_charging_3
       rect:
         serializedVersion: 2
-        x: 2160
-        y: 1620
+        x: 0
+        y: 1080
         width: 720
         height: 540
       alignment: 0
@@ -182,7 +181,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6532180027698bd43b7a4547a9eb1089
+      spriteID: 7d240d1868f320043b386c1dbe03d787
       vertices: []
       indices: 
       edges: []
@@ -191,7 +190,7 @@ TextureImporter:
       name: special_s_charging_4
       rect:
         serializedVersion: 2
-        x: 0
+        x: 720
         y: 1080
         width: 720
         height: 540
@@ -202,7 +201,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f66dd939f16b6ad408b40d600630bb92
+      spriteID: c6b5dabfe423c5548891d656ac369fdc
       vertices: []
       indices: 
       edges: []
@@ -211,26 +210,6 @@ TextureImporter:
       name: special_s_charging_5
       rect:
         serializedVersion: 2
-        x: 720
-        y: 1080
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: df08c13ec7ee97d4d806f9eb1c073564
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: special_s_charging_6
-      rect:
-        serializedVersion: 2
         x: 1440
         y: 1080
         width: 720
@@ -242,33 +221,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5828e8cbb1749fe4a8156ddc32f8eb75
+      spriteID: 20dd9e62fe4275c45a0720e8f08a6696
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_s_charging_7
-      rect:
-        serializedVersion: 2
-        x: 2160
-        y: 1080
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4a5b3a59df6319c4586f4b4fae4cd6d6
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: special_s_charging_8
+      name: special_s_charging_6
       rect:
         serializedVersion: 2
         x: 0
@@ -282,13 +241,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 890a2c4c9da3604439cf5ec714614edd
+      spriteID: e22d36c020e895e429da8507989bd663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_s_charging_9
+      name: special_s_charging_7
       rect:
         serializedVersion: 2
         x: 720
@@ -302,13 +261,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1261b84409095146b8621e2fa9fc28e
+      spriteID: 23ea1dbd681580b4b9b3bdf7f3444c53
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_s_charging_10
+      name: special_s_charging_8
       rect:
         serializedVersion: 2
         x: 1440
@@ -322,33 +281,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08d88f683a115d14d80407f6af831316
+      spriteID: baa4c01419c808e46b87dfbacf1db827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: special_s_charging_11
-      rect:
-        serializedVersion: 2
-        x: 2160
-        y: 540
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 38ac296b73d1b53459a23b7ffb9b9ea2
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: special_s_charging_12
+      name: special_s_charging_9
       rect:
         serializedVersion: 2
         x: 0
@@ -362,7 +301,47 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa0a0a80d63f4bd4386b382dca61cd8a
+      spriteID: 7f42b0e468e487e41a0b77d1d6083eda
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_s_charging_10
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7719d6f97912d7e4abe908c8339b50a4
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: special_s_charging_11
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 720
+        height: 540
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e4748c547e187843a0caec2a683faa9
       vertices: []
       indices: 
       edges: []
@@ -370,7 +349,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 0daaa9422d687d24cbc92830512a1444
+    spriteID: b77f1d277bb1b974f8372c3bcbc64ce7
     vertices: []
     indices: 
     edges: []

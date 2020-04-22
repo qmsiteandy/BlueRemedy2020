@@ -1,27 +1,24 @@
 fileFormatVersion: 2
-guid: 8d2381ff16fd50e4aae80f001ea50389
+guid: 6a0de1f137ae0544691efd1d2dcfd358
 TextureImporter:
   fileIDToRecycleName:
-    21300000: attack_l_oka_0
-    21300002: attack_l_oka_1
-    21300004: attack_l_oka_2
-    21300006: attack_l_oka_3
-    21300008: attack_l_oka_4
-    21300010: attack_l_oka_5
-    21300012: attack_l_oka_6
-    21300014: attack_l_oka_7
-    21300016: attack_l_oka_8
-    21300018: attack_l_oka_9
-    21300020: attack_l_oka_10
-    21300022: attack_l_oka_11
-    21300024: attack_l_oka_12
-    21300026: attack_l_oka_13
-    21300028: attack_l_oka_14
-    21300030: attack_l_oka_15
-    21300032: attack_l_oka_16
-    21300034: attack_l_oka_17
-    21300036: attack_l_oka_18
-    21300038: attack_l_oka_19
+    21300000: attack_s_0
+    21300002: attack_s_1
+    21300004: attack_s_2
+    21300006: attack_s_3
+    21300008: attack_s_4
+    21300010: attack_s_5
+    21300012: attack_s_6
+    21300014: attack_s_7
+    21300016: attack_s_8
+    21300018: attack_s_9
+    21300020: attack_s_10
+    21300022: attack_s_11
+    21300024: attack_s_12
+    21300026: attack_s_13
+    21300028: attack_s_14
+    21300030: attack_s_15
+    21300032: attack_s_16
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -115,12 +112,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack_l_oka_0
+      name: attack_s_0
       rect:
         serializedVersion: 2
         x: 0
         y: 2160
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -129,18 +126,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4dbce81e09ab9a24b93d11b44adfaf92
+      spriteID: 6a46d7d8b55211f4997bce48c0d4a178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_1
+      name: attack_s_1
       rect:
         serializedVersion: 2
-        x: 720
+        x: 780
         y: 2160
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -149,18 +146,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 149a7c9457016014c880441d93dd9abc
+      spriteID: 8655e53ef82d1154088af0b30920b6f6
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_2
+      name: attack_s_2
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1560
         y: 2160
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -169,18 +166,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ee9cb37efffb6a24eb59c691434b604f
+      spriteID: f65a7d90349a9d947a5a204a260ceea4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_3
+      name: attack_s_3
       rect:
         serializedVersion: 2
-        x: 2160
+        x: 2340
         y: 2160
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -189,18 +186,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a70886fb20b61344cbe7807c12fb6797
+      spriteID: c1ee2c57a93221146b3d52cd26336ecb
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_4
+      name: attack_s_4
       rect:
         serializedVersion: 2
         x: 0
         y: 1620
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -209,18 +206,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a77545c1a3ac1914fba457e591d720a7
+      spriteID: f737ccda009a5c146ad5ee109ab94b70
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_5
+      name: attack_s_5
       rect:
         serializedVersion: 2
-        x: 720
+        x: 780
         y: 1620
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -229,18 +226,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2bad3c8095960b469d14569918021f5
+      spriteID: 965d6c180e197d046bbf7535187b9b00
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_6
+      name: attack_s_6
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1560
         y: 1620
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -249,18 +246,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 172de27d35906b44caf5f5518aaaa932
+      spriteID: 68304cba3ca895842860c8c56a8b3b24
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_7
+      name: attack_s_7
       rect:
         serializedVersion: 2
-        x: 2160
+        x: 2340
         y: 1620
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -269,18 +266,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 027c13f4d696980459b464589cf5acc4
+      spriteID: 6f9029139f4d55046934c52a62ad41ae
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_8
+      name: attack_s_8
       rect:
         serializedVersion: 2
         x: 0
         y: 1080
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -289,18 +286,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12bd7a02d98fdc2479d8111aa23ec35c
+      spriteID: a3e894cee2aa386468050d5bd7ccce80
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_9
+      name: attack_s_9
       rect:
         serializedVersion: 2
-        x: 720
+        x: 780
         y: 1080
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -309,18 +306,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 059a026dd095d8a4bba7f112804d66cd
+      spriteID: 8fd16eb650bd1fa4482d2c546f608235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_10
+      name: attack_s_10
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1560
         y: 1080
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -329,18 +326,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a011798a58a49341b6225428162da73
+      spriteID: a67e2a3348e9e5f4bb257a324a684aae
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_11
+      name: attack_s_11
       rect:
         serializedVersion: 2
-        x: 2160
+        x: 2340
         y: 1080
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -349,18 +346,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5e57d9741cc3374b929a70e329aaed2
+      spriteID: 0c3f7ad3189c8d649b681c41643cb998
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_12
+      name: attack_s_12
       rect:
         serializedVersion: 2
         x: 0
         y: 540
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -369,18 +366,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8551b23cf63da2f4e8e33efa6746f0f8
+      spriteID: 8e89cb5945a4e344c816c52156dd0909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_13
+      name: attack_s_13
       rect:
         serializedVersion: 2
-        x: 720
+        x: 780
         y: 540
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -389,18 +386,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5161a5b21e742a94cae2c2fb355a3a52
+      spriteID: 68218fd7a9e49fd499e8f4fc7dd72871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_14
+      name: attack_s_14
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1560
         y: 540
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -409,18 +406,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e600797019f87f448ad17b5264afe0f
+      spriteID: 968e762504fc751499c4dec505d6b6c3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_15
+      name: attack_s_15
       rect:
         serializedVersion: 2
-        x: 2160
+        x: 2340
         y: 540
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -429,18 +426,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25c9feece03cf0c4e8cb748c95270df3
+      spriteID: 68f6df9fde77c9e4b89cec9af8e91ba3
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_l_oka_16
+      name: attack_s_16
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 720
+        width: 780
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -449,67 +446,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f270a6493471f1245b5be5fd6fcf561a
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_l_oka_17
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 0
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4fede94ce97a3744490972f58679a2a7
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_l_oka_18
-      rect:
-        serializedVersion: 2
-        x: 1440
-        y: 0
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4000513e11177bd42b32e4dfb132e217
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack_l_oka_19
-      rect:
-        serializedVersion: 2
-        x: 2160
-        y: 0
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a7df00dd6f122b646b950542efc1e8a1
+      spriteID: 3c16d335e13590a4ca64a2c0106540a5
       vertices: []
       indices: 
       edges: []
@@ -517,7 +454,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5f11306c7293aa14e9373a285d8cf753
+    spriteID: b4cf3e679da7d194ea4d8ec1bfd4418f
     vertices: []
     indices: 
     edges: []

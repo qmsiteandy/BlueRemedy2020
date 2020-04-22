@@ -9,7 +9,6 @@ TextureImporter:
     21300008: special_s_break_4
     21300010: special_s_break_5
     21300012: special_s_break_6
-    21300014: special_s_break_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -117,7 +116,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bd7735f0eeab444e89d2ee669e91dfd
+      spriteID: 74daca28b4925574fb522027081d83f4
       vertices: []
       indices: 
       edges: []
@@ -137,7 +136,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8dfee902bb6722245a95842bd626dea1
+      spriteID: 46c6397d4fb1c2a45b054503460070a7
       vertices: []
       indices: 
       edges: []
@@ -157,7 +156,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d382e6b5c198fc84d8f2a11ce1b5a4c3
+      spriteID: 8eb2d4ce969af8740acf6ea23bc308a6
       vertices: []
       indices: 
       edges: []
@@ -177,7 +176,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea6bcb67a63e08b4ea97767526480352
+      spriteID: aba0b4c6d368c044a841066d7635388b
       vertices: []
       indices: 
       edges: []
@@ -197,7 +196,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e42fe3019882ca54fa2033c5b24b146a
+      spriteID: ee0ebd1052aa47f4a99455a269a93843
       vertices: []
       indices: 
       edges: []
@@ -217,7 +216,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 07460bbab3e64db469cfc7ef705e0535
+      spriteID: 81a3afc149536bd41b2b36003709aee2
       vertices: []
       indices: 
       edges: []
@@ -237,27 +236,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 863516d981f1a0f409a0f62b385dbd6c
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: special_s_break_7
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 0
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6171ba8b14231540973d5e4bd608171
+      spriteID: 592a0e6dc5e677c439a24969f86cf282
       vertices: []
       indices: 
       edges: []
@@ -265,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 6dc03c4498b895445b6562153dd53027
+    spriteID: c6a24ff2476c4484ebdf6fe25d507645
     vertices: []
     indices: 
     edges: []

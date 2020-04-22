@@ -26,6 +26,11 @@ public class ButtomUIManager : MonoBehaviour {
         SetButtonUIState(PlayerStatus.Get_isKeyboard());
 
     }
+    void OnDestroy()
+    {
+        keyboardUI_List.Remove(keyboardButtonGroup);
+        joystickUI_List.Remove(joystickButtonGroup);
+    }
 
     void Update ()
     {

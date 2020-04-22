@@ -14,8 +14,8 @@ public class ESC_Menu : MonoBehaviour
     public int selectedIndex = 0;
     public bool inputHold = false;
 
-    private enum Step { mian,control,exit};
-    private Step ESC_Step;
+    public enum Step { mian,control,exit};
+    public Step ESC_Step;
 
 
 

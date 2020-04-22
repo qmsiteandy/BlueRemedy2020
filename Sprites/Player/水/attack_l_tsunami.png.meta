@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef660f669a5590b4e8e9985de9f5b3bb
+guid: 2e0ec97ccba0c2c459fd788f67e22788
 TextureImporter:
   fileIDToRecycleName:
     21300000: attack_l_tsunami_0
@@ -108,7 +108,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 1080
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -117,7 +117,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9e80caa6aeb0b5b4488b39ef7edc357f
+      spriteID: b537be67655423a419ac3dc4284ae32b
       vertices: []
       indices: 
       edges: []
@@ -126,9 +126,9 @@ TextureImporter:
       name: attack_l_tsunami_1
       rect:
         serializedVersion: 2
-        x: 720
+        x: 559
         y: 1080
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -137,7 +137,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5eb06b791ceac3d43aa674c5740b3262
+      spriteID: 968ad08408181314e9cb3218666cb618
       vertices: []
       indices: 
       edges: []
@@ -146,9 +146,9 @@ TextureImporter:
       name: attack_l_tsunami_2
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1118
         y: 1080
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -157,7 +157,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eba65c9d92de62f40b73f9f611bd8393
+      spriteID: 59531210af7c76c43894305a4179e3b4
       vertices: []
       indices: 
       edges: []
@@ -168,7 +168,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 540
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -177,7 +177,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 91af684ea0114ac449d51495ca754f42
+      spriteID: 0b17ea8c8f8cfce44b5ef069ad669459
       vertices: []
       indices: 
       edges: []
@@ -186,9 +186,9 @@ TextureImporter:
       name: attack_l_tsunami_4
       rect:
         serializedVersion: 2
-        x: 720
+        x: 559
         y: 540
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -197,7 +197,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a87ee8eb01d5ab646865fffcaf98477f
+      spriteID: b6cf81dd74fc7e9459db00947cb4392c
       vertices: []
       indices: 
       edges: []
@@ -206,9 +206,9 @@ TextureImporter:
       name: attack_l_tsunami_5
       rect:
         serializedVersion: 2
-        x: 1440
+        x: 1118
         y: 540
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -217,7 +217,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28faa48a237db0440a416c599f6de260
+      spriteID: abcac6fa1750d9544a1646f94d223128
       vertices: []
       indices: 
       edges: []
@@ -228,7 +228,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -237,7 +237,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 207adc69650e1824ebe2b9ae540bcc1e
+      spriteID: 4d8db2b1f85dc2544b7d2e28939fed84
       vertices: []
       indices: 
       edges: []
@@ -246,9 +246,9 @@ TextureImporter:
       name: attack_l_tsunami_7
       rect:
         serializedVersion: 2
-        x: 720
+        x: 559
         y: 0
-        width: 720
+        width: 559
         height: 540
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -257,7 +257,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d20cbf018c93d5b41ba474ea98b7977c
+      spriteID: 30a3aab9aac754445a8112e18b383300
       vertices: []
       indices: 
       edges: []
@@ -265,7 +265,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: abb4a82c83a868b45b14c43bedbcfe3e
+    spriteID: 850305b29f2874642ae4818871dda754
     vertices: []
     indices: 
     edges: []

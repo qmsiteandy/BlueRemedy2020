@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 4afaa6f971ce48c47ab9f296c689419e
+guid: 3556013810ff3cc4f905ab18b024cccd
 TextureImporter:
   fileIDToRecycleName:
-    21300000: water_hurt_0
-    21300002: water_hurt_1
-    21300004: water_hurt_2
-    21300006: water_hurt_3
+    21300000: hurt_s_0
+    21300002: hurt_s_1
+    21300004: hurt_s_2
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -99,53 +98,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: water_hurt_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 540
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de9e2199d94163b42ba1142394efd820
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_hurt_1
-      rect:
-        serializedVersion: 2
-        x: 720
-        y: 540
-        width: 720
-        height: 540
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 48fe41ad8f635334fa758c7775cc2a39
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: water_hurt_2
+      name: hurt_s_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 720
-        height: 540
+        width: 360
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,19 +112,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 25b1e2a924486d547911fd888e02c067
+      spriteID: 6d3afc74c5e58ad47a3674f8865d262a
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: water_hurt_3
+      name: hurt_s_1
       rect:
         serializedVersion: 2
-        x: 720
+        x: 360
         y: 0
-        width: 720
-        height: 540
+        width: 360
+        height: 270
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,7 +132,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 805be95943a75f6438d7d43940e90836
+      spriteID: 0b0f6fb0e9980024e8e17b2d3c714536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hurt_s_2
+      rect:
+        serializedVersion: 2
+        x: 720
+        y: 0
+        width: 360
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a890b0fd1e55974e9ae97f3fcd7fd71
       vertices: []
       indices: 
       edges: []
@@ -181,7 +160,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 64f3d97dfbc1f774d8bcd3a45e72949d
+    spriteID: 57858e36db165b34d82fad5b896ad902
     vertices: []
     indices: 
     edges: []
