@@ -10,7 +10,8 @@ public class BlossomCalculate : MonoBehaviour {
     private float thisGrassRange;
     private static float totalGrassRange = 0f, nowGrassRange = 0f;
     private static UI_Manager UI_manager;
-    
+    private static float persentage = 0f;
+
     // Use this for initialization
     void Start ()
     {
@@ -32,9 +33,18 @@ public class BlossomCalculate : MonoBehaviour {
         if (isGrowed) return;
 
         nowGrassRange += thisGrassRange;
-        float persentage = nowGrassRange / totalGrassRange;
+        persentage = nowGrassRange / totalGrassRange;
         if (UI_manager != null) UI_manager.SetBlossomUI(persentage);
 
         isGrowed = true;
+    }
+
+    static public void ResetBlossomDegree()
+    {
+        totalGrassRange = 0f; nowGrassRange = 0f;
+    }
+    static public float GetBlossomDegree()
+    {
+        return (persentage);
     }
 }

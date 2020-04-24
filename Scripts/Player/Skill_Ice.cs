@@ -17,7 +17,7 @@ public class Skill_Ice : Skill_Base {
     private SpecialSkill_State specialSkill_state = SpecialSkill_State.none;
     private Transform throwIce_arrow;
     private float iceThrowAngle = 0f;
-    private float iceThrowForce = 1000f;
+    private float iceThrowForce;
 
     [Header("Normal Skill")]
     public GameObject Attack3_FX;
@@ -113,7 +113,7 @@ public class Skill_Ice : Skill_Base {
                 else
                 {
                     animator.SetTrigger("specialSkill_release");    //throwout由release動畫呼叫
-                    iceThrowForce = 1000f;
+                    iceThrowForce = 500f;
                 }
 
                 playerEnergy.ModifyWaterEnergy(-(int)(specialCost_max * iceSize / iceMaxSize));
@@ -177,7 +177,7 @@ public class Skill_Ice : Skill_Base {
         Vector2 force = new Vector2(Mathf.Cos(iceThrowAngle * (Mathf.PI / 180f)) * iceThrowForce, Mathf.Sin(iceThrowAngle * (Mathf.PI / 180f)) * iceThrowForce);
         iceObj.GetComponent<Rigidbody2D>().isKinematic = false;
         iceObj.GetComponent<Rigidbody2D>().AddForce(force);
-        iceObj.GetComponent<SpecialBigIce>().ThrowOut(30f);
+        iceObj.GetComponent<SpecialBigIce>().ThrowOut(20f);
 
         iceObj.transform.SetParent(null);
         iceObj = null;

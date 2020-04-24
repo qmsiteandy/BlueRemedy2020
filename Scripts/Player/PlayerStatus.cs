@@ -131,7 +131,7 @@ public class PlayerStatus : MonoBehaviour {
     //所處季節
     static public void set_inSeason(Season season)
     {
-        if (season != inSeason) inSeason = season;
+        if (season != inSeason) { inSeason = season; Debug.Log(inSeason); }
     }
     static public Season get_inSeason() { return (inSeason); }
 

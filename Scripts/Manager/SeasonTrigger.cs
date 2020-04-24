@@ -14,8 +14,4 @@ public class SeasonTrigger : MonoBehaviour {
             //Debug.Log(PlayerStatus.get_inSeason());
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player") { PlayerStatus.set_inSeason(PlayerStatus.Season.none); }
-    }
 }

@@ -47,8 +47,6 @@ public class Water_Area : MonoBehaviour {
     {
         if (isPlayerInWater && isDirtyWater)
         {
-            if (PlayerControl.OkaID_Now == 0) return;
-
             if (damageTimer >= damageCycle)
             {
                 playerControl.TakeDamage(0, addDirtAmount);
@@ -79,7 +77,7 @@ public class Water_Area : MonoBehaviour {
 
             isPlayerInWater = true;
 
-            if (PlayerControl.OkaID_Now == 0 || !isDirtyWater) return;
+            if (!isDirtyWater) return;
             else
             {
                 playerControl.TakeDamage(0, addDirtAmount);

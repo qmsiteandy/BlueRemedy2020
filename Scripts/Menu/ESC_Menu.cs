@@ -14,7 +14,7 @@ public class ESC_Menu : MonoBehaviour
     public int selectedIndex = 0;
     public bool inputHold = false;
 
-    public enum Step { mian,control,exit};
+    public enum Step { mian,control,energy,exit};
     public Step ESC_Step;
 
 
@@ -73,13 +73,19 @@ public class ESC_Menu : MonoBehaviour
                         ESC_Step = Step.control;
                         break;
                     case 2:
-                        ESC_folder[2].SetActive(true);
+                        ESC_folder[0].SetActive(false); ESC_folder[2].SetActive(true);
+                        ESC_Step = Step.energy;
+                        break;
+                    case 3:
+                        ESC_folder[3].SetActive(true);
                         ESC_Step = Step.exit;
                         break;
                 }
             }
+
+            if(Input.GetButtonDown("Cancel")) gameManager.SetEscMenu(false);
         }
-        else if(ESC_Step == Step.control)
+        else if(ESC_Step == Step.control || ESC_Step == Step.energy)
         {
             if (Input.GetButtonDown("Cancel"))
             {
@@ -101,7 +107,7 @@ public class ESC_Menu : MonoBehaviour
             }
             else if (Input.GetButtonDown("Cancel"))
             {
-                ESC_folder[2].SetActive(false);
+                ESC_folder[3].SetActive(false);
                 ESC_Step = Step.mian;
             }
         }

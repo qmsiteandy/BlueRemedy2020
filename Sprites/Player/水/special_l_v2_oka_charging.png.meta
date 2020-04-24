@@ -9,7 +9,6 @@ TextureImporter:
     21300008: special_l_v2_oka_charging_4
     21300010: special_l_v2_oka_charging_5
     21300012: special_l_v2_oka_charging_6
-    21300014: special_l_v2_oka_charging_7
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -107,9 +106,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
-        width: 400
-        height: 300
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -117,7 +116,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7609d39a8cdafb47ab17d1d1c783ab2
+      spriteID: ea75ad3484e0f67478307103ea6882ad
       vertices: []
       indices: 
       edges: []
@@ -126,10 +125,10 @@ TextureImporter:
       name: special_l_v2_oka_charging_1
       rect:
         serializedVersion: 2
-        x: 400
-        y: 600
-        width: 400
-        height: 300
+        x: 500
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,7 +136,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e97a8a9ddd5e7da40b2fffe2092aa1a9
+      spriteID: 8a222685e66a5b74791268543b2a37c7
       vertices: []
       indices: 
       edges: []
@@ -146,10 +145,10 @@ TextureImporter:
       name: special_l_v2_oka_charging_2
       rect:
         serializedVersion: 2
-        x: 800
-        y: 600
-        width: 400
-        height: 300
+        x: 1000
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -157,7 +156,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 528581c6ea15941469d83b52c912f53b
+      spriteID: 3d554f52a453e3a4596a93469401ef3f
       vertices: []
       indices: 
       edges: []
@@ -167,9 +166,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 300
-        width: 400
-        height: 300
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -177,7 +176,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6afd5bc0116cd9f438d486ef10bdb290
+      spriteID: bf483ef8ec282f24385ffbf1e5e05f2e
       vertices: []
       indices: 
       edges: []
@@ -186,10 +185,10 @@ TextureImporter:
       name: special_l_v2_oka_charging_4
       rect:
         serializedVersion: 2
-        x: 400
-        y: 300
-        width: 400
-        height: 300
+        x: 500
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -197,7 +196,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6728b93d6a1b854429cf4281d53087f2
+      spriteID: 8976c9f4e660cae419994578317303d2
       vertices: []
       indices: 
       edges: []
@@ -206,10 +205,10 @@ TextureImporter:
       name: special_l_v2_oka_charging_5
       rect:
         serializedVersion: 2
-        x: 800
-        y: 300
-        width: 400
-        height: 300
+        x: 1000
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,7 +216,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d03453563a5e20647b8889db578870bb
+      spriteID: c959da04e5aac0349b6905aaf8623521
       vertices: []
       indices: 
       edges: []
@@ -228,8 +227,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 400
-        height: 300
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -237,27 +236,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8b44b61b4cccf54187e65be1f556078
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: special_l_v2_oka_charging_7
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 0
-        width: 400
-        height: 300
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 04ff50e2058473f43a643d90874fe5b3
+      spriteID: bdc3e8b0ddc56a141b9b93d73e66a2a3
       vertices: []
       indices: 
       edges: []
@@ -265,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5405574abab1ad945888e0cb37047f3a
+    spriteID: 474ac86819d6076438200023eaf74692
     vertices: []
     indices: 
     edges: []

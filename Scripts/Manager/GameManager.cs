@@ -9,11 +9,12 @@ public class GameManager : MonoBehaviour {
     private CanvasGroup canvasGroup;
     private Coroutine fade_rouine;
 
+    [Header("ESC")]
     private ESC_Menu esc_menu;
     private bool isESC = false;
 
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
         playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
 
@@ -30,12 +31,10 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetButtonDown("ESC"))
         {
-            Debug.Log(SceneManager.GetActiveScene().buildIndex); Debug.Log(SceneManager.GetActiveScene().name);
             if (SceneManager.GetActiveScene().buildIndex > 0)
             {
                 isESC = !isESC;
                 SetEscMenu(isESC);
-                Debug.Log("isESC " + isESC);
             }
         }
     }
@@ -43,7 +42,6 @@ public class GameManager : MonoBehaviour {
     public void LevelClear(int level)
     {
         LevelData.ClearLevel(level);
-        GoToScene("Level_Room");
     }
 
     public void GoToScene(string sceneName)
@@ -58,6 +56,9 @@ public class GameManager : MonoBehaviour {
     {
         PlayerStatus.canControl = false;
         BlackFadeInOut(true, 0.7f);
+
+        if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
+       
         yield return new WaitForSeconds(1f);
 
         playerTrans.GetComponent<PlayerChange>().ForceChangeForm(1);
@@ -67,8 +68,13 @@ public class GameManager : MonoBehaviour {
 
         playerTrans.position = new Vector3(0f, 0f, 0f);
         playerTrans.GetComponent<PlayerEnergy>().ResetEnegy();
+        PlayerStatus.set_inSeason(PlayerStatus.Season.none);
+        BlossomCalculate.ResetBlossomDegree();
+
         BlackFadeInOut(false, 0.7f);
+
         yield return new WaitForSeconds(0.7f);
+
         PlayerStatus.canControl = true;
         playerTrans.GetComponent<PlayerControl>().NewLevelInit();
     }
@@ -76,7 +82,7 @@ public class GameManager : MonoBehaviour {
     public void Dead()
     {
         PlayerStatus.canControl = false;
-        BlackFadeInOut(true, 0.5f);
+        transform.Find("Dead_Canvas").gameObject.SetActive(true);
     }
 
     public void BlackFadeInOut(bool isFadeIn, float inTime)
@@ -92,14 +98,26 @@ public class GameManager : MonoBehaviour {
         if(isFadeIn) while (canvasGroup.alpha < 1f) { canvasGroup.alpha += fadeSpeed * Time.deltaTime; yield return null; }
         else while (canvasGroup.alpha > 0f) { canvasGroup.alpha -= fadeSpeed * Time.deltaTime; yield return null; }
     }
-
     public void SetEscMenu(bool isEscOpen)
     {
-        Time.timeScale = isEscOpen ? 0f : 1f;
-        PlayerStatus.canControl = !isEscOpen;
+        if (isEscOpen)
+        {
+            esc_menu.gameObject.SetActive(true);
 
-        if(isEscOpen) esc_menu.gameObject.SetActive(true);
+            Time.timeScale = 0f;
+            PlayerStatus.canControl = false;
+        }
         else
-            if(esc_menu.ESC_Step == ESC_Menu.Step.mian) esc_menu.gameObject.SetActive(false);
+        {
+            if (esc_menu.ESC_Step == ESC_Menu.Step.mian)
+            {
+                esc_menu.gameObject.SetActive(false);
+
+                Time.timeScale = 1f;
+                PlayerStatus.canControl = true;
+            } 
+        }
+
+        isESC = isEscOpen;
     }
 }

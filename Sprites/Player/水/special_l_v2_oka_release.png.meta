@@ -111,9 +111,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
-        width: 400
-        height: 300
+        y: 1200
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +121,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf455d22e69b04e47b2c008bf325b222
+      spriteID: 1408c537e8e9f7f44ad2d70299beeb88
       vertices: []
       indices: 
       edges: []
@@ -130,10 +130,10 @@ TextureImporter:
       name: special_l_v2_oka_release_1
       rect:
         serializedVersion: 2
-        x: 400
-        y: 600
-        width: 400
-        height: 300
+        x: 500
+        y: 1200
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,7 +141,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9316a253e2c3bf14790f70e5ab940e82
+      spriteID: dbe2e7b9a5dd24d4fbaceedf570480a6
       vertices: []
       indices: 
       edges: []
@@ -150,10 +150,10 @@ TextureImporter:
       name: special_l_v2_oka_release_2
       rect:
         serializedVersion: 2
-        x: 800
-        y: 600
-        width: 400
-        height: 300
+        x: 1000
+        y: 1200
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,7 +161,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 84452d86cfe8fe54a986e57652161dfa
+      spriteID: 7958f759dbab6a64c9f2ac04fed166c9
       vertices: []
       indices: 
       edges: []
@@ -170,10 +170,10 @@ TextureImporter:
       name: special_l_v2_oka_release_3
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 600
-        width: 400
-        height: 300
+        x: 0
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,7 +181,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2229fd2aece2c334a9a14b664387fa0d
+      spriteID: af6f8d1fe7675fb4db1e0ab48702addd
       vertices: []
       indices: 
       edges: []
@@ -190,10 +190,10 @@ TextureImporter:
       name: special_l_v2_oka_release_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 300
-        width: 400
-        height: 300
+        x: 500
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,7 +201,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fe44fccb4f9590d4d8c7a378a4fbd1f2
+      spriteID: 9de2df73df4880f429aee25d3a172c03
       vertices: []
       indices: 
       edges: []
@@ -210,10 +210,10 @@ TextureImporter:
       name: special_l_v2_oka_release_5
       rect:
         serializedVersion: 2
-        x: 400
-        y: 300
-        width: 400
-        height: 300
+        x: 1000
+        y: 800
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -221,7 +221,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1c166ae17eaa6dc44b9e3ca0704308e9
+      spriteID: 4a8f878fa22999246a3aa5bfafb7565d
       vertices: []
       indices: 
       edges: []
@@ -230,10 +230,10 @@ TextureImporter:
       name: special_l_v2_oka_release_6
       rect:
         serializedVersion: 2
-        x: 800
-        y: 300
-        width: 400
-        height: 300
+        x: 0
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -241,7 +241,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6d06d48607a25a49a0755a6be1f0693
+      spriteID: 36d1cec812821674d8741c814cb179ad
       vertices: []
       indices: 
       edges: []
@@ -250,10 +250,10 @@ TextureImporter:
       name: special_l_v2_oka_release_7
       rect:
         serializedVersion: 2
-        x: 1200
-        y: 300
-        width: 400
-        height: 300
+        x: 500
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -261,7 +261,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06d414e72674206429a5328a2fffa82f
+      spriteID: 1e6819273060cd647b0284e8a44e64a3
       vertices: []
       indices: 
       edges: []
@@ -270,10 +270,10 @@ TextureImporter:
       name: special_l_v2_oka_release_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 400
-        height: 300
+        x: 1000
+        y: 400
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -281,7 +281,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9416349127c55a640a3f30e5c834f9ed
+      spriteID: 48a8eccbd21e09e40a9a24f43fc901b9
       vertices: []
       indices: 
       edges: []
@@ -290,10 +290,10 @@ TextureImporter:
       name: special_l_v2_oka_release_9
       rect:
         serializedVersion: 2
-        x: 400
+        x: 0
         y: 0
-        width: 400
-        height: 300
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -301,7 +301,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 854b70a520fc4a240bc2ddc49ede3aa1
+      spriteID: 7bd0a5f53c7d58948bb6d031e5fe34f1
       vertices: []
       indices: 
       edges: []
@@ -310,10 +310,10 @@ TextureImporter:
       name: special_l_v2_oka_release_10
       rect:
         serializedVersion: 2
-        x: 800
+        x: 500
         y: 0
-        width: 400
-        height: 300
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -321,7 +321,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a89a71530320c24fa34b56d45e5efa6
+      spriteID: 20667a4c5c9c5eb468dbed705dd3bde9
       vertices: []
       indices: 
       edges: []
@@ -330,10 +330,10 @@ TextureImporter:
       name: special_l_v2_oka_release_11
       rect:
         serializedVersion: 2
-        x: 1200
+        x: 1000
         y: 0
-        width: 400
-        height: 300
+        width: 500
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,7 +341,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5eb8e2236a131b843a3b33fb175c98b2
+      spriteID: 9998744929130464abc1e3184a6fdab4
       vertices: []
       indices: 
       edges: []
@@ -349,7 +349,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 327c17d2bfc9a1144847e0510207f652
+    spriteID: 03750d2c942c4d549ba33b4d46677ac6
     vertices: []
     indices: 
     edges: []

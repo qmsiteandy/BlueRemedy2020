@@ -69,6 +69,10 @@ public class SpecialBigIce : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             playerControl = collision.gameObject.GetComponent<PlayerControl>();
+            if(playerControl.objUnderFoot == this.gameObject)
+            {
+                StartCoroutine(ShortVZero(0.1f));
+            }
         }
         else if (collision.gameObject.tag == "Enemy")
         {
@@ -130,5 +134,16 @@ public class SpecialBigIce : MonoBehaviour {
         GetComponent<BoxCollider2D>().enabled = false;
         yield return new WaitForSeconds(colDisTime);
         GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    IEnumerator ShortVZero(float time)
+    {
+        float elapsed = 0f;
+
+        while(elapsed<= time)
+        {
+            rb2d.velocity = Vector2.zero;
+            yield return null;
+        }
     }
 }

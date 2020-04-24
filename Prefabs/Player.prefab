@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 114165234479743176}
   - component: {fileID: 225809680071002226}
   - component: {fileID: 114936761659044332}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: WheelCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1009,7 +1009,7 @@ Transform:
   m_Children:
   - {fileID: 224328043905449048}
   m_Father: {fileID: 4324545489156350}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4082259156801544
 Transform:
@@ -1049,7 +1049,7 @@ Transform:
   m_Children:
   - {fileID: 224920958152543210}
   m_Father: {fileID: 4324545489156350}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4116138161722962
 Transform:
@@ -1086,7 +1086,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1817263097560632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 77.73, y: 1.6, z: 0}
+  m_LocalPosition: {x: 189.7, y: -50.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4686785024120380}
@@ -1172,8 +1172,8 @@ Transform:
   - {fileID: 4327336413322400}
   - {fileID: 4990909130543956}
   - {fileID: 4325672882004818}
-  - {fileID: 4092865786589434}
   - {fileID: 4077117531047700}
+  - {fileID: 4092865786589434}
   m_Father: {fileID: 4116138161722962}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8518,7 +8518,7 @@ CanvasGroup:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1169925928870812}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0

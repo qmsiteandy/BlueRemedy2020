@@ -10,7 +10,7 @@ public class Enemy_Dead : MonoBehaviour {
     public bool isDead;
 
     [Header("Awake Settings")]
-    protected float bornTime = 8f;
+    protected float bornTime = 10000f;
 
     [Header("Health Settings")]
     public int health;
@@ -43,7 +43,9 @@ public class Enemy_Dead : MonoBehaviour {
     }
 
     public virtual IEnumerator RebornAfterTime(float time) {
+
         yield return new WaitForSeconds(time);
+
         isDead = false;
         enemy.SetActive(true);
         health = healthMax;
