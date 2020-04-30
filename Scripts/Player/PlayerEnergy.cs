@@ -6,12 +6,12 @@ public class PlayerEnergy : MonoBehaviour {
 
     private bool isEnergyUsing = true;
 
-    public int waterEnergyMax = 200;
+    [HideInInspector] public int waterEnergyMax = 100;
     private int waterEnergy;
-    public int dirtMax;
+    [HideInInspector] public int dirtMax = 100;
     private int dirt = 0;
 
-    private float chargeDelay = 1f;
+    private float chargeDelay = 2f;
     private int waterPerCharge = 3;
     private float elapsed = 0f;
 
@@ -82,7 +82,7 @@ public class PlayerEnergy : MonoBehaviour {
         
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
 
-        if (dirtyDegree > 0.95) Dead(); //GameOver
+        if (dirtyDegree > 0.9f) Dead(); //GameOver
     }
 
     public void ConnectNewLevelUI()

@@ -17,7 +17,7 @@ public class Skill_Water : Skill_Base
 
     [Header("Special Skill")]
     public GameObject waterCanonPrefab;
-    private int specialCost = 20;
+    private int specialCost = 15;
     private GameObject waterCanonObj;
     private enum SpecialSkill_State { none, charging, throwout }
     private SpecialSkill_State specialSkill_state = SpecialSkill_State.none;
@@ -247,6 +247,7 @@ public class Skill_Water : Skill_Base
     }
     void SetOKA_direction(float toDegree)
     {
+        Debug.Log(toDegree);
         if (toDegree > 90f) toDegree = 180f - toDegree;
         else if (toDegree < -90f) toDegree = -180 - toDegree;
        
@@ -280,6 +281,7 @@ public class Skill_Water : Skill_Base
             yield return null;
         }
     }
+    //animation呼叫
     void canonSpitStop()
     {
         if (waterCanonObj != null)
@@ -295,6 +297,7 @@ public class Skill_Water : Skill_Base
 
         specialSkill_state = SpecialSkill_State.none;
     }
+    //animation呼叫
     void SpecialSkillOver()
     {
         SpecialAttacking(false);

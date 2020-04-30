@@ -492,6 +492,7 @@ public class PlayerControl : MonoBehaviour {
         //---水中漂浮&冒泡泡---
         if (OkaID_Now == 0)
         {
+            Debug.Log("waveCrest:" + water_area.waveCrest + " transform.position.y:"+ transform.position.y);
             if (water_area.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
             else if (water_area.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (water_area.waveCrest - transform.position.y / 1f));
 

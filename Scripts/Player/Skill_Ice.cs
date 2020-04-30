@@ -6,7 +6,7 @@ public class Skill_Ice : Skill_Base {
 
     [Header("Special Skill")]
     public GameObject icePrefab;
-    private int specialCost_max = 10;
+    private int specialCost_max = 15;
     private GameObject iceObj;
     private int iceObj_layer;
     private float specialInput_holdTime = 0f;

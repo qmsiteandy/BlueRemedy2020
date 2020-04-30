@@ -5,7 +5,7 @@ using UnityEngine;
 public class Skill_Base : MonoBehaviour
 {
     [Header("基本參數")]
-    public int attack3WaterCost = 5;
+    protected int attack3WaterCost = 5;
     protected Transform playerTrans;
     protected Animator animator;
     protected PlayerEnergy playerEnergy;

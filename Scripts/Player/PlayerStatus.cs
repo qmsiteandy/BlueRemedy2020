@@ -75,7 +75,6 @@ public class PlayerStatus : MonoBehaviour {
                 canMove = canJump = false;
                 canFlip = false;
                 canSkill = false;
-                canBeHurt = false;
                 canChange = false;
             }
             if (isHitRecover)

@@ -8,7 +8,7 @@ public class SpecialBigIce : MonoBehaviour {
     private int WaterLayerID = 14;
     private Rigidbody2D rb2d;
     public float boxColiderSize;
-    private float FloatForce = 35f;
+    private float FloatForce = 45f;
     private bool isInWater = false;
     private PlayerControl playerControl;
     public float player_xOffset = 0f;
@@ -42,7 +42,7 @@ public class SpecialBigIce : MonoBehaviour {
     {
         if (collision.gameObject.layer == WaterLayerID)
         {
-            if (water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0.8f * boxColiderSize) rb2d.AddForce(Vector2.up * FloatForce);
+            if (water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0.6f * boxColiderSize) rb2d.AddForce(Vector2.up * FloatForce);
             else if (water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0f) rb2d.AddForce(Vector2.up * FloatForce * (water_area.waveCrest - transform.position.y / 1f));
 
             int angleID = (int)(Mathf.Floor(transform.eulerAngles.z % 360f / 45f));
@@ -69,10 +69,6 @@ public class SpecialBigIce : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {
             playerControl = collision.gameObject.GetComponent<PlayerControl>();
-            if(playerControl.objUnderFoot == this.gameObject)
-            {
-                StartCoroutine(ShortVZero(0.1f));
-            }
         }
         else if (collision.gameObject.tag == "Enemy")
         {
@@ -90,13 +86,12 @@ public class SpecialBigIce : MonoBehaviour {
         {
             if (playerControl.objUnderFoot == this.gameObject)
             {
-                if(boxColiderSize > 1f)
+                if (isInWater && (water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0f)) rb2d.velocity = Vector2.zero;
+
+                if (playerControl.xInput == 0 && boxColiderSize > 1f)
                 {
-                    if (playerControl.xInput == 0)
-                    {
-                        collision.transform.position = new Vector3((Mathf.Lerp(collision.transform.position.x + player_xOffset, this.transform.position.x, 0.3f)), collision.transform.position.y, collision.transform.position.z);
-                        rb2d.AddForce(Vector3.up * FloatForce * 1.3f);
-                    }
+                    collision.transform.position = new Vector3((Mathf.Lerp(collision.transform.position.x + player_xOffset, this.transform.position.x, 0.3f)), collision.transform.position.y, collision.transform.position.z);
+                    rb2d.AddForce(Vector3.up * FloatForce * 1.3f);
                 }
             }
         }
