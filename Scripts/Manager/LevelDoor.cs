@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelDoor : MonoBehaviour {
 
+    static public Vector3 lastEnterPos = Vector3.zero;
+
     [Header("門功能")]
     public string toSceneName;
     public Sprite doorClose;
@@ -14,7 +16,6 @@ public class LevelDoor : MonoBehaviour {
     private bool isHoldingInput = false;
     private bool thisDoorOpen = false;
     
-
     [Header("門閃亮FX")]
     private ParticleSystem doorShineFx;
     private float particleStartSpeed;
@@ -26,12 +27,6 @@ public class LevelDoor : MonoBehaviour {
     private CanvasGroup canvasGroup;
     private float alpha = 0f;
     private bool isFadingUp = false;
-
-    [Header("按鍵UI切換")]  //keyboard按鍵和joystick按鍵
-    public bool hasButtonUI = false;
-    public GameObject keyboardButtonGroup;
-    public GameObject joystickButtonGroup;
-    private bool isKeyboardInput = true;
 
     // Use this for initialization
     void Awake ()
@@ -57,9 +52,6 @@ public class LevelDoor : MonoBehaviour {
         //----UI顯現
         canvasGroup = transform.Find("canvas").Find("InputNote_group").GetComponent<CanvasGroup>();
         canvasGroup.alpha = alpha;
-
-        //---按鍵UI切換
-        if (hasButtonUI) SetButtonUIState(isKeyboardInput);
     }
 
     void Update()
@@ -76,12 +68,6 @@ public class LevelDoor : MonoBehaviour {
         }
 
         canvasGroup.alpha = alpha;
-
-        if (hasButtonUI)
-        {
-            if (isKeyboardInput && !PlayerStatus.Get_isKeyboard()) { isKeyboardInput = false; SetButtonUIState(isKeyboardInput); }
-            else if (!isKeyboardInput && PlayerStatus.Get_isKeyboard()) { isKeyboardInput = true; SetButtonUIState(isKeyboardInput); }
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -109,6 +95,7 @@ public class LevelDoor : MonoBehaviour {
                     doorShineFx.Stop();
 
                     ChangeScene();
+                    lastEnterPos = this.transform.position;
                 }
             }
             if ((!Input.GetButton("Submit") && !Input.GetKey(KeyCode.Space)) && isHoldingInput)
@@ -134,14 +121,6 @@ public class LevelDoor : MonoBehaviour {
         if (doorShineFx.isPlaying == true) doorShineFx.Stop();
         doorShineFx.startSpeed = particleStartSpeed;
         doorShineFx.emissionRate = particleStartAmount;
-    }
-
-
-
-    void SetButtonUIState(bool isKeyboardInput)
-    {
-        if (isKeyboardInput) { keyboardButtonGroup.SetActive(true); joystickButtonGroup.SetActive(false); }
-        else { keyboardButtonGroup.SetActive(false); joystickButtonGroup.SetActive(true); }
     }
 
     public void ChangeScene()

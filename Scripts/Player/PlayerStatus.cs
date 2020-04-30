@@ -35,6 +35,8 @@ public class PlayerStatus : MonoBehaviour {
     private void Start()
     {
         isJoystickConnected = Input.GetJoystickNames().Length > 0;
+
+        StatusReset();
     }
 
     private void Update()
@@ -130,7 +132,7 @@ public class PlayerStatus : MonoBehaviour {
     //所處季節
     static public void set_inSeason(Season season)
     {
-        if (season != inSeason) { inSeason = season; Debug.Log(inSeason); }
+        if (season != inSeason) { inSeason = season; }
     }
     static public Season get_inSeason() { return (inSeason); }
 

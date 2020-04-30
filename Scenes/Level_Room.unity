@@ -214,7 +214,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &52151924
 Prefab:
@@ -605,7 +605,7 @@ SpriteRenderer:
   m_Size: {x: 86.979996, y: 6.4799995}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &225366439
@@ -1933,6 +1933,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1666036836726702, guid: 6ee3ba38eb4b9b24b9153a336dc5b427, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ee3ba38eb4b9b24b9153a336dc5b427, type: 2}
   m_IsPrefabAsset: 0
@@ -2244,7 +2248,7 @@ SpriteRenderer:
   m_Size: {x: 85.35, y: 6.17}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1536601160
@@ -2505,7 +2509,7 @@ Prefab:
     - target: {fileID: 114781409557485582, guid: 10f97a066041e6a40afddb4bdfca7174,
         type: 2}
       propertyPath: toSceneName
-      value: Level_1
+      value: Level_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
@@ -2581,7 +2585,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4174578881870036, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}

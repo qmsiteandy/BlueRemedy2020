@@ -102,6 +102,9 @@ public class PlayerControl : MonoBehaviour {
     void Start()
     {
         for (int x = 0; x < 3; x++) { if (transform.GetChild(x).gameObject.active == true) OkaID_Now = x; }
+        speedLimit = initSpeedLimit;
+        facingRight = true;
+        noticeUIControl.NoticeUI_Setting(999);
     }
 
     void FixedUpdate()
@@ -522,18 +525,6 @@ public class PlayerControl : MonoBehaviour {
         transform.position = pos;
     }
 
-    public void NewLevelInit()
-    {
-        //cameraControl = GameObject.Find("CameraHolder").GetComponent<CameraControl>();
-
-        GameObject UIManager = GameObject.Find("UI_Canvas");
-        if (UIManager == null) { /*playerEnergy.enabled = false;*/  }
-        else { /*playerEnergy.enabled = true;*/ playerEnergy.ConnectNewLevelUI(); }
-
-        noticeUIControl.NoticeUI_Setting(999);
-
-        PlayerStatus.StatusReset();
-    }
 
     public void FallAsleep()
     {

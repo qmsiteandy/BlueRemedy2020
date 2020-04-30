@@ -7,7 +7,7 @@ public class DontDestroyOnLoad : MonoBehaviour
 {
     static List<GameObject> dontDestroyList = new List<GameObject>();
 
-    void Start()
+    void Awake()
     {
         if(CompareTheSame(this.name) == false)
         {

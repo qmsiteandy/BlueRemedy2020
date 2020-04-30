@@ -47,7 +47,6 @@ public class Swing_Playerfollow : MonoBehaviour {
         else
         {
             playerTrans.SetParent(null);
-            DontDestroyOnLoad(playerTrans.gameObject);
         }
     }
 }
