@@ -46,6 +46,8 @@ public class GroundPlants : MonoBehaviour {
             animator = GetComponent<Animator>();
             if (animator != null) animator.enabled = false;
         }
+
+        GetComponent<Collider2D>().enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -58,7 +60,12 @@ public class GroundPlants : MonoBehaviour {
     public void GrowByMainFlower()
     {
         if (b_isGrowFromMainFolwer)
-            if (!isGrowed && b_GrowAndCountedBlossom) Grow();
+            if (!isGrowed && b_GrowAndCountedBlossom)
+            {
+                Grow();
+
+                GetComponent<BlossomCalculate>().AddThis();
+            }
     }
 
     void Grow()
@@ -71,6 +78,8 @@ public class GroundPlants : MonoBehaviour {
 
         if(b_animateGrow) animator.SetTrigger("grow");
         else StartCoroutine(GrassLerpGrow());
+
+        GetComponent<Collider2D>().enabled = true;
 
         isGrowed = true;
     }

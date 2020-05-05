@@ -66,6 +66,6 @@ public class TransBackManager : MonoBehaviour {
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
 
         PlayerStatus.canControl = true;
-        gameManager.BlackPanelFade(1f, 0.3f);
+        gameManager.BlackPanelFade(0f, 0.3f);
     }
 }
