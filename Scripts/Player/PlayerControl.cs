@@ -49,13 +49,17 @@ public class PlayerControl : MonoBehaviour {
 
 
     [Header("水中")]
-    public ParticleSystem bubbleMaker;
-    private bool isBubbling = false;
-    //private int DirtyWaterLayerID = 14;
-    private float iceFloatForce = 50f;
+    //---"水基本"
     public bool isInWater = false;
     private Water_Area water_area;
     public GameObject waterSplashFX;
+    //---"水對主角影響"
+    private float waterDrag = 2.0f;  //水對主角阻力
+    private float speedDownRate = 0.8f;  //水導致主角降速比例
+    //---"泡泡"
+    public ParticleSystem bubbleMaker;
+    private bool isBubbling = false;
+    private float iceFloatForce = 50f;
 
     [Header("髒污ripple")]
     private SpriteMask rippleMask;
@@ -121,10 +125,14 @@ public class PlayerControl : MonoBehaviour {
         //---用於髒污塗層的遮罩---
         rippleMask.sprite = spriteRenderer[OkaID_Now].sprite;
 
+        //Sleep
         if (PlayerStatus.isSleeping)
         {
             if(Input.anyKeyDown) animator[OkaID_Now].SetTrigger("sleepAwake");
         }
+
+        //InWater
+        if (isInWater) InWater();
 
     }
 
@@ -304,7 +312,11 @@ public class PlayerControl : MonoBehaviour {
         if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
             water_area = collider.GetComponent<Water_Area>();
+
             for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Scene"; spriteRenderer[x].sortingOrder = -1; }
+            speedLimit *= speedDownRate;
+            rb2d.drag = waterDrag;
+            isInWater = true;
 
             //跳入水面的水花
             if (rb2d.velocity.y < -1.5f)
@@ -350,6 +362,11 @@ public class PlayerControl : MonoBehaviour {
         if (collider.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
             for (int x = 0; x < 3; x++) { spriteRenderer[x].sortingLayerName = "Player"; spriteRenderer[x].sortingOrder = 0; }
+            speedLimit = initSpeedLimit;
+            rb2d.drag = 0f;
+            isInWater = false;
+
+
             //跳出水面的水花
             if (rb2d.velocity.y > 0.3f)
             {
@@ -495,7 +512,6 @@ public class PlayerControl : MonoBehaviour {
         //---水中漂浮&冒泡泡---
         if (OkaID_Now == 0)
         {
-            Debug.Log("waveCrest:" + water_area.waveCrest + " transform.position.y:"+ transform.position.y);
             if (water_area.waveCrest - transform.position.y > 0.8f) rb2d.AddForce(Vector2.up * iceFloatForce);
             else if (water_area.waveCrest - transform.position.y > 0f) rb2d.AddForce(Vector2.up * iceFloatForce * (water_area.waveCrest - transform.position.y / 1f));
 

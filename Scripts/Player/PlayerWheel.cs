@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerWheel : MonoBehaviour {
 
@@ -87,14 +88,14 @@ public class PlayerWheel : MonoBehaviour {
 
     public void WheelShow()
     {
-        WheelCanvas.alpha = 1f;
+        WheelCanvas.DOFade(1f, 0.15f);
         lightIndex = PlayerControl.OkaID_Now;
         wheelShow = true;
     }
 
     public void WheelDisappear()
     {
-        WheelCanvas.alpha = 0f;
+        WheelCanvas.DOFade(0f, 0.1f);
         wheelShow = false;
     }
 

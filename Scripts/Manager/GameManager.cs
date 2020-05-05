@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour {
 
+    [Header("DarkPanel")]
+    private CanvasGroup blackPanel_canvasGroup;
+
     [Header("ChangeScene & Loading")]
-    float BlackFadeTime = 0.7f;
-    private CanvasGroup canvasGroup;
+    float BlackFadeTime = 1f;
+    private CanvasGroup changeScene_canvasGroup;
     private Coroutine fade_rouine;
-    private Text loadingText;
 
     [Header("ESC")]
     private ESC_Menu esc_menu;
@@ -19,13 +21,15 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        transform.Find("Canvas").gameObject.SetActive(true);
         transform.Find("Vignette").gameObject.SetActive(true);
 
-        loadingText = this.transform.Find("Canvas").Find("Text").GetComponent<Text>();
+        transform.Find("Canvas").gameObject.SetActive(true);
+        blackPanel_canvasGroup = transform.Find("Canvas").GetComponent<CanvasGroup>();
+        blackPanel_canvasGroup.alpha = 0f;
 
-        canvasGroup = transform.Find("Canvas").GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0f;
+        transform.Find("ChangeScene_Canvas").gameObject.SetActive(true);
+        changeScene_canvasGroup = transform.Find("ChangeScene_Canvas").GetComponent<CanvasGroup>();
+        changeScene_canvasGroup.alpha = 0f;
 
         esc_menu = transform.Find("ESC_Canvas").GetComponent<ESC_Menu>();
     }
@@ -54,27 +58,13 @@ public class GameManager : MonoBehaviour {
     IEnumerator LoadStart(string sceneName, int sceneNum)
     {
         PlayerStatus.canControl = false;
-        BlackFadeInOut(true, BlackFadeTime);
-        if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
 
-        loadingText.text = 0 + "%";
+        changeScene_canvasGroup.DOFade(1f, BlackFadeTime);
+        if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
 
         yield return new WaitForSeconds(BlackFadeTime);
 
         StartCoroutine(Loading(sceneName, sceneNum));
-    }
-    public void BlackFadeInOut(bool isFadeIn, float inTime)
-    {
-        if (fade_rouine != null) { StopCoroutine(fade_rouine); fade_rouine = null; }
-
-        fade_rouine = StartCoroutine(BlackFadeIn(isFadeIn, inTime));
-    }
-    IEnumerator BlackFadeIn(bool isFadeIn, float inTime)
-    {
-        float fadeSpeed = 1f / inTime;
-
-        if (isFadeIn) while (canvasGroup.alpha < 1f) { canvasGroup.alpha += fadeSpeed * Time.deltaTime; yield return null; }
-        else while (canvasGroup.alpha > 0f) { canvasGroup.alpha -= fadeSpeed * Time.deltaTime; yield return null; }
     }
     IEnumerator Loading(string sceneName, int sceneNum)
     {
@@ -84,7 +74,6 @@ public class GameManager : MonoBehaviour {
 
         while (!operation.isDone)
         {
-            loadingText.text = (int)(Mathf.Clamp01(operation.progress / 0.9f) * 100f) + "%";
             yield return null;
         }
 
@@ -108,14 +97,18 @@ public class GameManager : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);  //等待攝影機規定位
         }
 
-        BlackFadeInOut(false, BlackFadeTime);
+        changeScene_canvasGroup.DOFade(0f, BlackFadeTime);
 
         yield return new WaitForSeconds(BlackFadeTime);
 
         PlayerStatus.canControl = true;
     }
-
     #endregion
+
+    public void BlackPanelFade(float fadeTo, float inTime)
+    {
+        blackPanel_canvasGroup.DOFade(fadeTo, inTime);
+    }
 
     public void LevelClear(int level)
     {

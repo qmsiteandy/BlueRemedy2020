@@ -57,8 +57,7 @@ public class TransBackManager : MonoBehaviour {
     }
     IEnumerator TransBack(Vector3 TransBackPos)
     {
-
-        gameManager.BlackFadeInOut(true, 0.3f);
+        gameManager.BlackPanelFade(1f, 0.3f);
         PlayerStatus.canControl = false;
 
         yield return new WaitForSeconds(0.5f);
@@ -67,6 +66,6 @@ public class TransBackManager : MonoBehaviour {
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
 
         PlayerStatus.canControl = true;
-        gameManager.BlackFadeInOut(false, 0.3f);
+        gameManager.BlackPanelFade(1f, 0.3f);
     }
 }

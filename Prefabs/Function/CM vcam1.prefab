@@ -39,7 +39,6 @@ GameObject:
   - component: {fileID: 114942180482320560}
   - component: {fileID: 114452997641728674}
   - component: {fileID: 114755020010199422}
-  - component: {fileID: 114376048176244098}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -54,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915450060884012}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.0000005, z: -10}
+  m_LocalPosition: {x: 192, y: -46, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4708579772845188}
@@ -74,17 +73,6 @@ Transform:
   m_Father: {fileID: 4085806657211464}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114376048176244098
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1915450060884012}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22e9ff6e993ffd144af14356bee10804, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114452997641728674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +88,7 @@ MonoBehaviour:
   m_BoundingVolume: {fileID: 0}
   m_BoundingShape2D: {fileID: 0}
   m_ConfineScreenEdges: 1
-  m_Damping: 0.15
+  m_Damping: 2
 --- !u!114 &114631233606186614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -127,7 +115,7 @@ MonoBehaviour:
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
   m_XDamping: 1
-  m_YDamping: 0.3
+  m_YDamping: 0.2
   m_ZDamping: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.7

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class LevelDoor : MonoBehaviour {
 
@@ -22,11 +23,9 @@ public class LevelDoor : MonoBehaviour {
     private float particleStartAmount;
 
     [Header("UI顯現")]
-    private float fadeUpSpeed = 5f;
-    private float fadeDownSpeed = 4f;
+    private float fadeUpTime = 0.2f;
+    private float fadeDownTime = 0.25f;
     private CanvasGroup canvasGroup;
-    private float alpha = 0f;
-    private bool isFadingUp = false;
 
     // Use this for initialization
     void Awake ()
@@ -51,28 +50,12 @@ public class LevelDoor : MonoBehaviour {
 
         //----UI顯現
         canvasGroup = transform.Find("canvas").Find("InputNote_group").GetComponent<CanvasGroup>();
-        canvasGroup.alpha = alpha;
-    }
-
-    void Update()
-    {
-        if (isFadingUp && canvasGroup.alpha < 1f)
-        {
-            alpha += fadeUpSpeed * Time.deltaTime;
-            if (alpha > 1f) alpha = 1f;
-        }
-        else if (!isFadingUp && canvasGroup.alpha > 0f)
-        {
-            alpha -= fadeDownSpeed * Time.deltaTime;
-            if (alpha < 0f) alpha = 0f;
-        }
-
-        canvasGroup.alpha = alpha;
+        canvasGroup.alpha = 0f;
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player" && thisDoorOpen) isFadingUp = true;
+        if (other.tag == "Player" && thisDoorOpen) canvasGroup.DOFade(1f, fadeUpTime);
     }
     void OnTriggerStay2D(Collider2D other)
     { 
@@ -113,7 +96,7 @@ public class LevelDoor : MonoBehaviour {
     }
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Player" && thisDoorOpen) isFadingUp = false;
+        if (other.tag == "Player" && thisDoorOpen) canvasGroup.DOFade(0f, fadeDownTime);
 
         PlayerStatus.isSkilling = false;
         enterInputTime = 0f;
