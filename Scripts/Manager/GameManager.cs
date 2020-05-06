@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     float BlackFadeTime = 1f;
     private CanvasGroup changeScene_canvasGroup;
     private Coroutine fade_rouine;
+    private int OKAID_now = 1;
 
     [Header("ESC")]
     private ESC_Menu esc_menu;
@@ -58,6 +59,7 @@ public class GameManager : MonoBehaviour {
     IEnumerator LoadStart(string sceneName, int sceneNum)
     {
         PlayerStatus.canControl = false;
+        OKAID_now = GameObject.Find("Player") ? PlayerControl.OkaID_Now : 1;
 
         changeScene_canvasGroup.DOFade(1f, BlackFadeTime);
         if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour {
         if(GameObject.FindGameObjectWithTag("Player")!= null)
         {
             Transform playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
-            playerTrans.GetComponent<PlayerChange>().ForceChangeForm(1);
+            playerTrans.GetComponent<PlayerChange>().ForceChangeForm(OKAID_now);
 
             if(SceneManager.GetActiveScene().buildIndex == 1) playerTrans.position = LevelDoor.lastEnterPos;
             else playerTrans.position = Vector3.zero;

@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour {
     [Header("跳躍判斷")]
     private Transform footCheck;         //檢查踩踏地板的點
     private Transform frontCheck, backCheck;
-    private float checkRadius = 0.2f;    //檢查踩踏地板的判斷半徑
+    private float checkRadius = 0.4f;    //檢查踩踏地板的判斷半徑
     private LayerMask whatIsGround;      //檢查踩踏地板的地板圖層
     private LayerMask whatIsPlatform;
     [HideInInspector] static public bool footLanding = false;

@@ -6706,8 +6706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1
@@ -6715,7 +6713,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &429305970
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7032,8 +7029,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1
@@ -7041,7 +7036,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &445562193
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16285,8 +16279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1.6
@@ -16294,7 +16286,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &722318841
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -16330,11 +16321,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4174578881870036, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 289.01
+      value: 115.9
       objectReference: {fileID: 0}
     - target: {fileID: 4174578881870036, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -30.02
+      value: -77.8
       objectReference: {fileID: 0}
     - target: {fileID: 4174578881870036, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_LocalPosition.z
@@ -16362,11 +16353,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1516637176995048, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1307374830444632, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
@@ -16746,11 +16737,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4085806657211464, guid: 19e67a7156f648f4d872749e80ffd3ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 289.01
+      value: 115.9
       objectReference: {fileID: 0}
     - target: {fileID: 4085806657211464, guid: 19e67a7156f648f4d872749e80ffd3ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -26.02
+      value: -73.8
       objectReference: {fileID: 0}
     - target: {fileID: 4085806657211464, guid: 19e67a7156f648f4d872749e80ffd3ac, type: 2}
       propertyPath: m_LocalPosition.z
@@ -16833,8 +16824,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1.6
@@ -16842,7 +16831,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &766884477
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -24788,8 +24776,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1.6
@@ -24797,7 +24783,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &1316251335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -28433,11 +28418,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4168895627385896, guid: bdd8febd7e0170242b492cdd1ebd9151, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 289.01
+      value: 115.9
       objectReference: {fileID: 0}
     - target: {fileID: 4168895627385896, guid: bdd8febd7e0170242b492cdd1ebd9151, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -26.02
+      value: -73.8
       objectReference: {fileID: 0}
     - target: {fileID: 4168895627385896, guid: bdd8febd7e0170242b492cdd1ebd9151, type: 2}
       propertyPath: m_LocalPosition.z
@@ -38796,8 +38781,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2abb1c19d2a084387fe65fd7caba56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterDrag: 2
-  speedDownRate: 0.8
   makeWave: 1
   waveCrest: 0
   waveFreq: 1.6
@@ -38805,7 +38788,6 @@ MonoBehaviour:
   isDirtyWater: 1
   addDirtAmount: 5
   damageCycle: 0.5
-  InWater: 0
 --- !u!61 &2059844420
 BoxCollider2D:
   m_ObjectHideFlags: 0

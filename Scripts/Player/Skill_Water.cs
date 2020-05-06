@@ -247,7 +247,6 @@ public class Skill_Water : Skill_Base
     }
     void SetOKA_direction(float toDegree)
     {
-        Debug.Log(toDegree);
         if (toDegree > 90f) toDegree = 180f - toDegree;
         else if (toDegree < -90f) toDegree = -180 - toDegree;
        
