@@ -64,7 +64,6 @@ public class attack_s_icepike : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("in");
         if (collision.gameObject.layer == LayerMask.NameToLayer("WaterArea"))
         {
             GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Scene"; GetComponentInChildren<SpriteRenderer>().sortingOrder = -1;

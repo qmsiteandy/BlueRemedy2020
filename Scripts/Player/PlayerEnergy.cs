@@ -34,7 +34,7 @@ public class PlayerEnergy : MonoBehaviour {
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        dirtyRippeMat = this.transform.Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
+        dirtyRippeMat = this.transform.Find("DirtyRipple_Mask").Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
 
         dirtyRippeMat.SetFloat("_drityDegree", 0);
     }

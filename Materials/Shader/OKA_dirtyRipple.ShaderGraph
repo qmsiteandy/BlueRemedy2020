@@ -23,6 +23,12 @@
                 "fullName": "UnityEditor.ShaderGraph.Vector1ShaderProperty"
             },
             "JSONnodeData": "{\n    \"m_Value\": 1.0,\n    \"m_Name\": \"drityDegree\",\n    \"m_GeneratePropertyBlock\": true,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"78a452ad-8c52-44a2-8de9-97082e27819a\"\n    },\n    \"m_OverrideReferenceName\": \"_drityDegree\",\n    \"m_FloatType\": 1,\n    \"m_RangeValues\": {\n        \"x\": 0.0,\n        \"y\": 1.0\n    }\n}"
+        },
+        {
+            "typeInfo": {
+                "fullName": "UnityEditor.ShaderGraph.TextureShaderProperty"
+            },
+            "JSONnodeData": "{\n    \"m_Value\": {\n        \"m_SerializedTexture\": \"\",\n        \"m_Guid\": \"\"\n    },\n    \"m_Name\": \"Texture2D\",\n    \"m_GeneratePropertyBlock\": false,\n    \"m_Guid\": {\n        \"m_GuidSerialized\": \"72ccb2d8-cade-49f1-9d55-450e233d5815\"\n    },\n    \"m_OverrideReferenceName\": \"_MainTex\",\n    \"m_Modifiable\": true\n}"
         }
     ],
     "m_GUID": {

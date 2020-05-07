@@ -9,7 +9,9 @@ public class PlayerStatus : MonoBehaviour {
 
     public static bool canControl = true;
 
+
     //===Status===
+    public static bool isCanMoveInput = true;
     public static bool isLanding = false;
     public static bool isSkilling = false;
     public static bool isSpecialSkilling = false;
@@ -57,10 +59,10 @@ public class PlayerStatus : MonoBehaviour {
             canChange = true;
             canBeHurt = true;
 
-            //if (!isLanding)
-            //{
-            //    canChange = false;
-            //}
+            if (!isCanMoveInput)
+            {
+                canMove = false;
+            }
             if (isSkilling)
             {
                 canMove = canJump = false;

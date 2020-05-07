@@ -20,8 +20,10 @@ public class Skill_Ice : Skill_Base {
     private float iceThrowForce;
 
     [Header("Normal Skill")]
-    public GameObject Attack3_FX;
+    public GameObject Attack3_IcePike;
     private Coroutine iceGrow_coroutine;
+
+    public Animator[] iceAnimator;
 
     void Awake()
     {
@@ -201,27 +203,29 @@ public class Skill_Ice : Skill_Base {
 
     void Attack3_FX_Init()
     {
-        iceGrow_coroutine = StartCoroutine(IceGrow(PlayerControl.facingRight));
+        iceGrow_coroutine = StartCoroutine(IceGrowAndBreak(PlayerControl.facingRight));
     }
 
-    IEnumerator IceGrow(bool rightDirection)
+    IEnumerator IceGrowAndBreak(bool rightDirection)
     {
-        float timeBetween = 0.1f;
+        float timeBetween = 0.08f;
 
         float xdistanceBetwee = 1.5f;
-        float xMaxDistance = 10f;
+        float xMaxDistance = 8f;
 
         int iceMaxCount = (int)Mathf.Floor(xMaxDistance / xdistanceBetwee);
         int count = 0;
 
         float iceScale = 0.4f;
-        float iceScaleIncrease = 0.1f;
+        float iceScaleIncrease = 0.15f;
 
         float maxSlopeRatio = 0.75f; //允許斜坡角度
         float ydiffRange = xdistanceBetwee * maxSlopeRatio;   //下一個冰塊產生處可允許的垂直高度差範圍
 
         Vector2 startPos = this.transform.position + new Vector3((rightDirection ? 1.15f : -1.15f), -0.5f, 0f);
         Vector2 newIcePos = startPos;
+
+        iceAnimator = new Animator[iceMaxCount];
 
         for (count = 0; count < iceMaxCount; count++)
         {
@@ -237,8 +241,9 @@ public class Skill_Ice : Skill_Base {
             {
                 newIcePos = new Vector2(newIcePos.x, downHit.point.y);
 
-                GameObject FX = Instantiate(Attack3_FX, newIcePos, Quaternion.identity);
-                FX.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
+                GameObject icePike = Instantiate(Attack3_IcePike, newIcePos, Quaternion.identity);
+                icePike.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
+                iceAnimator[count] = icePike.transform.GetChild(0).GetComponent<Animator>();
             }
             else break;
 
@@ -249,12 +254,23 @@ public class Skill_Ice : Skill_Base {
             newIcePos += Vector2.right * (rightDirection ? xdistanceBetwee * iceScale : -xdistanceBetwee * iceScale);
 
             yield return new WaitForSeconds(timeBetween);
+            timeBetween *= 0.4f;
         }  
         //至少生成一枝
         if(count == 0)
         {
-            GameObject FX = Instantiate(Attack3_FX, startPos, Quaternion.identity);
-            FX.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
+            GameObject icePike = Instantiate(Attack3_IcePike, startPos, Quaternion.identity);
+            icePike.transform.localScale = new Vector3(iceScale * (rightDirection ? 1f : -1f), iceScale, 1f);
+            iceAnimator[count] = icePike.GetComponent<Animator>();
         }
+
+        StartCoroutine(IceBreak(0.7f, iceAnimator));
+    }
+
+    IEnumerator IceBreak(float delay, Animator[] iceAnimator)
+    {
+        yield return new WaitForSeconds(delay);
+
+        for (int i = 0; i < iceAnimator.Length; i++) iceAnimator[i].SetTrigger("break");
     }
 }

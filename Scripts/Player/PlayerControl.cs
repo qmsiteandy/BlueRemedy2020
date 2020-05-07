@@ -30,6 +30,7 @@ public class PlayerControl : MonoBehaviour {
     public GameObject objUnderFoot;
     private bool frontTouchWall = false, backTouchWall = false;
     private bool touchGround;
+    private Vector2 contactNormal = Vector2.zero;   //與地面牆壁collider觸碰的法向量
     [HideInInspector] public bool jumping = false;
     private bool secondJumping = false;
     private bool pressingJump = false;
@@ -46,7 +47,6 @@ public class PlayerControl : MonoBehaviour {
     [Header("機關設定")]
     public NoticeUIControl noticeUIControl;
     public CameraControl cameraControl;
-
 
     [Header("水中")]
     //---"水基本"
@@ -100,7 +100,7 @@ public class PlayerControl : MonoBehaviour {
         bubbleMaker.Stop();
 
         //---用於髒污ripple的材質遮罩設定---
-        rippleMask = this.GetComponent<SpriteMask>();
+        rippleMask = this.transform.Find("DirtyRipple_Mask").GetComponent<SpriteMask>();
     }
 
     void Start()
@@ -228,23 +228,12 @@ public class PlayerControl : MonoBehaviour {
                 else rb2d.AddForce(Vector2.up * jumpForce * 0.8f);
             }
             //蹬牆跳
-            else if (frontTouchWall && !footLanding && !jumping)
+            else if ((frontTouchWall || backTouchWall) && !footLanding && !jumping)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
+                StartCoroutine(ShortCantMove(0.1f));
 
-                if (facingRight) { rb2d.AddForce(new Vector2(-walljumpForce * (xInput>0f ? 2.5f : 0.8f), walljumpForce)); }
-                else { rb2d.AddForce(new Vector2(walljumpForce * (xInput < 0f ? 2.5f : 0.8f), walljumpForce)); }
-
-                StartCoroutine(ShortCantMove(0.8f));
-            }
-            else if (backTouchWall && !footLanding && !jumping)
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, 0f);
-
-                if (facingRight) { rb2d.AddForce(new Vector2(walljumpForce * 0.8f, walljumpForce)); }
-                else { rb2d.AddForce(new Vector2(-walljumpForce * 0.8f, walljumpForce)); }
-
-                StartCoroutine(ShortCantMove(0.8f));
+                rb2d.AddForce(new Vector2((contactNormal.x > 0f ? 1.35f : -1.35f) * walljumpForce, walljumpForce));
             }
             //二段跳
             else if (!secondJumping && OkaID_Now == 2)
@@ -394,7 +383,7 @@ public class PlayerControl : MonoBehaviour {
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Ground & Wall") || collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
-            Vector2 contactNormal = collision.GetContact(0).normal; //取得交點法向量  
+            contactNormal = collision.GetContact(0).normal; //取得交點法向量  
             angleWithCol = (Mathf.Atan(contactNormal.y / contactNormal.x)) * 180f / Mathf.PI; //計算角度
 
             ////Walk
@@ -421,12 +410,12 @@ public class PlayerControl : MonoBehaviour {
                     animator[OkaID_Now].SetTrigger("wallJumpOut");
                     animator[OkaID_Now].SetBool("wall_isSticking", false);
 
-                    transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
                 }
 
                 if (isStickOnWall)
                 {
-                    transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angleWithCol);
+                    transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, angleWithCol);
                 }
             }
         }
@@ -442,7 +431,7 @@ public class PlayerControl : MonoBehaviour {
                 animator[OkaID_Now].SetBool("wall_isSticking", false);
             }
 
-            transform.GetChild(OkaID_Now).rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
+            transform.rotation = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0f);
         }
     }
     #endregion ================↑collider相關↑================
@@ -499,11 +488,11 @@ public class PlayerControl : MonoBehaviour {
 
     IEnumerator ShortCantMove(float duration)
     {
-        PlayerStatus.canMove = false;
+        PlayerStatus.isCanMoveInput = false;
 
         yield return new WaitForSeconds(duration);
 
-        PlayerStatus.canMove = true;
+        PlayerStatus.isCanMoveInput = true;
     }
 
     //---水中---
