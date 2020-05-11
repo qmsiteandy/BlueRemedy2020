@@ -13,6 +13,7 @@ public class SpecialBigIce : MonoBehaviour {
     private PlayerControl playerControl;
     public float player_xOffset = 0f;
     private SpriteRenderer spriteRenderer;
+    private bool isThrowLanded = false;
     
     void Awake ()
     {
@@ -70,13 +71,17 @@ public class SpecialBigIce : MonoBehaviour {
         {
             playerControl = collision.gameObject.GetComponent<PlayerControl>();
         }
-        else if (collision.gameObject.tag == "Enemy")
+        else if (collision.gameObject.tag == "Enemy" && !isThrowLanded)
         {
             if (this.rb2d.velocity.magnitude > 5f)
             {
                 int damage = (int)((this.rb2d.velocity.magnitude - 5f) * 0.5f);
                 collision.gameObject.GetComponent<Enemy_base>().TakeDamage(damage);
             } 
+        }
+        else if (!isThrowLanded) 
+        {
+            isThrowLanded = true;
         }
     }
 

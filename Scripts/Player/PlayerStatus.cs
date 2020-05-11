@@ -14,7 +14,9 @@ public class PlayerStatus : MonoBehaviour {
     public static bool isCanMoveInput = true;
     public static bool isLanding = false;
     public static bool isSkilling = false;
-    public static bool isSpecialSkilling = false;
+    public static bool isIceSpecialSkilling = false;
+    public static bool isWaterSpecialSkilling = false;
+    public static bool isGasSpecialSkilling = false;
     public static bool isChanging = false;
     public static bool isHitRecover = false;
     public static bool isWallSticking = false;
@@ -69,10 +71,16 @@ public class PlayerStatus : MonoBehaviour {
                 canChange = false;
                 canFlip = false;
             }
-            if (isSpecialSkilling)
+            if (isIceSpecialSkilling || isWaterSpecialSkilling)
             {
                 canMove = canJump = false;
                 canChange = false;
+            }
+            if (isGasSpecialSkilling)
+            {
+                canMove = canJump = false;
+                canChange = false;
+                canFlip = false;
             }
             if (isChanging)
             {
@@ -122,7 +130,7 @@ public class PlayerStatus : MonoBehaviour {
     {
         isLanding = false;
         isSkilling = false;
-        isSpecialSkilling = false;
+        isIceSpecialSkilling = isWaterSpecialSkilling = isGasSpecialSkilling = false;
         isChanging = false;
         isHitRecover = false;
         isWallSticking = false;

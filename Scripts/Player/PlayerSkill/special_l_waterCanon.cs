@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class special_l_waterCanon : MonoBehaviour {
+public class Special_l_waterCanon : MonoBehaviour {
 
     public int damageAmount = 1;
     private Collider2D attackTrigger;

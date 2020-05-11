@@ -187,7 +187,7 @@ public class Skill_Ice : Skill_Base {
     void SpecialAttacking(bool truefalse)
     {
         attacking = truefalse;
-        PlayerStatus.isSpecialSkilling = truefalse;
+        PlayerStatus.isIceSpecialSkilling = truefalse;
     }
     void SpecialSkillOver()
     {

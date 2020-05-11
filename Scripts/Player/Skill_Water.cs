@@ -91,7 +91,7 @@ public class Skill_Water : Skill_Base
             {
                 animator.SetTrigger("specialSkill_release");
                 waterCanonObj.transform.GetChild(0).GetComponent<Animator>().SetTrigger("release");
-                waterCanonObj.transform.GetChild(0).GetComponent<special_l_waterCanon>().SetAngle(canonDirectionAngle);
+                waterCanonObj.transform.GetChild(0).GetComponent<Special_l_waterCanon>().SetAngle(canonDirectionAngle);
 
                 playerEnergy.ModifyWaterEnergy(-specialCost);
 
@@ -255,7 +255,7 @@ public class Skill_Water : Skill_Base
     void SpecialAttacking(bool truefalse)
     {
         attacking = truefalse;
-        PlayerStatus.isSpecialSkilling = truefalse;
+        PlayerStatus.isWaterSpecialSkilling = truefalse;
     }
     void SetSpitting(bool truefalse)
     {
