@@ -10,7 +10,7 @@ public class BGM_Manager : MonoBehaviour {
     private AudioSource audioSource;
     private Coroutine opencloseRoutine;
 
-    private void Awake()
+    private void OnEnable()
     {
         audioSource = GetComponent<AudioSource>();
         if (audioSource.clip == null) audioSource.clip = BGM[0];

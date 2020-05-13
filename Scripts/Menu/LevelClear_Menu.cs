@@ -33,7 +33,20 @@ public class LevelClear_Menu : MonoBehaviour {
     {
         if (canContinue)
         {
-            if(Input.GetButtonDown("Submit")) GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene("Level_Room");
+            if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
+            {
+                if (transform.parent.Find("StoryVedio") != null)
+                {
+                    transform.parent.Find("StoryVedio").GetComponent<StoryVedio>().VedioStart();
+                }
+                else
+                {
+                    GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene("Level_Room");
+                }
+
+                this.enabled = false;
+            }
+            
         }
     }
 

@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour {
         PlayerStatus.canControl = false;
         OKAID_now = GameObject.Find("Player") ? PlayerControl.OkaID_Now : 1;
 
+        BlossomCalculate.ResetBlossomDegree();
+
         changeScene_canvasGroup.DOFade(1f, BlackFadeTime);
         if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
 
@@ -93,8 +95,7 @@ public class GameManager : MonoBehaviour {
 
             GameObject.Find("ParallaxCamera").transform.position = Vector3.zero;
             playerTrans.GetComponent<PlayerEnergy>().ResetEnegy();
-            PlayerStatus.set_inSeason(PlayerStatus.Season.none);
-            BlossomCalculate.ResetBlossomDegree();
+            PlayerStatus.set_inSeason(PlayerStatus.Season.none);     
 
             yield return new WaitForSeconds(0.5f);  //等待攝影機規定位
         }

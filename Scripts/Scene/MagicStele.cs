@@ -14,7 +14,7 @@ public class MagicStele : MonoBehaviour {
     void Awake ()
     {
         stele_glow = this.transform.Find("stele_glow").GetComponent<SpriteRenderer>();
-        stele_glow.color = new Color(1f, 1f, 1f, 0f);
+        stele_glow.DOFade(0f, 0f);
 
         canvasGroup = this.transform.Find("Canvas").GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0f;
@@ -22,11 +22,11 @@ public class MagicStele : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player") { canvasGroup.DOFade(1f, fadeTime); }
+        if (collision.tag == "Player") { canvasGroup.DOFade(1f, fadeTime); stele_glow.DOFade(1f, fadeTime); }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player") { canvasGroup.DOFade(0f, fadeTime); }
+        if (collision.tag == "Player") { canvasGroup.DOFade(0f, fadeTime); stele_glow.DOFade(0f, fadeTime); }
     }
 }
