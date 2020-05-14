@@ -196,6 +196,6 @@ public class Skill_Base : MonoBehaviour
 
     void SleepAwake()
     {
-        playerControl.SleepAwake();
+        PlayerStatus.isSleeping = false;
     }
 }

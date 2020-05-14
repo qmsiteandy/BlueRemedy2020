@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour {
                 SetEscMenu(isESC);
             }
         }
+
+
+        //作弊鍵
+        if (Input.GetKeyDown(KeyCode.Backspace)) LevelData.ClearLevel(100);
     }
 
     #region ChangeScene & Loading
@@ -90,7 +94,7 @@ public class GameManager : MonoBehaviour {
             Transform playerTrans = GameObject.FindGameObjectWithTag("Player").transform;
             playerTrans.GetComponent<PlayerChange>().ForceChangeForm(OKAID_now);
 
-            if(SceneManager.GetActiveScene().buildIndex == 1) playerTrans.position = LevelDoor.lastEnterPos;
+            if(SceneManager.GetActiveScene().buildIndex == 1) playerTrans.position = LevelDoor.get_lastEnterDoorPos();
             else playerTrans.position = Vector3.zero;
 
             GameObject.Find("ParallaxCamera").transform.position = Vector3.zero;

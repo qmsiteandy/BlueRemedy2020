@@ -24,6 +24,11 @@ public class LevelClearTrigger : MonoBehaviour {
         isClear = true;
 
         GameObject.Find("GameManager").GetComponent<GameManager>().LevelClear(SceneManager.GetActiveScene().buildIndex);
-        transform.Find("LevelClear_Canvas").gameObject.SetActive(true);
+
+        if (transform.Find("StoryVedio") != null)
+        {
+            transform.Find("StoryVedio").GetComponent<StoryVedio>().VedioStart();
+        }
+        else transform.Find("LevelClear_Canvas").GetComponent<LevelClear_Menu>().StartPlay();
     }
 }

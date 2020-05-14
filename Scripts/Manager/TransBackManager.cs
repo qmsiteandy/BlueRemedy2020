@@ -57,15 +57,18 @@ public class TransBackManager : MonoBehaviour {
     }
     IEnumerator TransBack(Vector3 TransBackPos)
     {
-        gameManager.BlackPanelFade(1f, 0.3f);
+        gameManager.BlackPanelFade(1f, 0.5f);
         PlayerStatus.canControl = false;
 
         yield return new WaitForSeconds(0.5f);
 
-        //cameraControl.SetCameraPos(RecordPointManager.Get_playerRecordPos());
+        GameObject.Find("Player").GetComponent<PlayerControl>().FallAsleep();
+        GameObject.Find("Player").GetComponent<PlayerControl>().SleepAwake();
+
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
 
+        gameManager.BlackPanelFade(0f, 0.5f);
         PlayerStatus.canControl = true;
-        gameManager.BlackPanelFade(0f, 0.3f);
+        
     }
 }

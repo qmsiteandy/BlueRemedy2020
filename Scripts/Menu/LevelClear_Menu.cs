@@ -15,18 +15,15 @@ public class LevelClear_Menu : MonoBehaviour {
     private bool canContinue = false;
 
 
-    void Start ()
+    void Awake ()
     {
-        levelClearTime = GameObject.Find("Level_Timer").GetComponent<Level_Timer>().Get_LevelTime();
-        blossomDegree = BlossomCalculate.GetBlossomDegree();
-
         levelClearTime_Text = transform.Find("Level_Time").GetComponent<Text>();
         levelClearTime_Text.text = "00:00";
         blossomDegree_Text = transform.Find("Level_Blossom").GetComponent<Text>();
         blossomDegree_Text.text = "0/100";
 
         animator = GetComponent<Animator>();
-        animator.SetTrigger("Clear");
+        animator.speed = 0f;
     }
 
     private void Update()
@@ -35,19 +32,20 @@ public class LevelClear_Menu : MonoBehaviour {
         {
             if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
             {
-                if (transform.parent.Find("StoryVedio") != null)
-                {
-                    transform.parent.Find("StoryVedio").GetComponent<StoryVedio>().VedioStart();
-                }
-                else
-                {
-                    GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene("Level_Room");
-                }
+                GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene("Level_Room");
 
                 this.enabled = false;
-            }
-            
+            }  
         }
+    }
+
+    public void StartPlay()
+    {
+        levelClearTime = GameObject.Find("Level_Timer").GetComponent<Level_Timer>().Get_LevelTime();
+        blossomDegree = BlossomCalculate.GetBlossomDegree();
+
+        animator.SetTrigger("Clear");
+        animator.speed = 1f;
     }
 
     #region TimeTextCount

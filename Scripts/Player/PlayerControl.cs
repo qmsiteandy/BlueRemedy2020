@@ -128,7 +128,7 @@ public class PlayerControl : MonoBehaviour {
         //Sleep
         if (PlayerStatus.isSleeping)
         {
-            if(Input.anyKeyDown) animator[OkaID_Now].SetTrigger("sleepAwake");
+            if(Input.anyKeyDown) SleepAwake();
         }
 
         //InWater
@@ -534,10 +534,13 @@ public class PlayerControl : MonoBehaviour {
     public void FallAsleep()
     {
         PlayerStatus.isSleeping = true;
+
+        //當甦醒動畫撥放完，會在skill_base設定isSleeping = false;
+
         animator[OkaID_Now].SetTrigger("fallAsleep");
     }
     public void SleepAwake()   //sleepAwake animation呼叫skillBase，再由skillbase呼叫此函式
     {
-        PlayerStatus.isSleeping = false;
+        animator[OkaID_Now].SetTrigger("sleepAwake");
     }
 }

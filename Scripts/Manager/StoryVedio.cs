@@ -73,11 +73,17 @@ public class StoryVedio : MonoBehaviour
 
     public void VedioStart()
     {
-        transform.Find("Vedio").gameObject.SetActive(true);
-
+        StartCoroutine(cor_VedioStart());
+    }
+    IEnumerator cor_VedioStart()
+    {
         PlayerStatus.canControl = false;
         if (BGM_Object != null) BGM_Object.SetActive(false);
 
+        GameObject.Find("GameManager").GetComponent<GameManager>().BlackPanelFade(1f, 0.5f);
+        yield return new WaitForSeconds(1f);
+
+        transform.Find("Vedio").gameObject.SetActive(true);
         this.GetComponent<CanvasGroup>().alpha = 0f;
         this.GetComponent<CanvasGroup>().DOFade(1f, 1f);
 
@@ -93,12 +99,14 @@ public class StoryVedio : MonoBehaviour
     }
     IEnumerator cor_VedioEnd()
     {
+        GameObject.Find("GameManager").GetComponent<GameManager>().BlackPanelFade(0f, 0f);
         blackPanel.DOFade(1f, 1f);
         yield return new WaitForSeconds(1f);
 
         this.transform.Find("Vedio").gameObject.SetActive(false);
         skipButton.SetActive(false);
 
+        //依據影片撥放類型，做不同的end
         if (vedioState == VedioState.LevelStart)
         {
             if (BGM_Object != null) BGM_Object.SetActive(true);
@@ -110,7 +118,10 @@ public class StoryVedio : MonoBehaviour
         }
         else if(vedioState == VedioState.LevelEnd)
         {
-            GameObject.Find("GameManager").GetComponent<GameManager>().GoToScene("Level_Room");
+            transform.parent.Find("LevelClear_Canvas").GetComponent<LevelClear_Menu>().StartPlay();
+
+            this.GetComponent<Canvas>().sortingOrder = 5;
+            yield return new WaitForSeconds(1f);
         }
         
         Destroy(this.gameObject);

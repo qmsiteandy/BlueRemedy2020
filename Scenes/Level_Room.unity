@@ -735,11 +735,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.4
+      value: 11.46
       objectReference: {fileID: 0}
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.03
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2493,6 +2493,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20488264476096854, guid: bdd8febd7e0170242b492cdd1ebd9151,
+        type: 2}
+      propertyPath: field of view
+      value: 80
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd8febd7e0170242b492cdd1ebd9151, type: 2}
   m_IsPrefabAsset: 0
@@ -2552,11 +2557,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 25.92
+      value: 24.22
       objectReference: {fileID: 0}
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.24
+      value: 0.11
       objectReference: {fileID: 0}
     - target: {fileID: 4249583108818452, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2600,6 +2605,10 @@ Prefab:
         type: 2}
       propertyPath: toSceneName
       value: Level_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1137652794473936, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10f97a066041e6a40afddb4bdfca7174, type: 2}
