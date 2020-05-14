@@ -54,10 +54,13 @@ public class LevelDoor : MonoBehaviour {
         }
 
         //---初始化doorList
-        doorList[doorID] = new c_door();
-        doorList[doorID].doorPos = this.transform.position;
-        if (doorID == 0) doorList[doorID].isDoorOpen = true;
-
+        if (doorList[doorID] == null)
+        {
+            doorList[doorID] = new c_door();
+            doorList[doorID].doorPos = this.transform.position;
+            if (doorID == 0) doorList[doorID].isDoorOpen = true;
+        }
+        
         //---門的樣式初始
         doorClose = transform.Find("door_IMG/door_close").gameObject;
         doorOpen = transform.Find("door_IMG/door_open").gameObject;

@@ -7,6 +7,8 @@ using UnityEngine.Events;
 
 public class StoryVedio : MonoBehaviour
 {
+    public string storyTitle;
+
     private bool isSkiped = false;
     private bool canSkip = false;
     private GameObject skipButton;
@@ -46,6 +48,10 @@ public class StoryVedio : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backspace)) { Debug.Log("跳過劇情作弊鍵"); VedioEnd();}//作弊鍵
+
+        //------------
+
         if (isSkiped || !canSkip) return;
 
         if (Input.GetButton("Submit") || Input.GetKey(KeyCode.Space))
@@ -73,7 +79,7 @@ public class StoryVedio : MonoBehaviour
 
     public void VedioStart()
     {
-        StartCoroutine(cor_VedioStart());
+        StartCoroutine(cor_VedioStart()); 
     }
     IEnumerator cor_VedioStart()
     {
@@ -88,12 +94,17 @@ public class StoryVedio : MonoBehaviour
         this.GetComponent<CanvasGroup>().DOFade(1f, 1f);
 
         skipButton.SetActive(false);
-        StartCoroutine(OpenSkipBtn(3f));
+        if(VedioData.hasTheStoryRead(this.storyTitle) == true)
+        {
+            StartCoroutine(OpenSkipBtn(3f));
+        }
     }
 
     public void VedioEnd()
     {
         StartCoroutine(cor_VedioEnd());
+
+        VedioData.ComleteStoryVedio(this.storyTitle);
 
         FinishEvent.Invoke();
     }

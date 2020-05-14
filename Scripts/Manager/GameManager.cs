@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour {
 
 
         //作弊鍵
-        if (Input.GetKeyDown(KeyCode.Backspace)) LevelData.ClearLevel(100);
+        if (Input.GetKeyDown(KeyCode.Backspace)) { Debug.Log("ClearLevel(100)作弊鍵"); LevelData.ClearLevel(100); }
     }
 
     #region ChangeScene & Loading
@@ -71,6 +71,8 @@ public class GameManager : MonoBehaviour {
         if(GameObject.Find("BGM_Object")) GameObject.Find("BGM_Object").GetComponent<BGM_Manager>().CloseBGMInTime(0.5f);
 
         yield return new WaitForSeconds(BlackFadeTime);
+
+        BlackPanelFade(0f, 0f);
 
         StartCoroutine(Loading(sceneName, sceneNum));
     }
