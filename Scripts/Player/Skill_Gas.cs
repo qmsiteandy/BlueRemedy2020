@@ -56,21 +56,25 @@ public class Skill_Gas : Skill_Base
                     //charging中
                     case SpecialSkill_State.holding:
 
-                        if (tornadoObj == null)
+                        if (specialInput_holdTime >= 0.5f)  //餘留時間讓龍捲風長出，否則會太快生成
                         {
-                            tornadoObj = Instantiate(tornadoPrefab, tornadoInitPoint.position, Quaternion.identity);
-                            special_g_tornado = tornadoObj.GetComponent<Special_g_tornado>();
-                            special_g_tornado.SetSpeed(PlayerControl.facingRight ? 3f : -3f);
+                            if (tornadoObj == null)
+                            {
+                                tornadoObj = Instantiate(tornadoPrefab, tornadoInitPoint.position, Quaternion.identity);
+                                special_g_tornado = tornadoObj.GetComponent<Special_g_tornado>();
+                                special_g_tornado.SetSpeed(PlayerControl.facingRight ? 3f : -3f);
 
-                            throwAngle = 90f;
-                            special_g_tornado.SetAngle(throwAngle);
-                        }
-                        else
-                        {
-                            AngleInput();
-                            special_g_tornado.SetAngle(throwAngle);
+                                throwAngle = 90f;
+                                special_g_tornado.SetAngle(throwAngle);
 
-                            //playerEnergy.ModifyWaterEnergy(-(int)(specialCost_max));
+                                playerEnergy.ModifyWaterEnergy(-(int)(specialCost_max));
+                            }
+                            else
+                            {
+                                AngleInput();
+                                special_g_tornado.SetAngle(throwAngle);
+
+                            }
                         }
 
                         break;

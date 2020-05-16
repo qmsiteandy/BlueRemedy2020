@@ -25,12 +25,13 @@ public class Special_g_tornado : MonoBehaviour {
     }
     public List<c_ObjInTornado> ObjInTornado = new List<c_ObjInTornado>();
 
-    public float trialAngle = 0f;
     private Transform arrowTrans;
     private SpriteRenderer arrowRender;
 
     private float throwAngle = 90f;
     private float throwForce = 1000f;
+
+    public GameObject tornaoSplash_FX;
 
     void Awake()
     {
@@ -124,13 +125,14 @@ public class Special_g_tornado : MonoBehaviour {
     }
 
     void ThrowOut()
-    {
-        throwAngle *= (Mathf.PI / 180f);
-        
+    {        
         foreach (c_ObjInTornado obj in ObjInTornado)
         {
-            Vector2 dir = new Vector2(Mathf.Cos(throwAngle), Mathf.Sin(throwAngle));
+            Vector2 dir = new Vector2(Mathf.Cos(throwAngle * (Mathf.PI / 180f)), Mathf.Sin(throwAngle * (Mathf.PI / 180f)));
             obj.rb2d.AddForce(dir * throwForce);
+
+            GameObject FX = Instantiate(tornaoSplash_FX, obj.transform.position, Quaternion.Euler(0f, 0f, throwAngle));
+            Destroy(FX, 1f);
         }
     }
 

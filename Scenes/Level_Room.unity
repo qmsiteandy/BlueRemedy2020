@@ -388,6 +388,20 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1307374830444632, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1264216780989202, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114537373573649772, guid: a566a7eff22a36a43bbcb0e386159e88,
+        type: 2}
+      propertyPath: tornadoPrefab
+      value: 
+      objectReference: {fileID: 1544783838913956, guid: 7b90211cdfd18164b843a7508f155d7f,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a566a7eff22a36a43bbcb0e386159e88, type: 2}
   m_IsPrefabAsset: 0
@@ -535,7 +549,7 @@ Transform:
   - {fileID: 1305183492}
   - {fileID: 647654742}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &204232352
 GameObject:
@@ -1003,7 +1017,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4734839970985994, guid: 642534199a07abd4a870e68ac9b14c15, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 82465039619340268, guid: 642534199a07abd4a870e68ac9b14c15,
         type: 2}
