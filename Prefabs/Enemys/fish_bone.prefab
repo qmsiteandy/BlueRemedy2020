@@ -99,7 +99,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1145661992789454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.7649765, y: 1.2246552, z: 0.14831401}
+  m_LocalPosition: {x: 4.7649765, y: 2.34, z: 0.14831401}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4716905000878484}
@@ -227,6 +227,7 @@ MonoBehaviour:
   isDead: 0
   health: 0
   healthMax: 10
+  isWaterdropFade: 0
 --- !u!114 &114148520647281822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,10 +258,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   isFreeze: 0
-  moveRange: 12
+  moveRangeX: 12
+  moveRangeYmax: 0.2
+  moveRangeYmin: -3
   moveSpeed: 1.5
   trackSpeed: 1.5
-  closeRange: 1.25
+  closeRange: 1.75
   centerPos: {x: 0, y: 0}
   FollowRadius: 4.5
   isTracking: 0

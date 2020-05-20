@@ -10,22 +10,37 @@ public class Enemy_Dead : MonoBehaviour {
     public bool isDead;
 
     [Header("Awake Settings")]
-    protected float bornTime = 10000f;
+    protected float bornTime = 2.5f;
 
     [Header("Health Settings")]
     public int health;
     public int healthMax = 10;
+
+    [Header("Resurrection Settings")]
+    protected GameObject player;
+    protected Vector3 diff;
+    public bool isWaterdropFade = false;
 
     // Use this for initialization
     protected void Awake() {
         enemy = transform.GetChild(0).gameObject;
         animator = GetComponent<Animator>();
         health = healthMax;
+
+        player = GameObject.Find("Player");
     }
 
-    public void Update()
+    public void DeadUpdate()
     {
-
+        diff = new Vector3(player.transform.position.x - transform.position.x, 0, 0);
+        if(isWaterdropFade == true)
+        {
+            if (Mathf.Abs(diff.x) >= 30)
+            {
+                NewBaby();
+                isWaterdropFade = false;
+            }
+        }
     }
 
     public virtual void Dead()
@@ -43,9 +58,7 @@ public class Enemy_Dead : MonoBehaviour {
     }
 
     public virtual IEnumerator RebornAfterTime(float time) {
-
         yield return new WaitForSeconds(time);
-
         isDead = false;
         enemy.SetActive(true);
         health = healthMax;

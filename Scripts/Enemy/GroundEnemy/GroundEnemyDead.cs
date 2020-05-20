@@ -16,7 +16,7 @@ public class GroundEnemyDead : Enemy_Dead {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        DeadUpdate();
 	}
 
     public override void Dead()

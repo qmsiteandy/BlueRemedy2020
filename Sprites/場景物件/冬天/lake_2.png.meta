@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 321d0e19b5a83b7448f93545d3ce2ee5
+guid: 39150786137e3a44594cd243b00b236a
 TextureImporter:
   fileIDToRecycleName:
-    21300000: wfall_2_0
-    21300002: wfall_2_1
-    21300004: wfall_2_2
-    21300006: wfall_2_3
-    21300008: wfall_2_4
-    21300010: wfall_2_5
-    21300012: wfall_2_6
-    21300014: wfall_2_7
-    21300016: wfall_2_8
-    21300018: wfall_2_9
-    21300020: wfall_2_10
-    21300022: wfall_2_11
+    21300000: lake_2_0
+    21300002: lake_2_1
+    21300004: lake_2_2
+    21300006: lake_2_3
+    21300008: lake_2_4
+    21300010: lake_2_5
+    21300012: lake_2_6
+    21300014: lake_2_7
+    21300016: lake_2_8
+    21300018: lake_2_9
+    21300020: lake_2_10
+    21300022: lake_2_11
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -96,241 +96,241 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wfall_2_0
+      name: lake_2_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1350
-        width: 298
-        height: 1350
+        y: 750
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d6c40e079f271aa458db7800e4f3cbb3
+      spriteID: 510234090eda3374ca2bce2dff8d567e
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_1
+      name: lake_2_1
       rect:
         serializedVersion: 2
-        x: 298
-        y: 1350
-        width: 300
-        height: 1350
+        x: 850
+        y: 750
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b9582ec1f0891a74db5fdfd9195b5fd2
+      spriteID: aaea38ec6f340f94e9bdf8229aeb0442
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_2
+      name: lake_2_2
       rect:
         serializedVersion: 2
-        x: 598
-        y: 1350
-        width: 300
-        height: 1350
+        x: 1700
+        y: 750
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4818a7ecaf8b38f4e98b9e327bab2487
+      spriteID: 6ce745714bf724745bb143890f7d50b9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_3
+      name: lake_2_3
       rect:
         serializedVersion: 2
-        x: 898
-        y: 1350
-        width: 300
-        height: 1350
+        x: 0
+        y: 500
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 166d62dd820bf17439fcb21e65de7a2c
+      spriteID: 67fb61cdec0de5e4bb7d8ae635211310
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_4
+      name: lake_2_4
       rect:
         serializedVersion: 2
-        x: 1198
-        y: 1350
-        width: 300
-        height: 1350
+        x: 850
+        y: 500
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d0fbc7c8077582478f89b268fd58434
+      spriteID: d97498cfc0edac44eb4426678b27db3f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_5
+      name: lake_2_5
       rect:
         serializedVersion: 2
-        x: 1498
-        y: 1350
-        width: 300
-        height: 1350
+        x: 1700
+        y: 500
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 20376f4eebfadbe46a0fed41a88bf270
+      spriteID: 81d3edb947639fa4486ecce90c3da06d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_6
+      name: lake_2_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 250
+        width: 850
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c34e862520a8d74cba83b82e0ff39b5
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lake_2_7
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 250
+        width: 850
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a76bddf6759bcde40a82a1ad45b7db5e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lake_2_8
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 250
+        width: 850
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0613de7ca5768eb47b015067fbb9590f
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: lake_2_9
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 298
-        height: 1350
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3419af6cccaebc4f894e01689f09465
+      spriteID: 358cb3a67731de14bafa59e3c67ad0d8
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_7
+      name: lake_2_10
       rect:
         serializedVersion: 2
-        x: 298
+        x: 850
         y: 0
-        width: 300
-        height: 1350
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f5d3bd5adefafd43b37b211c55dfa20
+      spriteID: aa846ab1470b30a4c90168b439244409
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wfall_2_8
+      name: lake_2_11
       rect:
         serializedVersion: 2
-        x: 598
+        x: 1700
         y: 0
-        width: 300
-        height: 1350
+        width: 850
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8652b09f757037b449ae1c66e5466c81
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wfall_2_9
-      rect:
-        serializedVersion: 2
-        x: 898
-        y: 0
-        width: 300
-        height: 1350
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 907cefb0a7912fa46b6a739ed2322b22
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wfall_2_10
-      rect:
-        serializedVersion: 2
-        x: 1198
-        y: 5
-        width: 300
-        height: 1350
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: feb962ae6c3feb542944e0d1c3201565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: wfall_2_11
-      rect:
-        serializedVersion: 2
-        x: 1498
-        y: 0
-        width: 300
-        height: 1350
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b93a8173c999384b818b9156e35b78a
+      spriteID: 29a6ce54b759c8b40834330ae69ac474
       vertices: []
       indices: 
       edges: []
@@ -338,7 +338,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 10d0eb7d4457da64e9bf7c11c7047ecf
+    spriteID: 7ee1bed60e0de554f9d53375d79bb3ef
     vertices: []
     indices: 
     edges: []

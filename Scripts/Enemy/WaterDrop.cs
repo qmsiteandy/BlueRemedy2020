@@ -18,7 +18,7 @@ public class WaterDrop : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-     
+        
 	}
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,9 +28,9 @@ public class WaterDrop : MonoBehaviour {
 
             target = collision.gameObject;
 
-            enemy_dead.NewBaby();
-
             collision.GetComponentInParent<PlayerEnergy>().ModifyWaterEnergy(waterEnergyCharge);
+
+            enemy_dead.isWaterdropFade = true;
 
             Destroy(this.gameObject);
 

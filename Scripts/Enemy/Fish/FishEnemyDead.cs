@@ -16,6 +16,11 @@ public class FishEnemyDead : Enemy_Dead {
 
     // Update is called once per frame\
 
+    void Update()
+    {
+        DeadUpdate();
+    }
+
     public override void Dead()
     {
         water = Instantiate(waterdrop, dropPlace.transform.position, Quaternion.identity);

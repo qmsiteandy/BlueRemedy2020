@@ -126,6 +126,8 @@ public class GroundEnemyControl : Enemy_base {
             Vector3 mudSplashRotation = new Vector3(0f, PlayerControl.facingRight ? 0f : 180f, 0f);
             GameObject FX_obj = Instantiate(mudSplashFX, mudSplashPosition, Quaternion.Euler(mudSplashRotation));
             Destroy(FX_obj, 1f);
+
+            isAttacking = false;
         }
     }
 

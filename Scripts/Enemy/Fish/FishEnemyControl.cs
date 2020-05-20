@@ -5,9 +5,12 @@ using UnityEngine;
 public class FishEnemyControl : Enemy_base {
 
     [Header("Move Settings")]
-    public float moveRange = 3.5f;    //移動範圍半徑
+    public float moveRangeX = 3.5f;    //移動範圍半徑
+    public float moveRangeYmax = 0.2f;
+    public float moveRangeYmin = -1f;
     public float moveSpeed = 1.5f;  //移動速度
-    private float posNow = 0f;      //目前移動相對中點的位置
+    private float posNowX = 0f;      //目前移動相對中點的位置
+    private float posNowY = 0f;
     private bool goRight = true;    //是否往右走
     public float trackSpeed = 1.5f;
     public float closeRange = 1.25f;
@@ -19,6 +22,9 @@ public class FishEnemyControl : Enemy_base {
     public float FollowRadius = 4.5f;
     private LayerMask playerFilter;
     public bool isTracking = false;
+
+    //public float xchange;
+    //public float ychange;
 
     // Use this for initialization
     void Awake () {
@@ -60,9 +66,9 @@ public class FishEnemyControl : Enemy_base {
     {
         if (!isAttacking)
         {
-            if (posNow >= moveRange || posNow <= -moveRange)
+            if (posNowX >= moveRangeX || posNowX <= -moveRangeX)
             {
-                posNow = Mathf.Clamp(posNow, -moveRange, moveRange); //設定posNow到範圍邊界
+                posNowX = Mathf.Clamp(posNowX, -moveRangeX, moveRangeX); //設定posNow到範圍邊界
                 goRight = !goRight; //往回走
                 if (goRight)
                 {
@@ -74,10 +80,11 @@ public class FishEnemyControl : Enemy_base {
                 }
             }
 
-            if (goRight) posNow += moveSpeed * Time.deltaTime;
-            else if (!goRight) posNow -= moveSpeed * Time.deltaTime;
+            if (goRight) posNowX += moveSpeed * Time.deltaTime;
+            else if (!goRight) posNowX -= moveSpeed * Time.deltaTime;
 
-            transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f); //設定腳色的位置
+            transform.position = new Vector3(centerPos.x + posNowX, centerPos.y + posNowY, 0f); //設定腳色的位置
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
     }
     #endregion ================↑來回移動↑================
@@ -101,17 +108,38 @@ public class FishEnemyControl : Enemy_base {
         if (target != null && !isAttacking && isFreeze == false)
         {
 
-            Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, 0, 0);
+            Vector3 diff = new Vector3(target.transform.position.x - transform.position.x, target.transform.position.y - transform.position.y, 0);
             if (Mathf.Abs(diff.x) <= closeRange) return;
 
-            posNow = Mathf.Lerp(posNow, target.transform.position.x - centerPos.x, trackSpeed * Time.deltaTime);
-            posNow = Mathf.Clamp(posNow, -moveRange, moveRange);
-            transform.position = new Vector3(centerPos.x + posNow, centerPos.y, 0f);
+            posNowX = Mathf.Lerp(posNowX, target.transform.position.x - centerPos.x, trackSpeed * Time.deltaTime);
+            posNowX = Mathf.Clamp(posNowX, -moveRangeX, moveRangeX);
+            posNowY = Mathf.Lerp(posNowY, target.transform.position.y - centerPos.y, trackSpeed * Time.deltaTime);
+            posNowY = Mathf.Clamp(posNowY, moveRangeYmin, moveRangeYmax);
+            transform.position = new Vector3(centerPos.x + posNowX, centerPos.y + posNowY, 0f);
 
+            //設定怪物面向哪邊
             float face = Mathf.Sign(diff.x);
             goRight = (face >= 0) ? true : false;
             Vector3 faceVec = new Vector3(face, 1, 1);
             transform.localScale = faceVec;
+
+            //設定怪物的角度
+            float angle = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            if (face >= 0)
+            {
+                transform.eulerAngles = Vector3.forward * angle;
+            }
+            else
+            {
+                if(angle > 90 && angle < 180)
+                {
+                    transform.eulerAngles = Vector3.forward * (angle - 180);
+                }
+                else if(angle < -90 && angle > -180)
+                {
+                    transform.eulerAngles = Vector3.forward * (angle + 180);
+                }
+            }
         }
 
     }
