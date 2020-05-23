@@ -63,11 +63,14 @@ public class TransBackManager : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
 
         GameObject.Find("Player").GetComponent<PlayerControl>().FallAsleep();
-        GameObject.Find("Player").GetComponent<PlayerControl>().SleepAwake();
+        GameObject.Find("Player").GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 
         playerTrans.position = RecordPointManager.Get_playerRecordPos();
-
         gameManager.BlackPanelFade(0f, 0.5f);
+
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject.Find("Player").GetComponent<PlayerControl>().SleepAwake();
         PlayerStatus.canControl = true;
         
     }
