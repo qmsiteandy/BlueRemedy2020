@@ -44,7 +44,7 @@ public class PlayerEnergy : MonoBehaviour {
         if (elapsed > chargeDelay) { ModifyWaterEnergy(waterPerCharge); elapsed = 0f; }
         elapsed += Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Backspace)) { ModifyWaterEnergy(-10); }
+        if (Input.GetKeyDown(KeyCode.Backspace)) { ModifyWaterEnergy(-10); ModifyDirt(10); }
     }
 
     public void ModifyWaterEnergy(int amount)
@@ -55,11 +55,9 @@ public class PlayerEnergy : MonoBehaviour {
         if (waterEnergy > waterEnergyMax) waterEnergy = waterEnergyMax;
         else if (waterEnergy < 0) waterEnergy = 0;
 
-        SetDirtyDegree();
-
         if (UI_manager != null) UI_manager.SetWaterUI(waterEnergy);
 
-        if (waterEnergy == 0) Dead(); //GameOver
+        if (waterEnergy <= 0) Dead();
     }
 
     public void ModifyDirt(int amount)
@@ -70,19 +68,19 @@ public class PlayerEnergy : MonoBehaviour {
         if (dirt > dirtMax) dirt = dirtMax;
         else if (dirt < 0) dirt = 0;
 
-        SetDirtyDegree();
+        SetPurityDegree();
     }
 
-    void SetDirtyDegree()
+    void SetPurityDegree()
     {
         float dirtyDegree;
-        dirtyDegree = (float)dirt / (dirt + waterEnergy);
+        dirtyDegree = (float)dirt / dirtMax;
 
-        if (UI_manager != null) UI_manager.SetDirtyUI(dirtyDegree);
+        if (UI_manager != null) UI_manager.SetDirtyUI(1 - dirtyDegree);
         
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
 
-        if (dirtyDegree > 0.9f) Dead(); //GameOver
+        if (dirtyDegree >= 1f) Dead(); //GameOver
     }
 
     public void ConnectNewLevelUI()

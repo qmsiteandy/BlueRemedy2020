@@ -68,6 +68,7 @@ public class attack_s_icepike : MonoBehaviour {
         {
             GetComponentInChildren<SpriteRenderer>().sortingLayerName = "Scene"; GetComponentInChildren<SpriteRenderer>().sortingOrder = -1;
         }
+ 
     }
 
     void OnTriggerExit2D(Collider2D collision)

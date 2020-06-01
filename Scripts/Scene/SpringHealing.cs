@@ -5,11 +5,11 @@ using UnityEngine;
 public class SpringHealing : MonoBehaviour {
 
     public float healingTotalTime = 3f;
-    public int TotalAmount = 300;
+    public int TotalAmount = 100;
     public ParticleSystem healingFX;
 
     private int leftAmount; //剩餘治癒量
-    private float healingCycle = 1f;
+    private float healingCycle = 0.25f;
     private int amountPerTime;
     private bool isHealing = false;
     private float timer = 0f;

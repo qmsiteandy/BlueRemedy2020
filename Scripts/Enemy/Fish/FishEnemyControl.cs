@@ -165,7 +165,6 @@ public class FishEnemyControl : Enemy_base {
                 StartCoroutine(Freeze(0.5f));
             }
             StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
-
         }
     }
     #endregion ================↑受到攻擊↑================

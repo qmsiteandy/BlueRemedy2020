@@ -121,7 +121,6 @@ public class GroundEnemyControl : Enemy_base {
             }
             StartCoroutine(ChangeColor(new Color(1f, 0.3962386f, 0.3726415f), 0.1f));
 
-
             Vector3 mudSplashPosition = this.transform.position + new Vector3((PlayerControl.facingRight ? enemyColRadius * 0.5f : -enemyColRadius * 0.5f), 0f, 0f);
             Vector3 mudSplashRotation = new Vector3(0f, PlayerControl.facingRight ? 0f : 180f, 0f);
             GameObject FX_obj = Instantiate(mudSplashFX, mudSplashPosition, Quaternion.Euler(mudSplashRotation));

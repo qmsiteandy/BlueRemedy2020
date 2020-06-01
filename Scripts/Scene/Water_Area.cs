@@ -15,8 +15,8 @@ public class Water_Area : MonoBehaviour {
 
     [Header("對主角增加髒汙")]
     public bool isDirtyWater = false;
-    public int addDirtAmount = 5;
-    public float damageCycle = 2f;   //持續在水中，弄髒的週期
+    private int addDirtAmount = 2;
+    private float damageCycle = 0.5f;   //持續在水中，弄髒的週期
     private Coroutine Damage_Routine;
     private PlayerControl playerControl;
 

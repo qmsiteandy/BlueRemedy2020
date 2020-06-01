@@ -38,6 +38,11 @@ public class SpecialBigIce : MonoBehaviour {
 
             isInWater = true;
         }
+        
+        if (collision.gameObject.GetComponent<Thorns>() != null)
+        {
+            Destroy(this.gameObject);
+        }
     }
     void OnTriggerStay2D(Collider2D collision)
     {

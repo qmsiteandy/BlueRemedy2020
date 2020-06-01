@@ -153,7 +153,6 @@ public class Special_g_tornado : MonoBehaviour {
         {
             if (collision.transform == obj.transform)
             {
-                Debug.Log(collision.name);
                 ObjInTornado.Remove(obj);
 
                 break;

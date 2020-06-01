@@ -7,6 +7,14 @@ public class LevelClearTrigger : MonoBehaviour {
 
     private bool isClear = false;
 
+    private void Awake()
+    {
+        if (transform.Find("StoryVedio") != null)
+        {
+            transform.Find("StoryVedio").gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
@@ -27,6 +35,7 @@ public class LevelClearTrigger : MonoBehaviour {
 
         if (transform.Find("StoryVedio") != null)
         {
+            transform.Find("StoryVedio").gameObject.SetActive(true);
             transform.Find("StoryVedio").GetComponent<StoryVedio>().VedioStart();
         }
         else transform.Find("LevelClear_Canvas").GetComponent<LevelClear_Menu>().StartPlay();

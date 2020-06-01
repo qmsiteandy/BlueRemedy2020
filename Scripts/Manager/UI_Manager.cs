@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UI_Manager : MonoBehaviour {
 
@@ -9,25 +10,18 @@ public class UI_Manager : MonoBehaviour {
     private PlayerEnergy playerEnergy;
 
     [Header("水量UI")]
-    public float Yshift = 550f;
-    private Transform waterUI;
+    private Transform water_UI;
     private int waterMax;
-    private RectTransform waterFillRect;
-    private Vector2 waterFillOriRect2D;
-    private Image waterFillImg;
-    
-    private Text waterText;
+    private Slider waterSlider;
 
-    [Header("髒污UI")]
-    private Transform dirtyUI;
-    private int dirtyMax;
-    private Image dirtyFillImg;
-    private Text dirtyText;
+    [Header("乾淨UI")]
+    private Transform purity_UI;
+    private Slider puritySlider;
 
     [Header("繁盛UI")]
     public float showoffTime = 6f;
     public float switchSpeed = 0.1f;
-    private Transform blossomUI;
+    private Transform blossom_UI;
     private CanvasGroup blossomUI_canvasGroup;
     private Slider blossomSlider;
     private float elapsed = 0f;
@@ -40,44 +34,28 @@ public class UI_Manager : MonoBehaviour {
         playerEnergy = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerEnergy>();
 
         //---水量---
-        waterUI = transform.Find("WaterUI"); 
-        if (waterUI != null)
+        water_UI = transform.Find("Water_UI"); 
+        if (water_UI != null)
         {
             waterMax = playerEnergy.waterEnergyMax;
 
-            waterText = waterUI.Find("text").GetComponent<Text>();
-            waterText.text = "" + waterMax;
-
-            Transform waterFill = waterUI.Find("mask").GetChild(0);
-            waterFillRect = waterFill.GetComponent<RectTransform>();
-            waterFillImg = waterFill.GetComponent<Image>();
-            waterFillImg.color = new Color(1f, 1f, 1f, 1f);
-
-            waterFillOriRect2D = waterFillRect.anchoredPosition;
+            waterSlider = water_UI.Find("Slider").GetComponent<Slider>();
         }
 
         //---髒污---
-        dirtyUI = transform.Find("DirtyUI"); 
-        if (dirtyUI != null)
+        purity_UI = transform.Find("Purity_UI"); 
+        if (purity_UI != null)
         {
-            dirtyMax = playerEnergy.dirtMax;
-
-            Transform dirtyFill = dirtyUI.Find("mask").GetChild(0);
-            
-            dirtyFillImg = dirtyFill.GetComponent<Image>();
-            dirtyFillImg.color = new Color(1f, 1f, 1f, 0f);
-
-            dirtyText = dirtyUI.Find("text").GetComponent<Text>();
-            dirtyText.text = 0 + "%";
+            puritySlider = purity_UI.Find("Slider").GetComponent<Slider>();
         }
 
         //---繁盛---
-        blossomUI = transform.Find("BlossomUI");
-        if (blossomUI != null)
+        blossom_UI = transform.Find("BlossomUI");
+        if (blossom_UI != null)
         {
-            blossomSlider = blossomUI.Find("slider").GetComponent<Slider>();
+            blossomSlider = blossom_UI.Find("slider").GetComponent<Slider>();
             blossomSlider.value = 0f;
-            blossomUI_canvasGroup = blossomUI.GetComponent<CanvasGroup>();
+            blossomUI_canvasGroup = blossom_UI.GetComponent<CanvasGroup>();
             blossomUI_canvasGroup.alpha = 1f;
         } 
     }
@@ -85,7 +63,7 @@ public class UI_Manager : MonoBehaviour {
     void Update()
     {
         //---繁盛UI開啟&隱藏過程---
-        if (blossomUI != null)
+        if (blossom_UI != null)
         {
             if (isTurnedOn) elapsed += Time.deltaTime;
             if (elapsed > showoffTime) { showingOn = false; isSwitching = true; elapsed = 0f; }
@@ -117,35 +95,23 @@ public class UI_Manager : MonoBehaviour {
     //---水量---
     public void SetWaterUI(int waterEnergy)
     {
-        if (waterUI == null) return;
+        if (water_UI == null) return;
 
-        //Debug.Log("waterEnergy " + waterEnergy);
-
-        waterText.text = "" + waterEnergy;
-        waterFillRect.anchoredPosition = waterFillOriRect2D - new Vector2(0f, Yshift * (waterMax - waterEnergy) / waterMax);
-        if (waterEnergy < waterMax * 0.2f) waterFillImg.color = new Color(1f, 0f, 0f);
-        else waterFillImg.color = new Color(1f, 1f, 1f);
+        waterSlider.DOValue((float)waterEnergy / waterMax, 0.3f);
     }
 
     //---髒污---
     public void SetDirtyUI(float dirtyDegree)
     {
-        
-        if (dirtyUI == null) return;
+        if (purity_UI == null) return;
 
-        //Debug.Log("dirtyDegree " + dirtyDegree);
-
-        dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
-        if(dirtyDegree>0.6f) dirtyFillImg.color = new Color(1f, 0f, 0f, dirtyDegree);
-        else dirtyFillImg.color = new Color(1f, 1f, 1f, dirtyDegree);
-
-        dirtyText.text = (int)(dirtyDegree * 100f) + "%";
+        puritySlider.DOValue(dirtyDegree, 0.3f);
     }
 
     //---繁盛---
     public void SetBlossomUI(float blossomPersentage)
     {
-        if (blossomUI == null) return;
+        if (blossom_UI == null) return;
 
         blossomSlider.value = blossomPersentage;
         showingOn = true; isSwitching = true;
