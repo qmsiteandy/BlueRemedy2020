@@ -30,13 +30,18 @@ public class PlayerEnergy : MonoBehaviour {
         //for (int x = 0; x < 3; x++) playerSprite[x] = transform.GetChild(x).GetComponent<SpriteRenderer>();
         //for (int x = 0; x < 3; x++) Oka[x] = transform.GetChild(x).gameObject;
         isEnergyUsing = GameObject.Find("UI_Canvas") != null;
-        if (isEnergyUsing) UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         dirtyRippeMat = this.transform.Find("DirtyRipple_Mask").Find("DirtyRipple").GetComponent<SpriteRenderer>().material;
-
         dirtyRippeMat.SetFloat("_drityDegree", 0);
+
+        if (isEnergyUsing)
+        {
+            UI_manager = GameObject.Find("UI_Canvas").GetComponent<UI_Manager>();
+            UI_manager.SetWaterUI(waterEnergy);
+            SetPurityDegree();
+        }
     }
 
     void Update()
@@ -45,6 +50,7 @@ public class PlayerEnergy : MonoBehaviour {
         elapsed += Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Backspace)) { ModifyWaterEnergy(-10); ModifyDirt(10); }
+        if (Input.GetKeyDown(KeyCode.Equals)) { ModifyWaterEnergy(10); ModifyDirt(-10); }
     }
 
     public void ModifyWaterEnergy(int amount)
@@ -76,7 +82,7 @@ public class PlayerEnergy : MonoBehaviour {
         float dirtyDegree;
         dirtyDegree = (float)dirt / dirtMax;
 
-        if (UI_manager != null) UI_manager.SetDirtyUI(1 - dirtyDegree);
+        if (UI_manager != null) UI_manager.SetPurityUI(1 - dirtyDegree);
         
         dirtyRippeMat.SetFloat("_drityDegree", dirtyDegree);
 

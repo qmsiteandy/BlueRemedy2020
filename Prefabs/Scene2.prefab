@@ -12130,7 +12130,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 28.000002, y: 2.5000002}
-    newSize: {x: 25.549997, y: 10.059999}
+    newSize: {x: 28.000002, y: 2.5000002}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -17975,8 +17975,6 @@ MonoBehaviour:
   waveFreq: 1
   waveHeight: 0.03
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114011127607779862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18077,8 +18075,6 @@ MonoBehaviour:
   waveFreq: 1.6
   waveHeight: 0.1
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114053841814321462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18106,8 +18102,6 @@ MonoBehaviour:
   waveFreq: 1.6
   waveHeight: 0.1
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114066681711835900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18251,8 +18245,6 @@ MonoBehaviour:
   waveFreq: 1.6
   waveHeight: 0.1
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114124523662226024
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18577,8 +18569,6 @@ MonoBehaviour:
   waveFreq: 1
   waveHeight: 0.03
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114237559194748198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18907,8 +18897,6 @@ MonoBehaviour:
   waveFreq: 1.6
   waveHeight: 0.1
   isDirtyWater: 1
-  addDirtAmount: 5
-  damageCycle: 0.5
 --- !u!114 &114345496062308616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27964,7 +27952,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 25.549997, y: 10.059999}
+  m_Size: {x: 28.000002, y: 2.5000002}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

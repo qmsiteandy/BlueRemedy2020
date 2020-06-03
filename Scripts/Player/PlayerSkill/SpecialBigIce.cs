@@ -65,6 +65,7 @@ public class SpecialBigIce : MonoBehaviour {
         if (collision.gameObject.layer == WaterLayerID)
         {
             isInWater = false;
+            rb2d.drag = 0f;
 
             spriteRenderer.sortingLayerName = "Skill"; spriteRenderer.sortingOrder = 0;
         }
@@ -96,12 +97,16 @@ public class SpecialBigIce : MonoBehaviour {
         {
             if (playerControl.objUnderFoot == this.gameObject)
             {
-                if (isInWater && (water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0f)) rb2d.velocity = Vector2.zero;
+                if (isInWater)
+                {
+                    rb2d.AddForce(Vector3.up * FloatForce * 1.3f);
+
+                    if(water_area.waveCrest - transform.position.y + (0.5f * boxColiderSize) > 0f) { rb2d.velocity = Vector2.zero; }
+                } 
 
                 if (playerControl.xInput == 0 && boxColiderSize > 1f)
                 {
                     collision.transform.position = new Vector3((Mathf.Lerp(collision.transform.position.x + player_xOffset, this.transform.position.x, 0.3f)), collision.transform.position.y, collision.transform.position.z);
-                    rb2d.AddForce(Vector3.up * FloatForce * 1.3f);
                 }
             }
         }

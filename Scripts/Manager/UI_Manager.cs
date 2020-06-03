@@ -13,10 +13,14 @@ public class UI_Manager : MonoBehaviour {
     private Transform water_UI;
     private int waterMax;
     private Slider waterSlider;
+    private Image waterFill;
+    private Coroutine waterFlashRoutine;
 
     [Header("乾淨UI")]
     private Transform purity_UI;
     private Slider puritySlider;
+    private Image purityFill;
+    private Coroutine purityFlashRoutine;
 
     [Header("繁盛UI")]
     public float showoffTime = 6f;
@@ -40,6 +44,7 @@ public class UI_Manager : MonoBehaviour {
             waterMax = playerEnergy.waterEnergyMax;
 
             waterSlider = water_UI.Find("Slider").GetComponent<Slider>();
+            waterFill = waterSlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
         }
 
         //---髒污---
@@ -47,6 +52,7 @@ public class UI_Manager : MonoBehaviour {
         if (purity_UI != null)
         {
             puritySlider = purity_UI.Find("Slider").GetComponent<Slider>();
+            purityFill = puritySlider.transform.Find("Fill Area/Fill").GetComponent<Image>();
         }
 
         //---繁盛---
@@ -97,15 +103,22 @@ public class UI_Manager : MonoBehaviour {
     {
         if (water_UI == null) return;
 
-        waterSlider.DOValue((float)waterEnergy / waterMax, 0.3f);
+        float percentage = (float)waterEnergy / waterMax;
+        waterSlider.DOValue(percentage, 0.3f);
+
+        if (percentage <= 0.2f && waterFlashRoutine == null) waterFlashRoutine = StartCoroutine(WarmFlash(waterFill));
+        else if (percentage > 0.2f && waterFlashRoutine != null) { StopCoroutine(waterFlashRoutine); waterFlashRoutine = null; waterFill.DOKill(); waterFill.color = Color.white;  }
     }
 
     //---髒污---
-    public void SetDirtyUI(float dirtyDegree)
+    public void SetPurityUI(float purityDegree)
     {
         if (purity_UI == null) return;
 
-        puritySlider.DOValue(dirtyDegree, 0.3f);
+        puritySlider.DOValue(purityDegree, 0.3f);
+
+        if (purityDegree <= 0.2f && purityFlashRoutine == null) purityFlashRoutine = StartCoroutine(WarmFlash(purityFill));
+        else if (purityDegree > 0.2f && purityFlashRoutine != null) { StopCoroutine(purityFlashRoutine); purityFlashRoutine = null; purityFill.DOKill(); purityFill.color = new Color(1f,1f,1f,1f);  }
     }
 
     //---繁盛---
@@ -115,5 +128,18 @@ public class UI_Manager : MonoBehaviour {
 
         blossomSlider.value = blossomPersentage;
         showingOn = true; isSwitching = true;
+    }
+
+    IEnumerator WarmFlash(Image image)
+    {
+        Color redColor = new Color(1f, 0.3f, 0.3f, 1f);
+
+        while (true)
+        {
+            image.DOColor(new Color(1f, 0.3f, 0.3f, 1f), 0.3f);
+            yield return new WaitForSeconds(0.5f);
+            image.DOColor(new Color(1f, 1f, 1f, 1f), 0.3f);
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 }
